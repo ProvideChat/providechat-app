@@ -1,0 +1,18 @@
+/Users/derek/.rbenv/versions/2.1.1/bin/ruby extconf.rb 
+/Users/derek/.rbenv/versions/2.1.1/bin/ruby: warning: RUBY_FREE_MIN is obsolete. Use RUBY_GC_HEAP_FREE_SLOTS instead.
+checking for ruby/util.h... yes
+creating Makefile
+
+make "DESTDIR=" clean
+
+make "DESTDIR="
+compiling bcrypt_ext.c
+compiling crypt.c
+compiling crypt_blowfish.c
+compiling crypt_gensalt.c
+compiling wrapper.c
+linking shared-object bcrypt_ext.bundle
+
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 bcrypt_ext.bundle ./.gem.20140528-58707-18ivukc
+installing default bcrypt_ext libraries
