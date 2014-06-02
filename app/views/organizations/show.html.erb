@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @organization.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @organization.email %>
+</p>
+
+<p>
+  <strong>Widget installed:</strong>
+  <%= @organization.widget_installed %>
+</p>
+
+<p>
+  <strong>Default department:</strong>
+  <%= @organization.default_department %>
+</p>
+
+<p>
+  <strong>Edition:</strong>
+  <%= @organization.edition %>
+</p>
+
+<p>
+  <strong>Payment system:</strong>
+  <%= @organization.payment_system %>
+</p>
+
+<%= link_to 'Edit', edit_organization_path(@organization) %> |
+<%= link_to 'Back', organizations_path %>
