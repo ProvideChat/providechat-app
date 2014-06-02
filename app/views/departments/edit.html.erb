@@ -1,0 +1,15 @@
+<%= render 'layouts/page_header', :title => 'Departments', :icon => 'fa-sitemap', :subpage => 'Edit Department' %>
+
+<div id="content">
+  <div class="row">
+
+	  <article class="col-sm-12 col-md-12 col-lg-6">
+
+      <%= render 'form' %>
+
+      <%= link_to 'Show', @department %> |
+      <%= link_to 'Back', departments_path %>
+
+    </article>
+  </div>
+</div>
