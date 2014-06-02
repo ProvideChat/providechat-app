@@ -42,15 +42,15 @@
 			</ul>
 		</li>
 
-		<li>
+		<li class="<%= "active" if controller?('websites') %>">
 			<a href="#"><i class="fa fa-lg fa-fw fa-cog "></i> <span class="menu-item-parent">Settings</span></a>
 			<ul>
 				<li>
 					<a href="form-elements.html">General Settings</a>
 				</li>
-				<li>
-					<a href="form-templates.html">Website Setup</a>
-				</li>
+        <li>
+          <%= link_to "Website Setup", websites_path, { title: "Website Setup" } %>
+        </li>
 				<li>
 					<a href="form-templates.html">Rapid Responses</a>
 				</li>

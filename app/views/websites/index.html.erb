@@ -1,0 +1,46 @@
+<%= render 'layouts/page_header', :title => 'Settings', :icon => 'fa-sitemap', :subpage => 'Website Setup' %>
+
+<div id="content">
+  <div class="row">
+
+	  <article class="col-sm-12 col-md-12 col-lg-6">
+      <table>
+        <thead>
+          <tr>
+            <th>Organization</th>
+            <th>Url</th>
+            <th>Name</th>
+            <th>Default department</th>
+            <th>Logo</th>
+            <th>Status</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @websites.each do |website| %>
+            <tr>
+              <td><%= website.organization_id %></td>
+              <td><%= website.url %></td>
+              <td><%= website.name %></td>
+              <td><%= website.default_department %></td>
+              <td><%= website.logo %></td>
+              <td><%= website.status %></td>
+              <td><%= link_to 'Show', website %></td>
+              <td><%= link_to 'Edit', edit_website_path(website) %></td>
+              <td><%= link_to 'Destroy', website, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <br>
+
+      <%= link_to 'New Website', new_website_path %>
+
+    </article>
+  </div>
+</div>
+
+
+

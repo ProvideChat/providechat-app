@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Organization:</strong>
+  <%= @website.organization_id %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @website.url %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @website.name %>
+</p>
+
+<p>
+  <strong>Default department:</strong>
+  <%= @website.default_department %>
+</p>
+
+<p>
+  <strong>Logo:</strong>
+  <%= @website.logo %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @website.status %>
+</p>
+
+<%= link_to 'Edit', edit_website_path(@website) %> |
+<%= link_to 'Back', websites_path %>
