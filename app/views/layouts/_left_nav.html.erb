@@ -1,0 +1,86 @@
+<nav>
+	<ul>
+		<li class="<%= "active" if current_page?(root_path) %>">
+      <%= link_to root_path, { title: "Dashboard" } do %>
+			  <i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span>
+      <% end %>
+		</li>
+		<li>
+			<a href="#"><i class="fa fa-lg fa-fw fa-comments"></i> <span class="menu-item-parent">Chat Monitor</span></a>
+		</li>
+		<li class="<%= "active" if controller?('agents') %>">
+      <%= link_to agents_path, { title: "Agents" } do %>
+        <i class="fa fa-lg fa-fw fa-user"></i> <span class="menu-item-parent">Agents</span>
+      <% end %>
+		</li>
+		<li class="<%= "active" if controller?('departments') %>">
+      <%= link_to departments_path, { title: "Departments" } do %>
+			  <i class="fa fa-lg fa-fw fa-sitemap"></i> <span class="menu-item-parent">Departments</span>
+      <% end %>
+		</li>
+		<li>
+			<a href="#"><i class="fa fa-lg fa-fw fa-file-text-o"></i> <span class="menu-item-parent">Chat Transcripts</span></a>
+		</li>
+		<li>
+			<a href="#"><i class="fa fa-lg fa-fw fa-toggle-up"></i> <span class="menu-item-parent">Chat Window</span></a>
+			<ul>
+				<li>
+					<a href="theme.html">Theme</a>
+				</li>
+				<li>
+					<a href="form-elements.html">Invitations</a>
+				</li>
+				<li>
+					<a href="form-templates.html">Pre-chat Survey</a>
+				</li>
+				<li>
+					<a href="form-templates.html">Offline Message</a>
+				</li>
+				<li>
+					<a href="form-templates.html">Website Code</a>
+				</li>
+			</ul>
+		</li>
+
+		<li>
+			<a href="#"><i class="fa fa-lg fa-fw fa-cog "></i> <span class="menu-item-parent">Settings</span></a>
+			<ul>
+				<li>
+					<a href="form-elements.html">General Settings</a>
+				</li>
+				<li>
+					<a href="form-templates.html">Website Setup</a>
+				</li>
+				<li>
+					<a href="form-templates.html">Rapid Responses</a>
+				</li>
+			</ul>
+		</li>
+		<li>
+			<a href="#"><i class="fa fa-lg fa-fw fa-smile-o"></i> <span class="menu-item-parent">Support & Docs</span></a>
+			<ul>
+				<li>
+					<a href="general-elements.html">Contact Support</a>
+				</li>
+				<li>
+					<a href="buttons.html">Documentation</a>
+				  <ul>
+				   <li>
+					  <a href="general-elements.html">Getting Started</a>
+			  	 </li>
+			  	 <li>
+					  <a href="general-elements.html">General</a>
+			  	 </li>
+			  	 <li>
+					  <a href="general-elements.html">Multiple Websites</a>
+			  	 </li>
+			  	 <li>
+					  <a href="general-elements.html">Using Chat Monitor</a>
+			  	 </li>						  	
+			    </ul>
+			  </li>
+			</ul>
+		</li>
+	</ul>
+</nav>
+<span class="minifyme"> <i class="fa fa-arrow-circle-left hit"></i> </span>

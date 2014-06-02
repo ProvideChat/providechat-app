@@ -1,0 +1,35 @@
+<div class="page-header">
+  <div class="row">
+  	<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+  		<h1 class="page-title txt-color-blueDark">
+        <i class="fa-fw fa <%= icon %>"></i> <%= title %>
+        <% if defined? subpage %>
+          <span>> <%= subpage %> </span>
+        <% end %>
+      </h1>
+  	</div>
+  	<div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+			<!-- pulled right: nav area -->
+			<div class="pull-right">
+
+				<!-- collapse menu button -->
+				<div id="hide-menu" class="btn-header pull-right">
+					<span> <a href="javascript:void(0);" title="Collapse Menu"><i class="fa fa-reorder"></i></a> </span>
+				</div>
+				<!-- end collapse menu -->
+
+				<!-- logout button -->
+				<div id="logout" class="btn-header transparent pull-right">
+					<span> <a href="login.html" title="Sign Out"><i class="fa fa-sign-out"></i></a> </span>
+				</div>
+				<!-- end logout button -->
+
+				<!-- search mobile button (this is hidden till mobile view port) -->
+				<div id="search-mobile" class="btn-header transparent pull-right">
+					<span> <a href="javascript:void(0)" title="Search"><i class="fa fa-search"></i></a> </span>
+				</div>
+				<!-- end search mobile button -->
+      </div>
+    </div>
+  </div>
+</div>
