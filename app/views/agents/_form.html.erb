@@ -1,0 +1,102 @@
+<%= form_for(@agent, :html => {class: 'form-horizontal'}) do |f| %>
+  <% if @agent.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@agent.errors.count, "error") %> prohibited this agent from being saved:</h2>
+
+      <ul>
+      <% @agent.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+	<header>
+		<span class="widget-icon"> <i class="fa fa-eye"></i> </span>
+		<h2>Default Elements</h2>
+	</header>
+  
+  <div>
+    <div class="widget-body">
+    	<fieldset>
+    		<legend>Default Form Elements</legend>
+
+    		<div class="form-group">
+    			<label class="col-md-2 control-label"><%= f.label :name %></label>
+    			<div class="col-md-10">
+            <%= f.text_field :name, :class => "form-control" %>
+    			</div>
+    		</div>
+    
+        <div class="form-group">
+          <label class="col-md-2 control-label"><%= f.label :display_name %></label>
+          <div class="col-md-10">
+            <%= f.text_field :display_name, :class => "form-control" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label"><%= f.label :email %></label>
+          <div class="col-md-10">
+            <%= f.text_field :email, :class => "form-control" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label"><%= f.label :account_type %></label>
+          <div class="col-md-10">
+            <%= f.text_field :account_type, :class => "form-control" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label"><%= f.label :availability %></label>
+          <div class="col-md-10">
+            <%= f.text_field :availability, :class => "form-control" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label"><%= f.label :curr_chats %></label>
+          <div class="col-md-10">
+            <%= f.number_field :curr_chats, :class => "form-control" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label"><%= f.label :max_chats %></label>
+          <div class="col-md-10">
+            <%= f.number_field :max_chats, :class => "form-control" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label"><%= f.label :active_chat_sound %></label>
+          <div class="col-md-10">
+            <%= f.text_field :active_chat_sound, :class => "form-control" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label"><%= f.label :background_chat_sound %></label>
+          <div class="col-md-10">
+            <%= f.text_field :background_chat_sound, :class => "form-control" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label"><%= f.label :visitor_arrived_sound %></label>
+          <div class="col-md-10">
+            <%= f.text_field :visitor_arrived_sound, :class => "form-control" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label"><%= f.label :avatar %></label>
+          <div class="col-md-10">
+            <%= f.text_field :avatar, :class => "form-control" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label"><%= f.label :status %></label>
+          <div class="col-md-10">
+            <%= f.text_field :status, :class => "form-control" %>
+          </div>
+        </div>
+        <div class="actions">
+          <%= f.submit %>
+        </div>
+      </div>
+    </div>
+<% end %>

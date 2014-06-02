@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @agent.name %>
+</p>
+
+<p>
+  <strong>Display name:</strong>
+  <%= @agent.display_name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @agent.email %>
+</p>
+
+<p>
+  <strong>Account type:</strong>
+  <%= @agent.account_type %>
+</p>
+
+<p>
+  <strong>Availability:</strong>
+  <%= @agent.availability %>
+</p>
+
+<p>
+  <strong>Curr chats:</strong>
+  <%= @agent.curr_chats %>
+</p>
+
+<p>
+  <strong>Max chats:</strong>
+  <%= @agent.max_chats %>
+</p>
+
+<p>
+  <strong>Active chat sound:</strong>
+  <%= @agent.active_chat_sound %>
+</p>
+
+<p>
+  <strong>Background chat sound:</strong>
+  <%= @agent.background_chat_sound %>
+</p>
+
+<p>
+  <strong>Visitor arrived sound:</strong>
+  <%= @agent.visitor_arrived_sound %>
+</p>
+
+<p>
+  <strong>Avatar:</strong>
+  <%= @agent.avatar %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @agent.status %>
+</p>
+
+<%= link_to 'Edit', edit_agent_path(@agent) %> |
+<%= link_to 'Back', agents_path %>
