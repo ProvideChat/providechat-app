@@ -4,7 +4,7 @@ class CreateDepartments < ActiveRecord::Migration
       t.integer :organization_id
       t.string :name
       t.string :email
-      t.string :status
+      t.integer :status
 
       t.timestamps
     end

@@ -3,10 +3,10 @@ class CreateOrganizations < ActiveRecord::Migration
     create_table :organizations do |t|
       t.string :name
       t.string :email
-      t.string :widget_installed
+      t.boolean :widget_installed
       t.integer :default_department
-      t.string :edition
-      t.string :payment_system
+      t.integer :edition
+      t.integer :payment_system
 
       t.timestamps
     end

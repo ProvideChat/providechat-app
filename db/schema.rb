@@ -43,15 +43,15 @@ ActiveRecord::Schema.define(version: 20140602220451) do
     t.string   "display_name"
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
-    t.string   "account_type"
-    t.string   "availability"
+    t.integer  "account_type"
+    t.integer  "availability"
     t.integer  "curr_chats"
     t.integer  "max_chats"
     t.boolean  "active_chat_sound"
     t.boolean  "background_chat_sound"
     t.boolean  "visitor_arrived_sound"
     t.string   "avatar"
-    t.string   "status"
+    t.integer  "status"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 20140602220451) do
     t.integer  "organization_id"
     t.string   "name"
     t.string   "email"
-    t.string   "status"
+    t.integer  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -82,10 +82,10 @@ ActiveRecord::Schema.define(version: 20140602220451) do
   create_table "organizations", force: true do |t|
     t.string   "name"
     t.string   "email"
-    t.string   "widget_installed"
+    t.boolean  "widget_installed"
     t.integer  "default_department"
-    t.string   "edition"
-    t.string   "payment_system"
+    t.integer  "edition"
+    t.integer  "payment_system"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 20140602220451) do
     t.string   "name"
     t.integer  "default_department"
     t.string   "logo"
-    t.string   "status"
+    t.integer  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

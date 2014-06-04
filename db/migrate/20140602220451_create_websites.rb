@@ -6,7 +6,7 @@ class CreateWebsites < ActiveRecord::Migration
       t.string :name
       t.integer :default_department
       t.string :logo
-      t.string :status
+      t.integer :status
 
       t.timestamps
     end

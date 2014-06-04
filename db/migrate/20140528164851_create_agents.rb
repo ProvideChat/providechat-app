@@ -6,15 +6,15 @@ class CreateAgents < ActiveRecord::Migration
       t.string :display_name
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
-      t.string :account_type
-      t.string :availability
+      t.integer :account_type
+      t.integer :availability
       t.integer :curr_chats
       t.integer :max_chats
       t.boolean :active_chat_sound
       t.boolean :background_chat_sound
       t.boolean :visitor_arrived_sound
       t.string :avatar
-      t.string :status
+      t.integer :status
 
       ## Recoverable
       t.string   :reset_password_token
