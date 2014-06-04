@@ -2,13 +2,12 @@ Rails.application.routes.draw do
   resources :websites
 
   devise_for :admins
-  devise_for :agents
+  devise_for :agents, :path => 'auth'
   resources :departments
 
   resources :agents
 
   resources :organizations
-
 
   root to: 'home#index'
   
