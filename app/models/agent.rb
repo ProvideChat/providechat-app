@@ -1,6 +1,10 @@
 class Agent < ActiveRecord::Base
   belongs_to :organization
   
+  enum account_type: [:superadmin, :admin, :operator]
+  enum availability: [:online, :offline]
+  enum status: [:enabled, :disabled]
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
