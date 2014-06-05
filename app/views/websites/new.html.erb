@@ -3,11 +3,30 @@
 <div id="content">
   <div class="row">
 
-	  <article class="col-sm-12 col-md-12 col-lg-6">
-      <%= render 'form' %>
+	  <article class="col-sm-12 col-md-8 col-lg-6">
 
-      <%= link_to 'Back', websites_path %>
+      <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+      	<header>
+      		<span class="widget-icon"> <i class="fa fa-eye"></i> </span>
+      		<h2>Add Website</h2>
+      	</header>
 
+				<div>
+
+					<div class="jarviswidget-editbox">
+						<!-- This area used as dropdown edit box -->
+
+					</div>
+
+					<div class="widget-body">
+
+            <%= render 'form' %>
+            <%= link_to 'Back', websites_path %>
+
+          </div>
+        </div>
+      </div>
     </article>
+    
   </div>
 </div>
