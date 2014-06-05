@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ProvidechatApp</title>
+  <title>Provide Chat App</title>
   
   <%= stylesheet_link_tag 'application', 'http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700' %>
 
@@ -23,7 +23,7 @@
 				<!-- END AJAX-DROPDOWN -->
 			</div>
 
-			<span id="login-header-space"> <span class="hidden-mobile">Need an account?</span> <a href="register.html" class="btn btn-danger">Creat account</a> </span>
+			<span id="login-header-space"> <span class="hidden-mobile">Need an account?</span> <%= link_to "Sign up", new_registration_path(resource_name), :class => "btn btn-danger" %> </span>
 
 		</header>
 
@@ -32,50 +32,8 @@
 			<!-- MAIN CONTENT -->
 			<div id="content" class="container">
 
-				<div class="row">
-					<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
-						<div class="well no-padding">
-							<form action="index.html" id="login-form" class="smart-form client-form">
-								<header>
-									Sign In
-								</header>
+        <%= yield %>
 
-								<fieldset>
-									
-									<section>
-										<label class="label">E-mail</label>
-										<label class="input"> <i class="icon-append fa fa-user"></i>
-											<input type="email" name="email">
-											<b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Please enter email address/username</b></label>
-									</section>
-
-									<section>
-										<label class="label">Password</label>
-										<label class="input"> <i class="icon-append fa fa-lock"></i>
-											<input type="password" name="password">
-											<b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Enter your password</b> </label>
-										<div class="note">
-											<a href="forgotpassword.html">Forgot password?</a>
-										</div>
-									</section>
-
-									<section>
-										<label class="checkbox">
-											<input type="checkbox" name="remember" checked="">
-											<i></i>Stay signed in</label>
-									</section>
-								</fieldset>
-								<footer>
-									<button type="submit" class="btn btn-primary">
-										Sign in
-									</button>
-								</footer>
-							</form>
-
-						</div>
-						
-					</div>
-				</div>
 			</div>
 
 		</div>

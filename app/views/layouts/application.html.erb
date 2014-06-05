@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ProvidechatApp</title>
+  <title>Providechat App</title>
   
   <%= stylesheet_link_tag 'application', 'http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700' %>
 
@@ -12,49 +12,54 @@
 </head>
 <body>
 
-		<aside id="left-panel">
+	<aside id="left-panel">
 
-  		<!-- HEADER -->
-  		<div class="logo-header">
-  			<div id="logo-group">
-  				<span id="logo"><%= image_tag "logo.png" %> </span>
-        </div>
+		<!-- HEADER -->
+		<div class="logo-header">
+			<div id="logo-group">
+				<span id="logo"><%= image_tag "logo.png" %> </span>
       </div>
+    </div>
 
-			<!-- User info -->
-			<div class="login-info">
-				<span> <!-- User image size is adjusted inside CSS, it should stay as it --> 
-			
-					<a href="javascript:void(0);" id="show-shortcut">
-            <%= image_tag "avatars/male.png" %>
+		<!-- User info -->
+		<div class="login-info">
+			<span> <!-- User image size is adjusted inside CSS, it should stay as it --> 
+		
+				<a href="javascript:void(0);" id="show-shortcut">
+          <%= image_tag "avatars/male.png" %>
 
-						<span>
-							luke.hozlelkn 
-						</span>
-						<i class="fa fa-angle-down"></i>
-					</a> 
-					
-				</span>
-			</div>
-			<!-- end user info -->
-
-      <%= render "layouts/left_nav" %>
-      
-		</aside>
-		<!-- END NAVIGATION -->
-
-		<!-- MAIN PANEL -->
-		<div id="main" role="main">
-
-
-
-
-        
-            <%= yield %>
-
-
+					<span>
+						luke.hozlelkn 
+					</span>
+					<i class="fa fa-angle-down"></i>
+				</a> 
+				
+			</span>
 		</div>
+		<!-- end user info -->
 
+    <%= render "layouts/left_nav" %>
+    
+	</aside>
+	<!-- END NAVIGATION -->
 
+	<!-- MAIN PANEL -->
+	<div id="main" role="main">        
+
+    <%= yield %>
+
+	</div>
+
+	<script type="text/javascript">
+	
+	// DO NOT REMOVE : GLOBAL FUNCTIONS!
+	
+	$(document).ready(function() {
+		
+		pageSetUp();
+  });
+  
+  </script>
+    
 </body>
 </html>
