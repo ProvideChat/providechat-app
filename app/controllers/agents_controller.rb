@@ -69,6 +69,6 @@ class AgentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def agent_params
-      params.require(:agent).permit(:name, :display_name, :email, :account_type, :availability, :curr_chats, :max_chats, :active_chat_sound, :background_chat_sound, :visitor_arrived_sound, :avatar, :status)
+      params.require(:agent).permit(:name, :display_name, :email, :password, :password_confirmation, :account_type, :availability, :curr_chats, :max_chats, :active_chat_sound, :background_chat_sound, :visitor_arrived_sound, :avatar, :status)
     end
 end

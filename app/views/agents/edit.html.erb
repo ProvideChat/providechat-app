@@ -1,13 +1,31 @@
-<div class="row">
-	<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-		<h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-user"></i> Agents <span>> Edit Agent </span></h1>
-	</div>
-	<div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+<%= render 'layouts/page_header', :title => 'Agents', :icon => 'fa-user', :subpage => 'Edit Agent' %>
+
+<div id="content">
+  <div class="row">
+
+	  <article class="col-sm-12 col-md-8 col-lg-6">
+
+      <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+      	<header>
+      		<span class="widget-icon"> <i class="fa fa-eye"></i> </span>
+      		<h2>Edit Agent</h2>
+      	</header>
+
+				<div>
+
+					<div class="jarviswidget-editbox">
+						<!-- This area used as dropdown edit box -->
+
+					</div>
+
+					<div class="widget-body">
+
+            <%= render 'form' %>
+
+          </div>
+        </div>
+      </div>
+    </article>
+    
   </div>
 </div>
-
-<%= render 'form' %>
-
-
-<%= link_to 'Show', @agent %> |
-<%= link_to 'Back', agents_path %>

@@ -1,64 +1,75 @@
-<p id="notice"><%= notice %></p>
+<%= render 'layouts/page_header', :title => 'Agents', :icon => 'fa-user', :subpage => 'New Agent' %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @agent.name %>
-</p>
+<div id="content">
+  <div class="row">
 
-<p>
-  <strong>Display name:</strong>
-  <%= @agent.display_name %>
-</p>
+	  <article class="col-sm-12 col-md-8 col-lg-6">
 
-<p>
-  <strong>Email:</strong>
-  <%= @agent.email %>
-</p>
+      <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Account type:</strong>
-  <%= @agent.account_type %>
-</p>
+      <p>
+        <strong>Name:</strong>
+        <%= @agent.name %>
+      </p>
 
-<p>
-  <strong>Availability:</strong>
-  <%= @agent.availability %>
-</p>
+      <p>
+        <strong>Display name:</strong>
+        <%= @agent.display_name %>
+      </p>
 
-<p>
-  <strong>Curr chats:</strong>
-  <%= @agent.curr_chats %>
-</p>
+      <p>
+        <strong>Email:</strong>
+        <%= @agent.email %>
+      </p>
 
-<p>
-  <strong>Max chats:</strong>
-  <%= @agent.max_chats %>
-</p>
+      <p>
+        <strong>Account type:</strong>
+        <%= @agent.account_type %>
+      </p>
 
-<p>
-  <strong>Active chat sound:</strong>
-  <%= @agent.active_chat_sound %>
-</p>
+      <p>
+        <strong>Availability:</strong>
+        <%= @agent.availability %>
+      </p>
 
-<p>
-  <strong>Background chat sound:</strong>
-  <%= @agent.background_chat_sound %>
-</p>
+      <p>
+        <strong>Curr chats:</strong>
+        <%= @agent.curr_chats %>
+      </p>
 
-<p>
-  <strong>Visitor arrived sound:</strong>
-  <%= @agent.visitor_arrived_sound %>
-</p>
+      <p>
+        <strong>Max chats:</strong>
+        <%= @agent.max_chats %>
+      </p>
 
-<p>
-  <strong>Avatar:</strong>
-  <%= @agent.avatar %>
-</p>
+      <p>
+        <strong>Active chat sound:</strong>
+        <%= @agent.active_chat_sound %>
+      </p>
 
-<p>
-  <strong>Status:</strong>
-  <%= @agent.status %>
-</p>
+      <p>
+        <strong>Background chat sound:</strong>
+        <%= @agent.background_chat_sound %>
+      </p>
 
-<%= link_to 'Edit', edit_agent_path(@agent) %> |
-<%= link_to 'Back', agents_path %>
+      <p>
+        <strong>Visitor arrived sound:</strong>
+        <%= @agent.visitor_arrived_sound %>
+      </p>
+
+      <p>
+        <strong>Avatar:</strong>
+        <%= @agent.avatar %>
+      </p>
+
+      <p>
+        <strong>Status:</strong>
+        <%= @agent.status %>
+      </p>
+
+      <%= link_to 'Edit', edit_agent_path(@agent) %> |
+      <%= link_to 'Back', agents_path %>
+    </article>
+    
+  </div>
+</div>
