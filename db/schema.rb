@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140602220451) do
+ActiveRecord::Schema.define(version: 20140606000129) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,25 @@ ActiveRecord::Schema.define(version: 20140602220451) do
   add_index "agents", ["organization_id"], name: "index_agents_on_organization_id", using: :btree
   add_index "agents", ["reset_password_token"], name: "index_agents_on_reset_password_token", unique: true, using: :btree
 
+  create_table "chats", force: true do |t|
+    t.integer  "organization_id"
+    t.integer  "website_id"
+    t.integer  "visitor_id"
+    t.integer  "operator_id"
+    t.string   "operator_typing"
+    t.string   "visitor_typing"
+    t.datetime "chat_requested"
+    t.datetime "chat_accepted"
+    t.datetime "chat_ended"
+    t.string   "visitor_name"
+    t.string   "visitor_email"
+    t.string   "visitor_department"
+    t.string   "visitor_question"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "departments", force: true do |t|
     t.integer  "organization_id"
     t.string   "name"
@@ -86,6 +105,37 @@ ActiveRecord::Schema.define(version: 20140602220451) do
     t.integer  "default_department"
     t.integer  "edition"
     t.integer  "payment_system"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "visitors", force: true do |t|
+    t.integer  "organization_id"
+    t.integer  "website_id"
+    t.string   "name"
+    t.string   "email"
+    t.string   "department"
+    t.string   "question"
+    t.datetime "last_ping"
+    t.integer  "page_views"
+    t.string   "current_page"
+    t.string   "remote_addr"
+    t.string   "remote_host"
+    t.string   "country"
+    t.string   "language"
+    t.string   "referrer_host"
+    t.string   "referrer_path"
+    t.string   "referrer_search"
+    t.string   "referrer_query"
+    t.string   "search_engine"
+    t.string   "search_query"
+    t.string   "browser_name"
+    t.string   "browser_version"
+    t.string   "operating_system"
+    t.string   "screen_resolution"
+    t.string   "smart_invite_status"
+    t.string   "operator_invite"
+    t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
