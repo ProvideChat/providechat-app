@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
-  resources :chats
-
-  resources :websites
 
   devise_for :admins
   devise_for :agents, :path => 'auth'
-  resources :departments
 
-  resources :agents
+  resources :departments, only: [:index, :new, :edit, :create, :update, :destroy]
+  resources :chats
+  resources :websites, only: [:index, :new, :edit, :create, :update, :destroy]
+  resources :agents, only: [:index, :new, :edit, :create, :update, :destroy]
 
-  resources :organizations
+  resources :organizations, only: [:edit, :update]
+  
 
   root to: 'home#dashboard'
   

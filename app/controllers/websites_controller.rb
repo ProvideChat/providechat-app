@@ -1,16 +1,11 @@
 class WebsitesController < ApplicationController
   before_action :authenticate_agent!
-  before_action :set_website, only: [:show, :edit, :update, :destroy]
+  before_action :set_website, only: [:edit, :update, :destroy]
 
   # GET /websites
   # GET /websites.json
   def index
     @websites = Website.all
-  end
-
-  # GET /websites/1
-  # GET /websites/1.json
-  def show
   end
 
   # GET /websites/new

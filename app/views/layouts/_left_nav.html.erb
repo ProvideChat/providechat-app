@@ -49,8 +49,8 @@
 		<li>
 			<a href="#"><i class="fa fa-lg fa-fw fa-cog "></i> <span class="menu-item-parent">Settings</span></a>
 			<ul>
-				<li>
-					<a href="form-elements.html">General Settings</a>
+				<li class="<%= "active" if controller?('organizations') %>">
+          <%= link_to "General Settings", edit_organization_path(current_agent.organization_id), { title: "General Settings" } %>
 				</li>
         <li class="<%= "active" if controller?('websites') %>">
           <%= link_to "Website Setup", websites_path, { title: "Website Setup" } %>

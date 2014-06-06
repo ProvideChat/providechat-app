@@ -1,16 +1,11 @@
 class DepartmentsController < ApplicationController
   before_action :authenticate_agent!
-  before_action :set_department, only: [:show, :edit, :update, :destroy]
+  before_action :set_department, only: [:edit, :update, :destroy]
 
   # GET /departments
   # GET /departments.json
   def index
     @departments = Department.all
-  end
-
-  # GET /departments/1
-  # GET /departments/1.json
-  def show
   end
 
   # GET /departments/new
