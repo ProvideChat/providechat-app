@@ -4,6 +4,7 @@ ruby '2.1.1'
 
 gem 'rails', '4.1.1'
 
+gem 'ancestry'
 gem 'carrierwave'
 gem 'devise'
 gem "font-awesome-rails"
