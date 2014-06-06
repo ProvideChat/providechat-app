@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :chats
+
   resources :websites
 
   devise_for :admins
@@ -9,7 +11,10 @@ Rails.application.routes.draw do
 
   resources :organizations
 
-  root to: 'home#index'
+  root to: 'home#dashboard'
+  
+  get '/monitor', to: 'home#monitor', as: 'monitor'
+  get '/dashboard', to: 'home#dashboard', as: 'dashboard'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

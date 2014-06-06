@@ -1,0 +1,112 @@
+<%= render 'layouts/page_header', :title => 'Dashboard', :icon => 'fa-home' %>
+
+<div id="content">
+  <div class="row">
+	  <article class="col-sm-12 col-md-12 col-lg-6">
+
+      <table border="0" cellpadding="0" cellspacing="0" style="width: 100%; margin-top: 0px;"><tr><td style="width: 50%;" valign="top">
+        <div>
+          <div class="contentBoxHeader">
+            Your Website Status
+          </div>
+          <div class="contentBoxContainer">
+            <div id="websiteStatus">
+              <img src="images/ajax-loading.gif" />
+            </div>
+          </div>
+
+          <script>
+          /*
+            $("#websiteStatus").load("website-status.php", function(response, status, xhr) {
+              if (status == "error") {
+                var msg = "Sorry but there was an error loading your website status information";
+                //$("#websiteStatus").html(msg + xhr.status + " " + xhr.statusText);
+                $("#websiteStatus").html(msg);
+              }
+            });
+          */
+          </script>
+
+      		<div class="contentBoxFooter">
+      			<a href="#" onclick="loadHTML('settings/general.php', 'content');"><b>General Settings</b></a>
+      		</div>
+      	</div>
+
+      	<br />
+
+        <div>
+          <div class="contentBoxHeader">
+            Latest Blog Entries
+          </div>
+          <div class="contentBoxContainer">
+
+          </div>
+        </div>
+      </td>
+      <td><img src="images/spacer.gif" height="1" width="10"></td>
+      <td style="width: 50%;" valign="top">
+        <div>
+          <div class="contentBoxHeader">
+            Current Operator Availability
+          </div>
+          <div class="contentBoxContainer">
+            <table border="0" cellpadding="8" cellspacing="0" width="100%" style="border-left: 1px solid #DDDDDD; border-right: 1px solid #DDDDDD;">
+            <tr>
+             <td class="maintext" style="border-bottom: 1px solid #BBBBBB; background-color: #E5E5E5;" width="50%"><b>Operator</b></td>
+             <td class="maintext" style="border-bottom: 1px solid #BBBBBB; background-color: #E5E5E5;"><b>Current Availability</b></td>
+            </tr>
+            <tr>
+             <td class="fieldtext" style="border-bottom: 1px solid #BBBBBB;"><a href="#" onclick="#', 'content');">Operator Name</a></td>
+             <td class="fieldtext" style="border-bottom: 1px solid #BBBBBB;">
+               <span style='color: #228b22;'><strong>Online</strong></span>
+               <span style='color: #b22222;'><strong>Offline</strong></span>
+              </td>
+            </tr>
+            <tr>
+              <td style="background-color: #E5E5E5; border-bottom: 1px solid #BBBBBB;" class="fieldtext">
+                <a href="#" onclick="loadHTML('operators.php', 'content');"><b>More Details</b></a>
+              </td>
+               <td style="background-color: #E5E5E5; border-bottom: 1px solid #BBBBBB;" class="fieldtext" align="right">
+                 You are currently using 1 of 12 available operators
+              </td>
+             </tr>
+            </table>
+          </div>
+        </div>
+
+      	<br />
+
+          <div>
+            <div class="contentBoxHeader">
+              Upgrade Your Account
+            </div>
+            <div class="contentBoxContainer">
+              <table border="0" cellpadding="8" cellspacing="0" width="100%" style="border-left: 1px solid #DDDDDD; border-right: 1px solid #DDDDDD;">
+                <tr>
+                 <td class="maintext" style="border-bottom: 1px solid #BBBBBB; background-color: #E5E5E5;" width="40%">
+                  <b>If you would like to upgrade your account, simply click on one of the links below to upgrade to your
+                  desired account.</b>
+                 </td>
+                </tr>
+                <tr>
+                 <td class="fieldtext" style="border-bottom: 1px solid #BBBBBB; background-color: #E5E5E5;" width="40%">
+                   <i>Please Note: Upgrades have a 3-day trial period, no payment is made until after the 3-day trial</i>
+                 </td>
+                </tr>
+                <tr>
+
+                <td class="fieldtext" style="border-bottom: 1px solid #BBBBBB;" align="center">
+
+                <br />
+                </td>
+                </tr>
+               </table>
+             </div>
+          </div>
+
+      </td></tr></table>
+      </td></tr>
+      </table>
+    </article>
+  </div>
+</div>

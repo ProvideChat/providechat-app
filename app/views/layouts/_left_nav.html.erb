@@ -1,12 +1,14 @@
 <nav>
 	<ul>
-		<li class="<%= "active" if current_page?(root_path) %>">
-      <%= link_to root_path, { title: "Dashboard" } do %>
+		<li class="<%= "active" if current_page?(dashboard_path) %>">
+      <%= link_to dashboard_path, { title: "Dashboard" } do %>
 			  <i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span>
       <% end %>
 		</li>
-		<li>
-			<a href="#"><i class="fa fa-lg fa-fw fa-comments"></i> <span class="menu-item-parent">Chat Monitor</span></a>
+		<li class="<%= "active" if current_page?(monitor_path) %>">
+      <%= link_to monitor_path, { title: "Chat Monitor" } do %>
+        <i class="fa fa-lg fa-fw fa-comments"></i> <span class="menu-item-parent">Chat Monitor</span>
+      <% end %>
 		</li>
 		<li class="<%= "active" if controller?('agents') %>">
       <%= link_to agents_path, { title: "Agents" } do %>

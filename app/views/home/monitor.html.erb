@@ -1,0 +1,184 @@
+<%= render 'layouts/page_header', :title => 'Chat Monitor', :icon => 'fa-comments' %>
+
+<div id="content">
+  <div class="row">
+	  <article class="col-sm-12 col-md-12 col-lg-6">
+
+      <table border="0" cellpadding="5" cellspacing="0" style="width: 950px;">
+       <tr>
+        <td class="maintext" style="border-left: 1px solid #DDDDDD;" valign="top">
+         Visitor Filter<br />
+         <select class="maintext" id="visitorFilter" style="margin-top: 8px;">
+          <option value="all">All</option>
+          <option value="mine">My Chats</option>
+          <option value="active">All Active Chats</option>
+          <option value="waiting">Waiting to Chat</option>
+          <option value="visitor">Not in Chat</option>
+         </select>
+        </td>
+        <td class="maintext" style="border-left: 1px solid #DDDDDD;" valign="top">
+         Website Filter<br />
+        <select id="websiteFilter" name="websiteFilter" style="margin-top: 8px;">
+          <option value="0">All</option>
+        </select>
+        </td>
+        <td class="maintext" style="border-left: 1px solid #DDDDDD;" valign="top">
+         Visitors Online<br />
+         <div id="visitorsOnline" style="font-size: 24px; margin-top: 4px; font-weight: bold;">..</div>
+        </td>
+
+        <td class="maintext" style="border-left: 1px solid #DDDDDD;" valign="top">
+         Waiting to Chat<br />
+         <div id="waitingToChat" style="font-size: 24px; margin-top: 4px; font-weight: bold;">..</div>
+        </td>
+
+        <td class="maintext" style="border: 1px solid #DDDDDD; border-width: 0px 1px 0px 1px;" valign="top">
+      		My Status<br />
+      		<select name="operatorAvailability" id="operatorAvailability" class="maintext" style="margin-top: 8px;">
+            <option selected="selected" value="offline">Offline</option>
+            <option value="online">Online</option>
+      		</select>
+      		<span id="myspan"></span>
+        </td>
+
+       <td class="maintext" width="140px" style="border: 1px solid #DDDDDD; border-width: 0px 1px 0px 1px;" valign="top" align="center">
+      	<div style="float: left; margin-left: 10px; margin-right: 10px;">
+      		<img id="config-audio" src="images/icons/tools.png" style="cursor: pointer; align: center;" border="0" height="32px" width="32px">
+        </div>
+
+        </td>
+       </tr>
+      </table>
+      <div id="visitor_list" style="overflow: auto; height: 190px; width: 952px; border: 1px solid #BBBBBB; border-width: 1px 0px 1px 1px;">
+
+      <table border="0" cellpadding="5" cellspacing="0" id="visitorTable" style="width: 950px; border-collapse: collapse;">
+      	<tr id="headerRow" style="background-color: #E5E5E5;">
+      	<td style="border: 1px solid #BBBBBB; border-width: 0px 1px 1px 1px; font-weight: bold; width: 170px;" class="smalltext" colspan="2">Visitor ID</td>
+      	<td style="border: 1px solid #BBBBBB; border-width: 0px 1px 1px 1px; font-weight: bold; width: 90px;" class="smalltext">Department</td>
+      	<td style="border: 1px solid #BBBBBB; border-width: 0px 1px 1px 1px; font-weight: bold; width: 170px;" class="smalltext">Status / Duration</td>
+      	<td style="border: 1px solid #BBBBBB; border-width: 0px 1px 1px 1px; font-weight: bold; width: 80px;"  class="smalltext">Operator</td>
+      	<td style="border: 1px solid #BBBBBB; border-width: 0px 1px 1px 1px; font-weight: bold; width: 290px;" class="smalltext">Current Page</td>
+      	</tr>
+      </table>
+
+      <div id="loading_visitors">
+      <br /><br />
+      <p style="text-align: center;">
+      <img src="images/ajax-loading.gif" />
+      </p>
+      </div>
+
+      </div>
+
+      <table border="0" cellpadding="0" cellspacing="0" style="margin-top: 20px; width: 950px;"><tr>
+      	<td valign="top">
+      		<table border="0" cellpadding="3" cellspacing="0" style="width: 580px; border-collapse: collapse; border: 1px solid #BBBBBB; background-color: #E5E5E5; margin-bottom: 5px;">
+          <tr>
+            <td class="smalltext" style="width: 58px; border-right: 1px solid #BBBBBB;"><a id="accept_chat" style="cursor: pointer;"><img id="accept_chat_img" src="images/accept_chat_off.gif" width="60" height="23" border="0" alt="Accept" /></a></td>
+            <td class="smalltext" style="width: 58px; border-right: 1px solid #BBBBBB;"><a id="invite_chat" style="cursor: pointer;"><img id="invite_chat_img" src="images/invite_chat_off.gif" width="60" height="23" border="0" alt="Invite" /></a></td>
+            <td class="smalltext" style="width: 73px; border-right: 1px solid #BBBBBB;"><a id="end_chat" style="cursor: pointer;"><img id="end_chat_img" src="images/end_chat_off.gif" width="73" height="23" border="0" alt="Cancel" /></a></td>
+            <td><div id="staticMenu"></div></td>
+            <td style="width: 240px; border-left: 1px solid #BBBBBB; display:none;" align="right">
+
+      			<table border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td>
+                  <select id="operatorTransfer" style="width: 100px;">
+                          <option>--------------</option>
+                    </select>&nbsp;
+                  </td>
+                  <td style="display: none;"><a href="#"><img src="images/transfer_chat_off.gif" onmouseover="this.src = 'images/transfer_chat_on_hover.gif'" onmouseout="this.src = 'images/transfer_chat_on.gif'" width="70" height="23" border="0" alt="Transfer" /></a></td>
+                </tr>
+              </table>
+      		</td>
+      		<td class="smalltext" align="right" style="padding-right: 10px;"><div id="selectedVisitor"><b>No Visitor Selected</b></div></td>
+      	</tr>
+      	</table>
+
+      	<div id="tabs" style="width: 570px;">
+      		<ul>
+      		</ul>
+      		<div id="initialChat">
+      			<table border="0" cellpadding="0" cellspacing="0" style="width: 550px;  height: 343px; border-collapse: collapse;">
+            <tr>
+      				<td colspan="4" valign="middle" align="center">
+      					<font size="5.0em"><b>No Active Chats</b></font>
+      				</td>
+            </tr>
+      			</table>
+      		</div>
+      	</div>
+        </td>
+        <td valign="top" align="right">
+      	<div id="visitorTabs" style="width: 350px;">
+      		<ul>
+      			<li><a href="#salesInfoDiv">Sales Info</a></li>
+      			<li><a href="#techInfoDiv">Technical Info</a></li>
+      		</ul>
+      		<div id="salesInfoDiv" style="height: 305px; overflow: auto;" align="left">
+      			<p><b class="maintext">Sales Information</b></p>
+      			<p>No Visitor currently selected</p>
+      		</div>
+      		<div id="techInfoDiv" style="height: 305px; overflow: auto;" align="left">
+      			<p><b class="maintext">Technical Information</b></p>
+      			<p>No Visitor currently selected</p>
+      		</div>
+      	</div>
+
+      	<form action="transcripts_search.php" method="post" target="searchWindow" onSubmit="window.open('', 'searchWindow', 'width=840,height=600,status=no,resizable=yes,scrollbars=yes')">
+      	<input type="hidden" id="chatWindow" name="chatWindow" value="true" />
+      	<table style="border-collapse: collapse; margin-top: 7px; margin-left: 5px; margin-right: 0px; background-color: #eeeeee;" cellpadding="4px" cellspacing="0" width="356px">
+      		<tr style="border-width: 1px; border-style: solid; border-color: #999999;">
+      			<td class="fieldtext" style="border-top-width: 1px;"><b>Chat ID</b>:</td>
+      			<td class="fieldtext"><input type="text" id="chat_id" name="chat_id" style="width: 100px;" /></td>
+      			<td><input type="submit" value=" Search Transcripts " style="width: 120px; font-size: 11px; font-family: arial, helvetica, sans serif;" /></td>
+      		</tr>
+      	</table>
+      	</form>
+
+        </td>
+       </tr>
+      </table>
+
+      <span id="dummyspan"></span>
+
+      <div style="display: none;">
+
+      <div id="confirmCloseTab" title="Close this chat tab?">
+      	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Are you sure you want to close
+      	this chat tab?  <b>Warning: if this chat is active, closing the tab will cancel the chat.</b></p>
+      </div>
+
+      <div id="confirmInvite" title="Invite selected visitor?">
+      	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Are you sure you
+      	want to send this website visitor a chat invitation popup?</p>
+      </div>
+
+      <div id="chat-invite-unavailable" title="Chat Invite Unavailable">
+      	<p>Only paid accounts have access to the chat invitation features.  Please upgrade your account to access
+      	this and many more features.</p>
+      </div>
+
+      </div>
+
+      <div id="audio-settings-dialog" title="Audio Settings" class="ui-dialog" style="display: none;">
+
+      	<form>
+      		<h5>Alert me with a sound when:</h5>
+      		<p style="padding-left: 10px;">
+      			<label for="active_chat_sound">A new message arrives in the selected chat</label>
+      			<input type="checkbox" name="active_chat_sound" id="active_chat_sound" class="class="text ui-widget-content ui-corner-all" />
+      		</p>
+      		<p style="padding-left: 10px;">
+      			<label for="background_chat_sound">A new message arrives in a background chat</label>
+      			<input type="checkbox" name="background_chat_sound" id="background_chat_sound"  class="checkbox ui-widget-content ui-corner-all" />
+      		</p>
+      		<p style="padding-left: 10px;">
+      			<label for="visitor_arrived_sound">A new visitor arrives on the website</label>
+      			<input type="checkbox" name="visitor_arrived_sound" id="visitor_arrived_sound"  class="checkbox ui-widget-content ui-corner-all" />
+      		</p>
+      	</form>
+      </div>
+    </article>
+  </div>
+</div>
