@@ -87,6 +87,9 @@ ActiveRecord::Schema.define(version: 20140606000129) do
     t.datetime "updated_at"
   end
 
+  add_index "chats", ["organization_id"], name: "index_chats_on_organization_id", using: :btree
+  add_index "chats", ["website_id"], name: "index_chats_on_website_id", using: :btree
+
   create_table "departments", force: true do |t|
     t.integer  "organization_id"
     t.string   "name"
@@ -101,10 +104,12 @@ ActiveRecord::Schema.define(version: 20140606000129) do
   create_table "organizations", force: true do |t|
     t.string   "name"
     t.string   "email"
-    t.boolean  "widget_installed"
-    t.integer  "default_department"
     t.integer  "edition"
     t.integer  "payment_system"
+    t.integer  "inactive_visitor_removal"
+    t.integer  "operator_session_timeout"
+    t.integer  "operator_response_timeout"
+    t.integer  "max_chats"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -140,15 +145,23 @@ ActiveRecord::Schema.define(version: 20140606000129) do
     t.datetime "updated_at"
   end
 
+  add_index "visitors", ["organization_id"], name: "index_visitors_on_organization_id", using: :btree
+  add_index "visitors", ["website_id"], name: "index_visitors_on_website_id", using: :btree
+
   create_table "websites", force: true do |t|
     t.integer  "organization_id"
-    t.string   "url"
-    t.string   "name"
+    t.string   "url",                default: "", null: false
+    t.string   "name",               default: "", null: false
     t.integer  "default_department"
     t.string   "logo"
+    t.boolean  "widget_installed"
+    t.boolean  "smart_invites"
+    t.string   "smart_invite_mode"
     t.integer  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "websites", ["organization_id"], name: "index_websites_on_organization_id", using: :btree
 
 end

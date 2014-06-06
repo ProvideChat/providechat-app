@@ -18,5 +18,8 @@ class CreateChats < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :chats, :organization_id
+    add_index :chats, :website_id
   end
 end

@@ -30,5 +30,8 @@ class CreateVisitors < ActiveRecord::Migration
 
       t.timestamps
     end
+    
+    add_index :visitors, :organization_id
+    add_index :visitors, :website_id
   end
 end

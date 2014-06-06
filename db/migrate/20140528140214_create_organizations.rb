@@ -3,10 +3,12 @@ class CreateOrganizations < ActiveRecord::Migration
     create_table :organizations do |t|
       t.string :name
       t.string :email
-      t.boolean :widget_installed
-      t.integer :default_department
       t.integer :edition
       t.integer :payment_system
+      t.integer :inactive_visitor_removal
+      t.integer :operator_session_timeout
+      t.integer :operator_response_timeout
+      t.integer :max_chats
 
       t.timestamps
     end

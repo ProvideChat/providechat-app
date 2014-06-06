@@ -6,5 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-agent = Agent.create( name: "Derek Barber", email: "derek@providechat.com", password: "password", password_confirmation: "password", status: "enabled")
+organization = Organization.create( name: "Provide Chat", email: "derek@providechat.com", edition: "ultimate", payment_system: "stripe" )
+organization.save!
+
+agent = Agent.create( name: "Derek Barber", organization_id: organization.id, email: "derek@providechat.com", password: "password", password_confirmation: "password", status: "enabled")
 agent.save!
