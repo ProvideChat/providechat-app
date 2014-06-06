@@ -20,8 +20,10 @@
 			  <i class="fa fa-lg fa-fw fa-sitemap"></i> <span class="menu-item-parent">Departments</span>
       <% end %>
 		</li>
-		<li>
-			<a href="#"><i class="fa fa-lg fa-fw fa-file-text-o"></i> <span class="menu-item-parent">Chat Transcripts</span></a>
+		<li class="<%= "active" if controller?('chats') %>">
+      <%= link_to chats_path, { title: "Chat Transcripts" } do %>
+        <i class="fa fa-lg fa-fw fa-file-text-o"></i> <span class="menu-item-parent">Chat Transcripts</span>
+      <% end %>
 		</li>
 		<li>
 			<a href="#"><i class="fa fa-lg fa-fw fa-toggle-up"></i> <span class="menu-item-parent">Chat Window</span></a>
