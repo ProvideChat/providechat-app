@@ -1,4 +1,5 @@
 class DepartmentsController < ApplicationController
+  before_action :authenticate_agent!
   before_action :set_department, only: [:show, :edit, :update, :destroy]
 
   # GET /departments
