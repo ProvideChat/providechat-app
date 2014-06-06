@@ -1,4 +1,4 @@
-<%= form_for(@organization) do |f| %>
+<%= form_for(@organization, :html => {class: 'form-horizontal'}) do |f| %>
   <% if @organization.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@organization.errors.count, "error") %> prohibited this organization from being saved:</h2>
@@ -11,27 +11,59 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :default_department %><br>
-    <%= f.number_field :default_department %>
-  </div>
-  <div class="field">
-    <%= f.label :edition %><br>
-    <%= f.text_field :edition %>
-  </div>
-  <div class="field">
-    <%= f.label :payment_system %><br>
-    <%= f.text_field :payment_system %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+	<fieldset>
+
+		<div class="form-group">
+			<label class="col-md-4 control-label"><%= f.label :name %></label>
+			<div class="col-md-8">
+        <%= f.text_field :name %>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label"><%= f.label :email %></label>
+			<div class="col-md-8">
+        <%= f.text_field :email %>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label"><%= f.label :edition %></label>
+			<div class="col-md-8">
+        <%= f.text_field :edition %>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label"><%= f.label :payment_system %></label>
+			<div class="col-md-8">
+        <%= f.text_field :payment_system %>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label"><%= f.label :inactive_visitor_removal %></label>
+			<div class="col-md-8">
+        <%= f.number_field :inactive_visitor_removal %>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label"><%= f.label :operator_session_timeout %></label>
+			<div class="col-md-8">
+        <%= f.number_field :operator_session_timeout %>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label"><%= f.label :operator_response_timeout %></label>
+			<div class="col-md-8">
+        <%= f.number_field :operator_response_timeout %>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label"><%= f.label :max_chats %></label>
+			<div class="col-md-8">
+        <%= f.number_field :max_chats %>
+			</div>
+		</div>
+  </fieldset>
+	<footer>
+    <%= f.submit "Submit", :class => "btn btn-primary" %>
+    <%= link_to "Back", departments_path, :class => "btn btn-default" %>
+	</footer>  
 <% end %>

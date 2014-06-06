@@ -1,4 +1,5 @@
 class OrganizationsController < ApplicationController
+  before_action :authenticate_agent!
   before_action :set_organization, only: [:edit, :update]
 
   # GET /organizations/1/edit
