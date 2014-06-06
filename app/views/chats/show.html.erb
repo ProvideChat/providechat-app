@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Organization:</strong>
+  <%= @chat.organization_id %>
+</p>
+
+<p>
+  <strong>Website:</strong>
+  <%= @chat.website_id %>
+</p>
+
+<p>
+  <strong>Visitor:</strong>
+  <%= @chat.visitor_id %>
+</p>
+
+<p>
+  <strong>Operator:</strong>
+  <%= @chat.operator_id %>
+</p>
+
+<p>
+  <strong>Operator typing:</strong>
+  <%= @chat.operator_typing %>
+</p>
+
+<p>
+  <strong>Visitor typing:</strong>
+  <%= @chat.visitor_typing %>
+</p>
+
+<p>
+  <strong>Chat requested:</strong>
+  <%= @chat.chat_requested %>
+</p>
+
+<p>
+  <strong>Chat accepted:</strong>
+  <%= @chat.chat_accepted %>
+</p>
+
+<p>
+  <strong>Chat ended:</strong>
+  <%= @chat.chat_ended %>
+</p>
+
+<p>
+  <strong>Visitor name:</strong>
+  <%= @chat.visitor_name %>
+</p>
+
+<p>
+  <strong>Visitor email:</strong>
+  <%= @chat.visitor_email %>
+</p>
+
+<p>
+  <strong>Visitor department:</strong>
+  <%= @chat.visitor_department %>
+</p>
+
+<p>
+  <strong>Visitor question:</strong>
+  <%= @chat.visitor_question %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @chat.status %>
+</p>
+
+<%= link_to 'Edit', edit_chat_path(@chat) %> |
+<%= link_to 'Back', chats_path %>

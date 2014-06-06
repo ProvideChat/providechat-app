@@ -1,0 +1,51 @@
+<h1>Listing chats</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Organization</th>
+      <th>Website</th>
+      <th>Visitor</th>
+      <th>Operator</th>
+      <th>Operator typing</th>
+      <th>Visitor typing</th>
+      <th>Chat requested</th>
+      <th>Chat accepted</th>
+      <th>Chat ended</th>
+      <th>Visitor name</th>
+      <th>Visitor email</th>
+      <th>Visitor department</th>
+      <th>Visitor question</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @chats.each do |chat| %>
+      <tr>
+        <td><%= chat.organization_id %></td>
+        <td><%= chat.website_id %></td>
+        <td><%= chat.visitor_id %></td>
+        <td><%= chat.operator_id %></td>
+        <td><%= chat.operator_typing %></td>
+        <td><%= chat.visitor_typing %></td>
+        <td><%= chat.chat_requested %></td>
+        <td><%= chat.chat_accepted %></td>
+        <td><%= chat.chat_ended %></td>
+        <td><%= chat.visitor_name %></td>
+        <td><%= chat.visitor_email %></td>
+        <td><%= chat.visitor_department %></td>
+        <td><%= chat.visitor_question %></td>
+        <td><%= chat.status %></td>
+        <td><%= link_to 'Show', chat %></td>
+        <td><%= link_to 'Edit', edit_chat_path(chat) %></td>
+        <td><%= link_to 'Destroy', chat, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Chat', new_chat_path %>
