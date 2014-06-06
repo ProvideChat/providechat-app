@@ -2,76 +2,67 @@
 
 <div id="content">
   <div class="row">
-	  <article class="col-sm-12 col-md-12 col-lg-6">
+    <div class="col-sm-3 col-md-3">
+      <p>Visitor Filter</p>
+      <select id="visitorFilter" class="form-control">
+        <option value="all">All</option>
+        <option value="mine">My Chats</option>
+        <option value="active">All Active Chats</option>
+        <option value="waiting">Waiting to Chat</option>
+        <option value="visitor">Not in Chat</option>
+      </select>
+    </div>
+    <div class="col-sm-2 col-md-2">
+      Website Filter<br />
+      <select id="websiteFilter" name="websiteFilter" class="form-control">
+        <option value="0">All</option>
+      </select>
+    </div>
+    <div class="col-sm-2 col-md-2">
+      Visitors Online<br />
+      <div id="visitorsOnline" style="font-size: 24px; margin-top: 4px; font-weight: bold;">..</div>
+    </div>
+    <div class="col-sm-2 col-md-2">
+      Waiting to Chat<br />
+      <div id="waitingToChat" style="font-size: 24px; margin-top: 4px; font-weight: bold;">..</div>
+    </div>
+    <div class="col-sm-2 col-md-2">
+  		My Status<br />
+  		<select name="operatorAvailability" id="operatorAvailability" class="form-control">
+        <option selected="selected" value="offline">Offline</option>
+        <option value="online">Online</option>
+  		</select>
+  		<span id="myspan"></span>  
+    </div>
+  </div>
+  <div class="row">
+	  <div class="col-sm-12 col-md-12 col-lg-6">
+      <div id="visitor_list" style="overflow: auto; height: 190px; border: 1px solid #BBBBBB; border-width: 1px 0px 1px 1px;">
 
-      <table border="0" cellpadding="5" cellspacing="0" style="width: 950px;">
-       <tr>
-        <td class="maintext" style="border-left: 1px solid #DDDDDD;" valign="top">
-         Visitor Filter<br />
-         <select class="maintext" id="visitorFilter" style="margin-top: 8px;">
-          <option value="all">All</option>
-          <option value="mine">My Chats</option>
-          <option value="active">All Active Chats</option>
-          <option value="waiting">Waiting to Chat</option>
-          <option value="visitor">Not in Chat</option>
-         </select>
-        </td>
-        <td class="maintext" style="border-left: 1px solid #DDDDDD;" valign="top">
-         Website Filter<br />
-        <select id="websiteFilter" name="websiteFilter" style="margin-top: 8px;">
-          <option value="0">All</option>
-        </select>
-        </td>
-        <td class="maintext" style="border-left: 1px solid #DDDDDD;" valign="top">
-         Visitors Online<br />
-         <div id="visitorsOnline" style="font-size: 24px; margin-top: 4px; font-weight: bold;">..</div>
-        </td>
+        <table class="table table-bordered">
+          <thead>
+        	  <tr>
+            	<th colspan="2">Visitor ID</td>
+            	<th>Department</td>
+            	<th>Status / Duration</td>
+            	<th>Operator</td>
+            	<th>Current Page</th>
+        	   </tr>
+            </thead>
+        </table>
 
-        <td class="maintext" style="border-left: 1px solid #DDDDDD;" valign="top">
-         Waiting to Chat<br />
-         <div id="waitingToChat" style="font-size: 24px; margin-top: 4px; font-weight: bold;">..</div>
-        </td>
-
-        <td class="maintext" style="border: 1px solid #DDDDDD; border-width: 0px 1px 0px 1px;" valign="top">
-      		My Status<br />
-      		<select name="operatorAvailability" id="operatorAvailability" class="maintext" style="margin-top: 8px;">
-            <option selected="selected" value="offline">Offline</option>
-            <option value="online">Online</option>
-      		</select>
-      		<span id="myspan"></span>
-        </td>
-
-       <td class="maintext" width="140px" style="border: 1px solid #DDDDDD; border-width: 0px 1px 0px 1px;" valign="top" align="center">
-      	<div style="float: left; margin-left: 10px; margin-right: 10px;">
-      		<img id="config-audio" src="images/icons/tools.png" style="cursor: pointer; align: center;" border="0" height="32px" width="32px">
+        <div id="loading_visitors">
+          <p style="text-align: center; margin-top: 10px;">
+            <%= image_tag "ajax-loader.gif" %>
+          </p>
         </div>
 
-        </td>
-       </tr>
-      </table>
-      <div id="visitor_list" style="overflow: auto; height: 190px; width: 952px; border: 1px solid #BBBBBB; border-width: 1px 0px 1px 1px;">
-
-      <table border="0" cellpadding="5" cellspacing="0" id="visitorTable" style="width: 950px; border-collapse: collapse;">
-      	<tr id="headerRow" style="background-color: #E5E5E5;">
-      	<td style="border: 1px solid #BBBBBB; border-width: 0px 1px 1px 1px; font-weight: bold; width: 170px;" class="smalltext" colspan="2">Visitor ID</td>
-      	<td style="border: 1px solid #BBBBBB; border-width: 0px 1px 1px 1px; font-weight: bold; width: 90px;" class="smalltext">Department</td>
-      	<td style="border: 1px solid #BBBBBB; border-width: 0px 1px 1px 1px; font-weight: bold; width: 170px;" class="smalltext">Status / Duration</td>
-      	<td style="border: 1px solid #BBBBBB; border-width: 0px 1px 1px 1px; font-weight: bold; width: 80px;"  class="smalltext">Operator</td>
-      	<td style="border: 1px solid #BBBBBB; border-width: 0px 1px 1px 1px; font-weight: bold; width: 290px;" class="smalltext">Current Page</td>
-      	</tr>
-      </table>
-
-      <div id="loading_visitors">
-      <br /><br />
-      <p style="text-align: center;">
-      <img src="images/ajax-loading.gif" />
-      </p>
       </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-8 col-md-8 col-lg-6">
 
-      </div>
-
-      <table border="0" cellpadding="0" cellspacing="0" style="margin-top: 20px; width: 950px;"><tr>
-      	<td valign="top">
       		<table border="0" cellpadding="3" cellspacing="0" style="width: 580px; border-collapse: collapse; border: 1px solid #BBBBBB; background-color: #E5E5E5; margin-bottom: 5px;">
           <tr>
             <td class="smalltext" style="width: 58px; border-right: 1px solid #BBBBBB;"><a id="accept_chat" style="cursor: pointer;"><img id="accept_chat_img" src="images/accept_chat_off.gif" width="60" height="23" border="0" alt="Accept" /></a></td>
@@ -108,8 +99,8 @@
       			</table>
       		</div>
       	</div>
-        </td>
-        <td valign="top" align="right">
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4">
       	<div id="visitorTabs" style="width: 350px;">
       		<ul>
       			<li><a href="#salesInfoDiv">Sales Info</a></li>
@@ -179,6 +170,6 @@
       		</p>
       	</form>
       </div>
-    </article>
+    </div>
   </div>
 </div>
