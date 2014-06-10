@@ -12,6 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.all
 //= require bootstrap
+//= require jquery.nestable
 //= require smartadmin
+
 //= require_tree .
