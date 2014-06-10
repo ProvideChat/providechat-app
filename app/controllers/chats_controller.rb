@@ -4,7 +4,7 @@ class ChatsController < ApplicationController
   # GET /chats
   # GET /chats.json
   def index
-    @chats = Chat.all
+    @chats = Chat.where(organization_id: current_agent.organization_id)
   end
 
   # GET /chats/1

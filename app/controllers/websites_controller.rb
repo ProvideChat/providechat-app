@@ -5,7 +5,7 @@ class WebsitesController < ApplicationController
   # GET /websites
   # GET /websites.json
   def index
-    @websites = Website.all
+    @websites = Website.where(organization_id: current_agent.organization_id)
   end
 
   # GET /websites/new

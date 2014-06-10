@@ -5,7 +5,7 @@ class DepartmentsController < ApplicationController
   # GET /departments
   # GET /departments.json
   def index
-    @departments = Department.all
+    @departments = Department.where(organization_id: current_agent.organization_id)
   end
 
   # GET /departments/new
@@ -21,6 +21,7 @@ class DepartmentsController < ApplicationController
   # POST /departments.json
   def create
     @department = Department.new(department_params)
+    @department.organization_id = current_agent.organization_id
 
     respond_to do |format|
       if @department.save
@@ -65,6 +66,6 @@ class DepartmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def department_params
-      params.require(:department).permit(:organization_id, :name, :email, :status)
+      params.require(:department).permit(:name, :email, :status)
     end
 end
