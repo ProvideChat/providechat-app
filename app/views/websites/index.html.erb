@@ -7,36 +7,38 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th>Organization</th>
             <th>Url</th>
             <th>Name</th>
             <th>Default department</th>
             <th>Logo</th>
             <th>Status</th>
-            <th colspan="3"></th>
+            <th colspan="2"></th>
           </tr>
         </thead>
 
         <tbody>
           <% @websites.each do |website| %>
             <tr>
-              <td><%= website.organization_id %></td>
               <td><%= website.url %></td>
               <td><%= website.name %></td>
               <td><%= website.default_department %></td>
               <td><%= website.logo %></td>
               <td><%= website.status %></td>
-              <td><%= link_to 'Show', website %></td>
-              <td><%= link_to 'Edit', edit_website_path(website) %></td>
-              <td><%= link_to 'Destroy', website, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <td><%= link_to 'Edit', edit_website_path(website), :class => "btn btn-default" %></td>
+              <td><%= link_to 'Destroy', website, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger" %></td>
             </tr>
           <% end %>
+          <% if @websites.count == 0 %>
+            <tr>
+              <td colspan="7">No websites configured</td>
+            </tr>
+          <% end %>          
         </tbody>
       </table>
 
       <br>
 
-      <%= link_to 'New Website', new_website_path %>
+      <%= link_to 'New Website', new_website_path, :class => "btn btn-primary" %>
 
     </article>
   </div>

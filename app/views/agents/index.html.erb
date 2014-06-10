@@ -27,8 +27,8 @@
               <td><%= agent.account_type %></td>
               <td><%= agent.avatar %></td>
               <td><%= agent.status %></td>
-              <td><%= link_to 'Edit', edit_agent_path(agent) %></td>
-              <td><%= link_to 'Destroy', agent, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <td><%= link_to 'Edit', edit_agent_path(agent), :class => "btn btn-default" %></td>
+              <td><%= link_to 'Destroy', agent, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger" %></td>
             </tr>
           <% end %>
           <% if @agents.count == 0 %>
@@ -41,7 +41,7 @@
 
       <br>
 
-      <%= link_to "New Agent", new_agent_path, :class => "btn btn-default" %>
+      <%= link_to "New Agent", new_agent_path, :class => "btn btn-primary" %>
 
     </article>
   </div>
