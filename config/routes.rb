@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :chat_widgets
+
   devise_for :admins
   devise_for :agents, :path => 'auth'
 

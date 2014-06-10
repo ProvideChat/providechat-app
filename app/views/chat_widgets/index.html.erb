@@ -1,0 +1,39 @@
+<h1>Listing chat_widgets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Organization</th>
+      <th>Website</th>
+      <th>Online message</th>
+      <th>Offline message</th>
+      <th>Colour</th>
+      <th>Display logo</th>
+      <th>Display agent avatar</th>
+      <th>Display mobile icon</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @chat_widgets.each do |chat_widget| %>
+      <tr>
+        <td><%= chat_widget.organization_id %></td>
+        <td><%= chat_widget.website_id %></td>
+        <td><%= chat_widget.online_message %></td>
+        <td><%= chat_widget.offline_message %></td>
+        <td><%= chat_widget.colour %></td>
+        <td><%= chat_widget.display_logo %></td>
+        <td><%= chat_widget.display_agent_avatar %></td>
+        <td><%= chat_widget.display_mobile_icon %></td>
+        <td><%= link_to 'Show', chat_widget %></td>
+        <td><%= link_to 'Edit', edit_chat_widget_path(chat_widget) %></td>
+        <td><%= link_to 'Destroy', chat_widget, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Chat widget', new_chat_widget_path %>
