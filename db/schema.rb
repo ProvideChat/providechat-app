@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140606175409) do
+ActiveRecord::Schema.define(version: 20140610135943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,19 @@ ActiveRecord::Schema.define(version: 20140606175409) do
   add_index "agents", ["organization_id"], name: "index_agents_on_organization_id", using: :btree
   add_index "agents", ["reset_password_token"], name: "index_agents_on_reset_password_token", unique: true, using: :btree
 
+  create_table "chat_widgets", force: true do |t|
+    t.integer  "organization_id"
+    t.integer  "website_id"
+    t.string   "online_message"
+    t.string   "offline_message"
+    t.string   "colour"
+    t.boolean  "display_logo"
+    t.boolean  "display_agent_avatar"
+    t.boolean  "display_mobile_icon"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "chats", force: true do |t|
     t.integer  "organization_id"
     t.integer  "website_id"
@@ -101,6 +114,22 @@ ActiveRecord::Schema.define(version: 20140606175409) do
 
   add_index "departments", ["organization_id"], name: "index_departments_on_organization_id", using: :btree
 
+  create_table "offline_messages", force: true do |t|
+    t.integer  "organization_id"
+    t.integer  "website_id"
+    t.string   "intro_text"
+    t.string   "name_text"
+    t.string   "email_text"
+    t.boolean  "email_enabled"
+    t.string   "department_text"
+    t.boolean  "department_enabled"
+    t.string   "message_text"
+    t.string   "button_text"
+    t.text     "success_message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "organizations", force: true do |t|
     t.string   "name"
     t.string   "email"
@@ -110,6 +139,22 @@ ActiveRecord::Schema.define(version: 20140606175409) do
     t.integer  "operator_session_timeout"
     t.integer  "operator_response_timeout"
     t.integer  "max_chats"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "prechat_surveys", force: true do |t|
+    t.integer  "organization_id"
+    t.integer  "website_id"
+    t.boolean  "enabled"
+    t.string   "intro_text"
+    t.string   "name_text"
+    t.string   "email_text"
+    t.boolean  "email_enabled"
+    t.string   "department_text"
+    t.boolean  "department_enabled"
+    t.string   "message_text"
+    t.string   "button_text"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -5,7 +5,7 @@ class CreateOfflineMessages < ActiveRecord::Migration
       t.integer :website_id
       t.string :intro_text
       t.string :name_text
-      t.String :email_text
+      t.string :email_text
       t.boolean :email_enabled
       t.string :department_text
       t.boolean :department_enabled
