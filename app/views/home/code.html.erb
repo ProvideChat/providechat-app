@@ -1,0 +1,155 @@
+<%= render 'layouts/page_header', :title => 'Chat Widget', :icon => 'fa-toggle-up', :subpage => 'Website Code' %>
+
+
+<table border="0" cellpadding="5" cellspacing="0">
+ <tr>
+    <td class="fieldtext" align="right">
+		<span style="font-weight: normal; font-size: 9px;">
+		(<a href="javascript:document.getElementById('image').select();">select all</a>)</span>
+	</td>
+	<td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="fieldtext" valign="top">
+<textarea wrap="off" name="image_code" class="codetext" style="height: 130px; width: 580px;" id="image">
+<!-- Powered by: ProvideChat Live Help   http://www.providechat.com/ -->
+<script type="text/javascript">
+var pcId = "provideChat" + Math.floor(Math.random()*1000);
+document.write(unescape("%3Cdiv id='" + pcId + "'%3E%3C/div%3E"));
+document.write(unescape("%3Cscript src=\'<?php print $server; ?>/pc_js3.php?pcId=" + pcId + "&orgId=<?php echo $o_id; ?>&amp;uniqueKey=<?php print $secure_code; ?>&amp;url=" + window.location.href + "&amp;mode=graphic&amp;width=" + screen.width + "&amp;height=" + screen.height + "\' type=\'text/javascript\'%3E%3C/script%3E"));
+</script>
+<!-- copyright <?php echo date('Y'); ?> providechat.com -->
+</textarea>
+
+    </td>
+    <td class="texttext" width="200" valign="top" align="center">
+		<img id="online" name="online" src="../design/displayStatusImage.php?id=<?php echo $o_id; ?>&website_id=<?php echo $website_id; ?>&status=online" alt="Online Image" />
+		<?php if ($edition == 'free') { echo $footer_text; } ?>
+	</td>
+  </tr>
+</table>
+</div>
+
+<br />
+<div class="fieldheader">Provide Chat Text Link Code</div>
+
+<div style="margin-left: 10px;">
+<table border="0" cellpadding="5" cellspacing="0">
+  <tr>
+    <td class="fieldtext" align="right">
+		<span style="font-weight: normal; font-size: 9px;">
+		(<a href="javascript:document.getElementById('text').select();">select all</a>)</span>
+	</td>
+	<td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="fieldtext" valign="top">
+
+<textarea wrap="off" name="image_code" class="codetext" style="height: 130px; width: 580px;" id="text">
+<!-- Powered by: ProvideChat Live Help   http://www.providechat.com/ -->
+<script type="text/javascript">
+var pcId = "provideChat" + Math.floor(Math.random()*1000);
+document.write(unescape("%3Cdiv id='" + pcId + "'%3E%3C/div%3E"));
+document.write(unescape("%3Cscript src=\'<?php print $server; ?>/pc_js3.php?pcId=" + pcId + "&orgId=<?php echo $o_id; ?>&amp;uniqueKey=<?php print $secure_code; ?>&amp;url=" + window.location.href + "&amp;mode=text&amp;width=" + screen.width + "&amp;height=" + screen.height + "\' type=\'text/javascript\'%3E%3C/script%3E"));
+</script>
+<!-- copyright <?php echo date('Y'); ?> providechat.com -->
+</textarea>
+
+<script type="text/javascript">
+    var _pcq = _pcq || [];
+    _pcq.push(['_setAccount', 'UA-18238515-1']);
+    _pcq.push(['_trackPageview']);
+
+    (function() {
+      var pc = document.createElement('script'); pc.type = 'text/javascript'; pc.async = true;
+      pc.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-18238515-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+    </td>
+    <td class="fieldtext" width="200" valign="top" align="center">
+		<a href="#" style="font-family: verdana; arial, helvetica; font-size: 12px; text-decoration: underline;"><?php echo $online_textlink; ?></a>
+		<?php if ($edition == 'free') { echo $footer_text; } ?>
+	</td>
+  </tr>
+</table>
+</div>
+
+<br />
+<?php if (0): ?>
+<div class="fieldheader">Provide Chat Widget Code</div>
+
+<div style="margin-left: 10px;">
+
+<form name="updateWidgetCode" id="updateWidgetCode" action="./settings/code-generator.php" method="post">
+
+<table border="0" cellpadding="5" cellspacing="0">
+	<tr>
+		<td class="fieldtext">Background Color:</td>
+		<td colspan="2">
+      <select style="width: 100px;" name="invite_background" id="invite_background">
+      </select>
+		</td>
+	</tr>
+	<tr>
+		<td class="fieldtext">Position:</td>
+		<td colspan="2">
+		 <select style="width: 100px;" name="widget_position" id="widget_position">
+       <option value="top-left">Top-Left</option>
+       <option value="top-right">Top-Right</option>
+       <option value="bottom-left">Bottom-Left</option>
+       <option value="bottom-right">Bottom-Right</option>
+		 </select>
+		</td>
+	</tr>
+
+	<tr>
+		<td colspan="3" align="right" style="padding: 10px;">
+			<input type="submit" value=" Generate Widget " style="width: 110px; font-size: 11px; font-family: arial, helvetica, sans serif;">
+		</td>
+	</tr>
+</table>
+<table border="0" cellpadding="5" cellspacing="0">
+	<tr>
+		<td class="fieldtext" align="right">
+			<span style="font-weight: normal; font-size: 9px;">
+			(<a href="javascript:document.getElementById('text').select();">select all</a>)</span>
+		</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="fieldtext" valign="top">
+
+<textarea wrap="off" name="image_code" class="codetext" style="height: 130px; width: 580px;" id="text">
+<!-- Powered by: ProvideChat Live Help   http://www.providechat.com/ -->
+<div id="providechat_popup"></div>
+<script type="text/javascript">
+document.write(unescape("%3Cscript src=\'<?php print $server; ?>/pc_js2.php?orgId=<?php echo $o_id; ?>&amp;uniqueKey=<?php print $secure_code; ?>&amp;url=" + window.location.href + "&amp;mode=widget&amp;width=" + screen.width + "&amp;height=" + screen.height + "\' type=\'text/javascript\'%3E%3C/script%3E"));
+</script>
+<!-- copyright <?php echo date('Y'); ?> providechat.com -->
+</textarea>
+
+		</td>
+		<td class="fieldtext" width="200" valign="top" align="center">
+			<a href="#" style="font-family: verdana; arial, helvetica; font-size: 12px; text-decoration: underline;"><?php echo $online_textlink; ?></a>
+			<?php if ($edition == 'free') { echo $footer_text; } ?>
+		</td>
+	</tr>
+</table>
+<?php endif; ?>
+
+</form>

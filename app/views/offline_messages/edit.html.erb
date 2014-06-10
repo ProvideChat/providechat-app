@@ -1,6 +1,41 @@
-<h1>Editing offline_message</h1>
+<%= render 'layouts/page_header', :title => 'Chat Widget', :icon => 'fa-toggle-up', :subpage => 'Offline Message' %>
 
-<%= render 'form' %>
+<div id="content">
+  <div class="row">
 
-<%= link_to 'Show', @offline_message %> |
-<%= link_to 'Back', offline_messages_path %>
+	  <article class="col-sm-12 col-md-8 col-lg-6">
+
+      <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+      	<header>
+      		<span class="widget-icon"> <i class="fa fa-eye"></i> </span>
+      		<h2>Offline Message</h2>
+      	</header>
+
+				<div>
+
+					<div class="jarviswidget-editbox">
+						<!-- This area used as dropdown edit box -->
+
+					</div>
+
+					<div class="widget-body">
+
+            <% if @chat_widget %>
+
+              <%= render 'form' %>
+
+            <% else %>
+
+              <h3>You have not yet added any websites.</h3>
+              
+              <h4>Please <%= link_to "add a website", new_website_path %> to customize the offline message form for that website.</h4>
+
+            <% end %>
+
+          </div>
+        </div>
+      </div>
+    </article>
+    
+  </div>
+</div>

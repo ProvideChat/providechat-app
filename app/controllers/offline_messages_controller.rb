@@ -1,40 +1,22 @@
 class OfflineMessagesController < ApplicationController
-  before_action :set_offline_message, only: [:edit, :update, :destroy]
-
-  # GET /offline_messages
-  # GET /offline_messages.json
-  def index
-    @offline_messages = OfflineMessage.all
-  end
-
-  # GET /offline_messages/new
-  def new
-    @offline_message = OfflineMessage.new
-  end
+  before_action :authenticate_agent!
+  before_action :set_websites, only: [:edit, :update]
 
   # GET /offline_messages/1/edit
   def edit
-  end
-
-  # POST /offline_messages
-  # POST /offline_messages.json
-  def create
-    @offline_message = OfflineMessage.new(offline_message_params)
-
-    respond_to do |format|
-      if @offline_message.save
-        format.html { redirect_to @offline_message, notice: 'Offline message was successfully created.' }
-        format.json { render :show, status: :created, location: @offline_message }
-      else
-        format.html { render :new }
-        format.json { render json: @offline_message.errors, status: :unprocessable_entity }
-      end
+    params.has_key?(:website_id) ? website_id = params[:website_id] : website_id = Website.where(organization_id: current_agent.organization_id).first
+    
+    if (website_id) 
+      @offline_message = OfflineMessage.where(:website_id => params[:website_id]) if params.has_key?(:website_id)
     end
   end
+
 
   # PATCH/PUT /offline_messages/1
   # PATCH/PUT /offline_messages/1.json
   def update
+    @offline_message = OfflineMessage.find(params[:id])
+    
     respond_to do |format|
       if @offline_message.update(offline_message_params)
         format.html { redirect_to @offline_message, notice: 'Offline message was successfully updated.' }
@@ -46,20 +28,9 @@ class OfflineMessagesController < ApplicationController
     end
   end
 
-  # DELETE /offline_messages/1
-  # DELETE /offline_messages/1.json
-  def destroy
-    @offline_message.destroy
-    respond_to do |format|
-      format.html { redirect_to offline_messages_url, notice: 'Offline message was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_offline_message
-      @offline_message = OfflineMessage.find(params[:id])
+    def set_websites
+      @websites = Website.where(organization_id: current_agent.organization_id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

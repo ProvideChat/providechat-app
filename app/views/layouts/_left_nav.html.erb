@@ -26,22 +26,22 @@
       <% end %>
 		</li>
 		<li>
-			<a href="#"><i class="fa fa-lg fa-fw fa-toggle-up"></i> <span class="menu-item-parent">Chat Window</span></a>
+			<a href="#"><i class="fa fa-lg fa-fw fa-toggle-up"></i> <span class="menu-item-parent">Chat Widget</span></a>
 			<ul>
-				<li>
-					<a href="theme.html">Theme</a>
+				<li class="<%= "active" if controller?('chat_widgets') %>">
+          <%= link_to "Widget Customization", edit_chat_widget_path(current_agent.organization_id), { title: "Customization" } %>
 				</li>
 				<li>
 					<a href="form-elements.html">Invitations</a>
 				</li>
-				<li>
-					<a href="form-templates.html">Pre-chat Survey</a>
+				<li class="<%= "active" if controller?('prechat_surveys') %>">
+          <%= link_to "Pre-chat Survey", edit_prechat_survey_path(current_agent.organization_id), { title: "Pre-chat Survey" } %>
 				</li>
-				<li>
-					<a href="form-templates.html">Offline Message</a>
+				<li class="<%= "active" if controller?('offline_messages') %>">
+          <%= link_to "Offline Message", edit_offline_message_path(current_agent.organization_id), { title: "Offline Message" } %>
 				</li>
-				<li>
-					<a href="form-templates.html">Website Code</a>
+				<li class="<%= "active" if current_page?(code_path) %>">
+          <%= link_to "Website Code", code_path, { title: "Website Code" } %>
 				</li>
 			</ul>
 		</li>
@@ -67,7 +67,7 @@
 					<a href="general-elements.html">Contact Support</a>
 				</li>
 				<li>
-					<a href="buttons.html">Documentation</a>
+					<a href="#">Documentation</a>
 				  <ul>
 				   <li>
 					  <a href="general-elements.html">Getting Started</a>

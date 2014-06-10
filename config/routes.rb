@@ -1,10 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :offline_messages
-
-  resources :prechat_surveys
-
-  resources :chat_widgets
 
   devise_for :admins
   devise_for :agents, :path => 'auth'
@@ -14,13 +9,17 @@ Rails.application.routes.draw do
   resources :websites, only: [:index, :new, :edit, :create, :update, :destroy]
   resources :agents, only: [:index, :new, :edit, :create, :update, :destroy]
   resources :rapid_responses, only: [:index, :new, :edit, :create, :update, :destroy]
-
+  
+  resources :offline_messages, only: [:edit, :update]
+  resources :prechat_surveys, only: [:edit, :update]
+  resources :chat_widgets, only: [:edit, :update]
   resources :organizations, only: [:edit, :update]
   
   root to: 'home#dashboard'
   
   get '/monitor', to: 'home#monitor', as: 'monitor'
   get '/dashboard', to: 'home#dashboard', as: 'dashboard'
+  get '/code', to: 'home#code', as: 'code'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

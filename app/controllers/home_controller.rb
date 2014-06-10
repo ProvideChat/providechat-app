@@ -8,4 +8,9 @@ class HomeController < ApplicationController
     @websites = Website.where(organization_id: current_agent.organization_id)
     @agents = Agent.where(organization_id: current_agent.organization_id)
   end
+  
+  def code
+    
+  end
+  
 end
