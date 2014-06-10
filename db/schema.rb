@@ -114,7 +114,7 @@ ActiveRecord::Schema.define(version: 20140610135943) do
 
   add_index "departments", ["organization_id"], name: "index_departments_on_organization_id", using: :btree
 
-  create_table "offline_messages", force: true do |t|
+  create_table "offline_forms", force: true do |t|
     t.integer  "organization_id"
     t.integer  "website_id"
     t.string   "intro_text"
@@ -143,7 +143,7 @@ ActiveRecord::Schema.define(version: 20140610135943) do
     t.datetime "updated_at"
   end
 
-  create_table "prechat_surveys", force: true do |t|
+  create_table "prechat_forms", force: true do |t|
     t.integer  "organization_id"
     t.integer  "website_id"
     t.boolean  "enabled"

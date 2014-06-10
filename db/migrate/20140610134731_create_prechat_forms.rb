@@ -1,8 +1,9 @@
-class CreateOfflineMessages < ActiveRecord::Migration
+class CreatePrechatForms < ActiveRecord::Migration
   def change
-    create_table :offline_messages do |t|
+    create_table :prechat_forms do |t|
       t.integer :organization_id
       t.integer :website_id
+      t.boolean :enabled
       t.string :intro_text
       t.string :name_text
       t.string :email_text
@@ -11,7 +12,6 @@ class CreateOfflineMessages < ActiveRecord::Migration
       t.boolean :department_enabled
       t.string :message_text
       t.string :button_text
-      t.text :success_message
 
       t.timestamps
     end

@@ -1,10 +1,10 @@
-<%= form_for(@prechat_survey) do |f| %>
-  <% if @prechat_survey.errors.any? %>
+<%= form_for(@offline_form) do |f| %>
+  <% if @offline_form.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@prechat_survey.errors.count, "error") %> prohibited this prechat_survey from being saved:</h2>
+      <h2><%= pluralize(@offline_form.errors.count, "error") %> prohibited this offline_message from being saved:</h2>
 
       <ul>
-      <% @prechat_survey.errors.full_messages.each do |message| %>
+      <% @offline_form.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -12,16 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :organization_id %><br>
-    <%= f.number_field :organization_id %>
-  </div>
-  <div class="field">
     <%= f.label :website_id %><br>
     <%= f.number_field :website_id %>
-  </div>
-  <div class="field">
-    <%= f.label :enabled %><br>
-    <%= f.check_box :enabled %>
   </div>
   <div class="field">
     <%= f.label :intro_text %><br>
@@ -54,6 +46,10 @@
   <div class="field">
     <%= f.label :button_text %><br>
     <%= f.text_field :button_text %>
+  </div>
+  <div class="field">
+    <%= f.label :success_message %><br>
+    <%= f.text_area :success_message %>
   </div>
   <div class="actions">
     <%= f.submit %>

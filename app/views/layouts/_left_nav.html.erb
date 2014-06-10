@@ -34,11 +34,11 @@
 				<li>
 					<a href="form-elements.html">Invitations</a>
 				</li>
-				<li class="<%= "active" if controller?('prechat_surveys') %>">
-          <%= link_to "Pre-chat Survey", edit_prechat_survey_path(current_agent.organization_id), { title: "Pre-chat Survey" } %>
+				<li class="<%= "active" if controller?('prechat_forms') %>">
+          <%= link_to "Pre-chat Survey", edit_prechat_form_path(current_agent.organization_id), { title: "Pre-chat Survey" } %>
 				</li>
-				<li class="<%= "active" if controller?('offline_messages') %>">
-          <%= link_to "Offline Message", edit_offline_message_path(current_agent.organization_id), { title: "Offline Message" } %>
+				<li class="<%= "active" if controller?('offline_forms') %>">
+          <%= link_to "Offline Message", edit_offline_form_path(current_agent.organization_id), { title: "Offline Message" } %>
 				</li>
 				<li class="<%= "active" if current_page?(code_path) %>">
           <%= link_to "Website Code", code_path, { title: "Website Code" } %>
@@ -69,17 +69,17 @@
 				<li>
 					<a href="#">Documentation</a>
 				  <ul>
-				   <li>
-					  <a href="general-elements.html">Getting Started</a>
+				   <li class="<%= "active" if current_page?(doc_start_path) %>">
+             <%= link_to "Getting Started", doc_start_path, { title: "Getting Started" } %>
 			  	 </li>
-			  	 <li>
-					  <a href="general-elements.html">General</a>
+			  	 <li class="<%= "active" if current_page?(doc_general_path) %>">
+             <%= link_to "General", doc_general_path, { title: "General" } %>
 			  	 </li>
-			  	 <li>
-					  <a href="general-elements.html">Multiple Websites</a>
+			  	 <li class="<%= "active" if current_page?(doc_websites_path) %>">
+             <%= link_to "Multiple Websites", doc_websites_path, { title: "Multiple Websites" } %>
 			  	 </li>
-			  	 <li>
-					  <a href="general-elements.html">Using Chat Monitor</a>
+			  	 <li class="<%= "active" if current_page?(doc_monitor_path) %>">
+             <%= link_to "Using Chat Monitor", doc_monitor_path, { title: "Using Chat Monitor" } %>
 			  	 </li>						  	
 			    </ul>
 			  </li>
