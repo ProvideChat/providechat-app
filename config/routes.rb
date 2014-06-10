@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :offline_messages
+
   resources :prechat_surveys
 
   resources :chat_widgets

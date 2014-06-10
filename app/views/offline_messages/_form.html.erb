@@ -1,0 +1,61 @@
+<%= form_for(@offline_message) do |f| %>
+  <% if @offline_message.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@offline_message.errors.count, "error") %> prohibited this offline_message from being saved:</h2>
+
+      <ul>
+      <% @offline_message.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :organization_id %><br>
+    <%= f.number_field :organization_id %>
+  </div>
+  <div class="field">
+    <%= f.label :website_id %><br>
+    <%= f.number_field :website_id %>
+  </div>
+  <div class="field">
+    <%= f.label :intro_text %><br>
+    <%= f.text_field :intro_text %>
+  </div>
+  <div class="field">
+    <%= f.label :name_text %><br>
+    <%= f.text_field :name_text %>
+  </div>
+  <div class="field">
+    <%= f.label :email_text %><br>
+    <%= f.text_field :email_text %>
+  </div>
+  <div class="field">
+    <%= f.label :email_enabled %><br>
+    <%= f.check_box :email_enabled %>
+  </div>
+  <div class="field">
+    <%= f.label :department_text %><br>
+    <%= f.text_field :department_text %>
+  </div>
+  <div class="field">
+    <%= f.label :department_enabled %><br>
+    <%= f.check_box :department_enabled %>
+  </div>
+  <div class="field">
+    <%= f.label :message_text %><br>
+    <%= f.text_field :message_text %>
+  </div>
+  <div class="field">
+    <%= f.label :button_text %><br>
+    <%= f.text_field :button_text %>
+  </div>
+  <div class="field">
+    <%= f.label :success_message %><br>
+    <%= f.text_area :success_message %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

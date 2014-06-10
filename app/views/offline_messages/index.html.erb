@@ -1,0 +1,45 @@
+<h1>Listing offline_messages</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Organization</th>
+      <th>Website</th>
+      <th>Intro text</th>
+      <th>Name text</th>
+      <th>Email text</th>
+      <th>Email enabled</th>
+      <th>Department text</th>
+      <th>Department enabled</th>
+      <th>Message text</th>
+      <th>Button text</th>
+      <th>Success message</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @offline_messages.each do |offline_message| %>
+      <tr>
+        <td><%= offline_message.organization_id %></td>
+        <td><%= offline_message.website_id %></td>
+        <td><%= offline_message.intro_text %></td>
+        <td><%= offline_message.name_text %></td>
+        <td><%= offline_message.email_text %></td>
+        <td><%= offline_message.email_enabled %></td>
+        <td><%= offline_message.department_text %></td>
+        <td><%= offline_message.department_enabled %></td>
+        <td><%= offline_message.message_text %></td>
+        <td><%= offline_message.button_text %></td>
+        <td><%= offline_message.success_message %></td>
+        <td><%= link_to 'Show', offline_message %></td>
+        <td><%= link_to 'Edit', edit_offline_message_path(offline_message) %></td>
+        <td><%= link_to 'Destroy', offline_message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Offline message', new_offline_message_path %>
