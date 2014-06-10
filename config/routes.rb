@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get '/monitor', to: 'home#monitor', as: 'monitor'
   get '/dashboard', to: 'home#dashboard', as: 'dashboard'
   get '/code', to: 'home#code', as: 'code'
+  get '/contact', to: 'home#contact', as: 'contact'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

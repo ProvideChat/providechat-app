@@ -63,8 +63,8 @@
 		<li>
 			<a href="#"><i class="fa fa-lg fa-fw fa-smile-o"></i> <span class="menu-item-parent">Support & Docs</span></a>
 			<ul>
-				<li>
-					<a href="general-elements.html">Contact Support</a>
+				<li class="<%= "active" if current_page?(contact_path) %>">
+          <%= link_to "Contact Support", contact_path, { title: "Contact Support" } %>
 				</li>
 				<li>
 					<a href="#">Documentation</a>
