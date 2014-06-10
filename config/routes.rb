@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :prechat_surveys
+
   resources :chat_widgets
 
   devise_for :admins
