@@ -21,11 +21,12 @@ class WebsitesController < ApplicationController
   # POST /websites.json
   def create
     @website = Website.new(website_params)
+    @website.organization_id = current_agent.organization_id
 
     respond_to do |format|
       if @website.save
-        format.html { redirect_to @website, notice: 'Website was successfully created.' }
-        format.json { render :show, status: :created, location: @website }
+        format.html { redirect_to websites_path, notice: 'Website was successfully created.' }
+        format.json { render :show, status: :created, location: websites_path }
       else
         format.html { render :new }
         format.json { render json: @website.errors, status: :unprocessable_entity }

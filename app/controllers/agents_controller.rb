@@ -25,8 +25,8 @@ class AgentsController < ApplicationController
 
     respond_to do |format|
       if @agent.save
-        format.html { redirect_to @agent, notice: 'Agent was successfully created.' }
-        format.json { render :show, status: :created, location: @agent }
+        format.html { redirect_to agents_url, notice: 'Agent was successfully created.' }
+        format.json { render :show, status: :created, location: agents_url }
       else
         format.html { render :new }
         format.json { render json: @agent.errors, status: :unprocessable_entity }
@@ -39,8 +39,8 @@ class AgentsController < ApplicationController
   def update
     respond_to do |format|
       if @agent.update(agent_params)
-        format.html { redirect_to @agent, notice: 'Agent was successfully updated.' }
-        format.json { render :show, status: :ok, location: @agent }
+        format.html { redirect_to agents_url, notice: 'Agent was successfully updated.' }
+        format.json { render :show, status: :ok, location: agents_url }
       else
         format.html { render :edit }
         format.json { render json: @agent.errors, status: :unprocessable_entity }
