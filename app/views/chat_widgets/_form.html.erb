@@ -1,4 +1,4 @@
-<%= form_for(@chat_widget) do |f| %>
+<%= form_for(@chat_widget, :html => {class: 'form-horizontal'}) do |f| %>
   <% if @chat_widget.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@chat_widget.errors.count, "error") %> prohibited this chat_widget from being saved:</h2>
@@ -11,39 +11,48 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :organization_id %><br>
-    <%= f.number_field :organization_id %>
-  </div>
-  <div class="field">
-    <%= f.label :website_id %><br>
-    <%= f.number_field :website_id %>
-  </div>
-  <div class="field">
-    <%= f.label :online_message %><br>
-    <%= f.text_field :online_message %>
-  </div>
-  <div class="field">
-    <%= f.label :offline_message %><br>
-    <%= f.text_field :offline_message %>
-  </div>
-  <div class="field">
-    <%= f.label :colour %><br>
-    <%= f.text_field :colour %>
-  </div>
-  <div class="field">
-    <%= f.label :display_logo %><br>
-    <%= f.check_box :display_logo %>
-  </div>
-  <div class="field">
-    <%= f.label :display_agent_avatar %><br>
-    <%= f.check_box :display_agent_avatar %>
-  </div>
-  <div class="field">
-    <%= f.label :display_mobile_icon %><br>
-    <%= f.check_box :display_mobile_icon %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+	<fieldset>
+
+		<div class="form-group">
+			<label class="col-md-4 control-label"><%= f.label :online_message %></label>
+			<div class="col-md-8">
+        <%= f.text_field :online_message, :class => "form-control" %>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label"><%= f.label :offline_message %></label>
+			<div class="col-md-8">
+        <%= f.text_field :offline_message, :class => "form-control" %>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label"><%= f.label :colour %></label>
+			<div class="col-md-8">
+        <%= f.text_field :colour, :class => "form-control" %>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label"><%= f.label :display_logo %></label>
+			<div class="col-md-8">
+        <%= f.check_box :display_logo, :class => "form-control" %>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label"><%= f.label :display_agent_avatar %></label>
+			<div class="col-md-8">
+        <%= f.check_box :display_agent_avatar, :class => "form-control" %>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label"><%= f.label :display_mobile_icon %></label>
+			<div class="col-md-8">
+        <%= f.check_box :display_mobile_icon, :class => "form-control" %>
+			</div>
+		</div>    
+
+  </fieldset>
+	<footer>
+    <%= f.submit "Submit", :class => "btn btn-primary" %>
+	</footer>
+  
 <% end %>

@@ -1,4 +1,4 @@
-<%= form_for(@offline_form) do |f| %>
+<%= form_for(@offline_form, :html => {class: 'form-horizontal'}) do |f| %>
   <% if @offline_form.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@offline_form.errors.count, "error") %> prohibited this offline_message from being saved:</h2>
@@ -11,10 +11,6 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :website_id %><br>
-    <%= f.number_field :website_id %>
-  </div>
   <div class="field">
     <%= f.label :intro_text %><br>
     <%= f.text_field :intro_text %>

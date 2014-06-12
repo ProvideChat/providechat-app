@@ -5,9 +5,7 @@ class ChatWidgetsController < ApplicationController
   def edit
     params.has_key?(:website_id) ? website_id = params[:website_id] : website_id = Website.where(organization_id: current_agent.organization_id).first
     
-    if (website_id) 
-      @chat_widget = ChatWidget.where(:website_id => params[:website_id]) if params.has_key?(:website_id)
-    end
+    @chat_widget = ChatWidget.find_by(:website_id => website_id) if website_id
   end
 
   def update    
@@ -31,6 +29,6 @@ class ChatWidgetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def chat_widget_params
-      params.require(:chat_widget).permit(:website_id, :online_message, :offline_message, :colour, :display_logo, :display_agent_avatar, :display_mobile_icon)
+      params.require(:chat_widget).permit(:online_message, :offline_message, :colour, :display_logo, :display_agent_avatar, :display_mobile_icon)
     end
 end

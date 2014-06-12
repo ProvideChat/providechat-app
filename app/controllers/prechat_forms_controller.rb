@@ -6,9 +6,7 @@ class PrechatFormsController < ApplicationController
   def edit
     params.has_key?(:website_id) ? website_id = params[:website_id] : website_id = Website.where(organization_id: current_agent.organization_id).first
     
-    if (website_id) 
-      @prechat_form = PrechatForm.where(:website_id => params[:website_id]) if params.has_key?(:website_id)
-    end
+    @prechat_form = PrechatForm.find_by(:website_id => website_id) if website_id
   end
 
   # PATCH/PUT /prechat_surveys/1
@@ -33,6 +31,6 @@ class PrechatFormsController < ApplicationController
     end
 
     def prechat_form_params
-      params.require(:prechat_form).permit(:website_id, :enabled, :intro_text, :name_text, :email_text, :email_enabled, :department_text, :department_enabled, :message_text, :button_text)
+      params.require(:prechat_form).permit(:enabled, :intro_text, :name_text, :email_text, :email_enabled, :department_text, :department_enabled, :message_text, :button_text)
     end
 end
