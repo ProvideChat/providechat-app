@@ -10,19 +10,19 @@ class Website < ActiveRecord::Base
   private
   def create_widget_support
     chat_widget = ChatWidget.new
-    offline_message = OfflineMessage.new
-    prechat_survey = PrechatSurvey.new
+    offline_form = OfflineForm.new
+    prechat_form = PrechatForm.new
     
     chat_widget.organization_id = self.organization_id
-    offline_message.organization_id = self.organization_id
-    prechat_survey.organization_id = self.organization_id
+    offline_form.organization_id = self.organization_id
+    prechat_form.organization_id = self.organization_id
     
-    chat_widget.website_id = self.website_id
-    offline_message.website_id = self.website_id
-    prechat_survey.website_id = self.website_id
+    chat_widget.website_id = self.id
+    offline_form.website_id = self.id
+    prechat_form.website_id = self.id
     
     chat_widget.save
-    offline_message.save
-    prechat_survey.save
+    offline_form.save
+    prechat_form.save
   end
 end
