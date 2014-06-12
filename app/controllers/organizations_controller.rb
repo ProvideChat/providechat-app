@@ -11,8 +11,8 @@ class OrganizationsController < ApplicationController
   def update
     respond_to do |format|
       if @organization.update(organization_params)
-        format.html { redirect_to @organization, notice: 'Organization was successfully updated.' }
-        format.json { render :show, status: :ok, location: @organization }
+        format.html { redirect_to edit_organization_path(@organization), notice: 'Organization was successfully updated.' }
+        format.json { render :show, status: :ok, location: edit_organization_path(@organization) }
       else
         format.html { render :edit }
         format.json { render json: @organization.errors, status: :unprocessable_entity }
@@ -28,6 +28,7 @@ class OrganizationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def organization_params
-      params.require(:organization).permit(:name, :email, :widget_installed, :default_department, :edition, :payment_system)
+      params.require(:organization).permit(:name, :email, :default_department, :inactive_visitor_removal, 
+          :operator_session_timeout, :operator_response_timeout )
     end
 end

@@ -8,7 +8,6 @@ class CreateOrganizations < ActiveRecord::Migration
       t.integer :inactive_visitor_removal
       t.integer :operator_session_timeout
       t.integer :operator_response_timeout
-      t.integer :max_chats
 
       t.timestamps
     end
