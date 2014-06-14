@@ -1,51 +1,71 @@
-<h1>Listing chats</h1>
+<div id="content">
+  <%= render 'layouts/page_header', :title => 'Chat Transcripts', :icon => 'fa-file-text-o' %>
+  
+  <div class="row">
 
-<table>
-  <thead>
-    <tr>
-      <th>Organization</th>
-      <th>Website</th>
-      <th>Visitor</th>
-      <th>Operator</th>
-      <th>Operator typing</th>
-      <th>Visitor typing</th>
-      <th>Chat requested</th>
-      <th>Chat accepted</th>
-      <th>Chat ended</th>
-      <th>Visitor name</th>
-      <th>Visitor email</th>
-      <th>Visitor department</th>
-      <th>Visitor question</th>
-      <th>Status</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+	  <article class="col-sm-8 col-md-8 col-lg-6">
+      <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+      	<header>
+      		<span class="widget-icon"> <i class="fa fa-search"></i> </span>
+      		<h2>Search Chat Transcripts</h2>
+      	</header>
 
-  <tbody>
-    <% @chats.each do |chat| %>
-      <tr>
-        <td><%= chat.organization_id %></td>
-        <td><%= chat.website_id %></td>
-        <td><%= chat.visitor_id %></td>
-        <td><%= chat.operator_id %></td>
-        <td><%= chat.operator_typing %></td>
-        <td><%= chat.visitor_typing %></td>
-        <td><%= chat.chat_requested %></td>
-        <td><%= chat.chat_accepted %></td>
-        <td><%= chat.chat_ended %></td>
-        <td><%= chat.visitor_name %></td>
-        <td><%= chat.visitor_email %></td>
-        <td><%= chat.visitor_department %></td>
-        <td><%= chat.visitor_question %></td>
-        <td><%= chat.status %></td>
-        <td><%= link_to 'Show', chat %></td>
-        <td><%= link_to 'Edit', edit_chat_path(chat) %></td>
-        <td><%= link_to 'Destroy', chat, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+				<div>
 
-<br>
+					<div class="jarviswidget-editbox">
+						<!-- This area used as dropdown edit box -->
 
-<%= link_to 'New Chat', new_chat_path %>
+					</div>
+
+					<div class="widget-body">
+
+            <%= render 'search_form' %>
+
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+  <div class="row">
+    
+    <div class="col-sm-12 col-md-12 col-lg-6">
+      <h2>Listing chats</h2>
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Chat ID</th>
+            <th>Agent</th>            
+            <th>Website</th>
+            <th>Visitor Details</th>
+            <th>Date</th>
+            <th>Department</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @chats.each do |chat| %>
+            <tr>
+              <td><%= chat.id %></td>
+              <td><%= chat.agent.name %></td>
+              <td><%= chat.website.url %></td>
+              <td><%= chat.visitor.name %></td>
+              <td><%= chat.chat_ended %></td>
+              <td><%= chat.visitor_department %></td>
+              <td><%= chat.status %></td>
+              <td><%= link_to 'View Transcript', chat %></td>
+            </tr>
+          <% end %>
+          <% if @chats.count == 0 %>
+            <tr>
+              <td colspan="12">No chats found</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

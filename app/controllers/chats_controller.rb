@@ -5,6 +5,8 @@ class ChatsController < ApplicationController
   # GET /chats.json
   def index
     @chats = Chat.where(organization_id: current_agent.organization_id)
+    @agents = Agent.where(organization_id: current_agent.organization_id)
+    @websites = Website.where(organization_id: current_agent.organization_id)
   end
 
   # GET /chats/1
@@ -69,6 +71,6 @@ class ChatsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def chat_params
-      params.require(:chat).permit(:organization_id, :website_id, :visitor_id, :operator_id, :operator_typing, :visitor_typing, :chat_requested, :chat_accepted, :chat_ended, :visitor_name, :visitor_email, :visitor_department, :visitor_question, :status)
+      params.require(:chat).permit(:visitor_id, :agent_id, :agent_typing, :visitor_typing, :chat_requested, :chat_accepted, :chat_ended, :visitor_name, :visitor_email, :visitor_department, :visitor_question, :status)
     end
 end

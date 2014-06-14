@@ -1,1 +1,1 @@
-json.extract! @chat, :id, :organization_id, :website_id, :visitor_id, :operator_id, :operator_typing, :visitor_typing, :chat_requested, :chat_accepted, :chat_ended, :visitor_name, :visitor_email, :visitor_department, :visitor_question, :status, :created_at, :updated_at
+json.extract! @chat, :id, :organization_id, :website_id, :visitor_id, :agent_id, :agent_typing, :visitor_typing, :chat_requested, :chat_accepted, :chat_ended, :visitor_name, :visitor_email, :visitor_department, :visitor_question, :status, :created_at, :updated_at

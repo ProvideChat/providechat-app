@@ -1,0 +1,43 @@
+<%= form_tag chats_path, :method => 'get', class: 'form-horizontal' do %>
+
+	<fieldset>
+
+		<div class="form-group">
+			<label class="col-md-3 control-label">Chat ID</label>
+			<div class="col-md-9">
+        <%= text_field_tag "chat_id", nil, :class => "form-control" %>
+			</div>
+		</div>
+    <div class="form-group">
+      <label class="col-md-3 control-label">Agent</label>
+      <div class="col-md-9">
+        <%= select_tag "agent_id", options_from_collection_for_select(@agents, "id", "name"), :class => "form-control"  %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-3 control-label">Website</label>
+      <div class="col-md-9">
+        <%= select_tag "website_id", options_from_collection_for_select(@websites, "id", "url"), :class => "form-control"  %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-3"></div>
+      <div class="col-md-4">
+        <div class="input-group">
+      	  <input class="form-control hasDatepicker" id="from" type="text" placeholder="From">
+          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+        </div>
+      </div>
+      <div class="col-md-1"></div>
+      <div class="col-md-4">
+        <div class="input-group">
+      	  <input class="form-control hasDatepicker" id="to" type="text" placeholder="To">
+          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+        </div>
+      </div>
+    </div>    
+  </fieldset>
+	<footer>
+    <%= submit_tag "Search", :class => "btn-lg btn-primary" %>
+	</footer>
+<% end %>
