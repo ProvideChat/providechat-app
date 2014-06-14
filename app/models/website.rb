@@ -3,6 +3,7 @@ class Website < ActiveRecord::Base
   has_many :chat_widgets 
   has_many :prechat_forms
   has_many :offline_forms
+  has_many :chats
   after_create :create_widget_support
   
   enum status: [:disabled, :enabled]

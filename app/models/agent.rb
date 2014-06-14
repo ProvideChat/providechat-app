@@ -1,7 +1,7 @@
 class Agent < ActiveRecord::Base
   belongs_to :organization
   
-  enum account_type: [:operator, :admin, :superadmin]
+  enum account_type: [:agent, :admin, :superadmin]
   enum availability: [:offline, :online]
   enum status: [:disabled, :enabled]
   

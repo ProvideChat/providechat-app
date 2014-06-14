@@ -15,13 +15,13 @@ class Organization < ActiveRecord::Base
     options
   end
   
-  def operator_session_timeouts
+  def agent_session_timeouts
     options = {}
     (1..23).each { |count| options["#{pluralize(count, 'hour')}"] = "#{count}" }
     options
   end
   
-  def operator_response_timeouts
+  def agent_response_timeouts
     options = {}
     (1..6).each { |count| options["#{pluralize(count, 'minute')}"] = "#{count}" }
     options
