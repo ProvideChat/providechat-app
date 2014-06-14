@@ -31,9 +31,29 @@
 
 #logo {
   width: 113px;
-  margin: 15px 0 0 0;
+  margin: 10px 10px 10px 10px;
 }
 
-#left-panel {
-  top: 0px;
+#header {
+  border-bottom: 1px #dddddd solid;
+}
+
+#agent-profile {
+  display: none;
+}
+
+.login-info .btn-group {
+  padding-top: 6px;
+}
+
+#error_explanation {
+  color: #f00;
+  ul {
+    list-style: none;
+    margin: 0 0 18px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .has-error;
 }
