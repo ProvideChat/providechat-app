@@ -7,10 +7,10 @@ gem 'rails', '4.1.1'
 gem 'ancestry'
 gem 'carrierwave'
 gem 'devise'
-gem "font-awesome-rails"
+gem 'font-awesome-rails'
+gem 'haml'
 gem 'pg'
-
-gem "mini_magick"
+gem 'mini_magick'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
