@@ -12,29 +12,70 @@
 </head>
 <body>
 
-	<aside id="left-panel">
-
-		<!-- HEADER -->
-		<div class="logo-header">
-			<div id="logo-group">
-				<span id="logo"><%= image_tag "logo.png" %> </span>
-      </div>
+	<header id="header">
+		<div id="logo-group">
+      <span id="logo"><%= image_tag "logo.png" %> </span>
     </div>
+
+		<div class="pull-right">
+
+			<!-- collapse menu button -->
+			<div id="hide-menu" class="btn-header pull-right">
+				<span> <a href="javascript:void(0);" title="Collapse Menu"><i class="fa fa-reorder"></i></a> </span>
+			</div>
+			<!-- end collapse menu -->
+
+			<!-- logout button -->
+			<div id="logout" class="btn-header transparent pull-right">
+				<span> 
+          <%= link_to destroy_agent_session_path, :method => :delete do %>
+            <i class="fa fa-sign-out"></i>
+          <% end %>
+        </span>
+			</div>
+			<!-- end logout button -->
+
+			<!-- search mobile button (this is hidden till mobile view port) -->
+			<div id="search-mobile" class="btn-header transparent pull-right">
+				<span> <a href="javascript:void(0)" title="Search"><i class="fa fa-search"></i></a> </span>
+			</div>
+			<!-- end search mobile button -->
+    </div>
+  </header>
+
+	<aside id="left-panel">
 
 		<!-- User info -->
 		<div class="login-info">
 			<span> <!-- User image size is adjusted inside CSS, it should stay as it --> 
 		
-				<a href="javascript:void(0);" id="show-shortcut">
-          <%= image_tag "avatars/male.png" %>
+				<a href="#">
+          <%= image_tag current_agent.avatar_url %>
 
 					<span>
 						<%= current_agent.name %>
 					</span>
-					<i class="fa fa-angle-down"></i>
-				</a> 
+        </a> 
+				<div class="btn-group pull-right">
+					<button class="btn dropdown-toggle btn-xs btn-success" data-toggle="dropdown">
+						Status <i class="fa fa-caret-down"></i>
+					</button>
+					<ul class="dropdown-menu js-status-update" role="menu">
+						<li>
+							<a href="javascript:void(0);"><i class="fa fa-circle txt-color-green"></i> Online</a>
+						</li>
+						<li>
+							<a href="javascript:void(0);"><i class="fa fa-circle txt-color-red"></i> Offline</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="javascript:void(0);"><i class="fa fa-power-off"></i> Log Off</a>
+						</li>
+					</ul>
+				</div>
 				
 			</span>
+      
 		</div>
 		<!-- end user info -->
 
@@ -44,8 +85,8 @@
 	<!-- END NAVIGATION -->
 
 	<!-- MAIN PANEL -->
-	<div id="main" role="main">        
-
+	<div id="main" role="main">
+    
     <%= yield %>
 
 	</div>
@@ -57,6 +98,14 @@
 	$(document).ready(function() {
 		
 		pageSetUp();
+    
+		$(".js-status-update a").click(function() {
+			var selText = $(this).text();
+			var $this = $(this);
+			$this.parents('.btn-group').find('.dropdown-toggle').html(selText + ' <span class="caret"></span>');
+			$this.parents('.dropdown-menu').find('li').removeClass('active');
+			$this.parent().addClass('active');
+		});
   });
   
   </script>

@@ -32,15 +32,15 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-md-4 control-label"><%= f.label :operator_session_timeout %></label>
+			<label class="col-md-4 control-label"><%= f.label :agent_session_timeout %></label>
 			<div class="col-md-8">
-        <%= f.select :operator_session_timeout, @organization.operator_session_timeouts, :class => "form-control" %>
+        <%= f.select :agent_session_timeout, @organization.agent_session_timeouts, :class => "form-control" %>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-md-4 control-label"><%= f.label :operator_response_timeout %></label>
+			<label class="col-md-4 control-label"><%= f.label :agent_response_timeout %></label>
 			<div class="col-md-8">
-        <%= f.select :operator_response_timeout, @organization.operator_response_timeouts, :class => "form-control" %>
+        <%= f.select :agent_response_timeout, @organization.agent_response_timeouts, :class => "form-control" %>
 			</div>
 		</div>
   </fieldset>

@@ -1,15 +1,5 @@
 <%= form_for(@agent, :html => {class: 'form-horizontal'}) do |f| %>
-  <% if @agent.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@agent.errors.count, "error") %> prohibited this agent from being saved:</h2>
-
-      <ul>
-      <% @agent.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render "layouts/error_messages", :f => @agent %>
   
 	<fieldset>
 
@@ -46,13 +36,7 @@
     <div class="form-group">
       <label class="col-md-4 control-label"><%= f.label :account_type %></label>
       <div class="col-md-8">
-        <%= f.select :account_type, { "Operator" => "operator", "Admin" => "admin", "SuperAdmin" => "superadmin" }, include_blank: "-- Select Account Type --", :class => "form-control" %>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-md-4 control-label"><%= f.label :max_chats %></label>
-      <div class="col-md-8">
-        <%= f.number_field :max_chats, :class => "form-control" %>
+        <%= f.select :account_type, { "Agent" => "agent", "Admin" => "admin", "SuperAdmin" => "superadmin" }, include_blank: "-- Select Account Type --", :class => "form-control" %>
       </div>
     </div>
     <div class="form-group">
