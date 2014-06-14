@@ -4,8 +4,8 @@ class CreateChats < ActiveRecord::Migration
       t.integer :organization_id
       t.integer :website_id
       t.integer :visitor_id
-      t.integer :operator_id
-      t.string :operator_typing
+      t.integer :agent_id
+      t.string :agent_typing
       t.string :visitor_typing
       t.timestamp :chat_requested
       t.timestamp :chat_accepted

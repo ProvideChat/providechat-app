@@ -6,8 +6,8 @@ class CreateOrganizations < ActiveRecord::Migration
       t.integer :edition
       t.integer :payment_system
       t.integer :inactive_visitor_removal
-      t.integer :operator_session_timeout
-      t.integer :operator_response_timeout
+      t.integer :agent_session_timeout
+      t.integer :agent_response_timeout
 
       t.timestamps
     end
