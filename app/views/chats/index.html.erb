@@ -28,43 +28,62 @@
   </div>
   <div class="row">
     
-    <div class="col-sm-12 col-md-12 col-lg-6">
-      <h2>Listing chats</h2>
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <div class="jarviswidget" id="agent-table" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="false" role="widget"> 
 
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Chat ID</th>
-            <th>Agent</th>            
-            <th>Website</th>
-            <th>Visitor Details</th>
-            <th>Date</th>
-            <th>Department</th>
-            <th>Status</th>
-            <th></th>
-          </tr>
-        </thead>
+    	<header role="heading">
+    		<h2><strong>Chats</strong></h2>		
+				
+        <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
+      </header>
 
-        <tbody>
-          <% @chats.each do |chat| %>
-            <tr>
-              <td><%= chat.id %></td>
-              <td><%= chat.agent.name %></td>
-              <td><%= chat.website.url %></td>
-              <td><%= chat.visitor.name %></td>
-              <td><%= chat.chat_ended %></td>
-              <td><%= chat.visitor_department %></td>
-              <td><%= chat.status %></td>
-              <td><%= link_to 'View Transcript', chat %></td>
-            </tr>
-          <% end %>
-          <% if @chats.count == 0 %>
-            <tr>
-              <td colspan="12">No chats found</td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+    	<!-- widget div-->
+    	<div role="content">
+						
+    		<!-- widget content -->
+    		<div class="widget-body">    
+
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Chat ID</th>
+                <th>Agent</th>            
+                <th>Website</th>
+                <th>Visitor Details</th>
+                <th>Date</th>
+                <th>Department</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @chats.each do |chat| %>
+                <tr>
+                  <td><%= chat.id %></td>
+                  <td><%= chat.agent.name %></td>
+                  <td><%= chat.website.url %></td>
+                  <td><%= chat.visitor.name %></td>
+                  <td><%= chat.chat_ended %></td>
+                  <td><%= chat.visitor_department %></td>
+                  <td><%= chat.status %></td>
+                  <td><%= link_to 'View Transcript', chat %></td>
+                </tr>
+              <% end %>
+              <% if @chats.count == 0 %>
+                <tr>
+                  <td colspan="8"><h4>No chats found</h4></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+				</div>
+				<!-- end widget content -->
+				
+			</div>
+			<!-- end widget div -->
+			
+		  </div>
     </div>
   </div>
 </div>

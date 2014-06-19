@@ -3,41 +3,69 @@
   
   <div class="row">
 
-	  <article class="col-sm-12 col-md-12 col-lg-6">
+	  <article class="col-sm-12 col-md-12 col-lg-12">
 
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Display name</th>
-            <th>Email</th>
-            <th>Account type</th>
-            <th>Avatar</th>
-            <th>Status</th>
-            <th colspan="2"></th>
-          </tr>
-        </thead>
+      <div class="jarviswidget" id="agent-table" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="false" role="widget"> 
 
-        <tbody>
-          <% @agents.each do |agent| %>
-            <tr>
-              <td><%= agent.name %></td>
-              <td><%= agent.display_name %></td>
-              <td><%= agent.email %></td>
-              <td><%= agent.account_type %></td>
-              <td><%= agent.avatar %></td>
-              <td><%= agent.status %></td>
-              <td><%= link_to 'Edit', edit_agent_path(agent), :class => "btn btn-default" %></td>
-              <td><%= link_to 'Destroy', agent, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger" %></td>
-            </tr>
-          <% end %>
-          <% if @agents.count == 0 %>
-            <tr>
-              <td colspan="9">No agents</td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+			<header role="heading">
+				<span class="widget-icon"> <i class="fa fa-user"></i> </span>
+				<h2><strong>Your Agents</strong></h2>		
+						
+				<div class="widget-toolbar" role="menu">
+          <%= link_to "Add Agent", new_agent_path, { title: "Add Agent", class: "btn btn-default" }  %>
+				</div>
+			<span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span></header>
+
+			<!-- widget div-->
+			<div role="content">
+								
+				<!-- widget content -->
+				<div class="widget-body">
+					
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Display name</th>
+                <th>Email</th>
+                <th>Account type</th>
+                <th>Avatar</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @agents.each do |agent| %>
+                <tr>
+                  <td><%= agent.name %></td>
+                  <td><%= agent.display_name %></td>
+                  <td><%= agent.email %></td>
+                  <td><%= agent.account_type %></td>
+                  <td><%= image_tag agent.avatar %></td>
+                  <td><%= agent.status %></td>
+                  <td>
+                    <%= link_to 'Edit', edit_agent_path(agent), :class => "btn btn-default" %>
+                    &nbsp;
+                    <%= link_to 'Delete', agent, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger" %>
+                  </td>
+                </tr>
+              <% end %>
+              <% if @agents.count == 0 %>
+                <tr>
+                  <td colspan="8">No agents</td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+					
+				</div>
+				<!-- end widget content -->
+				
+			</div>
+			<!-- end widget div -->
+			
+		  </div>
 
       <br>
 

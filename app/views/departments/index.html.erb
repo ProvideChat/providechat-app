@@ -3,35 +3,65 @@
   
   <div class="row">
 
-	  <article class="col-sm-12 col-md-12 col-lg-6">
+	  <article class="col-sm-12 col-md-12 col-lg-8">
 
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th colspan="2"></th>
-          </tr>
-        </thead>
+      <div class="jarviswidget" id="website-widget" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="false" role="widget"> 
 
-        <tbody>
-          <% @departments.each do |department| %>
-            <tr>
-              <td><%= department.name %></td>
-              <td><%= department.email %></td>
-              <td><%= department.status %></td>
-              <td><%= link_to 'Edit', edit_department_path(department), :class => "btn btn-default" %></td>
-              <td><%= link_to 'Destroy', department, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger" %></td>
-            </tr>
-          <% end %>
-          <% if @departments.count == 0 %>
-            <tr>
-              <td colspan="5">No departments</td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+			<header role="heading">
+				<span class="widget-icon"> <i class="fa fa-user"></i> </span>
+				<h2><strong>Your Departments</strong></h2>		
+						
+				<div class="widget-toolbar" role="menu">
+          <%= link_to "Add Department", new_department_path, { title: "Add Department", class: "btn btn-default" }  %>
+				</div>
+			<span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span></header>
+
+			<!-- widget div-->
+			<div role="content">
+								
+				<!-- widget content -->
+				<div class="widget-body">
+					
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @departments.each do |department| %>
+                <tr>
+                  <td><%= department.name %></td>
+                  <td><%= department.email %></td>
+                  <td><%= department.status %></td>
+                  <td>
+                    <%= link_to 'Edit', edit_department_path(department), :class => "btn btn-default" %>
+                    &nbsp;
+                    <%= link_to 'Delete', department, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger" %>
+                  </td>
+                </tr>
+              <% end %>
+              <% if @departments.count == 0 %>
+                <tr>
+                  <td colspan="4">No departments</td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+					
+				</div>
+				<!-- end widget content -->
+				
+			</div>
+			<!-- end widget div -->
+			
+		  </div>
+
+
 
       <br>
 
