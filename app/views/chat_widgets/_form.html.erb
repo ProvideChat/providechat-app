@@ -20,6 +20,12 @@
 			</div>
 		</div>
 		<div class="form-group">
+			<label class="col-md-4 control-label"><%= f.label :display_when_offline %></label>
+			<div class="col-md-8">
+        <%= f.check_box :display_when_offline, :class => "form-control" %>
+			</div>
+		</div>     
+		<div class="form-group">
 			<label class="col-md-4 control-label"><%= f.label :offline_message %></label>
 			<div class="col-md-8">
         <%= f.text_field :offline_message, :class => "form-control" %>
