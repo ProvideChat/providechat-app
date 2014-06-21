@@ -1,41 +1,40 @@
-<div id="content">
-  <%= render 'layouts/page_header', :title => 'Chat Widget', :icon => 'fa-toggle-up', :subpage => 'Pre-chat Survey' %>
+<%= render 'layouts/page_header', :title => 'Chat Widget', :icon => 'fa-toggle-up', :subpage => 'Pre-chat Survey' %>
 
-  <div class="row">
+<div class="row">
 
-	  <article class="col-sm-12 col-md-8 col-lg-6">
+  <article class="col-sm-12 col-md-8 col-lg-6">
 
-      <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
-      	<header>
-      		<span class="widget-icon"> <i class="fa fa-eye"></i> </span>
-      		<h2>Pre-chat Survey</h2>
-      	</header>
+    <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+    	<header>
+    		<span class="widget-icon"> <i class="fa fa-eye"></i> </span>
+    		<h2>Pre-chat Survey</h2>
+    	</header>
 
-				<div>
+			<div>
 
-					<div class="jarviswidget-editbox">
-						<!-- This area used as dropdown edit box -->
+				<div class="jarviswidget-editbox">
+					<!-- This area used as dropdown edit box -->
 
-					</div>
+				</div>
 
-					<div class="widget-body">
+				<div class="widget-body">
 
-            <% if @prechat_form %>
+          <% if @prechat_form %>
 
-              <%= render 'form' %>
+            <%= render 'form' %>
 
-            <% else %>
+          <% else %>
 
-              <h3>You have not yet added any websites.</h3>
-              
-              <h4>Please <%= link_to "add a website", new_website_path %> to customize the pre-chat survey for that website.</h4>
+            <h3>You have not yet added any websites.</h3>
+            
+            <h4>Please <%= link_to "add a website", new_website_path %> to customize the pre-chat survey for that website.</h4>
 
-            <% end %>
+          <% end %>
 
-          </div>
         </div>
       </div>
-    </article>
-    
-  </div>
+    </div>
+  </article>
+  
 </div>
+

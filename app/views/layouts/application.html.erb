@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-us">
 <head>
+	<meta charset="utf-8">
+	<!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
   <title>Providechat App</title>
   
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        
   <%= stylesheet_link_tag 'application', 'http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700' %>
 
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
       
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -56,6 +60,7 @@
 						<%= current_agent.name %>
 					</span>
         </a> 
+				
 				<div class="btn-group pull-right">
 					<button class="btn dropdown-toggle btn-xs btn-success" data-toggle="dropdown">
 						Status <i class="fa fa-caret-down"></i>
@@ -73,7 +78,6 @@
 						</li>
 					</ul>
 				</div>
-				
 			</span>
       
 		</div>
@@ -87,7 +91,9 @@
 	<!-- MAIN PANEL -->
 	<div id="main" role="main">
     
-    <%= yield %>
+    <div id="content">
+      <%= yield %>
+    </div>
 
 	</div>
 

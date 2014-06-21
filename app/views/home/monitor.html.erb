@@ -1,175 +1,379 @@
-<div id="content">
-  <%= render 'layouts/page_header', :title => 'Chat Monitor', :icon => 'fa-comments' %>
-  
-  <div class="row">
-    <div class="col-sm-3 col-md-3">
-      <p>Visitor Filter</p>
-      <select id="visitorFilter" class="form-control">
-        <option value="all">All</option>
-        <option value="mine">My Chats</option>
-        <option value="active">All Active Chats</option>
-        <option value="waiting">Waiting to Chat</option>
-        <option value="visitor">Not in Chat</option>
-      </select>
-    </div>
-    <div class="col-sm-2 col-md-2">
-      Website Filter<br />
-      <select id="websiteFilter" name="websiteFilter" class="form-control">
-        <option value="0">All</option>
-      </select>
-    </div>
-    <div class="col-sm-2 col-md-2">
-      Visitors Online<br />
-      <div id="visitorsOnline" style="font-size: 24px; margin-top: 4px; font-weight: bold;">..</div>
-    </div>
-    <div class="col-sm-2 col-md-2">
-      Waiting to Chat<br />
-      <div id="waitingToChat" style="font-size: 24px; margin-top: 4px; font-weight: bold;">..</div>
-    </div>
-    <div class="col-sm-2 col-md-2">
-  		My Status<br />
-  		<select name="operatorAvailability" id="operatorAvailability" class="form-control">
-        <option selected="selected" value="offline">Offline</option>
-        <option value="online">Online</option>
-  		</select>
-  		<span id="myspan"></span>  
-    </div>
+<%= render 'layouts/page_header', :title => 'Chat Monitor', :icon => 'fa-comments' %>
+
+<div class="row">
+  <div class="col-sm-3 col-md-3">
+    <p>Visitor Filter</p>
+    <select id="visitorFilter" class="form-control">
+      <option value="all">All</option>
+      <option value="mine">My Chats</option>
+      <option value="active">All Active Chats</option>
+      <option value="waiting">Waiting to Chat</option>
+      <option value="visitor">Not in Chat</option>
+    </select>
   </div>
-  <div class="row">
-	  <div class="col-sm-12 col-md-12 col-lg-6">
-      <div id="visitor_list" style="overflow: auto; height: 190px; border: 1px solid #BBBBBB; border-width: 1px 0px 1px 1px;">
-
-        <table class="table table-bordered">
-          <thead>
-        	  <tr>
-            	<th colspan="2">Visitor ID</td>
-            	<th>Department</td>
-            	<th>Status / Duration</td>
-            	<th>Operator</td>
-            	<th>Current Page</th>
-        	   </tr>
-            </thead>
-        </table>
-
-        <div id="loading_visitors">
-          <p style="text-align: center; margin-top: 10px;">
-            <%= image_tag "ajax-loader.gif" %>
-          </p>
-        </div>
-
-      </div>
-    </div>
+  <div class="col-sm-2 col-md-2">
+    Website Filter<br />
+    <select id="websiteFilter" name="websiteFilter" class="form-control">
+      <option value="0">All</option>
+    </select>
   </div>
-  <div class="row">
-    <div class="col-sm-8 col-md-8 col-lg-6">
+  <div class="col-sm-2 col-md-2">
+    Visitors Online<br />
+    <div id="visitorsOnline" style="font-size: 24px; margin-top: 4px; font-weight: bold;">..</div>
+  </div>
+  <div class="col-sm-2 col-md-2">
+    Waiting to Chat<br />
+    <div id="waitingToChat" style="font-size: 24px; margin-top: 4px; font-weight: bold;">..</div>
+  </div>
+  <div class="col-sm-2 col-md-2">
+		My Status<br />
+		<select name="operatorAvailability" id="operatorAvailability" class="form-control">
+      <option selected="selected" value="offline">Offline</option>
+      <option value="online">Online</option>
+		</select>
+		<span id="myspan"></span>  
+  </div>
+</div>
 
-      		<table border="0" cellpadding="3" cellspacing="0" style="width: 580px; border-collapse: collapse; border: 1px solid #BBBBBB; background-color: #E5E5E5; margin-bottom: 5px;">
-          <tr>
-            <td class="smalltext" style="width: 58px; border-right: 1px solid #BBBBBB;"><a id="accept_chat" style="cursor: pointer;"><img id="accept_chat_img" src="images/accept_chat_off.gif" width="60" height="23" border="0" alt="Accept" /></a></td>
-            <td class="smalltext" style="width: 58px; border-right: 1px solid #BBBBBB;"><a id="invite_chat" style="cursor: pointer;"><img id="invite_chat_img" src="images/invite_chat_off.gif" width="60" height="23" border="0" alt="Invite" /></a></td>
-            <td class="smalltext" style="width: 73px; border-right: 1px solid #BBBBBB;"><a id="end_chat" style="cursor: pointer;"><img id="end_chat_img" src="images/end_chat_off.gif" width="73" height="23" border="0" alt="Cancel" /></a></td>
-            <td><div id="staticMenu"></div></td>
-            <td style="width: 240px; border-left: 1px solid #BBBBBB; display:none;" align="right">
+<div class="row">
+  <div class="col-sm-12">
+    &nbsp;
+  </div>
+</div>
 
-      			<table border="0" cellpadding="0" cellspacing="0">
-              <tr>
-                <td>
-                  <select id="operatorTransfer" style="width: 100px;">
-                          <option>--------------</option>
-                    </select>&nbsp;
-                  </td>
-                  <td style="display: none;"><a href="#"><img src="images/transfer_chat_off.gif" onmouseover="this.src = 'images/transfer_chat_on_hover.gif'" onmouseout="this.src = 'images/transfer_chat_on.gif'" width="70" height="23" border="0" alt="Transfer" /></a></td>
-                </tr>
-              </table>
-      		</td>
-      		<td class="smalltext" align="right" style="padding-right: 10px;"><div id="selectedVisitor"><b>No Visitor Selected</b></div></td>
-      	</tr>
-      	</table>
+<div class="row">
+  <div class="col-sm-12 col-md-12 col-lg-12">
+    <div id="visitor_list" style="overflow: auto; height: 190px; border: 1px solid #BBBBBB; border-width: 1px 0px 1px 1px;">
 
-      	<div id="tabs" style="width: 570px;">
-      		<ul>
-      		</ul>
-      		<div id="initialChat">
-      			<table border="0" cellpadding="0" cellspacing="0" style="width: 550px;  height: 343px; border-collapse: collapse;">
-            <tr>
-      				<td colspan="4" valign="middle" align="center">
-      					<font size="5.0em"><b>No Active Chats</b></font>
-      				</td>
-            </tr>
-      			</table>
-      		</div>
-      	</div>
-      </div>
-      <div class="col-sm-4 col-md-4 col-lg-4">
-      	<div id="visitorTabs" style="width: 350px;">
-      		<ul>
-      			<li><a href="#salesInfoDiv">Sales Info</a></li>
-      			<li><a href="#techInfoDiv">Technical Info</a></li>
-      		</ul>
-      		<div id="salesInfoDiv" style="height: 305px; overflow: auto;" align="left">
-      			<p><b class="maintext">Sales Information</b></p>
-      			<p>No Visitor currently selected</p>
-      		</div>
-      		<div id="techInfoDiv" style="height: 305px; overflow: auto;" align="left">
-      			<p><b class="maintext">Technical Information</b></p>
-      			<p>No Visitor currently selected</p>
-      		</div>
-      	</div>
-
-      	<form action="transcripts_search.php" method="post" target="searchWindow" onSubmit="window.open('', 'searchWindow', 'width=840,height=600,status=no,resizable=yes,scrollbars=yes')">
-      	<input type="hidden" id="chatWindow" name="chatWindow" value="true" />
-      	<table style="border-collapse: collapse; margin-top: 7px; margin-left: 5px; margin-right: 0px; background-color: #eeeeee;" cellpadding="4px" cellspacing="0" width="356px">
-      		<tr style="border-width: 1px; border-style: solid; border-color: #999999;">
-      			<td class="fieldtext" style="border-top-width: 1px;"><b>Chat ID</b>:</td>
-      			<td class="fieldtext"><input type="text" id="chat_id" name="chat_id" style="width: 100px;" /></td>
-      			<td><input type="submit" value=" Search Transcripts " style="width: 120px; font-size: 11px; font-family: arial, helvetica, sans serif;" /></td>
-      		</tr>
-      	</table>
-      	</form>
-
-        </td>
-       </tr>
+      <table class="table table-bordered">
+        <thead>
+      	  <tr>
+          	<th colspan="2">Visitor ID</th>
+          	<th>Department</th>
+          	<th>Status / Duration</th>
+          	<th>Operator</th>
+          	<th>Current Page</th>
+      	   </tr>
+          </thead>
       </table>
 
-      <span id="dummyspan"></span>
-
-      <div style="display: none;">
-
-      <div id="confirmCloseTab" title="Close this chat tab?">
-      	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Are you sure you want to close
-      	this chat tab?  <b>Warning: if this chat is active, closing the tab will cancel the chat.</b></p>
+      <div id="loading_visitors">
+        <p style="text-align: center; margin-top: 10px;">
+          <%= image_tag "ajax-loader.gif" %>
+        </p>
       </div>
 
-      <div id="confirmInvite" title="Invite selected visitor?">
-      	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Are you sure you
-      	want to send this website visitor a chat invitation popup?</p>
-      </div>
-
-      <div id="chat-invite-unavailable" title="Chat Invite Unavailable">
-      	<p>Only paid accounts have access to the chat invitation features.  Please upgrade your account to access
-      	this and many more features.</p>
-      </div>
-
-      </div>
-
-      <div id="audio-settings-dialog" title="Audio Settings" class="ui-dialog" style="display: none;">
-
-      	<form>
-      		<h5>Alert me with a sound when:</h5>
-      		<p style="padding-left: 10px;">
-      			<label for="active_chat_sound">A new message arrives in the selected chat</label>
-      			<input type="checkbox" name="active_chat_sound" id="active_chat_sound" class="class="text ui-widget-content ui-corner-all" />
-      		</p>
-      		<p style="padding-left: 10px;">
-      			<label for="background_chat_sound">A new message arrives in a background chat</label>
-      			<input type="checkbox" name="background_chat_sound" id="background_chat_sound"  class="checkbox ui-widget-content ui-corner-all" />
-      		</p>
-      		<p style="padding-left: 10px;">
-      			<label for="visitor_arrived_sound">A new visitor arrives on the website</label>
-      			<input type="checkbox" name="visitor_arrived_sound" id="visitor_arrived_sound"  class="checkbox ui-widget-content ui-corner-all" />
-      		</p>
-      	</form>
-      </div>
     </div>
   </div>
 </div>
+
+<div class="row">
+  <div class="col-sm-12">
+    &nbsp;
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12 col-md-6 col-lg-6">
+
+		<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-1" data-widget-editbutton="false" data-widget-fullscreenbutton="false">
+
+			<!-- widget options:
+			usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+			data-widget-colorbutton="false"
+			data-widget-editbutton="false"
+			data-widget-togglebutton="false"
+			data-widget-deletebutton="false"
+			data-widget-fullscreenbutton="false"
+			data-widget-custombutton="false"
+			data-widget-collapsed="true"
+			data-widget-sortable="false"
+
+			-->
+
+			<header>
+				<span class="widget-icon"> <i class="fa fa-comments txt-color-white"></i> </span>
+				<h2> SmartChat </h2>
+				<div class="widget-toolbar">
+					<!-- add: non-hidden - to disable auto hide -->
+
+					<div class="btn-group">
+						<button class="btn dropdown-toggle btn-xs btn-success" data-toggle="dropdown">
+							Status <i class="fa fa-caret-down"></i>
+						</button>
+						<ul class="dropdown-menu pull-right js-status-update">
+							<li>
+								<a href="javascript:void(0);"><i class="fa fa-circle txt-color-green"></i> Online</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);"><i class="fa fa-circle txt-color-red"></i> Busy</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);"><i class="fa fa-circle txt-color-orange"></i> Away</a>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<a href="javascript:void(0);"><i class="fa fa-power-off"></i> Log Off</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</header>
+
+			<!-- widget div-->
+			<div>
+				<!-- widget edit box -->
+				<div class="jarviswidget-editbox">
+					<div>
+						<label>Title:</label>
+						<input type="text" />
+					</div>
+				</div>
+				<!-- end widget edit box -->
+
+				<div class="widget-body widget-hide-overflow no-padding">
+					<!-- content goes here -->
+
+					<div class="tab-content">
+						<div class="tab-pane active" id="hr1">
+
+							<div class="tabbable tabs-below">
+								<div class="tab-content padding-10">
+									<div class="tab-pane active" id="AA">
+                    <%= render "chat" %>
+									</div>
+									<div class="tab-pane" id="BB">
+										<p>
+											Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee.
+										</p>
+									</div>
+									<div class="tab-pane" id="CC">
+										<p>
+											Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table.
+										</p>
+									</div>
+								</div>
+								<ul class="nav nav-tabs">
+									<li class="active">
+										<a data-toggle="tab" href="#AA">Tab 1</a>
+									</li>
+									<li>
+										<a data-toggle="tab" href="#BB">Tab 2</a>
+									</li>
+									<li>
+										<a data-toggle="tab" href="#CC">Tab 3</a>
+									</li>
+								</ul>
+							</div>
+
+						</div>
+						<div class="tab-pane" id="hr2">
+
+							<ul class="nav nav-tabs">
+								<li class="active">
+									<a href="#iss1" data-toggle="tab">Item 1</a>
+								</li>
+								<li>
+									<a href="#iss2" data-toggle="tab">Item 2</a>
+								</li>
+								<li>
+									<a href="#iss3" data-toggle="tab">Item 3</a>
+								</li>
+							</ul>
+							<div class="tab-content padding-10">
+								<div class="tab-pane active" id="iss1">
+									<p>
+										Three monkeys escaped from the zoo, one was caught watching TV, the other playing hockey, and the third one was caught reading this quote!
+									</p>
+								</div>
+								<div class="tab-pane fade" id="iss2">
+									<p>
+										Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee.
+									</p>
+								</div>
+								<div class="tab-pane fade" id="iss3">
+									<p>
+										Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- end content -->
+				</div>
+
+			</div>
+			<!-- end widget div -->
+		</div>
+		<!-- end widget -->
+  
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12 col-md-6 col-lg-6">
+
+    <table border="0" cellpadding="3" cellspacing="0" style="border-collapse: collapse; border: 1px solid #BBBBBB; background-color: #E5E5E5; margin-bottom: 5px;">
+      <tr>
+        <td class="smalltext" style="width: 58px; border-right: 1px solid #BBBBBB;"><a id="accept_chat" style="cursor: pointer;"><img id="accept_chat_img" src="images/accept_chat_off.gif" width="60" height="23" border="0" alt="Accept" /></a></td>
+        <td class="smalltext" style="width: 58px; border-right: 1px solid #BBBBBB;"><a id="invite_chat" style="cursor: pointer;"><img id="invite_chat_img" src="images/invite_chat_off.gif" width="60" height="23" border="0" alt="Invite" /></a></td>
+        <td class="smalltext" style="width: 73px; border-right: 1px solid #BBBBBB;"><a id="end_chat" style="cursor: pointer;"><img id="end_chat_img" src="images/end_chat_off.gif" width="73" height="23" border="0" alt="Cancel" /></a></td>
+        <td><div id="staticMenu"></div></td>
+        <td style="width: 140px; border-left: 1px solid #BBBBBB; display:none;" align="right">
+
+          <table class="table">
+            <tr>
+              <td>
+                <select id="operatorTransfer" style="width: 100px;">
+                  <option>--------------</option>
+                </select>&nbsp;
+              </td>
+              <td style="display: none;"><a href="#"><img src="images/transfer_chat_off.gif" onmouseover="this.src = 'images/transfer_chat_on_hover.gif'" onmouseout="this.src = 'images/transfer_chat_on.gif'" width="70" height="23" border="0" alt="Transfer" /></a></td>
+            </tr>
+          </table>
+    		</td>
+    		<td class="smalltext" align="right" style="padding-right: 10px;"><div id="selectedVisitor"><b>No Visitor Selected</b></div></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12 col-md-6 col-lg-6">
+    <div id="tabs">
+      <div id="initialChat">
+        <table class="table">
+          <tr>
+    				<td colspan="4">
+    					<font size="5.0em"><b>No Active Chats</b></font>
+    				</td>
+          </tr>
+    		</table>
+    	</div>
+    </div>
+    <div id="visitorTabs" style="width: 350px;">
+      <ul>
+        <li><a href="#salesInfoDiv">Sales Info</a></li>
+        <li><a href="#techInfoDiv">Technical Info</a></li>
+      </ul>
+    <div id="salesInfoDiv" style="height: 305px; overflow: auto;" align="left">
+      <p><b class="maintext">Sales Information</b></p>
+      <p>No Visitor currently selected</p>
+    </div>
+    <div id="techInfoDiv" style="height: 305px; overflow: auto;" align="left">
+      <p><b class="maintext">Technical Information</b></p>
+      <p>No Visitor currently selected</p>
+    </div>
+
+    <form action="transcripts_search.php" method="post" target="searchWindow" onSubmit="window.open('', 'searchWindow', 'width=840,height=600,status=no,resizable=yes,scrollbars=yes')">
+      <input type="hidden" id="chatWindow" name="chatWindow" value="true" />
+    	<table style="border-collapse: collapse; margin-top: 7px; margin-left: 5px; margin-right: 0px; background-color: #eeeeee;" cellpadding="4px" cellspacing="0" width="356px">
+    		<tr style="border-width: 1px; border-style: solid; border-color: #999999;">
+    			<td class="fieldtext" style="border-top-width: 1px;"><b>Chat ID</b>:</td>
+    			<td class="fieldtext"><input type="text" id="chat_id" name="chat_id" style="width: 100px;" /></td>
+    			<td><input type="submit" value=" Search Transcripts " style="width: 120px; font-size: 11px; font-family: arial, helvetica, sans serif;" /></td>
+    		</tr>
+    	</table>
+    </form>
+  </div>
+</div>
+
+
+<div style="display: none;">
+
+  <div id="confirmCloseTab" title="Close this chat tab?">
+  	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Are you sure you want to close
+  	this chat tab?  <b>Warning: if this chat is active, closing the tab will cancel the chat.</b></p>
+  </div>
+
+  <div id="confirmInvite" title="Invite selected visitor?">
+  	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Are you sure you
+  	want to send this website visitor a chat invitation popup?</p>
+  </div>
+
+  <div id="chat-invite-unavailable" title="Chat Invite Unavailable">
+  	<p>Only paid accounts have access to the chat invitation features.  Please upgrade your account to access
+  	this and many more features.</p>
+  </div>
+
+</div>
+
+
+<div id="audio-settings-dialog" title="Audio Settings" class="ui-dialog" style="display: none;">
+
+	<form>
+		<h5>Alert me with a sound when:</h5>
+		<p style="padding-left: 10px;">
+			<label for="active_chat_sound">A new message arrives in the selected chat</label>
+			<input type="checkbox" name="active_chat_sound" id="active_chat_sound" class="text ui-widget-content ui-corner-all" />
+		</p>
+		<p style="padding-left: 10px;">
+			<label for="background_chat_sound">A new message arrives in a background chat</label>
+			<input type="checkbox" name="background_chat_sound" id="background_chat_sound"  class="checkbox ui-widget-content ui-corner-all" />
+		</p>
+		<p style="padding-left: 10px;">
+			<label for="visitor_arrived_sound">A new visitor arrives on the website</label>
+			<input type="checkbox" name="visitor_arrived_sound" id="visitor_arrived_sound"  class="checkbox ui-widget-content ui-corner-all" />
+		</p>
+	</form>
+</div>
+
+<script>
+  $(function() {
+  /*
+   * CHAT
+   */
+
+  $.filter_input = $('#filter-chat-list');
+  $.chat_users_container = $('#chat-container > .chat-list-body')
+  $.chat_users = $('#chat-users')
+  $.chat_list_btn = $('#chat-container > .chat-list-open-close');
+  $.chat_body = $('#chat-body');
+
+  /*
+  * LIST FILTER (CHAT)
+  */
+
+  // custom css expression for a case-insensitive contains()
+  jQuery.expr[':'].Contains = function(a, i, m) {
+  	return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+  };
+
+  function listFilter(list) {// header is any element, list is an unordered list
+  	// create and add the filter form to the header
+
+  	$.filter_input.change(function() {
+  		var filter = $(this).val();
+  		if (filter) {
+  			// this finds all links in a list that contain the input,
+  			// and hide the ones not containing the input while showing the ones that do
+  			$.chat_users.find("a:not(:Contains(" + filter + "))").parent().slideUp();
+  			$.chat_users.find("a:Contains(" + filter + ")").parent().slideDown();
+  		} else {
+  			$.chat_users.find("li").slideDown();
+  		}
+  		return false;
+  	}).keyup(function() {
+  		// fire the above change event after every letter
+  		$(this).change();
+
+  	});
+
+  }
+
+  // on dom ready
+  listFilter($.chat_users);
+
+  // open chat list
+  $.chat_list_btn.click(function() {
+  	$(this).parent('#chat-container').toggleClass('open');
+  })
+
+  $.chat_body.animate({
+  	scrollTop : $.chat_body[0].scrollHeight
+  }, 500);
+
+  });
+</script>

@@ -1,134 +1,133 @@
-<div id="content">
-  <%= render 'layouts/page_header', :title => 'Dashboard' %>
-  
-  <div class="row">
-	  <div class="col-sm-6 col-md-6 col-lg-6">
 
-      <div class="jarviswidget jarviswidget-color-blueLight" id="website-widget" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="false" role="widget"> 
+<%= render 'layouts/page_header', :title => 'Dashboard' %>
 
-			<header role="heading">
-				<span class="widget-icon"> <i class="fa fa-cloud"></i> </span>
-				<h2><strong>Your Websites</strong></h2>		
-						
-				<div class="widget-toolbar" role="menu">
-          <%= link_to "Website Setup", websites_path, { title: "Website Setup", class: "btn btn-default" }  %>
-				</div>
-			<span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span></header>
+<div class="row">
+  <div class="col-sm-6 col-md-6 col-lg-6">
 
-			<!-- widget div-->
-			<div role="content">
-								
-				<!-- widget content -->
-				<div class="widget-body">
+    <div class="jarviswidget jarviswidget-color-blueLight" id="website-widget" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="false" role="widget"> 
+
+		<header role="heading">
+			<span class="widget-icon"> <i class="fa fa-cloud"></i> </span>
+			<h2><strong>Your Websites</strong></h2>		
 					
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>URL</td>
-                <th>Widget Installed?</td>
-              </tr>
-            </thead>
-            <% @websites.each do |website| %>
-              <tr>
-               <td><%= website.name %></td>
-               <td><%= website.url %></td>
-               <td>
-                  Checking &nbsp;<%= image_tag "select2-spinner.gif" %> 
-               </td>
-              </tr>
-            <% end %>
-            <% if @websites.count == 0 %>
-              <tr>
-                <td colspan="2">You haven't added any websites yet. <%= link_to "Add Website", new_website_path, { title: "Add Website", class: "btn btn-primary" }  %></td>
-            <% end %>
-          </table>
-					
-				</div>
-				<!-- end widget content -->
+			<div class="widget-toolbar" role="menu">
+        <%= link_to "Website Setup", websites_path, { title: "Website Setup", class: "btn btn-default" }  %>
+			</div>
+		<span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span></header>
+
+		<!-- widget div-->
+		<div role="content">
+							
+			<!-- widget content -->
+			<div class="widget-body">
+				
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>URL</td>
+              <th>Widget Installed?</td>
+            </tr>
+          </thead>
+          <% @websites.each do |website| %>
+            <tr>
+             <td><%= website.name %></td>
+             <td><%= website.url %></td>
+             <td>
+                Checking &nbsp;<%= image_tag "select2-spinner.gif" %> 
+             </td>
+            </tr>
+          <% end %>
+          <% if @websites.count == 0 %>
+            <tr>
+              <td colspan="2">You haven't added any websites yet. <%= link_to "Add Website", new_website_path, { title: "Add Website", class: "btn btn-primary" }  %></td>
+          <% end %>
+        </table>
 				
 			</div>
-			<!-- end widget div -->
+			<!-- end widget content -->
 			
 		</div>
+		<!-- end widget div -->
+		
+	</div>
 
-      <h4>Latest Blog Entries</h4>
-    </div>
-    <div class="col-sm-6 col-md-6 col-lg-6">
-      
-      <div class="jarviswidget jarviswidget-color-blueLight" id="website-widget" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="false" role="widget"> 
+    <h4>Latest Blog Entries</h4>
+  </div>
+  <div class="col-sm-6 col-md-6 col-lg-6">
+    
+    <div class="jarviswidget jarviswidget-color-blueLight" id="website-widget" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="false" role="widget"> 
 
-			<header role="heading">
-				<span class="widget-icon"> <i class="fa fa-user"></i> </span>
-				<h2><strong>Your Agents</strong></h2>		
-						
-				<div class="widget-toolbar" role="menu">
-          <%= link_to "Manage Agents", agents_path, { title: "Manage Agents", class: "btn btn-default" }  %>
-				</div>
-			<span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span></header>
-
-			<!-- widget div-->
-			<div role="content">
-								
-				<!-- widget content -->
-				<div class="widget-body">
+		<header role="heading">
+			<span class="widget-icon"> <i class="fa fa-user"></i> </span>
+			<h2><strong>Your Agents</strong></h2>		
 					
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Current Availability</td>
-              </tr>
-            </thead>
-            <% @agents.each do |agent| %>
-              <tr>
-               <td><a href="#" onclick="#', 'content');"><%= agent.name %></a></td>
-               <td>
-                 <% if agent.availability == 'online'%>
-                   <span style='color: #228b22;'><strong>Online</strong></span>
-                 <% else %>
-                   <span style='color: #b22222;'><strong>Offline</strong></span>
-                <% end %>
-                </td>
-              </tr>
-            <% end %>
+			<div class="widget-toolbar" role="menu">
+        <%= link_to "Manage Agents", agents_path, { title: "Manage Agents", class: "btn btn-default" }  %>
+			</div>
+		<span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span></header>
+
+		<!-- widget div-->
+		<div role="content">
+							
+			<!-- widget content -->
+			<div class="widget-body">
+				
+        <table class="table table-bordered">
+          <thead>
             <tr>
-              <td style="background-color: #E5E5E5; border-bottom: 1px solid #BBBBBB;" class="fieldtext">
-                <a href="#" onclick="loadHTML('operators.php', 'content');"><b>More Details</b></a>
-              </td>
-              <td style="background-color: #E5E5E5; border-bottom: 1px solid #BBBBBB;" class="fieldtext" align="right">
-                 You are currently using 1 of 12 available operators
+              <th>Name</th>
+              <th>Current Availability</td>
+            </tr>
+          </thead>
+          <% @agents.each do |agent| %>
+            <tr>
+             <td><a href="#" onclick="#', 'content');"><%= agent.name %></a></td>
+             <td>
+               <% if agent.availability == 'online'%>
+                 <span style='color: #228b22;'><strong>Online</strong></span>
+               <% else %>
+                 <span style='color: #b22222;'><strong>Offline</strong></span>
+              <% end %>
               </td>
             </tr>
-          </table>
-					
-				</div>
-				<!-- end widget content -->
+          <% end %>
+          <tr>
+            <td style="background-color: #E5E5E5; border-bottom: 1px solid #BBBBBB;" class="fieldtext">
+              <a href="#" onclick="loadHTML('operators.php', 'content');"><b>More Details</b></a>
+            </td>
+            <td style="background-color: #E5E5E5; border-bottom: 1px solid #BBBBBB;" class="fieldtext" align="right">
+               You are currently using 1 of 12 available operators
+            </td>
+          </tr>
+        </table>
 				
 			</div>
-			<!-- end widget div -->
+			<!-- end widget content -->
 			
 		</div>
+		<!-- end widget div -->
+		
+	</div>
 
-      <h4>Upgrade Your Account</h4>
-      <table border="0" cellpadding="8" cellspacing="0" width="100%" style="border-left: 1px solid #DDDDDD; border-right: 1px solid #DDDDDD;">
-        <tr>
-          <td class="maintext" style="border-bottom: 1px solid #BBBBBB; background-color: #E5E5E5;" width="40%">
-           <b>If you would like to upgrade your account, simply click on one of the links below to upgrade to your
-          desired account.</b>
-        </td>
-       </tr>
-        <tr>
-          <td class="fieldtext" style="border-bottom: 1px solid #BBBBBB; background-color: #E5E5E5;" width="40%">
-            <i>Please Note: Upgrades have a 3-day trial period, no payment is made until after the 3-day trial</i>
-         </td>
-       </tr>
-       <tr>
-         <td class="fieldtext" style="border-bottom: 1px solid #BBBBBB;" align="center">
-           <br />
-         </td>
-       </tr>
-      </table>
-    </div>
+    <h4>Upgrade Your Account</h4>
+    <table border="0" cellpadding="8" cellspacing="0" width="100%" style="border-left: 1px solid #DDDDDD; border-right: 1px solid #DDDDDD;">
+      <tr>
+        <td class="maintext" style="border-bottom: 1px solid #BBBBBB; background-color: #E5E5E5;" width="40%">
+         <b>If you would like to upgrade your account, simply click on one of the links below to upgrade to your
+        desired account.</b>
+      </td>
+     </tr>
+      <tr>
+        <td class="fieldtext" style="border-bottom: 1px solid #BBBBBB; background-color: #E5E5E5;" width="40%">
+          <i>Please Note: Upgrades have a 3-day trial period, no payment is made until after the 3-day trial</i>
+       </td>
+     </tr>
+     <tr>
+       <td class="fieldtext" style="border-bottom: 1px solid #BBBBBB;" align="center">
+         <br />
+       </td>
+     </tr>
+    </table>
   </div>
 </div>

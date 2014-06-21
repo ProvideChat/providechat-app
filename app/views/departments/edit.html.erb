@@ -1,31 +1,29 @@
-<div id="content">
-  <%= render 'layouts/page_header', :title => 'Departments', :icon => 'fa-sitemap', :subpage => 'Edit Department' %>
-  
-  <div class="row">
+<%= render 'layouts/page_header', :title => 'Departments', :icon => 'fa-sitemap', :subpage => 'Edit Department' %>
 
-	  <article class="col-sm-12 col-md-8 col-lg-6">
+<div class="row">
 
-      <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
-      	<header>
-      		<span class="widget-icon"> <i class="fa fa-eye"></i> </span>
-      		<h2>Edit Department</h2>
-      	</header>
+  <article class="col-sm-12 col-md-8 col-lg-6">
 
-				<div>
+    <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+    	<header>
+    		<span class="widget-icon"> <i class="fa fa-eye"></i> </span>
+    		<h2>Edit Department</h2>
+    	</header>
 
-					<div class="jarviswidget-editbox">
-						<!-- This area used as dropdown edit box -->
+			<div>
 
-					</div>
+				<div class="jarviswidget-editbox">
+					<!-- This area used as dropdown edit box -->
 
-					<div class="widget-body">
+				</div>
 
-            <%= render 'form' %>
+				<div class="widget-body">
 
-          </div>
+          <%= render 'form' %>
+
         </div>
       </div>
-    </article>
-    
-  </div>
+    </div>
+  </article>
+  
 </div>
