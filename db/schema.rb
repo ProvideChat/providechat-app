@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20140610183145) do
     t.integer  "website_id"
     t.string   "online_message"
     t.string   "offline_message"
+    t.boolean  "hide_when_offline"
     t.string   "colour"
     t.boolean  "display_logo"
     t.boolean  "display_agent_avatar"
