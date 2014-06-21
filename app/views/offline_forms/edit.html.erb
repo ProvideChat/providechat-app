@@ -2,39 +2,46 @@
 <%= render 'layouts/page_header', :title => 'Chat Widget', :icon => 'fa-toggle-up', :subpage => 'Offline Message' %>
 
 <div class="row">
+  
+  <% if @offline_form %>
 
-  <article class="col-sm-12 col-md-8 col-lg-6">
+	  <div class="col-sm-6 col-md-6 col-lg-6">
+      <%= render 'widget' %>
+    </div>
 
-    <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
-    	<header>
-    		<span class="widget-icon"> <i class="fa fa-eye"></i> </span>
-    		<h2>Offline Message</h2>
-    	</header>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+      <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+      	<header>
+      		<span class="widget-icon"> <i class="fa fa-toggle-up"></i> </span>
+      		<h2>Offline Message</h2>
+      	</header>
 
-			<div>
+				<div>
 
-				<div class="jarviswidget-editbox">
-					<!-- This area used as dropdown edit box -->
+					<div class="jarviswidget-editbox">
+						<!-- This area used as dropdown edit box -->
 
-				</div>
+					</div>
 
-				<div class="widget-body">
-
-          <% if @offline_form %>
-
+					<div class="widget-body">
             <%= render 'form' %>
-
-          <% else %>
-
-            <h3>You have not yet added any websites.</h3>
-            
-            <h4>Please <%= link_to "add a website", new_website_path %> to customize the offline message form for that website.</h4>
-
-          <% end %>
-
+          </div>
         </div>
       </div>
     </div>
-  </article>
+
+  <% else %>
+
+    <div class="col-sm-12 col-md-8 col-lg-8">
+      
+      <div class="alert alert-warning alert-block">
+        <h4 class="alert-heading">No websites configured yet!</h4>
+        
+        You have no yet added any websites, please <%= link_to "add a website", new_website_path %> 
+        to customize the offline chat form for that website.
+      </div>
+
+    </div>
+  <% end %>
   
 </div>

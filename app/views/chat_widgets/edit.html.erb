@@ -1,46 +1,47 @@
+<%= render 'layouts/page_header', :title => 'Chat Widget', :icon => 'fa-toggle-up', :subpage => 'Customization' %>
 
-  <%= render 'layouts/page_header', :title => 'Chat Widget', :icon => 'fa-toggle-up', :subpage => 'Customization' %>
+<div class="row">
+  
+  <% if @chat_widget %>
 
-  <div class="row">
-    
-    <% if @chat_widget %>
+	  <div class="col-sm-6 col-md-6 col-lg-6">
+      <%= render 'widget' %>
+    </div>
 
-  	  <div class="col-sm-6 col-md-6 col-lg-6">
-        <%= render 'widget' %>
-      </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+      <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+      	<header>
+      		<span class="widget-icon"> <i class="fa fa-toggle-up"></i> </span>
+      		<h2>Customize Chat Widget</h2>
+      	</header>
 
-      <div class="col-sm-6 col-md-6 col-lg-6">
-        <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
-        	<header>
-        		<span class="widget-icon"> <i class="fa fa-eye"></i> </span>
-        		<h2>Customize Chat Widget</h2>
-        	</header>
+				<div>
 
-  				<div>
+					<div class="jarviswidget-editbox">
+						<!-- This area used as dropdown edit box -->
 
-  					<div class="jarviswidget-editbox">
-  						<!-- This area used as dropdown edit box -->
+					</div>
 
-  					</div>
-
-  					<div class="widget-body">
-
-
-                <%= render 'form' %>
-
-            </div>
+					<div class="widget-body">
+            <%= render 'form' %>
           </div>
         </div>
       </div>
+    </div>
 
-    <% else %>
+  <% else %>
 
-      <div class="col-sm-12 col-md-8 col-lg-6">
-        <h3>You have not yet added any websites.</h3>
+    <div class="col-sm-12 col-md-8 col-lg-8">
       
-        <h4>Please <%= link_to "add a website", new_website_path %> to customize the chat widget for that website.</h4>
+      <div class="alert alert-warning alert-block">
+        <h4 class="alert-heading">No websites configured yet!</h4>
+        
+        You have no yet added any websites, please <%= link_to "add a website", new_website_path %> 
+        to customize the chat widget for that website.
       </div>
-    <% end %>
-    
-  </div>
+
+    </div>
+  <% end %>
+  
+</div>
 

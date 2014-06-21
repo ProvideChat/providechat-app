@@ -1,0 +1,37 @@
+<div class="chat-widget chat-widget-open">
+  <div class="chat-widget-header">Welcome to Provide Chat</div>
+  <div style="float: right; margin-top: 9px; margin-right: 10px;">
+    <%= image_tag "widget/down-arrow.png", :id => "close-chat-widget" %>
+  </div>
+
+  <div id="chat-widget-content">
+    <div class="chat-widget-container">
+      <div style="margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px;">
+  
+        <p style="margin-top: 0px; "><%= "Intro text" %></p>
+
+        <p style="font-weight: bold;"><%= "Name" %> <sup style="color: #AA0000;">*</sup><br>
+        <input type="text" onFocus="this.style.borderColor='#A9DBF6'" onBlur="this.style.borderColor='#CCCCCC'" style="width: 250px; border: 1px solid #CCCCCC; height: 25px;" id="start-chat-text-box-1"></p>
+
+        <p style="font-weight: bold;"><%= "Email" %> <sup style="color: #AA0000;">*</sup><br>
+        <input type="text" onFocus="this.style.borderColor='#A9DBF6'" onBlur="this.style.borderColor='#CCCCCC'" style="width: 250px; border: 1px solid #CCCCCC; height: 25px;" id="start-chat-text-box-2"></p>
+
+        <p style="font-weight: bold;"><%= "Department" %><sup style="color: #AA0000;">*</sup><br>
+        <select id="start-chat-department" style="font-size: 10px; width: 160px;">
+        <option value="0">Any Department</option>
+        </select>
+
+        <p style="font-weight: bold;"><%= "Message" %><br>
+        <textarea rows="4" onFocus="this.style.borderColor='#A9DBF6'" onBlur="this.style.borderColor='#CCCCCC'" style="border: 1px solid #CCCCCC; width: 350px;" id="start-chat-question"></textarea></p>
+
+        <input type="submit" value="  <%= "Button" %> " style="color: #333333; font-family: arial, verdana, helvetica; font-size: 12px; height: 40px;" id="start-chat-btn">
+
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-widget-footer">
+    <a href="http://www.providechat.com/" style="color: #EEEEEE;">Live Chat Software</a> powered by Provide Chat.
+  </div>
+</div>
+
