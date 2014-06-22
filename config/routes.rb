@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_for :admins
   devise_for :agents, :path => 'auth'
 
+  resources :visitors
   resources :departments, only: [:index, :new, :edit, :create, :update, :destroy]
   resources :chats
   resources :websites, only: [:index, :new, :edit, :create, :update, :destroy]
