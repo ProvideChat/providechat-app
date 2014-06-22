@@ -12,21 +12,21 @@
     </select>
   </div>
   <div class="col-sm-2 col-md-2">
-    Website Filter<br />
+    <p>Website Filter</p>
     <select id="websiteFilter" name="websiteFilter" class="form-control">
       <option value="0">All</option>
     </select>
   </div>
   <div class="col-sm-2 col-md-2">
-    Visitors Online<br />
+    <p>Visitors Online</p>
     <div id="visitorsOnline" style="font-size: 24px; margin-top: 4px; font-weight: bold;">..</div>
   </div>
   <div class="col-sm-2 col-md-2">
-    Waiting to Chat<br />
+    <p>Waiting to Chat</p>
     <div id="waitingToChat" style="font-size: 24px; margin-top: 4px; font-weight: bold;">..</div>
   </div>
   <div class="col-sm-2 col-md-2">
-		My Status<br />
+		<p>My Status</p>
 		<select name="operatorAvailability" id="operatorAvailability" class="form-control">
       <option selected="selected" value="offline">Offline</option>
       <option value="online">Online</option>
@@ -45,7 +45,7 @@
   <div class="col-sm-12 col-md-12 col-lg-12">
     <div id="visitor_list" style="overflow: auto; height: 190px; border: 1px solid #BBBBBB; border-width: 1px 0px 1px 1px;">
 
-      <table class="table table-bordered">
+      <table class="table table-bordered" id="visitor-table" data-id="<%= current_agent.organization_id %>">
         <thead>
       	  <tr>
           	<th colspan="2">Visitor ID</th>
