@@ -39,16 +39,33 @@ function listFilter(list) {// header is any element, list is an unordered list
 
 }
 
-// on dom ready
-listFilter($.chat_users);
+$( document ).ready(function() {
+  // on dom ready
+  listFilter($.chat_users);
 
-// open chat list
-$.chat_list_btn.click(function() {
-	$(this).parent('#chat-container').toggleClass('open');
-})
+  // open chat list
+  $.chat_list_btn.click(function() {
+  	$(this).parent('#chat-container').toggleClass('open');
+  })
 
-$.chat_body.animate({
-	scrollTop : $.chat_body[0].scrollHeight
-}, 500);
+  /*
+  $.chat_body.animate({
+  	scrollTop : $.chat_body[0].scrollHeight
+  }, 500);
+  */
 
+  setTimeout(updateVisitors, 5000);
 });
+
+
+function updateVisitors () {
+  var organization_id = $("#visitor-table").attr("data-id");
+  if ($(".comment").length > 0) {
+    var after = $(".comment:last-child").attr("data-time");
+  } else {
+    var after = "0";
+  }
+  var results = $.getJSON("/visitors.json?organization_id=" + organization_id + "&after=" + after);
+  console.log(results);
+  setTimeout(updateVisitors, 5000);
+}
