@@ -7,6 +7,7 @@ a43244037112bcc48f39e616a2428c4cb7548f2e		branch 'gbw-code-climate-badge' of htt
 bec3bfc73ab8bc16c49bb4a3bd8faed6cd70f62f		branch 'jf-4-8' of https://github.com/thoughtbot/capybara-webkit
 f3fd2e9e7562be7003e69aadc6d6ab73663e49c2		branch 'jf-faster-attach-check' of https://github.com/thoughtbot/capybara-webkit
 fa8e377784ef1a44ae2c59b436625ccb750ba9f8		branch 'jf-release-1.1.0' of https://github.com/thoughtbot/capybara-webkit
+9476d70b344f547df1f15870facf9cfb8f80fd88		branch 'jf-update-capybara' of https://github.com/thoughtbot/capybara-webkit
 ef3122a26d29ff5a721657fac2f5f1aef6c26585		branch 'jm-crash' of https://github.com/thoughtbot/capybara-webkit
 b7d6be163c3fd6f5f6b6e34fc19200ceeaffd700		branch 'master' of https://github.com/thoughtbot/capybara-webkit
 b7b728aceb02f6073e4b98301e4d4aa0bf0fd16b		branch 'mf-document-setting-headers' of https://github.com/thoughtbot/capybara-webkit
