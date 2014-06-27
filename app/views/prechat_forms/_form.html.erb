@@ -1,53 +1,67 @@
 <%= form_for(@prechat_form, :html => {class: 'form-horizontal'}) do |f| %>
-  <% if @prechat_form.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@prechat_form.errors.count, "error") %> prohibited this prechat_survey from being saved:</h2>
+  <%= render "layouts/error_messages", :f => @prechat_form %>
 
-      <ul>
-      <% @prechat_form.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+	<fieldset>
 
-  <div class="field">
-    <%= f.label :enabled %><br>
-    <%= f.check_box :enabled %>
-  </div>
-  <div class="field">
-    <%= f.label :intro_text %><br>
-    <%= f.text_field :intro_text %>
-  </div>
-  <div class="field">
-    <%= f.label :name_text %><br>
-    <%= f.text_field :name_text %>
-  </div>
-  <div class="field">
-    <%= f.label :email_text %><br>
-    <%= f.text_field :email_text %>
-  </div>
-  <div class="field">
-    <%= f.label :email_enabled %><br>
-    <%= f.check_box :email_enabled %>
-  </div>
-  <div class="field">
-    <%= f.label :department_text %><br>
-    <%= f.text_field :department_text %>
-  </div>
-  <div class="field">
-    <%= f.label :department_enabled %><br>
-    <%= f.check_box :department_enabled %>
-  </div>
-  <div class="field">
-    <%= f.label :message_text %><br>
-    <%= f.text_field :message_text %>
-  </div>
-  <div class="field">
-    <%= f.label :button_text %><br>
-    <%= f.text_field :button_text %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+		<div class="form-group">
+			<label class="col-md-4 control-label"><%= f.label :enabled %></label>
+			<div class="col-md-8">
+        <%= f.check_box :enabled, :class => "form-control" %>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label"><%= f.label :intro_text %></label>
+			<div class="col-md-8">
+        <%= f.text_field :intro_text, :class => "form-control" %>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label"><%= f.label :name_text %></label>
+			<div class="col-md-8">
+        <%= f.text_field :name_text, :class => "form-control" %>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label"><%= f.label :email_text %></label>
+			<div class="col-md-8">
+        <%= f.text_field :email_text, :class => "form-control" %>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label"><%= f.label :email_enabled %></label>
+			<div class="col-md-8">
+        <%= f.check_box :email_enabled, :class => "form-control" %>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label"><%= f.label :department_text %></label>
+			<div class="col-md-8">
+        <%= f.text_field :department_text, :class => "form-control" %>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label"><%= f.label :department_enabled %></label>
+			<div class="col-md-8">
+        <%= f.check_box :department_enabled, :class => "form-control" %>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label"><%= f.label :message_text %></label>
+			<div class="col-md-8">
+        <%= f.text_field :message_text, :class => "form-control" %>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label"><%= f.label :button_text %></label>
+			<div class="col-md-8">
+        <%= f.text_field :button_text, :class => "form-control" %>
+			</div>
+		</div>        
+  </fieldset>
+  
+  </fieldset>
+	<footer>
+    <%= f.submit "Update", :class => "btn btn-primary" %>
+	</footer>
+  
 <% end %>

@@ -2,11 +2,30 @@
 <%= render 'layouts/page_header', :title => 'Chat Widget', :icon => 'fa-toggle-up', :subpage => 'Offline Message' %>
 
 <div class="row">
+  <div class="col-sm-12 col-md-6">
+    <%= form_tag(offline_forms_path, method: 'get', class: 'form-horizontal', id: 'edit_offline_form') do %>
+
+    	<fieldset>
+    		<div class="form-group">
+    			<label class="col-md-4 control-label">Website</label>
+    			<div class="col-md-8">
+            <%= select_tag "website_id", options_from_collection_for_select(@websites, "id", "url", @offline_form.website_id), :class => "form-control", :id => "website_id" %>
+    			</div>
+    		</div>
+      </fieldset>    
+      
+    <% end %>
+  </div>
+</div>
+
+<hr>
+
+<div class="row">
   
   <% if @offline_form %>
 
 	  <div class="col-sm-6 col-md-6 col-lg-6">
-      <%= render 'widget' %>
+      <%= render 'offline_widget' %>
     </div>
 
     <div class="col-sm-6 col-md-6 col-lg-6">
@@ -45,3 +64,11 @@
   <% end %>
   
 </div>
+
+<script>
+  $(function() {
+    $('#website_id').on ('change', function() {
+      $('#edit_offline_form').submit();
+    });
+  });
+</script>

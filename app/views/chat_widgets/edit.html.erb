@@ -1,6 +1,25 @@
 <%= render 'layouts/page_header', :title => 'Chat Widget', :icon => 'fa-toggle-up', :subpage => 'Customization' %>
 
 <div class="row">
+  <div class="col-sm-12 col-md-6">
+    <%= form_tag(chat_widgets_path, method: 'get', class: 'form-horizontal', id: 'edit_chat_widget') do %>
+
+    	<fieldset>
+    		<div class="form-group">
+    			<label class="col-md-4 control-label">Website</label>
+    			<div class="col-md-8">
+            <%= select_tag "website_id", options_from_collection_for_select(@websites, "id", "url", @chat_widget.website_id), :class => "form-control", :id => "website_id" %>
+    			</div>
+    		</div>
+      </fieldset>    
+      
+    <% end %>
+  </div>
+</div>
+
+<hr>
+
+<div class="row">
   
   <% if @chat_widget %>
 
@@ -45,3 +64,10 @@
   
 </div>
 
+<script>
+  $(function() {
+    $('#website_id').on ('change', function() {
+      $('#edit_chat_widget').submit();
+    });
+  });
+</script>

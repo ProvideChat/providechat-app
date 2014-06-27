@@ -9,10 +9,12 @@ Rails.application.routes.draw do
   resources :websites, only: [:index, :new, :edit, :create, :update, :destroy]
   resources :agents, only: [:index, :new, :edit, :create, :update, :destroy]
   resources :rapid_responses, only: [:index, :new, :edit, :create, :update, :destroy]
+
+  resources :widgets, only: [:index]
   
-  resources :offline_forms, only: [:edit, :update]
-  resources :prechat_forms, only: [:edit, :update]
-  resources :chat_widgets, only: [:edit, :update]
+  resources :offline_forms, only: [:index, :edit, :update]
+  resources :prechat_forms, only: [:index, :edit, :update]
+  resources :chat_widgets, only: [:index, :edit, :update]
   resources :organizations, only: [:edit, :update]
   
   root to: 'home#dashboard'

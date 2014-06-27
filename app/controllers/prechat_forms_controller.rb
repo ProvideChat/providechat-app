@@ -1,12 +1,20 @@
 class PrechatFormsController < ApplicationController
   before_action :authenticate_agent!
-  before_action :set_websites, only: [:edit, :update]
+  before_action :set_websites, only: [:index, :edit]
 
-  # GET /prechat_surveys/1/edit
-  def edit
+  def index
     params.has_key?(:website_id) ? website_id = params[:website_id] : website_id = Website.where(organization_id: current_agent.organization_id).first
     
     @prechat_form = PrechatForm.find_by(:website_id => website_id) if website_id
+    
+    redirect_to edit_prechat_form_path(@prechat_form)
+  end
+
+  # GET /prechat_surveys/1/edit
+  def edit
+    
+    @prechat_form = PrechatForm.find(params[:id])
+
   end
 
   # PATCH/PUT /prechat_surveys/1
@@ -16,8 +24,8 @@ class PrechatFormsController < ApplicationController
     
     respond_to do |format|
       if @prechat_form.update(prechat_form_params)
-        format.html { redirect_to @prechat_form, notice: 'Prechat survey was successfully updated.' }
-        format.json { render :show, status: :ok, location: @prechat_form }
+        format.html { redirect_to edit_prechat_form_path(@prechat_form), notice: 'Prechat survey was successfully updated.' }
+        format.json { render :show, status: :ok, location: edit_prechat_form_path(@prechat_form) }
       else
         format.html { render :edit }
         format.json { render json: @prechat_form.errors, status: :unprocessable_entity }

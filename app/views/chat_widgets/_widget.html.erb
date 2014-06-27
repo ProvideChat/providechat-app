@@ -1,37 +1,120 @@
-<div class="chat-widget chat-widget-open">
-  <div class="chat-widget-header">Welcome to Provide Chat</div>
-  <div style="float: right; margin-top: 9px; margin-right: 10px;">
-    <%= image_tag "widget/down-arrow.png", :id => "close-chat-widget" %>
-  </div>
+<% if false %>
+<div id="pc-chat-window" style="display: block;"><div class="chat-widget chat-widget-open"><div class="chat-widget-header" id="close-chat-widget">Welcome to Provide Chat<div style="float: right; margin-right: 10px;"><img src="http://widget.providechat.com/images/down-arrow.png"></div></div><div id="chat-widget-content">
+<div class="chat-widget-container">
 
-  <div id="chat-widget-content">
-    <div class="chat-widget-container">
-      <div style="margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px;">
+<div style="margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px; display: none;" id="unavailable-success">
   
-        <p style="margin-top: 0px; "><%= "Intro text" %></p>
+<p style="margin-top: 0px; "></p><p><strong>Thank you for contacting us</strong></p><p>We will contact you via email shortly.</p><p></p>
 
-        <p style="font-weight: bold;"><%= "Name" %> <sup style="color: #AA0000;">*</sup><br>
-        <input type="text" onFocus="this.style.borderColor='#A9DBF6'" onBlur="this.style.borderColor='#CCCCCC'" style="width: 250px; border: 1px solid #CCCCCC; height: 25px;" id="start-chat-text-box-1"></p>
+</div>
 
-        <p style="font-weight: bold;"><%= "Email" %> <sup style="color: #AA0000;">*</sup><br>
-        <input type="text" onFocus="this.style.borderColor='#A9DBF6'" onBlur="this.style.borderColor='#CCCCCC'" style="width: 250px; border: 1px solid #CCCCCC; height: 25px;" id="start-chat-text-box-2"></p>
+<div style="margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px;" id="unavailable-form">
+  
+<p style="margin-top: 0px; "><strong>All of our operators are currently unavailable.</strong><br>Please send us an email and we'll get back to you shortly.</p>
 
-        <p style="font-weight: bold;"><%= "Department" %><sup style="color: #AA0000;">*</sup><br>
-        <select id="start-chat-department" style="font-size: 10px; width: 160px;">
-        <option value="0">Any Department</option>
-        </select>
+<input type="text" id="unavailable-text-box-1" placeholder="Name:"><p></p>
 
-        <p style="font-weight: bold;"><%= "Message" %><br>
-        <textarea rows="4" onFocus="this.style.borderColor='#A9DBF6'" onBlur="this.style.borderColor='#CCCCCC'" style="border: 1px solid #CCCCCC; width: 350px;" id="start-chat-question"></textarea></p>
+  <input type="text" id="unavailable-text-box-2" placeholder="Email:"><p></p>
 
-        <input type="submit" value="  <%= "Button" %> " style="color: #333333; font-family: arial, verdana, helvetica; font-size: 12px; height: 40px;" id="start-chat-btn">
+  <p>
+    <select id="unavailable-department">
+      <option value="0">Any Department</option>
+  		<option value="Sales">Sales</option>
+<option value="Support">Support</option>
+<option value="Orders">Orders</option>
+<option value="Information">Information</option>
+    </select>
+  </p>
 
+<textarea rows="4" style="border: 1px solid #CCCCCC; width: 350px;" id="unavailable-message" placeholder="Message:"></textarea><p></p>
+	
+<input type="submit" value="  Send Email  " style="" id="send-unavailable-email">
+
+<div class="missing-fields">Please fill in all fields</div>
+
+</div>
+
+</div>
+</div><div class="chat-widget-footer"><a href="http://www.providechat.com/" style="color: #EEEEEE;">Live Chat Software</a> powered by Provide Chat.</div></div></div>
+
+<% end %>
+
+
+<div id="pc-chat-window" style="display: block;">
+  <div class="chat-widget chat-widget-open">
+    <div class="chat-widget-header" id="close-chat-widget">Welcome to Provide Chat
+      <div style="float: right; margin-right: 10px;">
+        <%= image_tag "widget/down-arrow.png", :id => "close-chat-widget" %>
       </div>
     </div>
-  </div>
 
-  <div class="chat-widget-footer">
-    <a href="http://www.providechat.com/" style="color: #EEEEEE;">Live Chat Software</a> powered by Provide Chat.
+    <div id="chat-widget-content">
+      <div id="in-chat">
+      
+        <div class="chat-widget-container" style="height: 325px;">
+          
+          <div class="operator-area">
+            <div style="float: left;">
+              <%= image_tag "avatars/silouette.gif", :id => "operator-image", :style => "height: 60px; width: 60px; border: 1px solid #999999;" %>
+            </div>
+            <div style="float: left; margin-left: 10px;">
+              <p style="font-weight: bold; font-size: 16px; margin-top: 0px;" id="operator-name">Jonathan Miller</p>
+            </div>
+          </div>
+
+          <div style="background-color: #3B3B3B; width: 392px; height: 30px; position: absolute; right: 4px; border-top: 1px solid #000000; border-bottom: 1px solid #000000; display:none;">
+
+            <input type="text" style="width: 200px; font-family: Lucida Sans Unicode, verdana, helvetica; font-size: 12px; border: 1px solid #000000; border-radius: 3px; margin-left: 5px; height: 22px; padding: 2px; margin-top: 4px;" value="luke@providechat.com">
+
+          </div>
+
+          <div id="chat-message-area">
+
+          </div>
+
+        </div>
+
+        <div class="send-message">
+          <textarea id="chat-message-box" placeholder="Your message..."></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="chat-widget-footer">
+      <a href="http://www.providechat.com/" style="color: #EEEEEE;">Live Chat Software</a> powered by Provide Chat.
+    </div>
   </div>
 </div>
 
+
+<% if false %>
+<div id="in-chat" style="display: none;">
+
+  <div class="chat-widget-container" style="height: 325px;">
+
+  <div class="operator-area">
+    <div style="float: left;">
+      <img src="<?php echo $baseUrl; ?>/images/silouette.gif" height="60" width="60" style="padding: 1px; border: 1px solid #999999;" id="operator-image">
+    </div>
+    <div style="float: left; margin-left: 10px;">
+      <p style="font-weight: bold; font-size: 16px; margin-top: 0px;" id="operator-name"></p>
+    </div>
+  </div>
+
+  <div style="background-color: #3B3B3B; width: 392px; height: 30px; position: absolute; right: 4px; border-top: 1px solid #000000; border-bottom: 1px solid #000000; display:none;">
+
+    <input type="text" style="width: 200px; font-family: Lucida Sans Unicode, verdana, helvetica; font-size: 12px; border: 1px solid #000000; border-radius: 3px; margin-left: 5px; height: 22px; padding: 2px; margin-top: 4px;">
+
+  </div>
+
+  <div id="chat-message-area">
+
+  </div>
+
+  </div>
+
+  <div class="send-message">
+  <textarea id="chat-message-box" placeholder="Your message..."></textarea>
+
+  </div>
+</div>
+<% end %>

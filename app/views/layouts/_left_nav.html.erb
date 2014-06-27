@@ -29,16 +29,16 @@
 			<a href="#"><i class="fa fa-lg fa-fw fa-toggle-up"></i> <span class="menu-item-parent">Chat Widget</span></a>
 			<ul>
 				<li class="<%= "active" if controller?('chat_widgets') %>">
-          <%= link_to "Widget Customization", edit_chat_widget_path(current_agent.organization_id), { title: "Customization" } %>
+          <%= link_to "Widget Customization", chat_widgets_path, { title: "Customization" } %>
 				</li>
 				<li>
 					<a href="form-elements.html">Invitations</a>
 				</li>
 				<li class="<%= "active" if controller?('prechat_forms') %>">
-          <%= link_to "Pre-chat Survey", edit_prechat_form_path(current_agent.organization_id), { title: "Pre-chat Survey" } %>
+          <%= link_to "Pre-chat Survey", prechat_forms_path, { title: "Pre-chat Survey" } %>
 				</li>
 				<li class="<%= "active" if controller?('offline_forms') %>">
-          <%= link_to "Offline Message", edit_offline_form_path(current_agent.organization_id), { title: "Offline Message" } %>
+          <%= link_to "Offline Message", offline_forms_path, { title: "Offline Message" } %>
 				</li>
 				<li class="<%= "active" if current_page?(code_path) %>">
           <%= link_to "Website Code", code_path, { title: "Website Code" } %>

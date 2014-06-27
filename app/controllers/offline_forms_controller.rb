@@ -1,12 +1,20 @@
 class OfflineFormsController < ApplicationController
   before_action :authenticate_agent!
-  before_action :set_websites, only: [:edit, :update]
+  before_action :set_websites, only: [:index, :edit]
 
-  # GET /offline_forms/1/edit
-  def edit
+  def index
     params.has_key?(:website_id) ? website_id = params[:website_id] : website_id = Website.where(organization_id: current_agent.organization_id).first
     
     @offline_form = OfflineForm.find_by(:website_id => website_id) if website_id
+    
+    redirect_to edit_offline_form_path(@offline_form)
+  end
+
+  # GET /offline_forms/1/edit
+  def edit
+    
+    @offline_form = OfflineForm.find(params[:id])
+
   end
 
 

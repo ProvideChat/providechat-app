@@ -1,12 +1,20 @@
 class ChatWidgetsController < ApplicationController
   before_action :authenticate_agent!
-  before_action :set_websites, only: [:edit, :update]
+  before_action :set_websites, only: [:index, :edit]
 
-  def edit
+  def index
     params.has_key?(:website_id) ? website_id = params[:website_id] : website_id = Website.where(organization_id: current_agent.organization_id).first
     
     @chat_widget = ChatWidget.find_by(:website_id => website_id) if website_id
+    
+    redirect_to edit_chat_widget_path(@chat_widget)
   end
+
+  # GET /offline_forms/1/edit
+  def edit
+    @chat_widget = ChatWidget.find(params[:id])
+  end
+
 
   def update    
     @chat_widget = ChatWidget.find(params[:id])

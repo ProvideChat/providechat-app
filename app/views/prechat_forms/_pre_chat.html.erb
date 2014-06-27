@@ -1,0 +1,88 @@
+<% if false %>
+<div id="pc-chat-window" style="display: block;"><div class="chat-widget chat-widget-open"><div class="chat-widget-header" id="close-chat-widget">Welcome to Provide Chat<div style="float: right; margin-right: 10px;"><img src="http://widget.providechat.com/images/down-arrow.png"></div></div><div id="chat-widget-content">
+<div class="chat-widget-container">
+
+<div style="margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px; display: none;" id="unavailable-success">
+  
+<p style="margin-top: 0px; "></p><p><strong>Thank you for contacting us</strong></p><p>We will contact you via email shortly.</p><p></p>
+
+</div>
+
+<div style="margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px;" id="unavailable-form">
+  
+<p style="margin-top: 0px; "><strong>All of our operators are currently unavailable.</strong><br>Please send us an email and we'll get back to you shortly.</p>
+
+<input type="text" id="unavailable-text-box-1" placeholder="Name:"><p></p>
+
+  <input type="text" id="unavailable-text-box-2" placeholder="Email:"><p></p>
+
+  <p>
+    <select id="unavailable-department">
+      <option value="0">Any Department</option>
+  		<option value="Sales">Sales</option>
+<option value="Support">Support</option>
+<option value="Orders">Orders</option>
+<option value="Information">Information</option>
+    </select>
+  </p>
+
+<textarea rows="4" style="border: 1px solid #CCCCCC; width: 350px;" id="unavailable-message" placeholder="Message:"></textarea><p></p>
+	
+<input type="submit" value="  Send Email  " style="" id="send-unavailable-email">
+
+<div class="missing-fields">Please fill in all fields</div>
+
+</div>
+
+</div>
+</div><div class="chat-widget-footer"><a href="http://www.providechat.com/" style="color: #EEEEEE;">Live Chat Software</a> powered by Provide Chat.</div></div></div>
+<% end %>
+
+
+<div id="pc-chat-window" style="display: block;">
+  <div class="chat-widget chat-widget-open">
+    <div class="chat-widget-header" id="close-chat-widget">Welcome to Provide Chat
+      <div style="float: right; margin-right: 10px;">
+        <%= image_tag "widget/down-arrow.png" %>
+      </div>
+    </div>
+    <div id="chat-widget-content">
+      <div class="chat-widget-container">
+
+        <div style="margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px;">
+
+          <p><%= @prechat_form.intro_text %></p>
+
+          <input type="text" id="start-chat-text-box-1" placeholder="<%= @prechat_form.name_text %>"></p>
+
+          <% if @prechat_form.email_enabled %>
+            <input type="text" id="start-chat-text-box-2" placeholder="<%= @prechat_form.email_text %>"></p>
+          <% end %>
+          
+
+          <% if @prechat_form.department_text %>
+            <p>
+              <select id="unavailable-department">
+                <option value="0">Any Department</option>
+                <% Department.all.each do |department| %>
+                  <option value="<%= department.id %>"><%= department.name %></option>
+                <% end %>
+              </select>
+            </p>
+          <% end %>
+
+          <textarea rows="4" id="start-chat-question" placeholder="<%= @prechat_form.message_text %>"></textarea></p>
+	
+          <input type="submit" value="  <%= @prechat_form.button_text %>  " style="color: #333333; font-family: arial, verdana, helvetica; font-size: 12px; height: 40px;" id="start-chat-btn">
+
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-widget-footer">
+      <a href="http://www.providechat.com/" style="color: #EEEEEE;">Live Chat Software</a> powered by Provide Chat.
+    </div>
+  </div>
+</div>
+
+

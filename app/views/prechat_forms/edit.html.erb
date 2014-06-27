@@ -1,14 +1,33 @@
 <%= render 'layouts/page_header', :title => 'Chat Widget', :icon => 'fa-toggle-up', :subpage => 'Pre-chat Survey' %>
 
 <div class="row">
+  <div class="col-sm-12 col-md-6">
+    <%= form_tag(prechat_forms_path, method: 'get', class: 'form-horizontal', id: 'edit_prechat_form') do %>
+
+    	<fieldset>
+    		<div class="form-group">
+    			<label class="col-md-4 control-label">Website</label>
+    			<div class="col-md-8">
+            <%= select_tag "website_id", options_from_collection_for_select(@websites, "id", "url", @prechat_form.website_id), :class => "form-control", :id => "website_id" %>
+    			</div>
+    		</div>
+      </fieldset>    
+      
+    <% end %>
+  </div>
+</div>
+
+<hr>
+
+<div class="row">
   
   <% if @prechat_form %>
 
-	  <div class="col-sm-6 col-md-6 col-lg-6">
-      <%= render 'widget' %>
+	  <div class="col-sm-12 col-md-6">
+      <%= render 'pre_chat' %>
     </div>
 
-    <div class="col-sm-6 col-md-6 col-lg-6">
+    <div class="col-sm-12 col-md-6">
       <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
       	<header>
       		<span class="widget-icon"> <i class="fa fa-toggle-up"></i> </span>
@@ -44,5 +63,13 @@
   <% end %>
   
 </div>
+
+<script>
+  $(function() {
+    $('#website_id').on ('change', function() {
+      $('#edit_prechat_form').submit();
+    });
+  });
+</script>
 
 
