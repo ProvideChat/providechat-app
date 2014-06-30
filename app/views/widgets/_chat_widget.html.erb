@@ -1,0 +1,143 @@
+<% if false %>
+
+
+require_once '../lib/pc/global_inc.php';
+require_once '../lib/pc/organization_inc.php';
+require_once '../lib/pc/chat_inc.php';
+require_once '../lib/pc/visitor_inc.php';
+require_once '../lib/pc/window_inc.php';
+
+$chat_id = 0;
+$startChat = false;
+$org_id = 0;
+
+if (isset($_SESSION['timezone'])) {
+  date_default_timezone_set($_SESSION['timezone']);
+} else {
+  date_default_timezone_set('UTC');
+}
+
+if (isset($_REQUEST['chat_id'])) {
+	$chat_id = $_REQUEST['chat_id'];
+}
+
+if (isset($_REQUEST['org_id'])) {
+	$org_id = $_REQUEST['org_id'];
+}
+
+$website_id = 0;
+
+if (isset($_REQUEST['website_id'])) {
+  $website_id = $_REQUEST['website_id'];
+}
+
+$org = get_organization ($org_id);
+$edition = $org->edition;
+
+$config = get_config ($org_id);
+$operator_response_timeout = ($config->operator_response_timeout * 60);
+
+$website = get_organization_website ($website_id);
+
+$footer_text = $website->footer_text;
+
+$chat_window = get_chat_window($website_id, $org_id);
+
+if (is_object($chat_window)) {
+
+	$welcome_message = $chat_window->welcome_message;
+	$initial_operator_message = $chat_window->initial_operator_message;
+	$email_chat_text = $chat_window->email_chat_text;
+	$save_chat_text = $chat_window->save_chat_text;
+	$button_text = $chat_window->button_text;
+
+} else {
+
+  $welcome_message = "Welcome Visitor! We're now connecting you to support. Please wait for an operator to accept your chat.";
+  $initial_operator_message = "You are being connected with an operator. <strong>How can I help you?</strong>";
+  $email_chat_text = 'Email Chat';
+  $save_chat_text = 'Save Chat';
+  $button_text = 'Send';
+}
+
+$chat_detail = get_chat_detail ( $chat_id );
+
+$visitor_id = $chat_detail['visitor_id'];
+$visitor_name = $chat_detail['visitor_name'];
+$visitor_email = $chat_detail['visitor_email'];
+$visitor_question = $chat_detail['visitor_question'];
+$chat_status = $chat_detail['chat_status'];
+
+if (strlen($visitor_question) == 0) {
+  $visitor_question = "Hi, I would like some help";
+}
+
+if ($_SERVER['HTTP_HOST'] == 'widget.providechat.dev') {
+  $baseUrl = "http://widget.providechat.dev";
+} else {
+  $baseUrl = "http://widget.providechat.com";
+}
+
+update_visitor_current_page($visitor_id, 'Chat Window for ' . $website->url);
+
+
+    t.string   "online_message"
+    t.string   "offline_message"
+    t.boolean  "hide_when_offline"
+    t.string   "colour"
+    t.boolean  "display_logo"
+    t.boolean  "display_agent_avatar"
+    t.boolean  "display_mobile_icon"
+
+<% end %>
+
+<div id="waiting-for-operator">
+
+  <div class="chat-widget-container">
+
+    <div class="operator-area">
+      <div style="float: left;">
+        <img src="<?php echo $baseUrl; ?>/images/silouette.gif" height="60" width="60" style="padding: 1px; border: 1px solid #999999;">
+      </div>
+      <div style="float: left; margin-left: 10px;">
+        <p style="font-weight: bold; font-size: 16px; margin-top: 0px;">Connecting...</p>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 80px;">
+      Connecting you with an operator <br><br><br>
+      <img src="<?php echo $baseUrl; ?>/images/loading.gif" height="48" width="48" style="margin: auto 0;">
+    </div>
+  </div>
+</div>
+
+<div id="in-chat" style="display: none;">
+
+  <div class="chat-widget-container" style="height: 325px;">
+
+  <div class="operator-area">
+    <div style="float: left;">
+      <img src="<?php echo $baseUrl; ?>/images/silouette.gif" height="60" width="60" style="padding: 1px; border: 1px solid #999999;" id="operator-image">
+    </div>
+    <div style="float: left; margin-left: 10px;">
+      <p style="font-weight: bold; font-size: 16px; margin-top: 0px;" id="operator-name"></p>
+    </div>
+  </div>
+
+  <div style="background-color: #3B3B3B; width: 392px; height: 30px; position: absolute; right: 4px; border-top: 1px solid #000000; border-bottom: 1px solid #000000; display:none;">
+
+  <input type="text" style="width: 200px; font-family: Lucida Sans Unicode, verdana, helvetica; font-size: 12px; border: 1px solid #000000; border-radius: 3px; margin-left: 5px; height: 22px; padding: 2px; margin-top: 4px;" value="luke@providechat.com">
+
+  </div>
+
+  <div id="chat-message-area">
+
+  </div>
+
+  </div>
+
+  <div class="send-message">
+  <textarea id="chat-message-box" placeholder="Your message..."></textarea>
+
+  </div>
+</div>
