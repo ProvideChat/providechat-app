@@ -49,9 +49,10 @@ if (($unavailable_window->department_status == 'show') && (count($departments) >
 
 <div id="pc-chat-window" style="display: block;">
   <div class="chat-widget chat-widget-open">
-    <div class="chat-widget-header">Welcome to Provide Chat</div>
-    <div style="float: right; margin-top: 9px; margin-right: 10px;">
-      <%= image_tag "widget/down-arrow.png", :id => "close-chat-widget" %>
+    <div class="chat-widget-header" id="close-chat-widget">Welcome to Provide Chat
+      <div style="float: right; margin-right: 10px;">
+        <%= image_tag "widget/down-arrow.png" %>
+      </div>
     </div>
 
     <div id="chat-widget-content">
@@ -59,13 +60,13 @@ if (($unavailable_window->department_status == 'show') && (count($departments) >
 
         <div style="margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px; display: none;" id="unavailable-success">
   
-          <p style="margin-top: 0px; "><%= "Success Message "%></p>
+          <p style="margin-top: 0px; "><%= @offline_form.success_message %></p>
 
         </div>
 
         <div style="margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px;" id="unavailable-form">
   
-          <p style="margin-top: 0px; "><%= "Intro Text "%></p>
+          <p style="margin-top: 0px; "><%= @offline_form.intro_text %></p>
 
           <input type="text" id="unavailable-text-box-1" placeholder="<%= "Text Box 1" %>"></p>
 
