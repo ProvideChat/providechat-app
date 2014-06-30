@@ -1,6 +1,6 @@
 class ChatWidget < ActiveRecord::Base
   belongs_to :website
-  before_save :set_defaults
+  before_create :set_defaults
   
   private
     def set_defaults
