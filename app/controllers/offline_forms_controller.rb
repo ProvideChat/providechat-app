@@ -12,25 +12,19 @@ class OfflineFormsController < ApplicationController
 
   # GET /offline_forms/1/edit
   def edit
-    
     @offline_form = OfflineForm.find(params[:id])
-
   end
 
-
   # PATCH/PUT /offline_forms/1
-  # PATCH/PUT /offline_forms/1.json
   def update
     @offline_form = OfflineForm.find(params[:id])
     
-    respond_to do |format|
-      if @offline_form.update(offline_form_params)
-        format.html { redirect_to @offline_message, notice: 'Offline form was successfully updated.' }
-        format.json { render :show, status: :ok, location: @offline_form }
-      else
-        format.html { render :edit }
-        format.json { render json: @offline_form.errors, status: :unprocessable_entity }
-      end
+    logger.debug offline_form_params
+    
+    if @offline_form.update(offline_form_params)
+      redirect_to edit_offline_form_path(@offline_form), notice: 'Your offline form was successfully updated.'
+    else
+      render :edit
     end
   end
 
