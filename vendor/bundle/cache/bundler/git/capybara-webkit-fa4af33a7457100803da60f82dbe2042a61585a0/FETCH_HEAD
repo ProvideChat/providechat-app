@@ -7,9 +7,9 @@ a43244037112bcc48f39e616a2428c4cb7548f2e		branch 'gbw-code-climate-badge' of htt
 bec3bfc73ab8bc16c49bb4a3bd8faed6cd70f62f		branch 'jf-4-8' of https://github.com/thoughtbot/capybara-webkit
 f3fd2e9e7562be7003e69aadc6d6ab73663e49c2		branch 'jf-faster-attach-check' of https://github.com/thoughtbot/capybara-webkit
 fa8e377784ef1a44ae2c59b436625ccb750ba9f8		branch 'jf-release-1.1.0' of https://github.com/thoughtbot/capybara-webkit
-9476d70b344f547df1f15870facf9cfb8f80fd88		branch 'jf-update-capybara' of https://github.com/thoughtbot/capybara-webkit
+129aabb479a5a52b5583f33cbaa18ff356d17244		branch 'jf-update-capybara' of https://github.com/thoughtbot/capybara-webkit
 ef3122a26d29ff5a721657fac2f5f1aef6c26585		branch 'jm-crash' of https://github.com/thoughtbot/capybara-webkit
-b7d6be163c3fd6f5f6b6e34fc19200ceeaffd700		branch 'master' of https://github.com/thoughtbot/capybara-webkit
+2cd9d32849f5d578d4bfaedcd3eca0f1c645af19		branch 'master' of https://github.com/thoughtbot/capybara-webkit
 b7b728aceb02f6073e4b98301e4d4aa0bf0fd16b		branch 'mf-document-setting-headers' of https://github.com/thoughtbot/capybara-webkit
 eee6437a0db5292fc6a9566ea18d6c9f415c3418		branch 'mm-authentication' of https://github.com/thoughtbot/capybara-webkit
 1a28da89addbf9fe111538e768e4b8a7e80b005e		branch 'mm-dates' of https://github.com/thoughtbot/capybara-webkit
@@ -62,3 +62,4 @@ c26e4cd1ec15138c9bb2246759c3511a05b95e74	not-for-merge	tag 'v0.7.0' of https://g
 7d277f18fbc63d32b07a44f4543357e5830b942b	not-for-merge	tag 'v1.0.0' of https://github.com/thoughtbot/capybara-webkit
 bf27d10ea85dcf4790a460c513be467cf2822c52	not-for-merge	tag 'v1.1.0' of https://github.com/thoughtbot/capybara-webkit
 743fd31a380f75ab4b3568fae6aa3030361a4049	not-for-merge	tag 'v1.1.1' of https://github.com/thoughtbot/capybara-webkit
+3e298fe501e54078bbd410ecca77fecc0e533027	not-for-merge	tag 'v1.2.0' of https://github.com/thoughtbot/capybara-webkit
