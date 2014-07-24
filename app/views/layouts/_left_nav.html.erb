@@ -32,7 +32,8 @@
           <%= link_to "Widget Customization", chat_widgets_path, { title: "Customization" } %>
 				</li>
 				<li>
-					<a href="form-elements.html">Invitations</a>
+  				<li class="<%= "active" if controller?('invitations') %>">
+            <%= link_to "Invitations", invitations_path, { title: "Invitations" } %>
 				</li>
 				<li class="<%= "active" if controller?('prechat_forms') %>">
           <%= link_to "Pre-chat Survey", prechat_forms_path, { title: "Pre-chat Survey" } %>
