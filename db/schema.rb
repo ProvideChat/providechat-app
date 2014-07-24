@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140610183145) do
+ActiveRecord::Schema.define(version: 20140724171120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,18 @@ ActiveRecord::Schema.define(version: 20140610183145) do
   end
 
   add_index "departments", ["organization_id"], name: "index_departments_on_organization_id", using: :btree
+
+  create_table "invitations", force: true do |t|
+    t.integer  "organization_id"
+    t.integer  "website_id"
+    t.string   "invitation_message"
+    t.boolean  "smart_invite_enabled"
+    t.string   "smart_invite_mode"
+    t.integer  "invite_pageviews"
+    t.integer  "invite_seconds"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "offline_forms", force: true do |t|
     t.integer  "organization_id"
