@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :offline_forms, only: [:index, :edit, :update]
   resources :prechat_forms, only: [:index, :edit, :update]
   resources :chat_widgets, only: [:index, :edit, :update]
+  resources :invitations, only: [:index, :edit, :update]
   resources :organizations, only: [:edit, :update]
   
   root to: 'home#dashboard'

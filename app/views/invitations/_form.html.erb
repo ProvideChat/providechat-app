@@ -1,0 +1,45 @@
+<%= form_for(@invitation) do |f| %>
+  <% if @invitation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@invitation.errors.count, "error") %> prohibited this invitation from being saved:</h2>
+
+      <ul>
+      <% @invitation.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :organization_id %><br>
+    <%= f.number_field :organization_id %>
+  </div>
+  <div class="field">
+    <%= f.label :website_id %><br>
+    <%= f.number_field :website_id %>
+  </div>
+  <div class="field">
+    <%= f.label :invitation_message %><br>
+    <%= f.text_field :invitation_message %>
+  </div>
+  <div class="field">
+    <%= f.label :smart_invite_enabled %><br>
+    <%= f.check_box :smart_invite_enabled %>
+  </div>
+  <div class="field">
+    <%= f.label :smart_invite_mode %><br>
+    <%= f.text_field :smart_invite_mode %>
+  </div>
+  <div class="field">
+    <%= f.label :invite_pageviews %><br>
+    <%= f.number_field :invite_pageviews %>
+  </div>
+  <div class="field">
+    <%= f.label :invite_seconds %><br>
+    <%= f.number_field :invite_seconds %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
