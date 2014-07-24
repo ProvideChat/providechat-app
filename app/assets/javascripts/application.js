@@ -12,8 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.all
+//= require jquery-ui
 //= require bootstrap
+//= require bootstrap-datepicker
+//= require bootstrap-colorpicker
 //= require jquery.nestable
 //= require smartadmin
 

@@ -1,4 +1,5 @@
-<%= form_for(@chat_widget, :html => {class: 'form-horizontal', id: 'update-widget'}) do |f| %>
+
+<%= form_for(@chat_widget, :html => {class: 'smart-form', id: 'update-widget'}) do |f| %>
   <% if @chat_widget.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@chat_widget.errors.count, "error") %> prohibited this chat_widget from being saved:</h2>
@@ -11,56 +12,64 @@
     </div>
   <% end %>
 
+  <header>Customize Language</header>
 	<fieldset>
-
-		<div class="form-group">
-			<label class="col-md-4 control-label"><%= f.label :online_message %></label>
-			<div class="col-md-8">
-        <%= f.text_field :online_message, :class => "form-control" %>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-md-4 control-label"><%= f.label :display_when_offline %></label>
-			<div class="col-md-8">
-        <%= f.check_box :hide_when_offline, :class => "form-control" %>
-			</div>
-		</div>     
-		<div class="form-group">
-			<label class="col-md-4 control-label"><%= f.label :offline_message %></label>
-			<div class="col-md-8">
-        <%= f.text_field :offline_message, :class => "form-control" %>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-md-4 control-label"><%= f.label :colour %></label>
-			<div class="col-md-8">
-        <%= f.text_field :colour, :class => "form-control" %>
-        <a data-toggle="dropdown" class="dropdown-toggle color-box selector" href="javascript:void(0);"></a>
-        <ul class="dropdown-menu arrow-box-up-right color-select pull-right"><li><span class="bg-color-green" data-widget-setstyle="jarviswidget-color-green" rel="tooltip" data-placement="left" data-original-title="Green Grass"></span></li><li><span class="bg-color-greenDark" data-widget-setstyle="jarviswidget-color-greenDark" rel="tooltip" data-placement="top" data-original-title="Dark Green"></span></li><li><span class="bg-color-greenLight" data-widget-setstyle="jarviswidget-color-greenLight" rel="tooltip" data-placement="top" data-original-title="Light Green"></span></li><li><span class="bg-color-purple" data-widget-setstyle="jarviswidget-color-purple" rel="tooltip" data-placement="top" data-original-title="Purple"></span></li><li><span class="bg-color-magenta" data-widget-setstyle="jarviswidget-color-magenta" rel="tooltip" data-placement="top" data-original-title="Magenta"></span></li><li><span class="bg-color-pink" data-widget-setstyle="jarviswidget-color-pink" rel="tooltip" data-placement="right" data-original-title="Pink"></span></li><li><span class="bg-color-pinkDark" data-widget-setstyle="jarviswidget-color-pinkDark" rel="tooltip" data-placement="left" data-original-title="Fade Pink"></span></li><li><span class="bg-color-blueLight" data-widget-setstyle="jarviswidget-color-blueLight" rel="tooltip" data-placement="top" data-original-title="Light Blue"></span></li><li><span class="bg-color-teal" data-widget-setstyle="jarviswidget-color-teal" rel="tooltip" data-placement="top" data-original-title="Teal"></span></li><li><span class="bg-color-blue" data-widget-setstyle="jarviswidget-color-blue" rel="tooltip" data-placement="top" data-original-title="Ocean Blue"></span></li><li><span class="bg-color-blueDark" data-widget-setstyle="jarviswidget-color-blueDark" rel="tooltip" data-placement="top" data-original-title="Night Sky"></span></li><li><span class="bg-color-darken" data-widget-setstyle="jarviswidget-color-darken" rel="tooltip" data-placement="right" data-original-title="Night"></span></li><li><span class="bg-color-yellow" data-widget-setstyle="jarviswidget-color-yellow" rel="tooltip" data-placement="left" data-original-title="Day Light"></span></li><li><span class="bg-color-orange" data-widget-setstyle="jarviswidget-color-orange" rel="tooltip" data-placement="bottom" data-original-title="Orange"></span></li><li><span class="bg-color-orangeDark" data-widget-setstyle="jarviswidget-color-orangeDark" rel="tooltip" data-placement="bottom" data-original-title="Dark Orange"></span></li><li><span class="bg-color-red" data-widget-setstyle="jarviswidget-color-red" rel="tooltip" data-placement="bottom" data-original-title="Red Rose"></span></li><li><span class="bg-color-redLight" data-widget-setstyle="jarviswidget-color-redLight" rel="tooltip" data-placement="bottom" data-original-title="Light Red"></span></li><li><span class="bg-color-white" data-widget-setstyle="jarviswidget-color-white" rel="tooltip" data-placement="right" data-original-title="Purity"></span></li><li><a href="javascript:void(0);" class="jarviswidget-remove-colors" data-widget-setstyle="" rel="tooltip" data-placement="bottom" data-original-title="Reset widget color to default">Remove</a></li></ul>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-md-4 control-label"><%= f.label :display_logo %></label>
-			<div class="col-md-8">
+  	<div class="row">
+  		<section class="col col-12">
+  			<label class="input">
+          <%= f.text_field :online_message, :placeholder => @chat_widget.online_message %>
+  			</label>
+  		</section>
+    </div>
+    <div class="row">
+  		<section class="col col-12">
+  			<label class="input">
+          <%= f.text_field :offline_message, :placeholder => @chat_widget.offline_message %>
+  			</label>
+  		</section>
+  	</div>
+    <div class="row">
+  		<section class="col col-12">
+  			<label class="input">
+          <%= f.text_field :title_message, :placeholder => @chat_widget.title_message %>
+  			</label>
+  		</section>
+  	</div>					
+  </fieldset>
+  <header>Customize Look</header>
+  <fieldset>
+    <div class="row">
+  		<section class="col col-12">
+        <label class="input">
+    			<div class="input-group col-xs-4 color">
+            <%= f.text_field :color, :placeholder => @chat_widget.color, :class => "form-control"  %>
+            <span class="input-group-addon"><i></i></span>   
+          </div>
+        </label>
+  		</section>
+  	</div>
+		<section>
+			<label class="checkbox">
         <%= f.check_box :display_logo, :class => "form-control" %>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-md-4 control-label"><%= f.label :display_agent_avatar %></label>
-			<div class="col-md-8">
+				<i></i>Display logo</label>
+			<label class="checkbox">
         <%= f.check_box :display_agent_avatar, :class => "form-control" %>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-md-4 control-label"><%= f.label :display_mobile_icon %></label>
-			<div class="col-md-8">
-        <%= f.check_box :display_mobile_icon, :class => "form-control" %>
-			</div>
-		</div>    
-
+				<i></i>Display agent's avatar</label>
+			<label class="checkbox">
+        <%= f.check_box :hide_when_offline, :class => "form-control" %>
+				<i></i>Hide widget when all operators are offline</label>
+		</section>
+    
+  
   </fieldset>
 	<footer>
-    <%= f.submit "Submit", :class => "btn btn-primary" %>
+    <%= f.submit "Update", :class => "btn btn-primary" %>
 	</footer>
   
 <% end %>
+
+<script>
+
+ $('.color').colorpicker();
+ 
+ </script>

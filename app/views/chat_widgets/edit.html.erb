@@ -1,46 +1,42 @@
 <%= render 'layouts/page_header', :title => 'Chat Widget', :icon => 'fa-toggle-up', :subpage => 'Customization' %>
 
 <div class="row">
-  <div class="col-sm-12 col-md-6">
-    <%= form_tag(chat_widgets_path, method: 'get', class: 'form-horizontal', id: 'edit_chat_widget') do %>
-
-    	<fieldset>
-    		<div class="form-group">
-    			<label class="col-md-4 control-label">Website</label>
-    			<div class="col-md-8">
-            <%= select_tag "website_id", options_from_collection_for_select(@websites, "id", "url", @chat_widget.website_id), :class => "form-control", :id => "website_id" %>
-    			</div>
-    		</div>
-      </fieldset>    
-      
-    <% end %>
-  </div>
-</div>
-
-<hr>
-
-<div class="row">
   
   <% if @chat_widget %>
 
-	  <div class="col-sm-6 col-md-6 col-lg-6">
-      <%= render 'widget' %>
-    </div>
-
-    <div class="col-sm-6 col-md-6 col-lg-6">
-      <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+	  <div class="col-sm-12 col-md-6 col-lg-6">
+      <div class="jarviswidget" id="widget-preview">
       	<header>
       		<span class="widget-icon"> <i class="fa fa-toggle-up"></i> </span>
-      		<h2>Customize Chat Widget</h2>
+      		<h2>Preview Widget</h2>
+
       	</header>
 
 				<div>
+					<div class="widget-body">
+            <%= render 'widget' %>
+          </div>
+        </div>
+      </div>
 
-					<div class="jarviswidget-editbox">
-						<!-- This area used as dropdown edit box -->
+    </div>
 
-					</div>
+    <div class="col-sm-12 col-md-6 col-lg-6">
+      <div class="jarviswidget jarviswidget-color-orangeDark" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+      	<header>
+      		<span class="widget-icon"> <i class="fa fa-toggle-up"></i> </span>
+      		<h2>Customize Chat Widget</h2>
+          <div class="widget-toolbar smart-form" role="menu">
+            <%= form_tag(chat_widgets_path, method: 'get', class: 'smart-form', id: 'edit_chat_widget') do %>
+              <label class="select">
+                <%= select_tag "website_id", options_from_collection_for_select(@websites, "id", "url", @chat_widget.website_id), :class => "input-sm", :id => "website_id" %>
+                <i></i>
+              </label>
+            <% end %>
+          </div>
+      	</header>
 
+				<div>
 					<div class="widget-body">
             <%= render 'form' %>
           </div>

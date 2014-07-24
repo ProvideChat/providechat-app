@@ -2,25 +2,31 @@
 
   border: 1px;
 
-	height: 450px;
-	width: 400px;
 
   .chat-widget {
 
+  	height: 450px;
+  	width: 400px;
+
   	color: #FFFFFF;
-  	background-color: #3B3B3B;
+  	/*background-color: #3B3B3B;*/
   	border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     /*
     box-shadow: 1px 1px 0 0 #585858 inset;
     */
     border-width: 1px 1px 0 1px;
-    border-color:  #000000;
+    /*border-color:  #000000;*/
     border-style: solid;
 
     text-align: center;
     position: relative;
 
+  }
+  
+  .chat-widget-closed {
+  	height: 32px;
+  	width: 250px;
   }
 
   .chat-widget-open {

@@ -21,7 +21,7 @@ class ChatWidgetsController < ApplicationController
     
     respond_to do |format|
       if @chat_widget.update(chat_widget_params)
-        format.html { redirect_to @chat_widget, notice: 'Chat widget was successfully updated.' }
+        format.html { redirect_to edit_chat_widget_path(@chat_widget), notice: 'Chat widget was successfully updated.' }
         format.json { render :show, status: :ok, location: @chat_widget }
       else
         format.html { render :edit }
@@ -37,6 +37,6 @@ class ChatWidgetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def chat_widget_params
-      params.require(:chat_widget).permit(:online_message, :offline_message, :colour, :display_logo, :display_agent_avatar, :display_mobile_icon)
+      params.require(:chat_widget).permit(:online_message, :offline_message, :title_message, :color, :display_logo, :display_agent_avatar, :display_mobile_icon)
     end
 end
