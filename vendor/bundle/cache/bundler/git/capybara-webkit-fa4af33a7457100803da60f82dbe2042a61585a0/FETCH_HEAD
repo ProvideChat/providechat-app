@@ -2,6 +2,7 @@ d882dc18a02613d56c5a603748aa45430566628f		branch '0.13.x' of https://github.com/
 b6a09ee0bf3ff490cd307724f630a874d9566025		branch '1.0' of https://github.com/thoughtbot/capybara-webkit
 046eeb8dc9a3238aa23fc65fe93bf09e385c4640		branch 'anchors' of https://github.com/thoughtbot/capybara-webkit
 c9cf3cfcc2e50f11c1e60e18028412c2c8ba0786		branch 'benchmarks' of https://github.com/thoughtbot/capybara-webkit
+469b6da792b25c1c3875fcaae91b56e0f7fb8f79		branch 'debug-slow-boot' of https://github.com/thoughtbot/capybara-webkit
 b9cbd4aa3a727bdd2af8c9bff310e7cceabfcd75		branch 'gb-mouse-event-coordinates' of https://github.com/thoughtbot/capybara-webkit
 a43244037112bcc48f39e616a2428c4cb7548f2e		branch 'gbw-code-climate-badge' of https://github.com/thoughtbot/capybara-webkit
 bec3bfc73ab8bc16c49bb4a3bd8faed6cd70f62f		branch 'jf-4-8' of https://github.com/thoughtbot/capybara-webkit
@@ -9,7 +10,7 @@ f3fd2e9e7562be7003e69aadc6d6ab73663e49c2		branch 'jf-faster-attach-check' of htt
 fa8e377784ef1a44ae2c59b436625ccb750ba9f8		branch 'jf-release-1.1.0' of https://github.com/thoughtbot/capybara-webkit
 129aabb479a5a52b5583f33cbaa18ff356d17244		branch 'jf-update-capybara' of https://github.com/thoughtbot/capybara-webkit
 ef3122a26d29ff5a721657fac2f5f1aef6c26585		branch 'jm-crash' of https://github.com/thoughtbot/capybara-webkit
-2cd9d32849f5d578d4bfaedcd3eca0f1c645af19		branch 'master' of https://github.com/thoughtbot/capybara-webkit
+144a43ff7b6c71bf655905f06853b29ed111f335		branch 'master' of https://github.com/thoughtbot/capybara-webkit
 b7b728aceb02f6073e4b98301e4d4aa0bf0fd16b		branch 'mf-document-setting-headers' of https://github.com/thoughtbot/capybara-webkit
 eee6437a0db5292fc6a9566ea18d6c9f415c3418		branch 'mm-authentication' of https://github.com/thoughtbot/capybara-webkit
 1a28da89addbf9fe111538e768e4b8a7e80b005e		branch 'mm-dates' of https://github.com/thoughtbot/capybara-webkit
