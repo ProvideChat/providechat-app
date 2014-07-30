@@ -23,6 +23,10 @@ test:
   <<: *default
   database: providechat_test
 
+staging:
+  <<: *default
+  database: providechat_staging
+
 production:
   <<: *default
   database: providechat_production
