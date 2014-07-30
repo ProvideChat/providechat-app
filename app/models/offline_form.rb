@@ -1,4 +1,5 @@
 class OfflineForm < ActiveRecord::Base
+  belongs_to :organization
   belongs_to :website
   before_create :set_defaults
   

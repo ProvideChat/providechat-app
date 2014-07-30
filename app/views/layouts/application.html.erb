@@ -62,8 +62,8 @@
         </a> 
 				
 				<div class="btn-group pull-right">
-					<button class="btn dropdown-toggle btn-xs btn-success" data-toggle="dropdown">
-						Status <i class="fa fa-caret-down"></i>
+					<button class="btn dropdown-toggle btn-xs btn-danger" data-toggle="dropdown">
+						Offline <i class="fa fa-caret-down"></i>
 					</button>
 					<ul class="dropdown-menu js-status-update" role="menu">
 						<li>
@@ -104,7 +104,9 @@
 	$(document).ready(function() {
 		
 		pageSetUp();
+       
     
+    /*
 		$(".js-status-update a").click(function() {
 			var selText = $(this).text();
 			var $this = $(this);
@@ -112,6 +114,7 @@
 			$this.parents('.dropdown-menu').find('li').removeClass('active');
 			$this.parent().addClass('active');
 		});
+    */
   });
   
   </script>

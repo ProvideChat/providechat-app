@@ -5,9 +5,12 @@ class InvitationsController < ApplicationController
   def index
     params.has_key?(:website_id) ? website_id = params[:website_id] : website_id = Website.where(organization_id: current_agent.organization_id).first
     
-    @invitation = Invitation.find_by(:website_id => website_id) if website_id
-    
-    redirect_to edit_invitation_path(@invitation)    
+    if website_id
+      @invitation = Invitation.find_by(:website_id => website_id)
+      redirect_to edit_invitation_path(@invitation.id)    
+    else
+      redirect_to websites_path, notice: "You need to add a website before you can modify the Chat Widget"
+    end
   end
 
   def edit

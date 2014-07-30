@@ -5,16 +5,18 @@ class ChatWidgetsController < ApplicationController
   def index
     params.has_key?(:website_id) ? website_id = params[:website_id] : website_id = Website.where(organization_id: current_agent.organization_id).first
     
-    @chat_widget = ChatWidget.find_by(:website_id => website_id) if website_id
-    
-    redirect_to edit_chat_widget_path(@chat_widget)
+    if website_id
+      @chat_widget = ChatWidget.find_by(:website_id => website_id)
+      redirect_to edit_chat_widget_path(@chat_widget)
+    else
+      redirect_to websites_path, notice: "You need to add a website before you can modify the Chat Widget"
+    end
   end
 
   # GET /offline_forms/1/edit
   def edit
     @chat_widget = ChatWidget.find(params[:id])
   end
-
 
   def update    
     @chat_widget = ChatWidget.find(params[:id])

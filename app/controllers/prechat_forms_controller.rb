@@ -5,9 +5,12 @@ class PrechatFormsController < ApplicationController
   def index
     params.has_key?(:website_id) ? website_id = params[:website_id] : website_id = Website.where(organization_id: current_agent.organization_id).first
     
-    @prechat_form = PrechatForm.find_by(:website_id => website_id) if website_id
-    
-    redirect_to edit_prechat_form_path(@prechat_form)
+    if website_id
+      @prechat_form = PrechatForm.find_by(:website_id => website_id)
+      redirect_to edit_prechat_form_path(@prechat_form)    
+    else
+      redirect_to websites_path, notice: "You need to add a website before you can modify the Pre-chat Form"
+    end
   end
 
   # GET /prechat_surveys/1/edit
