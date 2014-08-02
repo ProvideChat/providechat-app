@@ -1,4 +1,14 @@
 set :stage, :production
+set :branch, "master"
+
+set :full_app_name, "#{fetch(:application)}_#{fetch(:stage)}"
+#set :server_name, "app.providechat.com"
+
+server '107.170.65.78', user: 'deploy', roles: %w{web app}, my_property: :my_value
+
+set :deploy_to, "/home/#{fetch(:deploy_user)}/apps/#{fetch(:full_app_name)}"
+
+set :rails_env, :production
 
 # Simple Role Syntax
 # ==================
@@ -10,13 +20,7 @@ set :stage, :production
 #role :web, %w{deploy@107.170.65.78}
 #role :db,  %w{deploy@107.170.65.78}
 
-# Extended Server Syntax
-# ======================
-# This can be used to drop a more detailed server
-# definition into the server list. The second argument
-# something that quacks like a hash can be used to set
-# extended properties on the server.
-server '107.170.65.78', user: 'deploy', roles: %w{web app}, my_property: :my_value
+
 
 # you can set custom ssh options
 # it's possible to pass any option but you need to keep in mind that net/ssh understand limited list of options
