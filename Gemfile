@@ -29,14 +29,17 @@ gem 'capistrano-bundler', '~> 1.1.2'
 gem 'capistrano-rails', '~> 1.1.1'
 gem 'capistrano-rbenv', github: "capistrano/rbenv"
 
-
 group :test, :development do 
+  gem 'annotate'
+  gem 'better_errors'
   gem 'brakeman', :require => false
   gem 'debugger'
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'faker'
   gem 'bundler-audit'
+  gem 'mailcatcher'
+  gem 'quiet_assets'
 end
 
 group :test do
@@ -57,6 +60,4 @@ end
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-# Use debugger
-# gem 'debugger', group: [:development, :test]
 
