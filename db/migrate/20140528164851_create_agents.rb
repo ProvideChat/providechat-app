@@ -2,8 +2,8 @@ class CreateAgents < ActiveRecord::Migration
   def change
     create_table :agents do |t|
       t.integer :organization_id
-      t.string :name
-      t.string :display_name
+      t.string :name,              null: false, default: ""
+      t.string :display_name,       null: false, default: ""
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
       t.integer :account_type
