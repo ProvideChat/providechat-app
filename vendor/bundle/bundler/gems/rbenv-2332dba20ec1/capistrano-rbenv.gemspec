@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["Kir Shatrov", "Yamashita Yuu"]
-  s.date = "2014-08-05"
+  s.date = "2014-08-20"
   s.description = "rbenv integration for Capistrano"
   s.email = ["shatrov@me.com", "yamashita@geishatokyo.com"]
   s.files = [".gitignore", "CHANGELOG.md", "Gemfile", "LICENSE.txt", "README.md", "Rakefile", "capistrano-rbenv.gemspec", "lib/capistrano-rbenv.rb", "lib/capistrano/rbenv.rb", "lib/capistrano/tasks/rbenv.rake"]
