@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   resources :invitations, only: [:index, :edit, :update]
   resources :organizations, only: [:edit, :update]
   
-  root to: 'home#dashboard'
+  root to: 'home#dashboard', via: :get
   
   get '/monitor', to: 'home#monitor', as: 'monitor'
   get '/dashboard', to: 'home#dashboard', as: 'dashboard'

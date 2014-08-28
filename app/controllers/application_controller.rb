@@ -12,4 +12,8 @@ class ApplicationController < ActionController::Base
        "application"
      end
    end
+   
+   def current_agent
+     super.decorate unless super.nil?
+   end
 end
