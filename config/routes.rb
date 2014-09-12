@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   devise_for :admins
-  devise_for :agents, :path => 'auth'
+  devise_for :agents, :path => 'auth', :controllers => {:registrations => "registrations"}
 
   resources :visitors
   resources :departments, only: [:index, :new, :edit, :create, :update, :destroy]
