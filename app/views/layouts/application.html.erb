@@ -54,7 +54,7 @@
 			<span> <!-- User image size is adjusted inside CSS, it should stay as it --> 
 		
 				<a href="#">
-          <%= current_agent.avatar_img %>
+          <%= current_agent.avatar.nil? ? '': current_agent.avatar.url  %>
 
 					<span>
 						<%= current_agent.name %>
