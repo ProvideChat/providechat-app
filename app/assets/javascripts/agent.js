@@ -1494,6 +1494,7 @@ $(document).ready(function () {
   */
 });
 
+/*
 soundManager.url = 'swf';
 soundManager.onload = function () {
   // SM2 has loaded - now you can create and play sounds!
@@ -1505,6 +1506,7 @@ soundManager.onload = function () {
   soundManager.createSound('visitor_left','sounds/visitor_left.mp3');
   soundManager.createSound('logout','sounds/chimebar_logout.mp3');
 };
+*/
 
 /*
  * Function is called when the user closes the window to make sure that their status is set to be offline

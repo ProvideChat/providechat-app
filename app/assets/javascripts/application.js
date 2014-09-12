@@ -17,6 +17,7 @@
 //= require bootstrap-datepicker
 //= require bootstrap-colorpicker
 //= require jquery.nestable
+//= require smartadmin.config
 //= require smartadmin
 
 //= require_tree .
