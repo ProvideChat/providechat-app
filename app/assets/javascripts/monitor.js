@@ -65,7 +65,16 @@ function updateVisitors () {
   } else {
     var after = "0";
   }
-  var results = $.getJSON("/visitors.json?organization_id=" + organization_id + "&after=" + after);
-  console.log(results);
-  setTimeout(updateVisitors, 5000);
+  $.getJSON("/visitors.json?organization_id=" + organization_id + "&after=" + after, function (results) {
+    
+    $('#loading_visitors').hide();
+
+    console.log(results);
+  
+    $.each(results, function(i, visitor) {
+      $('#visitor-table > tbody:last').append('<tr><td>' + visitor.id + '</td><td></td><td></td><td></td><td></td><td>' + visitor.current_page + '</td></tr>');
+    });
+    
+    setTimeout(updateVisitors, 5000);
+  });
 }
