@@ -35,7 +35,7 @@ group :test, :development do
   gem 'annotate'
   gem 'better_errors'
   gem 'brakeman', :require => false
-  gem 'debugger'
+  gem 'byebug'
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'faker'
