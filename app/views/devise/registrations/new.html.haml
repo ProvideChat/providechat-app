@@ -1,0 +1,40 @@
+.well.no-padding
+  = form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {class: "smart-form client-form", id: "smart-form-register"}) do |f|
+    %header
+      Start using Provide Chat for free!
+    = devise_error_messages!
+    %fieldset
+      %legend 5 minute setup, no credit card required to begin your 14 day trial
+      %section
+        %label.label E-mail
+        %label.input
+          %i.icon-append.fa.fa-user
+          = f.email_field :email, autofocus: true, :placeholder => "Email address"
+          %b.tooltip.tooltip-top-right
+            %i.fa.fa-user.txt-color-teal
+            Please enter email address
+      %section
+        %label.label Password
+        %label.input
+          %i.icon-append.fa.fa-lock
+          = f.password_field :password, autocomplete: "off", :placeholder => "Password"
+          %b.tooltip.tooltip-top-right
+            %i.fa.fa-lock.txt-color-teal
+            Enter your password
+        .note
+          = link_to "Forgot password?", new_password_path(resource_name)
+      %section
+        %label.checkbox
+          %input{:checked => "checked", :name => "remember", :type => "checkbox"}
+            %i>
+            Stay signed in
+      %fieldset
+        %section
+          By signing up I agree to the
+          %a{"data-target" => "#myModal", "data-toggle" => "modal", :href => "#"} terms  conditions
+          and
+          = succeed "." do
+            %a{"data-target" => "#myModal", "data-toggle" => "modal", :href => "#"} privacy policy
+      %footer
+        %button.btn.btn-primary{:type => "submit"}
+          Start my free trial

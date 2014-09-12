@@ -1,0 +1,31 @@
+.well.no-padding
+  = form_for(resource, as: resource_name, url: session_path(resource_name), :html => {class: 'smart-form client-form', id: 'login-form'}) do |f|
+    %header
+      Sign in your Provide Chat account
+    = devise_error_messages!
+    %fieldset
+      %section
+        %label.label= f.label :email
+        %label.input
+          %i.icon-append.fa.fa-user
+          = f.email_field :email, autofocus: true
+          %b.tooltip.tooltip-top-right
+            %i.fa.fa-user.txt-color-teal
+            Please enter email address
+      %section
+        %label.label= f.label :password
+        %label.input
+          %i.icon-append.fa.fa-lock
+          = f.password_field :password, autocomplete: "off"
+          %b.tooltip.tooltip-top-right
+            %i.fa.fa-lock.txt-color-teal
+            Enter your password
+        .note
+          = link_to "Forgot password?", new_password_path(resource_name)
+      %section
+        %label.checkbox
+          = f.check_box :remember_me
+          = succeed "Stay signed in" do
+            %i
+    %footer= f.submit "Sign in", :class => "btn btn-primary"
+
