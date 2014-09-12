@@ -1,0 +1,88 @@
+!!! 5
+%html{lang: "en"}
+  %head
+    %title Provide Chat App
+    
+    %meta{charset: "utf-8"}
+    %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}
+    %meta{name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'}
+    %meta{name: "description", content: "Provide Chat Application"}
+    %meta{name: "author", content: "Provide Chat software"}
+
+    %link{href: "/favicon.ico", rel: "shortcut icon"}
+
+    = stylesheet_link_tag    "application", media: "all"
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+
+    / HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
+    /[if lt IE 9]
+      %script{:type => "text/javascript", :src => "https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"}
+      %script{:type => "text/javascript", :src => "https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"}
+
+      <!-- GOOGLE FONT -->
+      %link{href: "http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700", rel: "stylesheet"}
+
+      = javascript_include_tag 'modernizr'
+
+  %body{:class => "animated fadeInDown"}
+
+    %header#header{:class => "login-header"}
+      #logo-group
+        %span#logo
+          = image_tag "logo.png", alt: "Provide Chat"
+      %span#extr-page-header-space
+        - if controller_name == 'sessions'
+          %span.hidden-mobile Need an account?
+        - if controller_name != 'registrations'
+          = link_to "Sign up", new_registration_path(resource_name), :class => "btn btn-danger"
+        - if controller_name == 'registrations'
+          %span.hidden-mobile Have an account?
+        - if controller_name != 'sessions'
+          = link_to "Sign in", new_session_path(resource_name), :class => "btn btn-danger"
+
+    #main{:role => "main"}
+      #content.container
+        .row
+          .col-xs-12.col-sm-8.col-md-6.col-lg-5
+            = yield
+
+
+    = javascript_include_tag "application"
+
+    :javascript
+      $(document).ready(function() {
+        runAllForms();
+
+        $("#login-form").validate({
+          // Rules for form validation
+          rules : {
+            email : {
+              required : true,
+              email : true
+            },
+            password : {
+              required : true,
+              minlength : 3,
+              maxlength : 20
+            }
+          },
+
+          // Messages for form validation
+          messages : {
+            email : {
+              required : 'Please enter your email address',
+              email : 'Please enter a VALID email address'
+            },
+            password : {
+            required : 'Please enter your password'
+            }
+          },
+
+          // Do not change code below
+          errorPlacement : function(error, element) {
+          error.insertAfter(element.parent());
+          }
+        });
+
+      });

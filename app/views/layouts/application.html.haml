@@ -1,0 +1,79 @@
+!!! 5
+%html{lang: "en"}
+  %head
+    %title Providechat App
+  
+    %meta{charset: "utf-8"}
+    %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}
+    %meta{name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'}
+    %meta{name: "description", content: "Provide Chat Application"}
+    %meta{name: "author", content: "Provide Chat software"}
+
+    %link{href: "/favicon.ico", rel: "shortcut icon"}
+
+    = stylesheet_link_tag    "application", media: "all"
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+
+    / HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
+    /[if lt IE 9]
+      %script{:type => "text/javascript", :src => "https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"}
+      %script{:type => "text/javascript", :src => "https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"}
+
+      <!-- GOOGLE FONT -->
+      %link{href: "http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700", rel: "stylesheet"}
+
+      = javascript_include_tag 'modernizr'
+  %body
+
+    = render 'layouts/header'
+
+    %aside#left-panel
+      / User info
+      .login-info
+        %span
+          / User image size is adjusted inside CSS, it should stay as it
+          %a{:href => "#"}
+            = current_agent.avatar.nil? ? '': current_agent.avatar.url
+            %span
+              = current_agent.name
+          .btn-group.pull-right
+            %button.btn.dropdown-toggle.btn-xs.btn-danger{"data-toggle" => "dropdown"}
+              Offline
+              %i.fa.fa-caret-down
+            %ul.dropdown-menu.js-status-update{:role => "menu"}
+              %li
+                %a{:href => "javascript:void(0);"}
+                  %i.fa.fa-circle.txt-color-green
+                  Online
+              %li
+                %a{:href => "javascript:void(0);"}
+                  %i.fa.fa-circle.txt-color-red
+                  Offline
+              %li.divider
+              %li
+                %a{:href => "javascript:void(0);"}
+                  %i.fa.fa-power-off
+                  Log Off
+      / end user info
+      = render "layouts/left_nav"
+    / END NAVIGATION
+    / MAIN PANEL
+    #main{:role => "main"}
+      #content
+        = yield
+
+    :javascript
+      $(document).ready(function() {
+
+        pageSetUp();
+
+        $(".js-status-update a").click(function() {
+          var selText = $(this).text();
+          var $this = $(this);
+          $this.parents('.btn-group').find('.dropdown-toggle').html(selText + ' <span class="caret"></span>');
+          $this.parents('.dropdown-menu').find('li').removeClass('active');
+          $this.parent().addClass('active');
+        });
+      });
+
