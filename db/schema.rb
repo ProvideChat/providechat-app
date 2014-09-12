@@ -39,8 +39,8 @@ ActiveRecord::Schema.define(version: 20140724171120) do
 
   create_table "agents", force: true do |t|
     t.integer  "organization_id"
-    t.string   "name"
-    t.string   "display_name"
+    t.string   "name",                   default: "", null: false
+    t.string   "display_name",           default: "", null: false
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.integer  "account_type"
@@ -159,11 +159,13 @@ ActiveRecord::Schema.define(version: 20140724171120) do
   create_table "organizations", force: true do |t|
     t.string   "name"
     t.string   "email"
+    t.integer  "account_type"
     t.integer  "max_agents"
     t.integer  "payment_system"
     t.integer  "inactive_visitor_removal"
     t.integer  "agent_session_timeout"
     t.integer  "agent_response_timeout"
+    t.integer  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

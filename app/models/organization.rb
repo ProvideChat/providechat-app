@@ -6,7 +6,7 @@ class Organization < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
   
   enum payment_system: [:stripe, :paypal]
-  enum edition: [:free, :trial, :single, :basic, :pro, :ultimate]
+  enum account_type: [:trial, :paid, :free]
   enum status: [:disabled, :enabled]
   
   def inactive_visitor_options
