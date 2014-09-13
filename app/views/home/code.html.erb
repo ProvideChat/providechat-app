@@ -13,11 +13,15 @@
     <td class="fieldtext" valign="top">
 <textarea wrap="off" name="image_code" class="codetext" style="height: 130px; width: 580px;" id="image">
 <!-- Powered by: ProvideChat Live Help   http://www.providechat.com/ -->
-<script type="text/javascript">
-var pcId = "provideChat" + Math.floor(Math.random()*1000);
-document.write(unescape("%3Cdiv id='" + pcId + "'%3E%3C/div%3E"));
-document.write(unescape("%3Cscript src=\'<?php print $server; ?>/pc_js3.php?pcId=" + pcId + "&orgId=<?php echo $o_id; ?>&amp;uniqueKey=<?php print $secure_code; ?>&amp;url=" + window.location.href + "&amp;mode=graphic&amp;width=" + screen.width + "&amp;height=" + screen.height + "\' type=\'text/javascript\'%3E%3C/script%3E"));
-</script>
+  <script id="pc-widget">
+  var ProvideChat = window.ProvideChat || {};
+  (function() {
+      ProvideChat.org_id = <%= current_agent.organization_id %>;
+      var pc = document.createElement('script'); pc.type = 'text/javascript'; pc.async = true;
+      pc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.providechat.dev/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(pc, s);
+    })();
+  </script>
 <!-- copyright <?php echo date('Y'); ?> providechat.com -->
 </textarea>
 
@@ -47,11 +51,15 @@ document.write(unescape("%3Cscript src=\'<?php print $server; ?>/pc_js3.php?pcId
 
 <textarea wrap="off" name="image_code" class="codetext" style="height: 130px; width: 580px;" id="text">
 <!-- Powered by: ProvideChat Live Help   http://www.providechat.com/ -->
-<script type="text/javascript">
-var pcId = "provideChat" + Math.floor(Math.random()*1000);
-document.write(unescape("%3Cdiv id='" + pcId + "'%3E%3C/div%3E"));
-document.write(unescape("%3Cscript src=\'<?php print $server; ?>/pc_js3.php?pcId=" + pcId + "&orgId=<?php echo $o_id; ?>&amp;uniqueKey=<?php print $secure_code; ?>&amp;url=" + window.location.href + "&amp;mode=text&amp;width=" + screen.width + "&amp;height=" + screen.height + "\' type=\'text/javascript\'%3E%3C/script%3E"));
-</script>
+  <script id="pc-widget">
+  var ProvideChat = window.ProvideChat || {};
+  (function() {
+      ProvideChat.org_id = <%= current_agent.organization.id %>;
+      var pc = document.createElement('script'); pc.type = 'text/javascript'; pc.async = true;
+      pc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.providechat.dev/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(pc, s);
+    })();
+  </script>
 <!-- copyright <?php echo date('Y'); ?> providechat.com -->
 </textarea>
 
@@ -135,12 +143,15 @@ document.write(unescape("%3Cscript src=\'<?php print $server; ?>/pc_js3.php?pcId
 		<td class="fieldtext" valign="top">
 
 <textarea wrap="off" name="image_code" class="codetext" style="height: 130px; width: 580px;" id="text">
-<!-- Powered by: ProvideChat Live Help   http://www.providechat.com/ -->
-<div id="providechat_popup"></div>
-<script type="text/javascript">
-document.write(unescape("%3Cscript src=\'<?php print $server; ?>/pc_js2.php?orgId=<?php echo $o_id; ?>&amp;uniqueKey=<?php print $secure_code; ?>&amp;url=" + window.location.href + "&amp;mode=widget&amp;width=" + screen.width + "&amp;height=" + screen.height + "\' type=\'text/javascript\'%3E%3C/script%3E"));
+<script id="pc-widget">
+var ProvideChat = window.ProvideChat || {};
+(function() {
+    ProvideChat.org_id = <% current_agent.organization.id %>;
+    var pc = document.createElement('script'); pc.type = 'text/javascript'; pc.async = true;
+    pc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.providechat.dev/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(pc, s);
+  })();
 </script>
-<!-- copyright <?php echo date('Y'); ?> providechat.com -->
 </textarea>
 
 		</td>
