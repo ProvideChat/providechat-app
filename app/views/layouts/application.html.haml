@@ -34,7 +34,7 @@
         %span
           / User image size is adjusted inside CSS, it should stay as it
           %a{:href => "#"}
-            = current_agent.avatar.nil? ? '': current_agent.avatar.url
+            = current_agent.avatar.nil? ? image_tag('images/avatars/silouette.gif'): image_tag(current_agent.avatar.url)
             %span
               = current_agent.name
           .btn-group.pull-right
