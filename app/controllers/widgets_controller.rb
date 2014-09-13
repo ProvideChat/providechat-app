@@ -1,4 +1,6 @@
 class WidgetsController < ApplicationController
+  skip_before_action :verify_authenticity_token
+  
   layout false
   
   def index
@@ -27,6 +29,9 @@ class WidgetsController < ApplicationController
       response = {
         'html' => render_to_string(partial: 'offline_form.html.erb', :layout => false, :locals => { :offline_form => offline_form, :org_id => org_id })
       }
+    when "update_status"
+      response = { 'operator_status' => 'offline' }
+      
     when "initialize"
       logger.debug "SESSION DETAILS: #{params[:session]}"
       visitor = Visitor.process_session(org_id, params[:session])
@@ -34,6 +39,7 @@ class WidgetsController < ApplicationController
       response = { 'visitor_id' => visitor.id, 'website_id' => visitor.website_id, 
                    'operator_status' => 'offline', 'operator_response_timeout' => 5,
                    'chat_id' => 0, 'chat_status' => '', 'visitor_name' => visitor.name }
+      logger.debug "RESPONSE DETAILS: #{response}"
     end
     
     respond_to do |format|

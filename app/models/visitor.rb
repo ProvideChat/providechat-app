@@ -55,8 +55,7 @@ class Visitor < ActiveRecord::Base
     browser_version = session['browser']['version']
     operating_system = session['browser']['os']
     screen_resolution = "#{session['device']['screen']['width']}x#{session['device']['screen']['height']}"
-      
-      
+        
     website = Website.find_by(:organization_id => org_id, :url => referrer_host)
     
     visitor = Visitor.find_by(:website_id => website.id) || Visitor.new
