@@ -13,6 +13,14 @@ class ApplicationController < ActionController::Base
      end
    end
    
+   #def after_sign_in_path_for(resource)
+  #   if resource.completed_signup?
+  #     after_signup_path
+  #   else
+  #     dashboard_path
+  #   end
+  # end
+   
    def current_agent
      super.decorate unless super.nil?
    end
