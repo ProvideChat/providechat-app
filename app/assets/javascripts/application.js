@@ -20,5 +20,4 @@
 //= require jquery.validate
 //= require smartadmin.config
 //= require smartadmin
-
-//= require_tree .
+//= require agent

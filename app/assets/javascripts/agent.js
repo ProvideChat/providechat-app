@@ -570,9 +570,9 @@ function getVisitorRowColor (chatStatus, visitorStatus)
   }
 
 	var visitorRow = {
-		hoverColor: tr_hoverColor,
-		bgcolor: tr_bgcolor,
-		style: tr_style
+		hoverColor: '#fff', //tr_hoverColor,
+		bgcolor: '#E9EFF8', //tr_bgcolor,
+		style: "background-color: #F9F7ED; border-style: solid; border-color: #BBBBBB; border-width: 2px 1px 2px 1px; font-weight: bold;" //tr_style
 	};
 
 	return visitorRow;
@@ -906,7 +906,7 @@ function newChatAlert() {
 }
 
 
-function updateVisitorTable (response)
+function updateVisitorTable (visitors)
 {
   $("#loading_visitors").hide();
 
@@ -915,16 +915,16 @@ function updateVisitorTable (response)
       visitorRow = '';
 
   // If we have some visitors in the results, then process them
-  if (typeof (response.visitors) !== 'undefined')
+  if (typeof (visitors) !== 'undefined')
   {
-    if (response.visitors.length > 0)
+    if (visitors.length > 0)
 		{
-			for (var visitorCount=0; visitorCount < response.visitors.length; visitorCount++) {
-				var visitor_id = response.visitors[visitorCount].visitor_id,
-					chat_id = response.visitors[visitorCount].chat_id,
-					visitorStatus = response.visitors[visitorCount].visitorStatus,
-					chatStatus = response.visitors[visitorCount].chatStatus,
-					visitor_name = response.visitors[visitorCount].visitor_name,
+			for (var visitorCount=0; visitorCount < visitors.length; visitorCount++) {
+				var visitor_id = visitors[visitorCount].visitor_id,
+					chat_id = visitors[visitorCount].chat_id,
+					visitorStatus = visitors[visitorCount].visitorStatus,
+					chatStatus = visitors[visitorCount].chatStatus,
+					visitor_name = visitors[visitorCount].name,
 					visitorName = '',
 					chatStatus_extended = '',
 					operatorStatus = '',
@@ -938,13 +938,13 @@ function updateVisitorTable (response)
 				visitorArray.push(visitor_id);
 
 				// VISITOR NAME
-				if (visitor_name.length > 0) {
+				if (visitor_name) {
           visitorName = visitor_name;
         } else {
-          if (response.visitors[visitorCount].remote_host == 'Unknown Host') {
-            visitorName = response.visitors[visitorCount].remote_addr;
+          if (visitors[visitorCount].remote_host == 'Unknown Host') {
+            visitorName = visitors[visitorCount].remote_addr;
           } else {
-            visitorName = response.visitors[visitorCount].remote_host + " (" + response.visitors[visitorCount].remote_addr + ")";
+            visitorName = visitors[visitorCount].remote_host + " (" + visitors[visitorCount].remote_addr + ")";
           }
         }
 
@@ -958,20 +958,20 @@ function updateVisitorTable (response)
         } else if (chatStatus == 'operatorEnded') {
           chatStatus_extended = "Chat ended";
         } else if (chatStatus == 'inProgress') {
-          chatStatus_extended = "Chatting for " + response.visitors[visitorCount].time_in_chat;
+          chatStatus_extended = "Chatting for " + visitors[visitorCount].time_in_chat;
         } else if ((chatStatus == 'notStarted') || (visitorStatus == 'waitingToChat')) {
           chatStatus_extended = "Waiting for " + response.visitors[visitorCount].time_waiting_chat;
         } else if (visitorStatus == 'offSite') {
           chatStatus_extended = "Left site";
         } else {
-          chatStatus_extended = "Browsing for " + response.visitors[visitorCount].time_on_site;
+          chatStatus_extended = "Browsing for " + visitors[visitorCount].time_on_site;
         }
 
     		// OPERATOR STATUS
         if ((chatStatus == 'visitorEnded') || (chatStatus == 'operatorEnded')) {
           operatorStatus =  "Finished chat";
         } else if (chatStatus == 'inProgress') {
-          operatorStatus =  "Chatting with " + response.visitors[visitorCount].operator_disp_name;
+          operatorStatus =  "Chatting with " + visitors[visitorCount].operator_disp_name;
         } else if ((chatStatus == 'notStarted') || (visitorStatus == 'waitingToChat')) {
           operatorStatus =  "Waiting to Chat";
         } else {
@@ -979,13 +979,13 @@ function updateVisitorTable (response)
         }
 
         // VISITOR LOCATION
-        if (response.visitors[visitorCount].chatStatus == 'visitorTimeout') {
+        if (visitors[visitorCount].chatStatus == 'visitorTimeout') {
           visitorLocation =  "Visitor timed out, no longer on site";
-        } else if (response.visitors[visitorCount].chatStatus == 'operatorTimeout') {
+        } else if (visitors[visitorCount].chatStatus == 'operatorTimeout') {
           visitorLocation =  "Chat not accepted, visitor sent to unavailable window";
         } else {
-          if (response.visitors[visitorCount].current_page.length > 0) {
-            visitorLocation =  response.visitors[visitorCount].current_page;
+          if (visitors[visitorCount].current_page.length > 0) {
+            visitorLocation =  visitors[visitorCount].current_page;
           }
           else {
             visitorLocation =  "Unknown";
@@ -1019,7 +1019,7 @@ function updateVisitorTable (response)
           }
 
           $("#visitorName" + visitor_id).html(visitorName);
-          $("#visitorDept" + visitor_id).html(response.visitors[visitorCount].department);
+          $("#visitorDept" + visitor_id).html(visitors[visitorCount].department);
           $("#visitorStatus" + visitor_id).html(chatStatus_extended);
           $("#visitorOperator" + visitor_id).html(operatorStatus);
           $("#visitorLocation" + visitor_id).html(visitorLocation);
@@ -1030,13 +1030,13 @@ function updateVisitorTable (response)
           visitorRow = '<tr id="visitorRow' + visitor_id + '" style="' + visitorRow.style + '">';
           visitorRow += '<td id="visitorId' + visitor_id + '" style="border: 1px solid #BBBBBB; width: 16px;"  class="smalltext" align="center">' + (visitorCount + 1) + '</td>';
           visitorRow += '<td id="visitorName' + visitor_id + '" style="border: 1px solid #BBBBBB; width: 154px;" class="smalltext">' + visitorName + '</td>';
-          visitorRow += '<td id="visitorDept' + visitor_id + '" style="border: 1px solid #BBBBBB; width: 90px;" class="smalltext">' + response.visitors[visitorCount].department + '</td>';
+          visitorRow += '<td id="visitorDept' + visitor_id + '" style="border: 1px solid #BBBBBB; width: 90px;" class="smalltext">' + visitors[visitorCount].department + '</td>';
           visitorRow += '<td id="visitorStatus' + visitor_id + '" style="border: 1px solid #BBBBBB; width: 140px;" class="smalltext">' + chatStatus_extended + '</td>';
           visitorRow += '<td id="visitorOperator' + visitor_id + '" style="border: 1px solid #BBBBBB; width: 120px;" class="smalltext">' + operatorStatus + '</td>';
           visitorRow += '<td id="visitorLocation' + visitor_id + '" style="border: 1px solid #BBBBBB; width: 270px;" class="smalltext">' + visitorLocation + '</td>';
           visitorRow += '</tr>';
 
-          $("#visitorTable").append(visitorRow);
+          $("#visitor-table").append(visitorRow);
 
           $("#visitorRow" + visitor_id).live ('mouseover', make_visitorRowMouseOver());
           $("#visitorRow" + visitor_id).live ('mouseout', make_visitorRowMouseOut());
@@ -1106,7 +1106,7 @@ function updateVisitorTable (response)
         }
         visitorRow += '</td></tr>';
 
-        $("#visitorTable").append(visitorRow);
+        $("#visitor-table").append(visitorRow);
       }
     }
 
@@ -1116,7 +1116,7 @@ function updateVisitorTable (response)
   	//
 
 		// loop through all the rows of the visitor table
-		$("#visitorTable tr").each(function () {
+		$("#visitor-table tr").each(function () {
 			if ($(this).attr("id") != "headerRow") {
 				// get the visitor id of the current row
 				var visitorId = $(this).attr("id").substr(10);
@@ -1142,6 +1142,7 @@ function updateVisitors () {
 	var org_id = $("#organization_id").val();
 	var op_id = $("#operator_id").val();
 
+  var organization_id = $("#visitor-table").attr("data-id");
 	/* Update Visitor Table
    *
    * This function calls the lookup-visitors.php script to get the current visitor table and then updates
@@ -1149,11 +1150,12 @@ function updateVisitors () {
    */
 
     $.ajax({
-    type: "POST",
+    type: "GET",
     dataType: "json",
-    url: "lookup-visitors.php",
+    url: "/visitors.json?organization_id=" + organization_id,
     data: "action=get_visitor_list&organization_id=" + org_id + "&operator_id=" + op_id + "&visitor_filter=" + visitor_filter + "&website_filter=" + website_filter + "&selected_visitor=" + activeVisitorId,
     success: function (json) {
+      console.log(json)
       if (json) {
         updateVisitorTable(json);
       }
@@ -1168,10 +1170,11 @@ function updateVisitors () {
    */
 
   $.ajax({
-    type: "POST",
+    type: "GET",
     dataType: "json",
-    url: "lookup-visitors.php",
-    data: "action=get_visitor_numbers&organization_id=" + org_id + "&operator_id=" + $("#operator_id").val(),
+    url: "/visitors.json?organization_id=" + organization_id,
+    //url: "lookup-visitors.php",
+    //data: "action=get_visitor_numbers&organization_id=" + org_id + "&operator_id=" + $("#operator_id").val(),
     success: function (response) {
       var visitorsOnline = $("#visitorsOnline");
       var waitingToChat = $("#waitingToChat");
@@ -1217,7 +1220,7 @@ function updateVisitors () {
 
 
 function init (operatorId, max_chats) {
-	initjsDOMenu();
+	//initjsDOMenu();
 	clearVisitors();
 	updateVisitors();
 	setOperatorId(operatorId);

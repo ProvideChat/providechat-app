@@ -82,7 +82,7 @@
 
 			<header>
 				<span class="widget-icon"> <i class="fa fa-comments txt-color-white"></i> </span>
-				<h2> SmartChat </h2>
+				<h2> Your Chats </h2>
 				<div class="widget-toolbar">
 					<!-- add: non-hidden - to disable auto hide -->
 
@@ -302,6 +302,8 @@
 
 <script>
   $(function() {
+    
+    init (<%= current_agent.id %>, 5);
   /*
    * CHAT
    */
