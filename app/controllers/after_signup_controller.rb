@@ -1,5 +1,6 @@
 class AfterSignupController < ApplicationController
   before_filter :authenticate_agent!
+  layout 'after_signup'
   
   def edit
     @agent = current_agent
