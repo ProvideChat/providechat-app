@@ -14,7 +14,7 @@ class CreateChats < ActiveRecord::Migration
       t.string :visitor_email
       t.string :visitor_department
       t.string :visitor_question
-      t.string :status
+      t.integer :status
 
       t.timestamps
     end

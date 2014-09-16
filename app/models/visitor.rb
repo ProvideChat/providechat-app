@@ -1,6 +1,7 @@
 class Visitor < ActiveRecord::Base
   has_many :chats
-  
+
+  enum status: [:no_chat, :waiting_to_chat, :in_chat, :chat_ended, :offsite]
   
 #  t.integer  "organization_id"
 #  t.integer  "website_id"
@@ -28,21 +29,21 @@ class Visitor < ActiveRecord::Base
 #  t.string   "smart_invite_status"
 #  t.string   "operator_invite"
 #  t.string   "status"
-    
+
   def self.process_session (org_id, session)
 
     require 'json'
-    
+
     session = JSON.parse(session)
-    
-    
+
+
     # {"api_version":0.4,
     #  "locale":{"country":"us","lang":"en"},
     # "current_session":
     #   {"visits":1,"start":1403707597975,"last_visit":1403707597975,"url":"http://newsite.providechat.dev/","path":"/","referrer":"","referrer_info":{"host":"newsite.providechat.dev","path":"/","protocol":"http:","port":80,"search":"","query":{}},"search":{"engine":null,"query":null}},"original_session":{"visits":646,"start":1394491300924,"last_visit":1403707597976,"url":"http://newsite.providechat.dev/","path":"/","referrer":"","referrer_info":{"host":"newsite.providechat.dev","path":"/","protocol":"http:","port":80,"search":"","query":{}},"search":{"engine":null,"query":null},"prev_visit":1403707444019,"time_since_last_visit":153957},"browser":{"browser":"Chrome","version":29,"os":"Mac"},"plugins":{"flash":true,"silverlight":true,"java":false,"quicktime":true},"time":{"tz_offset":-7,"observes_dst":true},"device":{"screen":{"width":1920,"height":1080},"viewport":{"width":1336,"height":912},"is_tablet":false,"is_phone":false,"is_mobile":false}}
 
     #Rails.logger.debug "current_session.visits: #{session['current_session']['visits']}"
-    
+
     #remote_addr = session['']
     remote_host = session['current_session']['referrer_info']['host']
     current_page = session['current_session']['url']
@@ -55,24 +56,30 @@ class Visitor < ActiveRecord::Base
     browser_version = session['browser']['version']
     operating_system = session['browser']['os']
     screen_resolution = "#{session['device']['screen']['width']}x#{session['device']['screen']['height']}"
-        
+
+    Rails.logger.debug "referrer_host: #{referrer_host}"
     website = Website.find_by(:organization_id => org_id, :url => referrer_host)
-    
-    visitor = Visitor.find_by(:website_id => website.id) || Visitor.new
-    
-    visitor.organization_id = org_id
-    visitor.website_id = website.id
-    visitor.country = country
-    visitor.current_page = current_page
-    visitor.remote_host = remote_host
-    visitor.page_views = session['current_session']['visits']
-    
-    if session['location']['error']
-      Rails.logger.debug "No location data"
+
+    if website
+      visitor = Visitor.find_by(:website_id => website.id) || Visitor.new
+
+      visitor.organization_id = org_id
+      visitor.website_id = website.id
+      visitor.country = country
+      visitor.current_page = current_page
+      visitor.remote_host = remote_host
+      visitor.page_views = session['current_session']['visits']
+
+      if session['location']['error']
+        Rails.logger.debug "No location data"
+      end
+      visitor.status = 'no_chat'
+
+      visitor.save
+
+      visitor
+    else
+      false
     end
-    
-    visitor.save
-    
-    visitor
   end
 end

@@ -1,56 +1,71 @@
 class WidgetsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  
-  layout false
-  
+
+  respond_to :json
+
   def index
 
     method = params[:method]
     org_id = params[:org_id]
     website_id = params[:website_id]
 
-    @organization = Organization.find(org_id)
-    
-    logger.debug "METHOD: #{method}"
-    
-    case method
-    when "get_pre_chat"
-      pre_chat_form = PrechatForm.find_by(:website_id => website_id)
-      response = {
-        'html' => render_to_string(partial: 'pre_chat.html.erb', :layout => false, :locals => { :pre_chat_form => pre_chat_form, :org_id => org_id })
-      }
-    when "get_in_chat"
-      chat_widget = ChatWidget.find_by(:website_id => website_id)
-      response = {
-        'html' => render_to_string(partial: 'chat_widget.html.erb', :layout => false, :locals => { :chat_widget => chat_widget })
-      }
-    when "get_offline"
-      offline_form = OfflineForm.find_by(:website_id => website_id)
-      response = {
-        'html' => render_to_string(partial: 'offline_form.html.erb', :layout => false, :locals => { :offline_form => offline_form, :org_id => org_id })
-      }
-    when "update_status"
-      response = { 'operator_status' => 'offline' }
-      
-    when "initialize"
-      logger.debug "SESSION DETAILS: #{params[:session]}"
-      visitor = Visitor.process_session(org_id, params[:session])
-      
-      response = { 'visitor_id' => visitor.id, 'website_id' => visitor.website_id, 
-                   'operator_status' => 'offline', 'operator_response_timeout' => 5,
-                   'chat_id' => 0, 'chat_status' => '', 'visitor_name' => visitor.name }
-      logger.debug "RESPONSE DETAILS: #{response}"
+    if @organization = Organization.find_by_id(org_id)
+
+      logger.debug "METHOD: #{method}"
+
+      case method
+      when "process_start_chat"
+        chat = Chat.create(organization_id: @organization.id, website_id: website_id, visitor_id: params[:visitor_id],
+                            chat_requested: DateTime.now, visitor_name: params[:text_box1], 
+                            visitor_email: params[:text_box2], visitor_department: params[:department], 
+                            visitor_question: params[:question], status: "not_started")
+
+        response = {
+          'chat_id' => chat.id,
+          'html' => render_to_string(partial: 'chat_widget.html.erb', :layout => false, :locals => { :org_id => org_id })
+        }
+
+      when "get_pre_chat"
+        pre_chat_form = PrechatForm.find_by(:website_id => website_id)
+        response = {
+          'html' => render_to_string(partial: 'pre_chat.html.erb', :layout => false, :locals => { :pre_chat_form => pre_chat_form, :org_id => org_id })
+        }
+      when "get_in_chat"
+        chat_widget = ChatWidget.find_by(:website_id => website_id)
+        response = {
+          'html' => render_to_string(partial: 'chat_widget.html.erb', :layout => false, :locals => { :chat_widget => chat_widget })
+        }
+      when "get_offline"
+        offline_form = OfflineForm.find_by(:website_id => website_id)
+        response = {
+          'html' => render_to_string(partial: 'offline_form.html.erb', :layout => false, :locals => { :offline_form => offline_form, :org_id => org_id })
+        }
+      when "update_status"
+        response = { 'agent_status' => @organization.agent_status }
+      when "initialize"
+        logger.debug "SESSION DETAILS: #{params[:session]}"
+        visitor = Visitor.process_session(org_id, params[:session])
+
+        if visitor
+          response = { 'success' => 'true', 'visitor_id' => visitor.id, 'website_id' => visitor.website_id,
+                       'agent_status' => @organization.agent_status, 'agent_response_timeout' => @organization.agent_response_timeout,
+                       'chat_id' => 0, 'chat_status' => '', 'visitor_name' => visitor.name }
+        else
+          response = { 'success' => 'false' }
+        end
+
+        logger.debug "RESPONSE DETAILS: #{response}"
+      end
+    else
+      response = { 'success' => 'false' }
     end
-    
+
     respond_to do |format|
       format.json {
-        #search = Search.new(q: params[:q], per: params[:limit])
-        #render json: search.events, callback: params[:callback]
-
-        render json: response, callback: params[:callback]
+        respond_with response, callback: params[:callback]
       }
     end
   end
-  
-  
+
+
 end

@@ -70,18 +70,18 @@ update_visitor_current_page($visitor_id, 'Pre-Chat for ' . $website->url);
 
 <div style="margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px;">
 
-<p><%= @pre_chat_form.intro_text %></p>
+<p><%= pre_chat_form.intro_text %></p>
 
-<input type="text" id="start-chat-text-box-1" placeholder="<%= @pre_chat_form.name_text %>"></p>
+<input type="text" id="start-chat-text-box-1" placeholder="<%= pre_chat_form.name_text %>"></p>
 
-<% if @pre_chat_form.email_enabled %>
-  <input type="text" id="start-chat-text-box-2" placeholder="<%= @pre_chat_form.email_text %>"></p>
+<% if pre_chat_form.email_enabled %>
+  <input type="text" id="start-chat-text-box-2" placeholder="<%= pre_chat_form.email_text %>"></p>
 <% end %>
 
 <%
 departments = Department.find_by(:organization_id => org_id)
 
-if @pre_chat_form.department_enabled && departments.count > 0
+if pre_chat_form.department_enabled && departments && departments.count > 0
 %>
 
   <p>
@@ -94,9 +94,9 @@ if @pre_chat_form.department_enabled && departments.count > 0
   </p>
 <% end %>
 
-<textarea rows="4" id="start-chat-question" placeholder="<%= @pre_chat_form.message_text %>"></textarea></p>
+<textarea rows="4" id="start-chat-question" placeholder="<%= pre_chat_form.message_text %>"></textarea></p>
 	
-<input type="submit" value="  <%= @pre_chat_form.button_text %>  " style="color: #333333; font-family: arial, verdana, helvetica; font-size: 12px; height: 40px;" id="start-chat-btn">
+<input type="submit" value="  <%= pre_chat_form.button_text %>  " style="color: #333333; font-family: arial, verdana, helvetica; font-size: 12px; height: 40px;" id="start-chat-btn">
 
 <div class="missing-fields">Please fill in all fields</div>
 

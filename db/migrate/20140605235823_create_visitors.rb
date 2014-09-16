@@ -26,7 +26,7 @@ class CreateVisitors < ActiveRecord::Migration
       t.string :screen_resolution
       t.string :smart_invite_status
       t.string :operator_invite
-      t.string :status
+      t.integer :status
 
       t.timestamps
     end
