@@ -8,10 +8,14 @@
           %i.fa.fa-reorder
     / end collapse menu
     / logout button
-    #logout.btn-header.transparent.pull-right
+    .btn-header.transparent.pull-right
       %span
         = link_to destroy_agent_session_path, :method => :delete, :class => "btn btn-sm" do
           %i.fa.fa-sign-out
+    .btn-header.transparent.pull-right
+      %span
+        = link_to edit_agent_path(current_agent), :class => "btn btn-sm" do
+          %i.fa.fa-user
     #search-mobile.btn-header.transparent.pull-right
       %span
         %a{:href => "javascript:void(0)", :title => "Search"}

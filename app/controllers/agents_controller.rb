@@ -37,16 +37,16 @@ class AgentsController < ApplicationController
   # PATCH/PUT /agents/1
   # PATCH/PUT /agents/1.json
   def update
-    
+
     if params[:agent][:password].blank? && params[:agent][:password_confirmation].blank?
         params[:agent].delete(:password)
         params[:agent].delete(:password_confirmation)
     end
-        
+
     respond_to do |format|
       if @agent.update(agent_params)
         format.html { redirect_to agents_url, notice: 'Agent was successfully updated.' }
-        format.json { render :show, status: :ok, location: agents_url }
+        format.json { head :ok}
       else
         format.html { render :edit }
         format.json { render json: @agent.errors, status: :unprocessable_entity }

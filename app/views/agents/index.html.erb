@@ -5,12 +5,12 @@
 
   <div class="col-sm-12 col-md-12 col-lg-12">
 
-    <div class="jarviswidget jarviswidget-color-purple" id="agent-table" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="false" role="widget"> 
+    <div class="jarviswidget jarviswidget-color-purple" id="agent-table" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="false" role="widget">
 
 		<header role="heading">
 			<span class="widget-icon"> <i class="fa fa-user"></i> </span>
-			<h2><strong>Your Agents</strong></h2>		
-					
+			<h2><strong>Your Agents</strong></h2>
+
 			<div class="widget-toolbar" role="menu">
         <%= link_to "Add Agent", new_agent_path, { title: "Add Agent", class: "btn btn-primary" }  %>
 			</div>
@@ -18,10 +18,10 @@
 
 		<!-- widget div-->
 		<div role="content">
-							
+
 			<!-- widget content -->
 			<div class="widget-body">
-				
+
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -38,15 +38,17 @@
               <tr>
                 <td><%= agent.name %></td>
                 <td><%= agent.email %></td>
-                <td><%= agent.account_type %></td>
+                <td><%= agent.account_type.capitalize %></td>
                 <td><%= image_tag agent.avatar_url, :class => "img-circle", :style => "height: 32px; width: 32px;" %></td>
                 <td>
                   <%= link_to edit_agent_path(agent), :class => "btn btn-default btn-sm" do %>
                     <i class="fa fa-edit"></i> Edit
                   <% end %>
-                  &nbsp;
-                  <%= link_to agent, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-sm" do %>
-                    <i class="fa fa-trash-o"></i> Delete
+                  <% unless agent.id == current_agent.id && agent.account_type == 'superadmin' %>
+                    &nbsp;
+                    <%= link_to agent, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-sm" do %>
+                      <i class="fa fa-trash-o"></i> Delete
+                    <% end %>
                   <% end %>
                 </td>
               </tr>
@@ -58,19 +60,19 @@
             <% end %>
           </tbody>
         </table>
-				
+
         <br>
         <div class="widget-footer">
-			
+
           <%= link_to "Add Agent", new_agent_path, :class => "btn btn-primary btn-xs" %>
 
 				</div>
 			</div>
 			<!-- end widget content -->
-			
+
 		</div>
 		<!-- end widget div -->
-		
+
 	  </div>
 
     <br>
