@@ -39,8 +39,8 @@ class WebsitesController < ApplicationController
   def update
     respond_to do |format|
       if @website.update(website_params)
-        format.html { redirect_to @website, notice: 'Website was successfully updated.' }
-        format.json { render :show, status: :ok, location: @website }
+        format.html { redirect_to websites_path, notice: 'Website was successfully updated.' }
+        format.json { render :show, status: :ok, location: websites_path }
       else
         format.html { render :edit }
         format.json { render json: @website.errors, status: :unprocessable_entity }
