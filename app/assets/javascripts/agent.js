@@ -1100,9 +1100,9 @@ function updateVisitorTable (visitors)
         visitorRow = '<tr id="noVisitorRow1" bgcolor="#FFFFFF"><td colspan="6">&nbsp;</td></tr>';
         visitorRow +=  '<tr id="noVisitorRow2" bgcolor="#FFFFFF"><td colspan="6" align="center" style="font-weight: bold;"  class="smalltext">';
         if ($('#websiteFilter option:selected').text() != 'All') {
-          visitorRow +=  response.resultMsg + ' on ' + $('#websiteFilter option:selected').text();
+          visitorRow +=  'No visitors found on ' + $('#websiteFilter option:selected').text();
         } else {
-          visitorRow +=  response.resultMsg;
+          visitorRow +=  'No visitors found at this time';
         }
         visitorRow += '</td></tr>';
 
