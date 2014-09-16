@@ -2,7 +2,7 @@
 %html{lang: "en"}
   %head
     %title Providechat App
-  
+
     %meta{charset: "utf-8"}
     %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}
     %meta{name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'}
@@ -38,23 +38,28 @@
             %span
               = current_agent.name
           .btn-group.pull-right
-            %button.btn.dropdown-toggle.btn-xs.btn-danger{"data-toggle" => "dropdown"}
-              Offline
-              %i.fa.fa-caret-down
+            - if current_agent.availability == 'online'
+              %button.btn.dropdown-toggle.btn-xs.btn-success{:id => "agent-status", "data-toggle" => "dropdown"}
+                Online
+                %i.fa.fa-caret-down
+            - else
+              %button.btn.dropdown-toggle.btn-xs.btn-danger{:id => "agent-status", "data-toggle" => "dropdown"}
+                Offline
+                %i.fa.fa-caret-down
             %ul.dropdown-menu.js-status-update{:role => "menu"}
               %li
-                %a{:href => "javascript:void(0);"}
+                %a{:href => "javascript:void(0);", :data => {:status => 'online'}}
                   %i.fa.fa-circle.txt-color-green
                   Online
               %li
-                %a{:href => "javascript:void(0);"}
+                %a{:href => "javascript:void(0);", :data => {:status => 'offline'}}
                   %i.fa.fa-circle.txt-color-red
                   Offline
               %li.divider
               %li
-                %a{:href => "javascript:void(0);"}
+                %a{:href => "javascript:void(0);", :data => {:status => 'signoff'}}
                   %i.fa.fa-power-off
-                  Log Off
+                  Sign Off
       / end user info
       = render "layouts/left_nav"
     / END NAVIGATION
@@ -68,12 +73,33 @@
 
         pageSetUp();
 
+        function update_agent_availability(status) {
+          $.ajax({
+            type: "PUT",
+            contentType: "application/json; charset=utf-8",
+            url: "/api/agents/#{current_agent.id}",
+            dataType: "json",
+            data: JSON.stringify({agent: {availability: status}, id: #{current_agent.id}}),
+          });
+        }
+
         $(".js-status-update a").click(function() {
           var selText = $(this).text();
+          var status = $(this).data('status');
           var $this = $(this);
           $this.parents('.btn-group').find('.dropdown-toggle').html(selText + ' <span class="caret"></span>');
           $this.parents('.dropdown-menu').find('li').removeClass('active');
+          if (status === 'online') {
+            $('#agent-status').removeClass('btn-danger');
+            $('#agent-status').addClass('btn-success');
+            update_agent_availability('online');
+          } else if (status === 'offline') {
+            $('#agent-status').removeClass('btn-success');
+            $('#agent-status').addClass('btn-danger');
+            update_agent_availability('offline');
+          } else if (status === 'signoff') {
+            alert("Are you sure?");
+          }
           $this.parent().addClass('active');
         });
       });
-
