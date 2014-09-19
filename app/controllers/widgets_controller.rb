@@ -14,16 +14,19 @@ class WidgetsController < ApplicationController
       logger.debug "METHOD: #{method}"
 
       case method
-      when "process_start_chat"
+      when "process_pre_chat"
         chat = Chat.create(organization_id: @organization.id, website_id: website_id, visitor_id: params[:visitor_id],
-                            chat_requested: DateTime.now, visitor_name: params[:text_box1], 
-                            visitor_email: params[:text_box2], visitor_department: params[:department], 
-                            visitor_question: params[:question], status: "not_started")
+                            chat_requested: DateTime.now, visitor_name: params[:name], 
+                            visitor_email: params[:email], visitor_department: params[:department], 
+                            visitor_question: params[:message], status: "not_started")
 
         response = {
           'chat_id' => chat.id,
           'html' => render_to_string(partial: 'chat_widget.html.erb', :layout => false, :locals => { :org_id => org_id })
         }
+
+      when "process_offline"
+        @organization.process_offline_msg(website_id, params[:name], params[:email], params[:department], params[:message])
 
       when "get_pre_chat"
         pre_chat_form = PrechatForm.find_by(:website_id => website_id)

@@ -31,7 +31,7 @@
       <option selected="selected" value="offline">Offline</option>
       <option value="online">Online</option>
 		</select>
-		<span id="myspan"></span>  
+		<span id="myspan"></span>
   </div>
 </div>
 
@@ -47,12 +47,13 @@
 
       <table class="table table-bordered" id="visitor-table" data-id="<%= current_agent.organization_id %>">
         <thead>
-      	  <tr>
-          	<th colspan="2">Visitor ID</th>
-          	<th>Department</th>
-          	<th>Status / Duration</th>
-          	<th>Operator</th>
-          	<th>Current Page</th>
+          <tr>
+            <th colspan="2">Visitor ID</th>
+            <th>Department</th>
+            <th>Status / Duration</th>
+            <th>Operator</th>
+            <th>Current Page</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -192,7 +193,7 @@
 			<!-- end widget div -->
 		</div>
 		<!-- end widget -->
-  
+
     <div class="col-sm-12 col-md-6 col-lg-6">
 
     <table border="0" cellpadding="3" cellspacing="0" style="border-collapse: collapse; border: 1px solid #BBBBBB; background-color: #E5E5E5; margin-bottom: 5px;">
@@ -301,61 +302,133 @@
 </div>
 
 <script>
-  $(function() {
-    
+
+  $( document ).ready(function() {
     init (<%= current_agent.id %>, 5);
-  /*
-   * CHAT
-   */
+  });
 
-  $.filter_input = $('#filter-chat-list');
-  $.chat_users_container = $('#chat-container > .chat-list-body')
-  $.chat_users = $('#chat-users')
-  $.chat_list_btn = $('#chat-container > .chat-list-open-close');
-  $.chat_body = $('#chat-body');
+  function init (operatorId, max_chats) {
+  	//initjsDOMenu();
+    //clearVisitors();
+    updateVisitors();
+    //setOperatorId(operatorId);
+    //maxChats = max_chats;
 
-  /*
-  * LIST FILTER (CHAT)
-  */
-
-  // custom css expression for a case-insensitive contains()
-  jQuery.expr[':'].Contains = function(a, i, m) {
-  	return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
-  };
-
-  function listFilter(list) {// header is any element, list is an unordered list
-  	// create and add the filter form to the header
-
-  	$.filter_input.change(function() {
-  		var filter = $(this).val();
-  		if (filter) {
-  			// this finds all links in a list that contain the input,
-  			// and hide the ones not containing the input while showing the ones that do
-  			$.chat_users.find("a:not(:Contains(" + filter + "))").parent().slideUp();
-  			$.chat_users.find("a:Contains(" + filter + ")").parent().slideDown();
-  		} else {
-  			$.chat_users.find("li").slideDown();
-  		}
-  		return false;
-  	}).keyup(function() {
-  		// fire the above change event after every letter
-  		$(this).change();
-
-  	});
-
+    visitorTimer = setInterval(function(){updateVisitors();}, 5000);
   }
 
-  // on dom ready
-  listFilter($.chat_users);
+  function updateVisitors () {
+    var organization_id = $("#visitor-table").attr("data-id");
+    if ($(".comment").length > 0) {
+      var after = $(".comment:last-child").attr("data-time");
+    } else {
+      var after = "0";
+    }
+    $.getJSON("/visitors.json?organization_id=" + organization_id + "&after=" + after, function (results) {
 
-  // open chat list
-  $.chat_list_btn.click(function() {
-  	$(this).parent('#chat-container').toggleClass('open');
-  })
+      $('#loading_visitors').hide();
 
-  $.chat_body.animate({
-  	scrollTop : $.chat_body[0].scrollHeight
-  }, 500);
+      $.each(results, function(i, visitor) {
+        console.log(visitor);
+        if($("#visitor_row_" + visitor.id).length == 0) {
+          var visitor_row = '<tr id="visitor_row_' + visitor.id + '"><td>' + visitor.id + '</td>';
+          visitor_row = visitor_row + '<td>' + processVisitorName(visitor) + '</td>';
+          visitor_row = visitor_row + '<td></td><td></td><td></td><td>' + visitor.current_page + '</td>';
+          visitor_row = visitor_row + '<td><button class="btn btn-default btn-xs">View</button></td></tr>'
+          $('#visitor-table > tbody:last').append(visitor_row);
+        } else {
+          $("#visitor_row_" + visitor.id).find("td").eq(1).html(processVisitorName(visitor));
+          $("#visitor_row_" + visitor.id).find("td").eq(5).html(visitor.current_page);
+        }
+      });
+    });
+  }
 
-  });
+  function processVisitorName(visitor) {
+    if (visitor.name) {
+      visitor_name = visitor.name;
+    } else {
+      if (visitor.remote_host == 'Unknown Host') {
+        visitor_name = visitor.remote_addr;
+      } else {
+        visitor_name = visitor.remote_host + " (" + visitor.remote_addr + ")";
+      }
+    }
+    
+    return visitor_name;
+  }
+  
+  function visitorChat(visitor) {
+		// CHAT STATUS
+    if (chatStatus == 'visitorEnded') {
+      chatStatus_extended = "Visitor closed chat window";
+    } else if (chatStatus == 'visitorTimeout') {
+      chatStatus_extended = "Visitor timed out";
+    } else if (chatStatus == 'operatorTimeout') {
+      chatStatus_extended = "Chat not accepted";
+    } else if (chatStatus == 'operatorEnded') {
+      chatStatus_extended = "Chat ended";
+    } else if (chatStatus == 'inProgress') {
+      chatStatus_extended = "Chatting for " + visitors[visitorCount].time_in_chat;
+    } else if ((chatStatus == 'notStarted') || (visitorStatus == 'waitingToChat')) {
+      chatStatus_extended = "Waiting for " + response.visitors[visitorCount].time_waiting_chat;
+    } else if (visitorStatus == 'offSite') {
+      chatStatus_extended = "Left site";
+    } else {
+      chatStatus_extended = "Browsing for " + visitors[visitorCount].time_on_site;
+    }
+  }
+
+  function getVisitorDetail( visitor_id ) {
+
+    $.ajax({
+      type: "POST",
+      dataType: "json",
+      url: "/visitors.json",
+      data: "action=get_visitor_detail&visitor_id=" + visitor_id,
+      success: function (response) {
+
+        log (response);
+
+        var salesInfoContent = '';
+        var techInfoContent = '';
+
+        if (response.visitorName != 'Not found')
+        {
+          salesInfoContent += '<p><b class="maintext">Visitor Information</b></p>';
+          salesInfoContent += '<table border="0" cellpadding="2" cellspacing="0" style="margin-left: 20px; margin-top: 5px;">';
+          salesInfoContent += '<tr><td><b>Name: </b></td><td>' + response.visitorName + '</td></tr>';
+          salesInfoContent += '<tr><td><b>Email: </b></td><td>' + response.visitorEmail + '</td></tr>';
+          salesInfoContent += '<tr><td><b>Department: </b></td><td>' + response.department + '</td></tr>';
+          salesInfoContent += '<tr><td><b>Pages Viewed: </b></td><td>' + response.pageViews + '</td></tr>';
+          salesInfoContent += '<tr><td><b>Time on Site: </b></td><td>' + response.timeDiff + '</td></tr>';
+          salesInfoContent += '<tr><td><b>Country: </b></td><td>' + response.country + '&nbsp;&nbsp;<img width="32" height="16" src="http://api.hostip.info/flag.php?ip=' + response.remoteAddr + '"></td></tr>';
+          salesInfoContent += '<tr><td><b>Current Page: </b></td><td><a href="' + response.currentPage + '" target="_blank" style="color: #0066CC;">' + response.currentPage + '</a></td></tr>';
+          salesInfoContent += '<tr><td colspan="2"><br><b>Initial Question: </b></td></tr>';
+          salesInfoContent += '<tr><td colspan="2">' + response.visitorQuestion + '</td></tr></table><br />';
+          salesInfoContent += '<b class="maintext">Referrer Information</b><br />';
+          salesInfoContent += '<table border="0" cellpadding="2" cellspacing="0" style="margin-left: 20px; margin-top: 5px;">';
+          salesInfoContent += '<tr><td><b>Name: </b></td><td>' + response.refererSource + '</td></tr>';
+          salesInfoContent += '<tr><td><b>Search Query: </b></td><td>' + response.refererQuery + '</td></tr>';
+          salesInfoContent += '<tr><td><b>Website: </b></td><td>' + response.refererUrl + '</td></tr>';
+          salesInfoContent += '<tr><td colspan="2"><img src="' + response.searchEngineImg + '" width="80" height="32"></td></tr></table>';
+
+          techInfoContent += '<p><b class="maintext">System Information</b></p>';
+          techInfoContent += '<table border="0" cellpadding="2" cellspacing="0" style="margin-left: 20px; margin-top: 5px;">';
+          techInfoContent += '<tr><td><b>IP Address: </b></td><td >' + response.remoteAddr + '</td></tr>';
+          techInfoContent += '<tr><td><b>Screen Resolution: </b></td><td >' + response.screenResolution + '</td></tr>';
+          techInfoContent += '<tr><td><b>Browser: </b></td><td><table border="0" cellpadding="0" cellspacing="0"><tr>';
+          techInfoContent += '<td>' + response.browserName + '</td><td><img src="' + response.browserImg + '" height="16px" width="16px" hspace="3px"></td></tr></table></td></tr>';
+          techInfoContent += '<tr><td><b>Browser Version: </b></td><td><table border="0" cellpadding="0" cellspacing="0"><tr>';
+          techInfoContent += '<td>' + response.browserVersion + '</td></tr></table></td></tr>';
+          techInfoContent += '<tr><td><b>Operating System: </b></td><td><table border="0" cellpadding="0" cellspacing="0"><tr>';
+          techInfoContent += '<td>' + response.osName + '</td><td><img src="' + response.osImg + '" height="16px" width="16px" hspace="3px"></td></tr></table></td></tr></table>';
+
+          $('#salesInfoDiv').html(salesInfoContent);
+          $('#techInfoDiv').html(techInfoContent);
+        }
+      }
+    });
+  }
+
 </script>
