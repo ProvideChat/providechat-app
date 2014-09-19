@@ -1,19 +1,19 @@
 <div class="chat-widget-container">
 
 <div style="margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px; display: none;" id="unavailable-success">
-  
+
 <p style="margin-top: 0px; "><%= offline_form.success_message %></p>
 
 </div>
 
 <div style="margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px;" id="unavailable-form">
-  
+
 <p style="margin-top: 0px; "><%= offline_form.intro_text %></p>
 
-<input type="text" id="unavailable-text-box-1" placeholder="<%= offline_form.name_text %>"></p>
+<input type="text" id="offline-name" placeholder="<%= offline_form.name_text %>"></p>
 
 <% if offline_form.email_enabled %>
-  <input type="text" id="unavailable-text-box-2" placeholder="<%= offline_form.email_text %>"></p>
+  <input type="text" id="offline-email" placeholder="<%= offline_form.email_text %>"></p>
 <% end %>
 
 <%
@@ -22,7 +22,7 @@ departments = Department.where(:organization_id => org_id)
 if offline_form.department_enabled && departments.count > 0
 %>
   <p>
-    <select id="start-chat-department">
+    <select id="offline-department">
       <option value="0">Any Department</option>
       <% departments.each do |department| %>
         <option value="<%= department.name %>"><%= department.name %></option>
@@ -31,9 +31,9 @@ if offline_form.department_enabled && departments.count > 0
   </p>
 <% end %>
 
-<textarea rows="4" style="border: 1px solid #CCCCCC; width: 350px;" id="unavailable-message" placeholder="<%= offline_form.message_text %>"></textarea></p>
-	
-<input type="submit" value="  <%= offline_form.button_text %>  " style="" id="send-unavailable-email">
+<textarea rows="4" style="border: 1px solid #CCCCCC; width: 350px;" id="offline-message" placeholder="<%= offline_form.message_text %>"></textarea></p>
+
+<input type="submit" value="  <%= offline_form.button_text %>  " style="" id="send-offline-email">
 
 <div class="missing-fields">Please fill in all fields</div>
 

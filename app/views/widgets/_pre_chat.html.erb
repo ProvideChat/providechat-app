@@ -1,81 +1,13 @@
-<% if false %>
-
-$missing_data = "";
-
-/** Process Organization **/
-
-if (isset($_REQUEST['org_id'])) {
-  $org_id = $_REQUEST['org_id'];
-}
-
-$org = get_organization ($org_id);
-$edition = $org->edition;
-
-/** Process Website **/
-
-$website_id = 0;
-
-if (isset($_REQUEST['website_id'])) {
-  $website_id = $_REQUEST['website_id'];
-}
-
-/** Process Visitor **/
-
-$visitor_id = '';
-if (isset($_REQUEST['visitor_id'])) {
-	$visitor_id = $_REQUEST['visitor_id'];
-}
-$visitor_id = 0; //process_visitor( $website_id, $org_id, $resolution, $_SERVER );
-
-/* Load website settings */
-
-$website = get_organization_website ($website_id);
-
-$footer_text = $website->footer_text;
-
-$prechat_questionnare = get_prechat_questionnaire($website_id, $org_id);
-
-if (is_object($prechat_questionnare)) {
-
-	$prechat_status = $prechat_questionnare->status;
-	$intro_text = $prechat_questionnare->intro_text;
-	$text_box1 = $prechat_questionnare->text_box1;
-	$text_box2 = $prechat_questionnare->text_box2;
-	$text_box2_status = $prechat_questionnare->text_box2_status;
-	$department_text = $prechat_questionnare->department_text;
-	$department_status = $prechat_questionnare->department_status;
-	$message_text = $prechat_questionnare->message_text;
-	$button_text = $prechat_questionnare->button_text;
-
-} else {
-
-  $prechat_status = 'enabled';
-	$intro_text = '<strong>Thank you for contacting us!</strong><br> To better serve you, please fill out the short form below and click the Start Chat button.';
-	$text_box1 = 'Name:';
-	$text_box2 = 'Email:';
-	$text_box2_status = 'show';
-	$department = 'Department:';
-	$department_status = 'show';
-	$message_text = 'Initial Question:';
-	$button_text = 'Start Chat';
-}
-
-
-
-update_visitor_current_page($visitor_id, 'Pre-Chat for ' . $website->url);
-
-<% end %>
-
 <div class="chat-widget-container">
 
 <div style="margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px;">
 
 <p><%= pre_chat_form.intro_text %></p>
 
-<input type="text" id="start-chat-text-box-1" placeholder="<%= pre_chat_form.name_text %>"></p>
+<input type="text" id="pre-chat-name" placeholder="<%= pre_chat_form.name_text %>"></p>
 
 <% if pre_chat_form.email_enabled %>
-  <input type="text" id="start-chat-text-box-2" placeholder="<%= pre_chat_form.email_text %>"></p>
+  <input type="text" id="pre-chat-email" placeholder="<%= pre_chat_form.email_text %>"></p>
 <% end %>
 
 <%
@@ -85,7 +17,7 @@ if pre_chat_form.department_enabled && departments && departments.count > 0
 %>
 
   <p>
-    <select id="start-chat-department">
+    <select id="pre-chat-department">
       <option value="0">Any Department</option>
       <% departments.each do |department| %>
         <option value="<%= department.name %>"><%= department.name %></option>
@@ -94,8 +26,8 @@ if pre_chat_form.department_enabled && departments && departments.count > 0
   </p>
 <% end %>
 
-<textarea rows="4" id="start-chat-question" placeholder="<%= pre_chat_form.message_text %>"></textarea></p>
-	
+<textarea rows="4" id="pre-chat-message" placeholder="<%= pre_chat_form.message_text %>"></textarea></p>
+
 <input type="submit" value="  <%= pre_chat_form.button_text %>  " style="color: #333333; font-family: arial, verdana, helvetica; font-size: 12px; height: 40px;" id="start-chat-btn">
 
 <div class="missing-fields">Please fill in all fields</div>
