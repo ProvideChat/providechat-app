@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(version: 20140724171120) do
     t.string   "visitor_email"
     t.string   "visitor_department"
     t.string   "visitor_question"
-    t.string   "status"
+    t.integer  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -165,6 +165,7 @@ ActiveRecord::Schema.define(version: 20140724171120) do
     t.integer  "inactive_visitor_removal"
     t.integer  "agent_session_timeout"
     t.integer  "agent_response_timeout"
+    t.boolean  "completed_setup"
     t.integer  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -203,6 +204,7 @@ ActiveRecord::Schema.define(version: 20140724171120) do
   create_table "visitors", force: true do |t|
     t.integer  "organization_id"
     t.integer  "website_id"
+    t.integer  "chat_id"
     t.string   "name"
     t.string   "email"
     t.string   "department"
@@ -226,11 +228,12 @@ ActiveRecord::Schema.define(version: 20140724171120) do
     t.string   "screen_resolution"
     t.string   "smart_invite_status"
     t.string   "operator_invite"
-    t.string   "status"
+    t.integer  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "visitors", ["chat_id"], name: "index_visitors_on_chat_id", using: :btree
   add_index "visitors", ["organization_id"], name: "index_visitors_on_organization_id", using: :btree
   add_index "visitors", ["website_id"], name: "index_visitors_on_website_id", using: :btree
 

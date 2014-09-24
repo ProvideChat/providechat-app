@@ -3,6 +3,7 @@ class CreateVisitors < ActiveRecord::Migration
     create_table :visitors do |t|
       t.integer :organization_id
       t.integer :website_id
+      t.integer :chat_id
       t.string :name
       t.string :email
       t.string :department
@@ -33,5 +34,6 @@ class CreateVisitors < ActiveRecord::Migration
     
     add_index :visitors, :organization_id
     add_index :visitors, :website_id
+    add_index :visitors, :chat_id
   end
 end
