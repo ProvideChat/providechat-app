@@ -1,22 +1,18 @@
 class VisitorsController < ApplicationController
-    
-  # GET /visitors
-  # GET /visitor.json
+  before_action :authenticate_agent!
+  before_action :set_visitor, only: [:show, :edit, :update, :destroy]
+
   def index
     @visitors = Visitor.where(organization_id: current_agent.organization_id)
   end
 
-  # GET /visitors/1
-  # GET /visitors/1.json
   def show
   end
 
-  # GET /visitors/new
   def new
     @visitor = Visitor.new
   end
 
-  # GET /visitors/1/edit
   def edit
   end
 
@@ -62,7 +58,7 @@ class VisitorsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_chat
+    def set_visitor
       @visitor = Visitor.find(params[:id])
     end
 

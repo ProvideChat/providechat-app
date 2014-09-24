@@ -1,5 +1,5 @@
 class Visitor < ActiveRecord::Base
-  has_many :chats
+  has_one :chat
 
   enum status: [:no_chat, :waiting_to_chat, :in_chat, :chat_ended, :offsite]
   
@@ -32,19 +32,16 @@ class Visitor < ActiveRecord::Base
 
   def self.process_session (org_id, session)
 
-    require 'json'
-
-    session = JSON.parse(session)
-
-
     # {"api_version":0.4,
     #  "locale":{"country":"us","lang":"en"},
     # "current_session":
-    #   {"visits":1,"start":1403707597975,"last_visit":1403707597975,"url":"http://newsite.providechat.dev/","path":"/","referrer":"","referrer_info":{"host":"newsite.providechat.dev","path":"/","protocol":"http:","port":80,"search":"","query":{}},"search":{"engine":null,"query":null}},"original_session":{"visits":646,"start":1394491300924,"last_visit":1403707597976,"url":"http://newsite.providechat.dev/","path":"/","referrer":"","referrer_info":{"host":"newsite.providechat.dev","path":"/","protocol":"http:","port":80,"search":"","query":{}},"search":{"engine":null,"query":null},"prev_visit":1403707444019,"time_since_last_visit":153957},"browser":{"browser":"Chrome","version":29,"os":"Mac"},"plugins":{"flash":true,"silverlight":true,"java":false,"quicktime":true},"time":{"tz_offset":-7,"observes_dst":true},"device":{"screen":{"width":1920,"height":1080},"viewport":{"width":1336,"height":912},"is_tablet":false,"is_phone":false,"is_mobile":false}}
+    #  SESSION DETAILS: {"api_version"=>0.4, "locale"=>{"country"=>"us", "lang"=>"en"}, "current_session"=>{"visits"=>1, "start"=>1411186442747, "last_visit"=>1411186442747, "url"=>"http://new.providechat.dev/", "path"=>"/", "referrer"=>"", "referrer_info"=>{"host"=>"new.providechat.dev", "path"=>"/", "protocol"=>"http:", "port"=>80, "search"=>"", "query"=>{}}, "search"=>{"engine"=>nil, "query"=>nil}}, "original_session"=>{"visits"=>16, "start"=>1411184787036, "last_visit"=>1411186442748, "url"=>"http://new.providechat.dev/", "path"=>"/", "referrer"=>"", "referrer_info"=>{"host"=>"new.providechat.dev", "path"=>"/", "protocol"=>"http:", "port"=>80, "search"=>"", "query"=>{}}, "search"=>{"engine"=>nil, "query"=>nil}, "prev_visit"=>1411186343610, "time_since_last_visit"=>99138}, "browser"=>{"browser"=>"Chrome", "version"=>37, "os"=>"Mac"}, "plugins"=>{"flash"=>true, "silverlight"=>true, "java"=>false, "quicktime"=>true}, "time"=>{"tz_offset"=>-7, "observes_dst"=>true}, "device"=>{"screen"=>{"width"=>1366, "height"=>768}, "viewport"=>{"width"=>1175, "height"=>669}, "is_tablet"=>false, "is_phone"=>false, "is_mobile"=>false}, "location"=>{"error"=>true, "source"=>"google"}} 
 
     #Rails.logger.debug "current_session.visits: #{session['current_session']['visits']}"
 
     #remote_addr = session['']
+    current_visits = session['current_session']['visits']
+    total_visits = session['original_session']['visits']
     remote_host = session['current_session']['referrer_info']['host']
     current_page = session['current_session']['url']
     country = session['locale']['country']
@@ -52,6 +49,11 @@ class Visitor < ActiveRecord::Base
     referrer_host = session['current_session']['referrer_info']['host']
     referrer_path = session['current_session']['referrer_info']['path']
     referrer_search = session['current_session']['referrer_info']['search']
+    #referrer_query = session['current_session']['referrer_info']['query']
+    
+    search_engine = session['current_session']['search']['engine']
+    search_query = session['current_session']['search']['query']
+    
     browser_name = session['browser']['browser']
     browser_version = session['browser']['version']
     operating_system = session['browser']['os']
@@ -68,8 +70,22 @@ class Visitor < ActiveRecord::Base
       visitor.country = country
       visitor.current_page = current_page
       visitor.remote_host = remote_host
-      visitor.page_views = session['current_session']['visits']
+      visitor.page_views = current_visits
 
+      visitor.language = language
+      visitor.referrer_host = referrer_host
+      visitor.referrer_path = referrer_path
+      visitor.referrer_search = referrer_search
+      #visitor.referrer_query = referrer_query
+      
+      visitor.search_engine = search_engine
+      visitor.search_query = search_query
+
+      visitor.browser_name = browser_name
+      visitor.browser_version = browser_version
+      visitor.operating_system = operating_system
+      visitor.screen_resolution = screen_resolution
+   
       if session['location']['error']
         Rails.logger.debug "No location data"
       end

@@ -11,7 +11,7 @@
       <option value="visitor">Not in Chat</option>
     </select>
   </div>
-  <div class="col-sm-2 col-md-2">
+  <div class="col-sm-2 col-md-3">
     <p>Website Filter</p>
     <select id="websiteFilter" name="websiteFilter" class="form-control">
       <option value="0">All</option>
@@ -19,19 +19,11 @@
   </div>
   <div class="col-sm-2 col-md-2">
     <p>Visitors Online</p>
-    <div id="visitorsOnline" style="font-size: 24px; margin-top: 4px; font-weight: bold;">..</div>
+    <div id="visitors-online" style="font-size: 24px; margin-top: 4px; font-weight: bold;">..</div>
   </div>
   <div class="col-sm-2 col-md-2">
     <p>Waiting to Chat</p>
-    <div id="waitingToChat" style="font-size: 24px; margin-top: 4px; font-weight: bold;">..</div>
-  </div>
-  <div class="col-sm-2 col-md-2">
-		<p>My Status</p>
-		<select name="operatorAvailability" id="operatorAvailability" class="form-control">
-      <option selected="selected" value="offline">Offline</option>
-      <option value="online">Online</option>
-		</select>
-		<span id="myspan"></span>
+    <div id="waiting-to-chat" style="font-size: 24px; margin-top: 4px; font-weight: bold;">..</div>
   </div>
 </div>
 
@@ -234,19 +226,11 @@
     		</table>
     	</div>
     </div>
-    <div id="visitorTabs" style="width: 350px;">
-      <ul>
-        <li><a href="#salesInfoDiv">Sales Info</a></li>
-        <li><a href="#techInfoDiv">Technical Info</a></li>
-      </ul>
-    <div id="salesInfoDiv" style="height: 305px; overflow: auto;" align="left">
-      <p><b class="maintext">Sales Information</b></p>
+    <div id="visitorInfo" style="height: 305px; overflow: auto;" align="left">
+      <p><b class="maintext">Visitor Information</b></p>
       <p>No Visitor currently selected</p>
     </div>
-    <div id="techInfoDiv" style="height: 305px; overflow: auto;" align="left">
-      <p><b class="maintext">Technical Information</b></p>
-      <p>No Visitor currently selected</p>
-    </div>
+
 
     <form action="transcripts_search.php" method="post" target="searchWindow" onSubmit="window.open('', 'searchWindow', 'width=840,height=600,status=no,resizable=yes,scrollbars=yes')">
       <input type="hidden" id="chatWindow" name="chatWindow" value="true" />
@@ -324,17 +308,22 @@
     } else {
       var after = "0";
     }
-    $.getJSON("/visitors.json?organization_id=" + organization_id + "&after=" + after, function (results) {
+    $.getJSON("/visitors.json", function (results) {
 
       $('#loading_visitors').hide();
 
+      $('#visitors-online').html(results.length);
+      
       $.each(results, function(i, visitor) {
-        console.log(visitor);
+        //console.log(visitor);
         if($("#visitor_row_" + visitor.id).length == 0) {
           var visitor_row = '<tr id="visitor_row_' + visitor.id + '"><td>' + visitor.id + '</td>';
           visitor_row = visitor_row + '<td>' + processVisitorName(visitor) + '</td>';
-          visitor_row = visitor_row + '<td></td><td></td><td></td><td>' + visitor.current_page + '</td>';
-          visitor_row = visitor_row + '<td><button class="btn btn-default btn-xs">View</button></td></tr>'
+          visitor_row = visitor_row + '<td>' + visitor.department + '</td>';
+          visitor_row = visitor_row + '<td></td>';
+          visitor_row = visitor_row + '<td></td>';
+          visitor_row = visitor_row + '<td>' + visitor.current_page + '</td>';
+          visitor_row = visitor_row + '<td><button class="btn btn-default btn-xs" onclick="viewVisitor(' + visitor.id + ')">View</button></td></tr>'
           $('#visitor-table > tbody:last').append(visitor_row);
         } else {
           $("#visitor_row_" + visitor.id).find("td").eq(1).html(processVisitorName(visitor));
@@ -358,6 +347,22 @@
     return visitor_name;
   }
   
+  function processVisitorLocation(visitor) {
+    // VISITOR LOCATION
+    if (visitor.chat.status == 'visitorTimeout') {
+      visitorLocation =  "Visitor timed out, no longer on site";
+    } else if (visitor.chat.status == 'operatorTimeout') {
+      visitorLocation =  "Chat not accepted, visitor sent to unavailable window";
+    } else {
+      if (visitor.current_page.length > 0) {
+        visitorLocation =  visitor.current_page;
+      }
+      else {
+        visitorLocation =  "Unknown";
+      }
+    }
+  }
+  
   function visitorChat(visitor) {
 		// CHAT STATUS
     if (chatStatus == 'visitorEnded') {
@@ -379,53 +384,51 @@
     }
   }
 
-  function getVisitorDetail( visitor_id ) {
+  function viewVisitor( visitor_id ) {
 
     $.ajax({
-      type: "POST",
+      type: "GET",
       dataType: "json",
-      url: "/visitors.json",
-      data: "action=get_visitor_detail&visitor_id=" + visitor_id,
+      url: "/visitors/" + visitor_id + ".json",
       success: function (response) {
 
-        log (response);
+        console.log (response);
 
-        var salesInfoContent = '';
-        var techInfoContent = '';
+        var visitorInfo = '';
 
         if (response.visitorName != 'Not found')
         {
-          salesInfoContent += '<p><b class="maintext">Visitor Information</b></p>';
-          salesInfoContent += '<table border="0" cellpadding="2" cellspacing="0" style="margin-left: 20px; margin-top: 5px;">';
-          salesInfoContent += '<tr><td><b>Name: </b></td><td>' + response.visitorName + '</td></tr>';
-          salesInfoContent += '<tr><td><b>Email: </b></td><td>' + response.visitorEmail + '</td></tr>';
-          salesInfoContent += '<tr><td><b>Department: </b></td><td>' + response.department + '</td></tr>';
-          salesInfoContent += '<tr><td><b>Pages Viewed: </b></td><td>' + response.pageViews + '</td></tr>';
-          salesInfoContent += '<tr><td><b>Time on Site: </b></td><td>' + response.timeDiff + '</td></tr>';
-          salesInfoContent += '<tr><td><b>Country: </b></td><td>' + response.country + '&nbsp;&nbsp;<img width="32" height="16" src="http://api.hostip.info/flag.php?ip=' + response.remoteAddr + '"></td></tr>';
-          salesInfoContent += '<tr><td><b>Current Page: </b></td><td><a href="' + response.currentPage + '" target="_blank" style="color: #0066CC;">' + response.currentPage + '</a></td></tr>';
-          salesInfoContent += '<tr><td colspan="2"><br><b>Initial Question: </b></td></tr>';
-          salesInfoContent += '<tr><td colspan="2">' + response.visitorQuestion + '</td></tr></table><br />';
-          salesInfoContent += '<b class="maintext">Referrer Information</b><br />';
-          salesInfoContent += '<table border="0" cellpadding="2" cellspacing="0" style="margin-left: 20px; margin-top: 5px;">';
-          salesInfoContent += '<tr><td><b>Name: </b></td><td>' + response.refererSource + '</td></tr>';
-          salesInfoContent += '<tr><td><b>Search Query: </b></td><td>' + response.refererQuery + '</td></tr>';
-          salesInfoContent += '<tr><td><b>Website: </b></td><td>' + response.refererUrl + '</td></tr>';
-          salesInfoContent += '<tr><td colspan="2"><img src="' + response.searchEngineImg + '" width="80" height="32"></td></tr></table>';
+          visitorInfo += '<p><b class="maintext">Visitor Information</b></p>';
+          visitorInfo += '<table border="0" cellpadding="2" cellspacing="0" style="margin-left: 20px; margin-top: 5px;">';
+          visitorInfo += '<tr><td><b>Name: </b></td><td>' + response.name + '</td></tr>';
+          visitorInfo += '<tr><td><b>Email: </b></td><td>' + response.email + '</td></tr>';
+          visitorInfo += '<tr><td><b>Department: </b></td><td>' + response.department + '</td></tr>';
+          visitorInfo += '<tr><td><b>Pages Viewed: </b></td><td>' + response.page_views + '</td></tr>';
+          visitorInfo += '<tr><td><b>Time on Site: </b></td><td>' + response.timeDiff + '</td></tr>';
+          visitorInfo += '<tr><td><b>Country: </b></td><td>' + response.country + '&nbsp;&nbsp;<img width="32" height="16" src="http://api.hostip.info/flag.php?ip=' + response.remoteAddr + '"></td></tr>';
+          visitorInfo += '<tr><td><b>Current Page: </b></td><td><a href="' + response.current_page + '" target="_blank" style="color: #0066CC;">' + response.current_page + '</a></td></tr>';
+          visitorInfo += '<tr><td colspan="2"><br><b>Initial Question: </b></td></tr>';
+          visitorInfo += '<tr><td colspan="2">' + response.question + '</td></tr></table><br />';
+          visitorInfo += '<b class="maintext">Referrer Information</b><br />';
+          visitorInfo += '<table border="0" cellpadding="2" cellspacing="0" style="margin-left: 20px; margin-top: 5px;">';
+          visitorInfo += '<tr><td><b>Name: </b></td><td>' + response.referer_host + '</td></tr>';
+          visitorInfo += '<tr><td><b>Search Query: </b></td><td>' + response.search_query + '</td></tr>';
+          visitorInfo += '<tr><td><b>Website: </b></td><td>' + response.referer_url + '</td></tr>';
+          visitorInfo += '<tr><b>Search Engine: </b></td><td>' + response.search_engine + '</td></tr></table>';
+          //salesInfoContent += '<tr><td colspan="2"><img src="' + response.searchEngineImg + '" width="80" height="32"></td></tr></table>';
 
-          techInfoContent += '<p><b class="maintext">System Information</b></p>';
-          techInfoContent += '<table border="0" cellpadding="2" cellspacing="0" style="margin-left: 20px; margin-top: 5px;">';
-          techInfoContent += '<tr><td><b>IP Address: </b></td><td >' + response.remoteAddr + '</td></tr>';
-          techInfoContent += '<tr><td><b>Screen Resolution: </b></td><td >' + response.screenResolution + '</td></tr>';
-          techInfoContent += '<tr><td><b>Browser: </b></td><td><table border="0" cellpadding="0" cellspacing="0"><tr>';
-          techInfoContent += '<td>' + response.browserName + '</td><td><img src="' + response.browserImg + '" height="16px" width="16px" hspace="3px"></td></tr></table></td></tr>';
-          techInfoContent += '<tr><td><b>Browser Version: </b></td><td><table border="0" cellpadding="0" cellspacing="0"><tr>';
-          techInfoContent += '<td>' + response.browserVersion + '</td></tr></table></td></tr>';
-          techInfoContent += '<tr><td><b>Operating System: </b></td><td><table border="0" cellpadding="0" cellspacing="0"><tr>';
-          techInfoContent += '<td>' + response.osName + '</td><td><img src="' + response.osImg + '" height="16px" width="16px" hspace="3px"></td></tr></table></td></tr></table>';
+          visitorInfo += '<p><b class="maintext">System Information</b></p>';
+          visitorInfo += '<table border="0" cellpadding="2" cellspacing="0" style="margin-left: 20px; margin-top: 5px;">';
+          visitorInfo += '<tr><td><b>IP Address: </b></td><td >' + response.remote_addr + '</td></tr>';
+          visitorInfo += '<tr><td><b>Screen Resolution: </b></td><td >' + response.screen_resolution + '</td></tr>';
+          visitorInfo += '<tr><td><b>Browser: </b></td><td><table border="0" cellpadding="0" cellspacing="0"><tr>';
+          visitorInfo += '<td>' + response.browser_name + '</td><td><img src="' + response.browserImg + '" height="16px" width="16px" hspace="3px"></td></tr></table></td></tr>';
+          visitorInfo += '<tr><td><b>Browser Version: </b></td><td><table border="0" cellpadding="0" cellspacing="0"><tr>';
+          visitorInfo += '<td>' + response.browser_version + '</td></tr></table></td></tr>';
+          visitorInfo += '<tr><td><b>Operating System: </b></td><td><table border="0" cellpadding="0" cellspacing="0"><tr>';
+          visitorInfo += '<td>' + response.operating_system + '</td><td><img src="' + response.osImg + '" height="16px" width="16px" hspace="3px"></td></tr></table></td></tr></table>';
 
-          $('#salesInfoDiv').html(salesInfoContent);
-          $('#techInfoDiv').html(techInfoContent);
+          $('#visitorInfo').html(visitorInfo);
         }
       }
     });

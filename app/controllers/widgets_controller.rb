@@ -46,8 +46,9 @@ class WidgetsController < ApplicationController
       when "update_status"
         response = { 'agent_status' => @organization.agent_status }
       when "initialize"
-        logger.debug "SESSION DETAILS: #{params[:session]}"
-        visitor = Visitor.process_session(org_id, params[:session])
+        session = JSON.parse(params[:session])
+        logger.debug "SESSION DETAILS: #{session}"
+        visitor = Visitor.process_session(org_id, session)
 
         if visitor
           response = { 'success' => 'true', 'visitor_id' => visitor.id, 'website_id' => visitor.website_id,
