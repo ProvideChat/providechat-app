@@ -1,40 +1,27 @@
-<%= render 'layouts/page_header', :title => 'Chat Widget', :icon => 'fa-toggle-up', :subpage => 'Customization' %>
+<div class="row">
+	<div class="col-xs-12 col-sm-10 col-md-8 col-lg-8">
+		<h1 class="page-title txt-color-blueDark">
+      Chat Widget / Customization for
+      <%= form_tag(chat_widgets_path, method: 'get', class: 'smart-form form-inline', id: 'edit_chat_widget', style: 'display: inline;') do %>
+        <%= select_tag "website_id", options_from_collection_for_select(@websites, "id", "url", @chat_widget.website_id), :class => "form-control", :id => "website_id" %>
+      <% end %>
+
+    </h1>
+	</div>
+</div>
+
+<%= render partial: 'layouts/flash_messages', flash: flash %>
 
 <div class="row">
-  
+
   <% if @chat_widget %>
 
-	  <div class="col-sm-12 col-md-6 col-lg-6">
-      <div class="jarviswidget" id="widget-preview">
-      	<header>
-      		<span class="widget-icon"> <i class="fa fa-toggle-up"></i> </span>
-      		<h2>Preview Widget</h2>
-
-      	</header>
-
-				<div>
-					<div class="widget-body">
-            <%= render 'widget' %>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
     <div class="col-sm-12 col-md-6 col-lg-6">
-      <div class="jarviswidget jarviswidget-color-orangeDark" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
-      	<header>
-      		<span class="widget-icon"> <i class="fa fa-toggle-up"></i> </span>
-      		<h2>Customize Chat Widget</h2>
-          <div class="widget-toolbar smart-form" role="menu">
-            <%= form_tag(chat_widgets_path, method: 'get', class: 'smart-form', id: 'edit_chat_widget') do %>
-              <label class="select">
-                <%= select_tag "website_id", options_from_collection_for_select(@websites, "id", "url", @chat_widget.website_id), :class => "input-sm", :id => "website_id" %>
-                <i></i>
-              </label>
-            <% end %>
-          </div>
-      	</header>
+      <div class="jarviswidget jarviswidget" id="customize-chat-widget">
+        <header>
+          <span class="widget-icon"> <i class="fa fa-toggle-up"></i> </span>
+          <h2>Customize Chat Widget</h2>
+        </header>
 
 				<div>
 					<div class="widget-body">
@@ -44,20 +31,35 @@
       </div>
     </div>
 
+    <div class="col-sm-12 col-md-6 col-lg-6">
+      <div class="jarviswidget" id="widget-preview">
+        <header>
+          <span class="widget-icon"> <i class="fa fa-toggle-up"></i> </span>
+          <h2>Preview Widget</h2>
+        </header>
+
+				<div>
+					<div class="widget-body">
+            <%= render 'widget' %>
+          </div>
+        </div>
+      </div>
+    </div>
+
   <% else %>
 
     <div class="col-sm-12 col-md-8 col-lg-8">
-      
+
       <div class="alert alert-warning alert-block">
         <h4 class="alert-heading">No websites configured yet!</h4>
-        
-        You have no yet added any websites, please <%= link_to "add a website", new_website_path %> 
+
+        You have no yet added any websites, please <%= link_to "add a website", new_website_path %>
         to customize the chat widget for that website.
       </div>
 
     </div>
   <% end %>
-  
+
 </div>
 
 <script>

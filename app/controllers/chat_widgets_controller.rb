@@ -4,7 +4,7 @@ class ChatWidgetsController < ApplicationController
 
   def index
     params.has_key?(:website_id) ? website_id = params[:website_id] : website_id = Website.where(organization_id: current_agent.organization_id).first
-    
+
     if website_id
       @chat_widget = ChatWidget.find_by(:website_id => website_id)
       redirect_to edit_chat_widget_path(@chat_widget)
@@ -13,14 +13,13 @@ class ChatWidgetsController < ApplicationController
     end
   end
 
-  # GET /offline_forms/1/edit
   def edit
     @chat_widget = ChatWidget.find(params[:id])
   end
 
-  def update    
+  def update
     @chat_widget = ChatWidget.find(params[:id])
-    
+
     respond_to do |format|
       if @chat_widget.update(chat_widget_params)
         format.html { redirect_to edit_chat_widget_path(@chat_widget), notice: 'Chat widget was successfully updated.' }

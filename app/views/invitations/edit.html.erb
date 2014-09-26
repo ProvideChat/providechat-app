@@ -1,6 +1,56 @@
-<h1>Editing invitation</h1>
+<div class="row">
+	<div class="col-xs-12 col-sm-10 col-md-8 col-lg-8">
+		<h1 class="page-title txt-color-blueDark">
+      Chat Widget / Invitations for
+      <%= form_tag(chat_widgets_path, method: 'get', class: 'smart-form form-inline', id: 'edit_chat_widget', style: 'display: inline;') do %>
+        <%= select_tag "website_id", options_from_collection_for_select(@websites, "id", "url", @invitation.website_id), :class => "form-control", :id => "website_id" %>
+      <% end %>
 
-<%= render 'form' %>
+    </h1>
+	</div>
+</div>
 
-<%= link_to 'Show', @invitation %> |
-<%= link_to 'Back', invitations_path %>
+<%= render partial: 'layouts/flash_messages', flash: flash %>
+
+<div class="row">
+
+  <% if @invitation %>
+
+    <div class="col-sm-12 col-md-6 col-lg-6">
+      <div class="jarviswidget jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+        <header>
+          <span class="widget-icon"> <i class="fa fa-toggle-up"></i> </span>
+          <h2>Customize Invitations</h2>
+        </header>
+
+				<div>
+					<div class="widget-body">
+            <%= render 'form' %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <% else %>
+
+    <div class="col-sm-12 col-md-8 col-lg-8">
+
+      <div class="alert alert-warning alert-block">
+        <h4 class="alert-heading">No websites configured yet!</h4>
+
+        You have no yet added any websites, please <%= link_to "add a website", new_website_path %>
+        to customize the invitations for that website.
+      </div>
+
+    </div>
+  <% end %>
+
+</div>
+
+<script>
+  $(function() {
+    $('#website_id').on ('change', function() {
+      $('#edit_invitations').submit();
+    });
+  });
+</script>

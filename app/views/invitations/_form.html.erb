@@ -1,4 +1,4 @@
-<%= form_for(@invitation) do |f| %>
+<%= form_for(@invitation, :html => {class: 'smart-form', id: 'update-invitation'}) do |f| %>
   <% if @invitation.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@invitation.errors.count, "error") %> prohibited this invitation from being saved:</h2>
@@ -11,35 +11,46 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :organization_id %><br>
-    <%= f.number_field :organization_id %>
-  </div>
-  <div class="field">
-    <%= f.label :website_id %><br>
-    <%= f.number_field :website_id %>
-  </div>
-  <div class="field">
-    <%= f.label :invitation_message %><br>
-    <%= f.text_field :invitation_message %>
-  </div>
-  <div class="field">
-    <%= f.label :smart_invite_enabled %><br>
-    <%= f.check_box :smart_invite_enabled %>
-  </div>
-  <div class="field">
-    <%= f.label :smart_invite_mode %><br>
-    <%= f.text_field :smart_invite_mode %>
-  </div>
-  <div class="field">
-    <%= f.label :invite_pageviews %><br>
-    <%= f.number_field :invite_pageviews %>
-  </div>
-  <div class="field">
-    <%= f.label :invite_seconds %><br>
-    <%= f.number_field :invite_seconds %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <header>Customize Language</header>
+	<fieldset>
+    <div class="row">
+      <section class="col col-12">
+        <label class="input">
+          <%= f.text_field :invitation_message, :placeholder => @invitation.invitation_message %>
+        </label>
+      </section>
+    </div>
+    <div class="row">
+      <section class="col col-12">
+        <label class="input">
+          <%= f.check_box :smart_invite_enabled, {}, true, false %>
+        </label>
+      </section>
+    </div>
+    <div class="row">
+      <section class="col col-12">
+        <label class="input">
+          <%= f.select :smart_invite_mode, { "Invite after X page views" => "pageviews", "Invite after X seconds" => "seconds" }, include_blank: "-- Invitation Mode --", :class => "form-control" %>
+        </label>
+      </section>
+    </div>
+    <div class="row">
+      <section class="col col-12">
+        <label class="input">
+          <%= f.text_field :invite_pageviews, :placeholder => @invitation.invite_pageviews %>
+        </label>
+      </section>
+    </div>
+    <div class="row">
+      <section class="col col-12">
+        <label class="input">
+          <%= f.text_field :invite_seconds, :placeholder => @invitation.invite_seconds %>
+        </label>
+      </section>
+    </div>
+  </fieldset>
+	<footer>
+    <%= f.submit "Update", :class => "btn btn-primary" %>
+	</footer>
+
 <% end %>

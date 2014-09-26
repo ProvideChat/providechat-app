@@ -4,23 +4,24 @@ class OfflineFormsController < ApplicationController
 
   def index
     params.has_key?(:website_id) ? website_id = params[:website_id] : website_id = Website.where(organization_id: current_agent.organization_id).first
-    
-    @offline_form = OfflineForm.find_by(:website_id => website_id) if website_id
-    
-    redirect_to edit_offline_form_path(@offline_form)
+
+    if website_id
+      @offline_form = OfflineForm.find_by(:website_id => website_id) if website_id
+      redirect_to edit_offline_form_path(@offline_form)
+    else
+      redirect_to websites_path, notice: "You need to add a website before you can modify the Chat Widget"
+    end
   end
 
-  # GET /offline_forms/1/edit
   def edit
     @offline_form = OfflineForm.find(params[:id])
   end
 
-  # PATCH/PUT /offline_forms/1
   def update
     @offline_form = OfflineForm.find(params[:id])
-    
+
     logger.debug offline_form_params
-    
+
     if @offline_form.update(offline_form_params)
       redirect_to edit_offline_form_path(@offline_form), notice: 'Your offline form was successfully updated.'
     else

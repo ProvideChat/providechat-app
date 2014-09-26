@@ -1,51 +1,3 @@
-<% if false %>
-<div class="chat-widget-container">
-
-<div style="margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px; display: none;" id="unavailable-success">
-  
-<p style="margin-top: 0px; "><?php echo $unavailable_window->success_message; ?></p>
-
-</div>
-
-<div style="margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px;" id="unavailable-form">
-  
-<p style="margin-top: 0px; "><?php echo $unavailable_window->intro_text; ?></p>
-
-<input type="text" id="unavailable-text-box-1" placeholder="<?php echo $unavailable_window->text_box1; ?>"></p>
-
-<?php if ($unavailable_window->text_box2_status == 'show'): ?>
-  <input type="text" id="unavailable-text-box-2" placeholder="<?php echo $unavailable_window->text_box2; ?>"></p>
-<?php endif; ?>
-
-<?php
-$departments = get_department_listing ( $org_id, $website_id );
-
-if (($unavailable_window->department_status == 'show') && (count($departments) > 1)): 
-?>
-  <p>
-    <select id="unavailable-department">
-      <option value="0">Any Department</option>
-  		<?php
-  			for ($i = 0; $i < count($departments); $i++) {
-          print "<option value=\"" . $departments[$i]["name"] . "\">";
-          print $departments[$i]["name"] . "</option>\n";
-        }
-      ?>
-    </select>
-  </p>
-<?php endif; ?>
-
-<textarea rows="4" style="border: 1px solid #CCCCCC; width: 350px;" id="unavailable-message" placeholder="<?php echo $unavailable_window->message_text; ?>"></textarea></p>
-	
-<input type="submit" value="  <?php echo $unavailable_window->button_text; ?>  " style="" id="send-unavailable-email">
-
-<div class="missing-fields">Please fill in all fields</div>
-
-</div>
-
-</div>
-
-<% end %>
 
 <div id="pc-chat-window" style="display: block;">
   <div class="chat-widget chat-widget-open">
@@ -59,13 +11,13 @@ if (($unavailable_window->department_status == 'show') && (count($departments) >
       <div class="chat-widget-container">
 
         <div style="margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px; display: none;" id="unavailable-success">
-  
+
           <p style="margin-top: 0px; "><%= @offline_form.success_message %></p>
 
         </div>
 
         <div style="margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px;" id="unavailable-form">
-  
+
           <p style="margin-top: 0px; "><%= @offline_form.intro_text %></p>
 
           <input type="text" id="unavailable-text-box-1" placeholder="<%= "Text Box 1" %>"></p>
@@ -81,9 +33,9 @@ if (($unavailable_window->department_status == 'show') && (count($departments) >
             </select>
           </p>
 
-          <textarea rows="4" style="border: 1px solid #CCCCCC; width: 350px;" id="unavailable-message" placeholder="<%= "Message Text" %>"></textarea></p>
-	
-          <input type="submit" value="  <%= "Button Text" %>  " style="" id="send-unavailable-email">
+          <textarea rows="4" style="border: 1px solid #CCCCCC; width: 350px;" id="unavailable-message" placeholder="<%= @offline_form.message_text %>"></textarea></p>
+
+          <input type="submit" value="  <%= @offline_form.button_text %>  " style="" id="send-unavailable-email">
 
           <div class="missing-fields">Please fill in all fields</div>
 
