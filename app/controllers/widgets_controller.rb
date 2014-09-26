@@ -15,6 +15,14 @@ class WidgetsController < ApplicationController
 
       case method
       when "process_pre_chat"
+        visitor = Visitor.find(params[:visitor_id])
+        visitor.name = params[:name]
+        visitor.email = params[:email]
+        visitor.department = params[:department]
+        visitor.question = params[:message]
+        visitor.status = 'waiting_to_chat';
+        visitor.save
+
         chat = Chat.create(organization_id: @organization.id, website_id: website_id, visitor_id: params[:visitor_id],
                             chat_requested: DateTime.now, visitor_name: params[:name], 
                             visitor_email: params[:email], visitor_department: params[:department], 
@@ -49,11 +57,13 @@ class WidgetsController < ApplicationController
         session = JSON.parse(params[:session])
         logger.debug "SESSION DETAILS: #{session}"
         visitor = Visitor.process_session(org_id, session)
+        chat_widget = ChatWidget.find_by(:website_id => visitor.website_id)
 
         if visitor
           response = { 'success' => 'true', 'visitor_id' => visitor.id, 'website_id' => visitor.website_id,
                        'agent_status' => @organization.agent_status, 'agent_response_timeout' => @organization.agent_response_timeout,
-                       'chat_id' => 0, 'chat_status' => '', 'visitor_name' => visitor.name }
+                       'chat_id' => 0, 'chat_status' => '', 'visitor_name' => visitor.name, 'online_message' => chat_widget.online_message,
+                       'offline_message' => chat_widget.offline_message, 'title_message' => chat_widget.title_message }
         else
           response = { 'success' => 'false' }
         end

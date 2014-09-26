@@ -77,57 +77,29 @@
 				<span class="widget-icon"> <i class="fa fa-comments"></i> </span>
 				<h2> Your Chats </h2>
 				<div class="widget-toolbar">
-					<!-- add: non-hidden - to disable auto hide -->
-
-					<div class="btn-group">
-						<button class="btn dropdown-toggle btn-xs btn-success" data-toggle="dropdown">
-							Status <i class="fa fa-caret-down"></i>
-						</button>
-						<ul class="dropdown-menu pull-right js-status-update">
-							<li>
-								<a href="javascript:void(0);"><i class="fa fa-circle txt-color-green"></i> Online</a>
-							</li>
-							<li>
-								<a href="javascript:void(0);"><i class="fa fa-circle txt-color-red"></i> Busy</a>
-							</li>
-							<li>
-								<a href="javascript:void(0);"><i class="fa fa-circle txt-color-orange"></i> Away</a>
-							</li>
-							<li class="divider"></li>
-							<li>
-								<a href="javascript:void(0);"><i class="fa fa-power-off"></i> Log Off</a>
-							</li>
-						</ul>
-					</div>
 				</div>
 			</header>
 
-			<!-- widget div-->
 			<div>
-				<!-- widget edit box -->
-				<div class="jarviswidget-editbox">
-					<div>
-						<label>Title:</label>
-						<input type="text" />
-					</div>
-				</div>
-				<!-- end widget edit box -->
-
 				<div class="widget-body widget-hide-overflow no-padding">
-					<!-- content goes here -->
 
-					<div class="tab-content">
-						<div class="tab-pane active" id="hr1">
+          <div id="initialChat">
+            <table class="table">
+              <tr>
+                <td colspan="4">
+                  <font size="5.0em"><b>No Active Chats</b></font>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+
+					<div class="tab-content" style="display: none;">
+						<div class="tab-pane active" id="tabs">
 
 							<div class="tabbable tabs-below">
 								<div class="tab-content padding-10">
 									<div class="tab-pane active" id="AA">
-                    <%= render "chat" %>
-									</div>
-									<div class="tab-pane" id="BB">
-                    <%= render "chat" %>
-									</div>
-									<div class="tab-pane" id="CC">
                     <%= render "chat" %>
 									</div>
 								</div>
@@ -135,113 +107,32 @@
 									<li class="active">
 										<a data-toggle="tab" href="#AA">Tab 1</a>
 									</li>
-									<li>
-										<a data-toggle="tab" href="#BB">Tab 2</a>
-									</li>
-									<li>
-										<a data-toggle="tab" href="#CC">Tab 3</a>
-									</li>
 								</ul>
-							</div>
-
-						</div>
-						<div class="tab-pane" id="hr2">
-
-							<ul class="nav nav-tabs">
-								<li class="active">
-									<a href="#iss1" data-toggle="tab">Item 1</a>
-								</li>
-								<li>
-									<a href="#iss2" data-toggle="tab">Item 2</a>
-								</li>
-								<li>
-									<a href="#iss3" data-toggle="tab">Item 3</a>
-								</li>
-							</ul>
-							<div class="tab-content padding-10">
-								<div class="tab-pane active" id="iss1">
-									<p>
-										Three monkeys escaped from the zoo, one was caught watching TV, the other playing hockey, and the third one was caught reading this quote!
-									</p>
-								</div>
-								<div class="tab-pane fade" id="iss2">
-									<p>
-										Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee.
-									</p>
-								</div>
-								<div class="tab-pane fade" id="iss3">
-									<p>
-										Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table.
-									</p>
-								</div>
 							</div>
 						</div>
 					</div>
-
-					<!-- end content -->
 				</div>
 
 			</div>
-			<!-- end widget div -->
 		</div>
-		<!-- end widget -->
-
-    <div class="col-sm-12 col-md-6 col-lg-6">
-
-    <table border="0" cellpadding="3" cellspacing="0" style="border-collapse: collapse; border: 1px solid #BBBBBB; background-color: #E5E5E5; margin-bottom: 5px;">
-      <tr>
-        <td class="smalltext" style="width: 58px; border-right: 1px solid #BBBBBB;"><a id="accept_chat" style="cursor: pointer;"><img id="accept_chat_img" src="images/accept_chat_off.gif" width="60" height="23" border="0" alt="Accept" /></a></td>
-        <td class="smalltext" style="width: 58px; border-right: 1px solid #BBBBBB;"><a id="invite_chat" style="cursor: pointer;"><img id="invite_chat_img" src="images/invite_chat_off.gif" width="60" height="23" border="0" alt="Invite" /></a></td>
-        <td class="smalltext" style="width: 73px; border-right: 1px solid #BBBBBB;"><a id="end_chat" style="cursor: pointer;"><img id="end_chat_img" src="images/end_chat_off.gif" width="73" height="23" border="0" alt="Cancel" /></a></td>
-        <td><div id="staticMenu"></div></td>
-        <td style="width: 140px; border-left: 1px solid #BBBBBB; display:none;" align="right">
-
-          <table class="table">
-            <tr>
-              <td>
-                <select id="operatorTransfer" style="width: 100px;">
-                  <option>--------------</option>
-                </select>&nbsp;
-              </td>
-              <td style="display: none;"><a href="#"><img src="images/transfer_chat_off.gif" onmouseover="this.src = 'images/transfer_chat_on_hover.gif'" onmouseout="this.src = 'images/transfer_chat_on.gif'" width="70" height="23" border="0" alt="Transfer" /></a></td>
-            </tr>
-          </table>
-    		</td>
-    		<td class="smalltext" align="right" style="padding-right: 10px;"><div id="selectedVisitor"><b>No Visitor Selected</b></div></td>
-      </tr>
-    </table>
   </div>
-</div>
 
-<div class="row">
   <div class="col-sm-12 col-md-6 col-lg-6">
-    <div id="tabs">
-      <div id="initialChat">
-        <table class="table">
-          <tr>
-    				<td colspan="4">
-    					<font size="5.0em"><b>No Active Chats</b></font>
-    				</td>
-          </tr>
-    		</table>
-    	</div>
-    </div>
-    <div id="visitorInfo" style="height: 305px; overflow: auto;" align="left">
-      <p><b class="maintext">Visitor Information</b></p>
-      <p>No Visitor currently selected</p>
-    </div>
+    <div class="jarviswidget" id="widget-preview">
+      <header>
+        <span class="widget-icon"> <i class="fa fa-toggle-up"></i> </span>
+        <h2>Selected Visitor</h2>
+      </header>
 
-
-    <form action="transcripts_search.php" method="post" target="searchWindow" onSubmit="window.open('', 'searchWindow', 'width=840,height=600,status=no,resizable=yes,scrollbars=yes')">
-      <input type="hidden" id="chatWindow" name="chatWindow" value="true" />
-    	<table style="border-collapse: collapse; margin-top: 7px; margin-left: 5px; margin-right: 0px; background-color: #eeeeee;" cellpadding="4px" cellspacing="0" width="356px">
-    		<tr style="border-width: 1px; border-style: solid; border-color: #999999;">
-    			<td class="fieldtext" style="border-top-width: 1px;"><b>Chat ID</b>:</td>
-    			<td class="fieldtext"><input type="text" id="chat_id" name="chat_id" style="width: 100px;" /></td>
-    			<td><input type="submit" value=" Search Transcripts " style="width: 120px; font-size: 11px; font-family: arial, helvetica, sans serif;" /></td>
-    		</tr>
-    	</table>
-    </form>
+			<div>
+				<div class="widget-body">
+          <div id="visitorInfo" style="height: 405px; overflow: auto;" align="left">
+            <p><b class="maintext">Visitor Information</b></p>
+            <p>No Visitor currently selected</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -249,8 +140,8 @@
 <div style="display: none;">
 
   <div id="confirmCloseTab" title="Close this chat tab?">
-  	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Are you sure you want to close
-  	this chat tab?  <b>Warning: if this chat is active, closing the tab will cancel the chat.</b></p>
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Are you sure you want to close
+      this chat tab?  <b>Warning: if this chat is active, closing the tab will cancel the chat.</b></p>
   </div>
 
   <div id="confirmInvite" title="Invite selected visitor?">
@@ -289,6 +180,7 @@
 
   $( document ).ready(function() {
     init (<%= current_agent.id %>, 5);
+
   });
 
   function init (operatorId, max_chats) {
@@ -299,6 +191,20 @@
     //maxChats = max_chats;
 
     visitorTimer = setInterval(function(){updateVisitors();}, 5000);
+  }
+
+  function add_new_tab(chat_id) {
+    e.preventDefault();
+    var id = $(".nav-tabs").children().length; //think about it ;)
+    var tabId = 'contact_' + id;
+    console.log(tabId);
+    $('.nav-tabs').append('<li><a data-toggle="tab" href="#contact_' + id + '">New Tab</a></li>');
+    $('.tab-content').append('<div class="tab-pane" id="' + tabId + '"><%= render "chat" %></div>');
+
+    // add this
+    $('.nav-tabs li:nth-child(' + id + ') a').click();
+
+    $('#tabs').tab();
   }
 
   function updateVisitors () {
@@ -313,23 +219,34 @@
       $('#loading_visitors').hide();
 
       $('#visitors-online').html(results.length);
-      
+
+      var waiting_to_chat = 0;
+
       $.each(results, function(i, visitor) {
         //console.log(visitor);
-        if($("#visitor_row_" + visitor.id).length == 0) {
+        if (visitor.status == 'waiting_to_chat') {
+          waiting_to_chat = waiting_to_chat + 1;
+        }
+
+        if ($("#visitor_row_" + visitor.id).length == 0) {
           var visitor_row = '<tr id="visitor_row_' + visitor.id + '"><td>' + visitor.id + '</td>';
           visitor_row = visitor_row + '<td>' + processVisitorName(visitor) + '</td>';
           visitor_row = visitor_row + '<td>' + visitor.department + '</td>';
           visitor_row = visitor_row + '<td></td>';
           visitor_row = visitor_row + '<td></td>';
           visitor_row = visitor_row + '<td>' + visitor.current_page + '</td>';
-          visitor_row = visitor_row + '<td><button class="btn btn-default btn-xs" onclick="viewVisitor(' + visitor.id + ')">View</button></td></tr>'
+          visitor_row = visitor_row + '<td><button class="btn btn-default btn-xs" onclick="viewVisitor(' + visitor.id + ')">View</button>';
+          visitor_row = visitor_row + '&nbsp;<a id="accept_chat" style="cursor: pointer;"><img id="accept_chat_img" src="images/buttons/accept_chat_off.gif" width="60" height="23" border="0" alt="Accept" /></a>';
+          visitor_row = visitor_row + '&nbsp;<a id="invite_chat" style="cursor: pointer;"><img id="invite_chat_img" src="images/buttons/invite_chat_off.gif" width="60" height="23" border="0" alt="Invite" /></a>';
+          visitor_row = visitor_row + '</td></tr>'
           $('#visitor-table > tbody:last').append(visitor_row);
         } else {
           $("#visitor_row_" + visitor.id).find("td").eq(1).html(processVisitorName(visitor));
           $("#visitor_row_" + visitor.id).find("td").eq(5).html(visitor.current_page);
         }
       });
+
+      $('#waiting-to-chat').html(waiting_to_chat);
     });
   }
 
@@ -343,10 +260,10 @@
         visitor_name = visitor.remote_host + " (" + visitor.remote_addr + ")";
       }
     }
-    
+
     return visitor_name;
   }
-  
+
   function processVisitorLocation(visitor) {
     // VISITOR LOCATION
     if (visitor.chat.status == 'visitorTimeout') {
@@ -362,7 +279,7 @@
       }
     }
   }
-  
+
   function visitorChat(visitor) {
 		// CHAT STATUS
     if (chatStatus == 'visitorEnded') {
