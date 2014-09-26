@@ -5,7 +5,7 @@
 
   <div class="col-sm-12 col-md-12 col-lg-12">
 
-    <div class="jarviswidget jarviswidget-color-purple" id="agent-table" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="false" role="widget">
+    <div class="jarviswidget jarviswidget" id="agent-table" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="false" role="widget">
 
 		<header role="heading">
 			<span class="widget-icon"> <i class="fa fa-user"></i> </span>
@@ -38,7 +38,7 @@
               <tr>
                 <td><%= agent.name %></td>
                 <td><%= agent.email %></td>
-                <td><%= agent.account_type.capitalize %></td>
+                <td><%= agent.account_type.nil? ? 'Not set' : agent.account_type.capitalize %></td>
                 <td><%= image_tag agent.avatar_url, :class => "img-circle", :style => "height: 32px; width: 32px;" %></td>
                 <td>
                   <%= link_to edit_agent_path(agent), :class => "btn btn-default btn-sm" do %>
