@@ -15,7 +15,7 @@
 //= require jquery-ui
 //= require bootstrap
 //= require bootstrap-datepicker
-//= require bootstrap-colorpicker
+//= require jquery.simplecolorpicker
 //= require jquery.nestable
 //= require jquery.validate
 //= require smartadmin.config
