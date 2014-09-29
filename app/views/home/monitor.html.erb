@@ -1,140 +1,168 @@
 <%= render 'layouts/page_header', :title => 'Chat Monitor', :icon => 'fa-comments' %>
 
-<div class="row">
-  <div class="col-sm-3 col-md-3">
-    <p>Visitor Filter</p>
-    <select id="visitorFilter" class="form-control">
-      <option value="all">All</option>
-      <option value="mine">My Chats</option>
-      <option value="active">All Active Chats</option>
-      <option value="waiting">Waiting to Chat</option>
-      <option value="visitor">Not in Chat</option>
-    </select>
-  </div>
-  <div class="col-sm-2 col-md-3">
-    <p>Website Filter</p>
-    <select id="websiteFilter" name="websiteFilter" class="form-control">
-      <option value="0">All</option>
-    </select>
-  </div>
-  <div class="col-sm-2 col-md-2">
-    <p>Visitors Online</p>
-    <div id="visitors-online" style="font-size: 24px; margin-top: 4px; font-weight: bold;">..</div>
-  </div>
-  <div class="col-sm-2 col-md-2">
-    <p>Waiting to Chat</p>
-    <div id="waiting-to-chat" style="font-size: 24px; margin-top: 4px; font-weight: bold;">..</div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-sm-12">
-    &nbsp;
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-sm-12 col-md-12 col-lg-12">
-    <div id="visitor_list" style="overflow: auto; height: 190px; border: 1px solid #BBBBBB; border-width: 1px 0px 1px 1px;">
-
-      <table class="table table-bordered" id="visitor-table" data-id="<%= current_agent.organization_id %>">
-        <thead>
-          <tr>
-            <th colspan="2">Visitor ID</th>
-            <th>Department</th>
-            <th>Status / Duration</th>
-            <th>Operator</th>
-            <th>Current Page</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-
-
-      <div id="loading_visitors">
-        <p style="text-align: center; margin-top: 10px;">
-          <%= image_tag "ajax-loader.gif" %>
-        </p>
-      </div>
-
+<div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" id="wid-id-0" data-widget-editbutton="false" data-widget-fullscreenbutton="true" data-action="launchFullscreen" role="widget">
+		<header role="heading"><div class="jarviswidget-ctrls" role="menu">
+      <a href="#" class="button-icon jarviswidget-toggle-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Collapse"><i class="fa fa-minus "></i></a> 
+      <a href="javascript:void(0);" class="button-icon jarviswidget-fullscreen-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Fullscreen" data-action="launchFullscreen"><i class="fa fa-expand "></i></a> 
     </div>
-  </div>
-</div>
+    <div class="widget-toolbar" role="menu">
+    </div>
+    <h2>Chat Monitor</h2>
 
-<div class="row">
-  <div class="col-sm-12">
-    &nbsp;
-  </div>
-</div>
+    <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span></header>
 
-<div class="row">
-  <div class="col-sm-12 col-md-6 col-lg-6">
-		<div class="jarviswidget jarviswidget" id="wid-id-1" data-widget-editbutton="false" data-widget-fullscreenbutton="false">
+		<div role="content">
+			<div class="jarviswidget-editbox">
+			</div>
+			
+			<div class="widget-body">
 
-			<header>
-				<span class="widget-icon"> <i class="fa fa-comments"></i> </span>
-				<h2> Your Chats </h2>
-				<div class="widget-toolbar">
-				</div>
-			</header>
+        <div class="row">
+          <div class="col-sm-3 col-md-3">
+            <p>Visitor Filter</p>
+            <select id="visitorFilter" class="form-control">
+              <option value="all">All</option>
+              <option value="mine">My Chats</option>
+              <option value="active">All Active Chats</option>
+              <option value="waiting">Waiting to Chat</option>
+              <option value="visitor">Not in Chat</option>
+            </select>
+          </div>
+          <div class="col-sm-2 col-md-3">
+            <p>Website Filter</p>
+            <select id="websiteFilter" name="websiteFilter" class="form-control">
+              <option value="0">All</option>
+            </select>
+          </div>
+          <div class="col-sm-2 col-md-2">
+            <p>Visitors Online</p>
+            <div id="visitors-online" style="font-size: 24px; margin-top: 4px; font-weight: bold;">..</div>
+          </div>
+          <div class="col-sm-2 col-md-2">
+            <p>Waiting to Chat</p>
+            <div id="waiting-to-chat" style="font-size: 24px; margin-top: 4px; font-weight: bold;">..</div>
+          </div>
+        </div>
 
-			<div>
-				<div class="widget-body widget-hide-overflow no-padding">
+        <div class="row">
+          <div class="col-sm-12">
+            &nbsp;
+          </div>
+        </div>
 
-          <div id="initialChat">
-            <table class="table">
-              <tr>
-                <td colspan="4">
-                  <font size="5.0em"><b>No Active Chats</b></font>
-                </td>
-              </tr>
-            </table>
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-12">
+            <div id="visitor_list" style="overflow: auto; height: 190px; border: 1px solid #BBBBBB; border-width: 1px 0px 1px 1px;">
+
+              <table class="table table-bordered" id="visitor-table" data-id="<%= current_agent.organization_id %>">
+                <thead>
+                  <tr>
+                    <th colspan="2">Visitor ID</th>
+                    <th>Department</th>
+                    <th>Status / Duration</th>
+                    <th>Operator</th>
+                    <th>Current Page</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+
+
+              <div id="loading_visitors">
+                <p style="text-align: center; margin-top: 10px;">
+                  <%= image_tag "ajax-loader.gif" %>
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12">
+            &nbsp;
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 col-md-6 col-lg-6">
+        		<div class="jarviswidget jarviswidget" id="wid-id-1" data-widget-editbutton="false" data-widget-fullscreenbutton="false">
+
+        			<header>
+        				<span class="widget-icon"> <i class="fa fa-comments"></i> </span>
+        				<h2> Your Chats </h2>
+        				<div class="widget-toolbar">
+        				</div>
+        			</header>
+
+        			<div>
+        				<div class="widget-body widget-hide-overflow no-padding">
+
+                  <div id="initialChat">
+                    <table class="table">
+                      <tr>
+                        <td colspan="4">
+                          <font size="5.0em"><b>No Active Chats</b></font>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+
+
+        					<div class="tab-content" style="display: none;">
+        						<div class="tab-pane active" id="tabs">
+
+        							<div class="tabbable tabs-below">
+        								<div class="tab-content padding-10">
+        									<div class="tab-pane active" id="AA">
+                            <%= render "chat" %>
+        									</div>
+        								</div>
+        								<ul class="nav nav-tabs">
+        									<li class="active">
+        										<a data-toggle="tab" href="#AA">Tab 1</a>
+        									</li>
+        								</ul>
+        							</div>
+        						</div>
+        					</div>
+        				</div>
+
+        			</div>
+        		</div>
           </div>
 
+          <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="jarviswidget" id="widget-preview">
+              <header>
+                <span class="widget-icon"> <i class="fa fa-toggle-up"></i> </span>
+                <h2>Selected Visitor</h2>
+              </header>
 
-					<div class="tab-content" style="display: none;">
-						<div class="tab-pane active" id="tabs">
+        			<div>
+        				<div class="widget-body">
+                  <div id="visitorInfo" style="height: 405px; overflow: auto;" align="left">
+                    <p><b class="maintext">Visitor Information</b></p>
+                    <p>No Visitor currently selected</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-							<div class="tabbable tabs-below">
-								<div class="tab-content padding-10">
-									<div class="tab-pane active" id="AA">
-                    <%= render "chat" %>
-									</div>
-								</div>
-								<ul class="nav nav-tabs">
-									<li class="active">
-										<a data-toggle="tab" href="#AA">Tab 1</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
 
 			</div>
 		</div>
-  </div>
+		<!-- end widget content -->
 
-  <div class="col-sm-12 col-md-6 col-lg-6">
-    <div class="jarviswidget" id="widget-preview">
-      <header>
-        <span class="widget-icon"> <i class="fa fa-toggle-up"></i> </span>
-        <h2>Selected Visitor</h2>
-      </header>
+	</div>
+	<!-- end widget div -->
 
-			<div>
-				<div class="widget-body">
-          <div id="visitorInfo" style="height: 405px; overflow: auto;" align="left">
-            <p><b class="maintext">Visitor Information</b></p>
-            <p>No Visitor currently selected</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
+
 
 
 <div style="display: none;">
@@ -199,7 +227,7 @@
     var tabId = 'contact_' + id;
     console.log(tabId);
     $('.nav-tabs').append('<li><a data-toggle="tab" href="#contact_' + id + '">New Tab</a></li>');
-    $('.tab-content').append('<div class="tab-pane" id="' + tabId + '"><%= render "chat" %></div>');
+    $('.tab-content').append('<div class="tab-pane" id="' + tabId + '"><%= escape_javascript render "chat" %></div>');
 
     // add this
     $('.nav-tabs li:nth-child(' + id + ') a').click();
@@ -222,31 +250,41 @@
 
       var waiting_to_chat = 0;
 
-      $.each(results, function(i, visitor) {
-        //console.log(visitor);
-        if (visitor.status == 'waiting_to_chat') {
-          waiting_to_chat = waiting_to_chat + 1;
+      if (results.length > 0) {
+        if ($("#no-visitors").length == 0) {
+          $("#no-visitors").remove();
         }
+        
+        $.each(results, function(i, visitor) {
+          //console.log(visitor);
+          if (visitor.status == 'waiting_to_chat') {
+            waiting_to_chat = waiting_to_chat + 1;
+          }
 
-        if ($("#visitor_row_" + visitor.id).length == 0) {
-          var visitor_row = '<tr id="visitor_row_' + visitor.id + '"><td>' + visitor.id + '</td>';
-          visitor_row = visitor_row + '<td>' + processVisitorName(visitor) + '</td>';
-          visitor_row = visitor_row + '<td>' + visitor.department + '</td>';
-          visitor_row = visitor_row + '<td></td>';
-          visitor_row = visitor_row + '<td></td>';
-          visitor_row = visitor_row + '<td>' + visitor.current_page + '</td>';
-          visitor_row = visitor_row + '<td><button class="btn btn-default btn-xs" onclick="viewVisitor(' + visitor.id + ')">View</button>';
-          visitor_row = visitor_row + '&nbsp;<a id="accept_chat" style="cursor: pointer;"><img id="accept_chat_img" src="images/buttons/accept_chat_off.gif" width="60" height="23" border="0" alt="Accept" /></a>';
-          visitor_row = visitor_row + '&nbsp;<a id="invite_chat" style="cursor: pointer;"><img id="invite_chat_img" src="images/buttons/invite_chat_off.gif" width="60" height="23" border="0" alt="Invite" /></a>';
-          visitor_row = visitor_row + '</td></tr>'
-          $('#visitor-table > tbody:last').append(visitor_row);
-        } else {
-          $("#visitor_row_" + visitor.id).find("td").eq(1).html(processVisitorName(visitor));
-          $("#visitor_row_" + visitor.id).find("td").eq(5).html(visitor.current_page);
+          if ($("#visitor_row_" + visitor.id).length == 0) {
+            var visitor_row = '<tr id="visitor_row_' + visitor.id + '"><td>' + visitor.id + '</td>';
+            visitor_row = visitor_row + '<td>' + processVisitorName(visitor) + '</td>';
+            visitor_row = visitor_row + '<td>' + processDepartmentName(visitor) + '</td>';
+            visitor_row = visitor_row + '<td></td>';
+            visitor_row = visitor_row + '<td></td>';
+            visitor_row = visitor_row + '<td>' + visitor.current_page + '</td>';
+            visitor_row = visitor_row + '<td><button class="btn btn-default btn-xs" onclick="viewVisitor(' + visitor.id + ')">View</button>';
+            visitor_row = visitor_row + '&nbsp;<a id="accept_chat" style="cursor: pointer;"><img id="accept_chat_img" src="images/buttons/accept_chat_off.gif" width="60" height="23" border="0" alt="Accept" /></a>';
+            visitor_row = visitor_row + '&nbsp;<a id="invite_chat" style="cursor: pointer;"><img id="invite_chat_img" src="images/buttons/invite_chat_off.gif" width="60" height="23" border="0" alt="Invite" /></a>';
+            visitor_row = visitor_row + '</td></tr>'
+            $('#visitor-table > tbody:last').append(visitor_row);
+          } else {
+            $("#visitor_row_" + visitor.id).find("td").eq(1).html(processVisitorName(visitor));
+            $("#visitor_row_" + visitor.id).find("td").eq(5).html(visitor.current_page);
+          }
+        });
+
+        $('#waiting-to-chat').html(waiting_to_chat);
+      } else {
+        if ($("#no-visitors").length == 0) {
+          $('#visitor-table').append('<tr id="no-visitors"><td colspan="7"><h4>No visitors at this time</h4></td></tr>');
         }
-      });
-
-      $('#waiting-to-chat').html(waiting_to_chat);
+      }
     });
   }
 
@@ -280,6 +318,41 @@
     }
   }
 
+  function processVisitorStatus(visitor) {
+    
+    var chat_status = '';
+     [:no_chat, :waiting_to_chat, :in_chat, :chat_ended, :offsite]
+    if (visitor.status == 'offsite') {
+      chat_status = "Visitor has left the site";
+    } else if (visitor.status == 'waiting_to_chat') {
+      chatStatus_extended = "Waiting for " + response.visitors[visitorCount].time_waiting_chat;
+    } else if (chatStatus == 'operatorTimeout') {
+      chatStatus_extended = "Chat not accepted";
+    } else if (chatStatus == 'operatorEnded') {
+      chatStatus_extended = "Chat ended";
+    } else if (chatStatus == 'inProgress') {
+      chatStatus_extended = "Chatting for " + visitors[visitorCount].time_in_chat;
+    } else if ((chatStatus == 'notStarted') || (visitorStatus == 'waitingToChat')) {
+      chatStatus_extended = "Waiting for " + response.visitors[visitorCount].time_waiting_chat;
+    } else if (visitorStatus == 'offSite') {
+      chatStatus_extended = "Left site";
+    } else {
+      chatStatus_extended = "Browsing for " + visitors[visitorCount].time_on_site;
+    }    
+  }
+
+  function processDepartmentName(visitor) {
+    var department = '';
+    if (visitor.department) {
+      department = visitor.department;
+    } else {
+      department = "Not specified";
+    }
+
+    return department;
+  }
+  
+
   function visitorChat(visitor) {
 		// CHAT STATUS
     if (chatStatus == 'visitorEnded') {
@@ -308,45 +381,43 @@
       dataType: "json",
       url: "/visitors/" + visitor_id + ".json",
       success: function (response) {
+        visitor = response.visitor
 
-        console.log (response);
+        console.log (visitor);
 
         var visitorInfo = '';
 
-        if (response.visitorName != 'Not found')
-        {
-          visitorInfo += '<p><b class="maintext">Visitor Information</b></p>';
-          visitorInfo += '<table border="0" cellpadding="2" cellspacing="0" style="margin-left: 20px; margin-top: 5px;">';
-          visitorInfo += '<tr><td><b>Name: </b></td><td>' + response.name + '</td></tr>';
-          visitorInfo += '<tr><td><b>Email: </b></td><td>' + response.email + '</td></tr>';
-          visitorInfo += '<tr><td><b>Department: </b></td><td>' + response.department + '</td></tr>';
-          visitorInfo += '<tr><td><b>Pages Viewed: </b></td><td>' + response.page_views + '</td></tr>';
-          visitorInfo += '<tr><td><b>Time on Site: </b></td><td>' + response.timeDiff + '</td></tr>';
-          visitorInfo += '<tr><td><b>Country: </b></td><td>' + response.country + '&nbsp;&nbsp;<img width="32" height="16" src="http://api.hostip.info/flag.php?ip=' + response.remoteAddr + '"></td></tr>';
-          visitorInfo += '<tr><td><b>Current Page: </b></td><td><a href="' + response.current_page + '" target="_blank" style="color: #0066CC;">' + response.current_page + '</a></td></tr>';
-          visitorInfo += '<tr><td colspan="2"><br><b>Initial Question: </b></td></tr>';
-          visitorInfo += '<tr><td colspan="2">' + response.question + '</td></tr></table><br />';
-          visitorInfo += '<b class="maintext">Referrer Information</b><br />';
-          visitorInfo += '<table border="0" cellpadding="2" cellspacing="0" style="margin-left: 20px; margin-top: 5px;">';
-          visitorInfo += '<tr><td><b>Name: </b></td><td>' + response.referer_host + '</td></tr>';
-          visitorInfo += '<tr><td><b>Search Query: </b></td><td>' + response.search_query + '</td></tr>';
-          visitorInfo += '<tr><td><b>Website: </b></td><td>' + response.referer_url + '</td></tr>';
-          visitorInfo += '<tr><b>Search Engine: </b></td><td>' + response.search_engine + '</td></tr></table>';
-          //salesInfoContent += '<tr><td colspan="2"><img src="' + response.searchEngineImg + '" width="80" height="32"></td></tr></table>';
+        visitorInfo += '<p><b class="maintext">Visitor Information</b></p>';
+        visitorInfo += '<table border="0" cellpadding="2" cellspacing="0" style="margin-left: 20px; margin-top: 5px;">';
+        visitorInfo += '<tr><td><b>Name: </b></td><td>' + visitor.name + '</td></tr>';
+        visitorInfo += '<tr><td><b>Email: </b></td><td>' + visitor.email + '</td></tr>';
+        visitorInfo += '<tr><td><b>Department: </b></td><td>' + visitor.department + '</td></tr>';
+        visitorInfo += '<tr><td><b>Pages Viewed: </b></td><td>' + visitor.page_views + '</td></tr>';
+        visitorInfo += '<tr><td><b>Time on Site: </b></td><td>' + visitor.timeDiff + '</td></tr>';
+        visitorInfo += '<tr><td><b>Country: </b></td><td>' + visitor.country + '&nbsp;&nbsp;<img width="32" height="16" src="http://api.hostip.info/flag.php?ip=' + visitor.remoteAddr + '"></td></tr>';
+        visitorInfo += '<tr><td><b>Current Page: </b></td><td><a href="' + visitor.current_page + '" target="_blank" style="color: #0066CC;">' + visitor.current_page + '</a></td></tr>';
+        visitorInfo += '<tr><td colspan="2"><br><b>Initial Question: </b></td></tr>';
+        visitorInfo += '<tr><td colspan="2">' + visitor.question + '</td></tr></table><br />';
+        visitorInfo += '<b class="maintext">Referrer Information</b><br />';
+        visitorInfo += '<table border="0" cellpadding="2" cellspacing="0" style="margin-left: 20px; margin-top: 5px;">';
+        visitorInfo += '<tr><td><b>Name: </b></td><td>' + visitor.referer_host + '</td></tr>';
+        visitorInfo += '<tr><td><b>Search Query: </b></td><td>' + visitor.search_query + '</td></tr>';
+        visitorInfo += '<tr><td><b>Website: </b></td><td>' + visitor.referer_url + '</td></tr>';
+        visitorInfo += '<tr><b>Search Engine: </b></td><td>' + visitor.search_engine + '</td></tr></table>';
+        //salesInfoContent += '<tr><td colspan="2"><img src="' + response.searchEngineImg + '" width="80" height="32"></td></tr></table>';
 
-          visitorInfo += '<p><b class="maintext">System Information</b></p>';
-          visitorInfo += '<table border="0" cellpadding="2" cellspacing="0" style="margin-left: 20px; margin-top: 5px;">';
-          visitorInfo += '<tr><td><b>IP Address: </b></td><td >' + response.remote_addr + '</td></tr>';
-          visitorInfo += '<tr><td><b>Screen Resolution: </b></td><td >' + response.screen_resolution + '</td></tr>';
-          visitorInfo += '<tr><td><b>Browser: </b></td><td><table border="0" cellpadding="0" cellspacing="0"><tr>';
-          visitorInfo += '<td>' + response.browser_name + '</td><td><img src="' + response.browserImg + '" height="16px" width="16px" hspace="3px"></td></tr></table></td></tr>';
-          visitorInfo += '<tr><td><b>Browser Version: </b></td><td><table border="0" cellpadding="0" cellspacing="0"><tr>';
-          visitorInfo += '<td>' + response.browser_version + '</td></tr></table></td></tr>';
-          visitorInfo += '<tr><td><b>Operating System: </b></td><td><table border="0" cellpadding="0" cellspacing="0"><tr>';
-          visitorInfo += '<td>' + response.operating_system + '</td><td><img src="' + response.osImg + '" height="16px" width="16px" hspace="3px"></td></tr></table></td></tr></table>';
+        visitorInfo += '<p><b class="maintext">System Information</b></p>';
+        visitorInfo += '<table border="0" cellpadding="2" cellspacing="0" style="margin-left: 20px; margin-top: 5px;">';
+        visitorInfo += '<tr><td><b>IP Address: </b></td><td >' + visitor.remote_addr + '</td></tr>';
+        visitorInfo += '<tr><td><b>Screen Resolution: </b></td><td >' + visitor.screen_resolution + '</td></tr>';
+        visitorInfo += '<tr><td><b>Browser: </b></td><td><table border="0" cellpadding="0" cellspacing="0"><tr>';
+        visitorInfo += '<td>' + visitor.browser_name + '</td><td><img src="' + visitor.browserImg + '" height="16px" width="16px" hspace="3px"></td></tr></table></td></tr>';
+        visitorInfo += '<tr><td><b>Browser Version: </b></td><td><table border="0" cellpadding="0" cellspacing="0"><tr>';
+        visitorInfo += '<td>' + visitor.browser_version + '</td></tr></table></td></tr>';
+        visitorInfo += '<tr><td><b>Operating System: </b></td><td><table border="0" cellpadding="0" cellspacing="0"><tr>';
+        visitorInfo += '<td>' + visitor.operating_system + '</td><td><img src="' + visitor.osImg + '" height="16px" width="16px" hspace="3px"></td></tr></table></td></tr></table>';
 
-          $('#visitorInfo').html(visitorInfo);
-        }
+        $('#visitorInfo').html(visitorInfo);
       }
     });
   }
