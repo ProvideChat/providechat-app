@@ -13,11 +13,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require smartadmin.config
 //= require bootstrap
 //= require bootstrap-datepicker
+//= require jarvis.widget
 //= require jquery.simplecolorpicker
 //= require jquery.nestable
 //= require jquery.validate
-//= require smartadmin.config
 //= require smartadmin
 
