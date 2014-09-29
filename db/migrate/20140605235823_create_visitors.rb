@@ -2,31 +2,31 @@ class CreateVisitors < ActiveRecord::Migration
   def change
     create_table :visitors do |t|
       t.integer :organization_id
-      t.integer :website_id
-      t.integer :chat_id
-      t.string :name
-      t.string :email
-      t.string :department
-      t.string :question
+      t.integer :website_id, :default => 0
+      t.integer :chat_id, :default => 0
+      t.string :name, :default => ''
+      t.string :email, :default => ''
+      t.string :department, :default => ''
+      t.string :question, :default => ''
       t.timestamp :last_ping
-      t.integer :page_views
-      t.string :current_page
-      t.string :remote_addr
-      t.string :remote_host
-      t.string :country
-      t.string :language
-      t.string :referrer_host
-      t.string :referrer_path
-      t.string :referrer_search
-      t.string :referrer_query
-      t.string :search_engine
-      t.string :search_query
-      t.string :browser_name
-      t.string :browser_version
-      t.string :operating_system
-      t.string :screen_resolution
-      t.string :smart_invite_status
-      t.string :operator_invite
+      t.integer :page_views, :default => 0
+      t.string :current_page, :default => ''
+      t.string :remote_addr, :default => ''
+      t.string :remote_host, :default => ''
+      t.string :country, :default => ''
+      t.string :language, :default => ''
+      t.string :referrer_host, :default => ''
+      t.string :referrer_path, :default => ''
+      t.string :referrer_search, :default => ''
+      t.string :referrer_query, :default => ''
+      t.string :search_engine, :default => ''
+      t.string :search_query, :default => ''
+      t.string :browser_name, :default => ''
+      t.string :browser_version, :default => ''
+      t.string :operating_system, :default => ''
+      t.string :screen_resolution, :default => ''
+      t.string :smart_invite_status, :default => ''
+      t.string :operator_invite, :default => ''
       t.integer :status
 
       t.timestamps
