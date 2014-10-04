@@ -329,7 +329,7 @@
       var chat_status = '';
 
       if (visitor.status == 'offsite') {
-        chat_status = "Visitor has left the site";
+        chat_status = "Left the site";
       } else if (visitor.status == 'no_chat') {
         chat_status = "Browsing for " + visitor.time_since_created;
       } else if (visitor.status == 'waiting_to_chat') {
@@ -436,7 +436,7 @@
 
       ProvideChat.activeChatId = visitor.chat_id;
 
-      console.log(visitor);
+      console.log("START CHAT: " + visitor);
       //soundManager.stop('ringing');
 
       //clearInterval(soundTimer);

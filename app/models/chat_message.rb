@@ -1,5 +1,6 @@
 class ChatMessage < ActiveRecord::Base
-  # msg_sender "visitor", "operator", "system"
-  # msg_type "start_chat", "inChat", "endChat"
-
+  belongs_to :chat
+  
+  enum sender: [:visitor, :operator, :system]
+  enum message_type: [:start_chat , :in_chat, :end_chat]
 end
