@@ -21,17 +21,34 @@ class WidgetsController < ApplicationController
         visitor.department = params[:department]
         visitor.question = params[:message]
         visitor.status = 'waiting_to_chat';
-        visitor.save
 
         chat = Chat.create(organization_id: @organization.id, website_id: website_id, visitor_id: params[:visitor_id],
                             chat_requested: DateTime.now, visitor_name: params[:name], 
                             visitor_email: params[:email], visitor_department: params[:department], 
                             visitor_question: params[:message], status: "not_started")
 
+        visitor.chat_id = chat.id
+        visitor.save
+
         response = {
           'chat_id' => chat.id,
           'html' => render_to_string(partial: 'chat_widget.html.erb', :layout => false, :locals => { :org_id => org_id })
         }
+
+      when "get_chat_messages"
+        action = params[:action]
+        if action == 'all'
+        elsif action == 'unseen'
+        end
+
+      when "visitor_message"
+        visitor_id = params[:visitor_id]
+        chat_id = params[:chat_id]
+        message = params[:message]
+        visitor_name = params[:visitor_name]
+
+        chat_message = ChatMessage.create(chat_id: chat_id, user_name: visitor_name, msg_sender: "visitor", type: "inChat",
+                                          seen_by_agent: false, message: message)
 
       when "process_offline"
         @organization.process_offline_msg(website_id, params[:name], params[:email], params[:department], params[:message])
