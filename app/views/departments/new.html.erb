@@ -5,7 +5,7 @@
 
   <article class="col-sm-12 col-md-8 col-lg-6">
 
-    <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+    <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
     	<header>
     		<span class="widget-icon"> <i class="fa fa-eye"></i> </span>
     		<h2>New Department</h2>
@@ -18,9 +18,15 @@
 
 				</div>
 
-				<div class="widget-body">
+				<div class="widget-body no-padding">
+          <div class="alert alert-info no-margin fade in">
+						<i class="fa-fw fa fa-info"></i>
+						Adds zebra-striping to table row within <code>&lt;table&gt;</code> by adding the <code>.table-striped</code> with the base class
+					</div>
 
-          <%= render 'form' %>
+          <div class="well">
+            <%= render 'form' %>
+          </div>
 
 
         </div>
