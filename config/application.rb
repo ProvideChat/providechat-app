@@ -22,6 +22,7 @@ module ProvidechatApp
 
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
     config.assets.precompile += [ '.json', '.svg', '.eot', '.woff', '.ttf', '.png', '.jpg' ]
-    config.assets.precompile += %w( modernizr.js )
+    config.assets.precompile += %w( modernizr.js smartadmin.config.js smartadmin.js jarvis.widget.js )
+    config.assets.precompile += %w( smart-notification.js )
   end
 end

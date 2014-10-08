@@ -13,7 +13,7 @@
 
     = stylesheet_link_tag    "application", media: "all"
     = javascript_include_tag 'application'
-    = javascript_include_tag 'modernizr'    
+    = javascript_include_tag 'modernizr'
     = csrf_meta_tags
 
     / HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
@@ -64,6 +64,11 @@
     #main{:role => "main"}
       #content
         = yield
+
+    = javascript_include_tag 'smartadmin.config'
+    = javascript_include_tag 'jarvis.widget'
+    = javascript_include_tag 'smart-notification'
+    = javascript_include_tag 'smartadmin'
 
     :javascript
       $(document).ready(function() {
