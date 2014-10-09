@@ -1,8 +1,8 @@
 <nav>
 	<ul>
-		<li class="<%= "active" if current_page?(dashboard_path) %>">
+		<li class="<%= "active" if current_page?(dashboard_path) || current_page?(root_path) %>">
       <%= link_to dashboard_path, { title: "Dashboard" } do %>
-			  <i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span>
+        <i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span>
       <% end %>
 		</li>
 		<li class="<%= "active" if current_page?(monitor_path) %>">
@@ -17,7 +17,7 @@
 		</li>
 		<li class="<%= "active" if controller?('departments') %>">
       <%= link_to departments_path, { title: "Departments" } do %>
-			  <i class="fa fa-lg fa-fw fa-sitemap"></i> <span class="menu-item-parent">Departments</span>
+        <i class="fa fa-lg fa-fw fa-sitemap"></i> <span class="menu-item-parent">Departments</span>
       <% end %>
 		</li>
 		<li class="<%= "active" if controller?('chats') %>">
@@ -29,11 +29,10 @@
 			<a href="#"><i class="fa fa-lg fa-fw fa-toggle-up"></i> <span class="menu-item-parent">Chat Widget</span></a>
 			<ul>
 				<li class="<%= "active" if controller?('chat_widgets') %>">
-          <%= link_to "Widget Customization", chat_widgets_path, { title: "Customization" } %>
+          <%= link_to "Customization", chat_widgets_path, { title: "Customization" } %>
 				</li>
-				<li>
-  				<li class="<%= "active" if controller?('invitations') %>">
-            <%= link_to "Invitations", invitations_path, { title: "Invitations" } %>
+        <li class="<%= "active" if controller?('invitations') %>">
+          <%= link_to "Invitations", invitations_path, { title: "Invitations" } %>
 				</li>
 				<li class="<%= "active" if controller?('prechat_forms') %>">
           <%= link_to "Pre-chat Survey", prechat_forms_path, { title: "Pre-chat Survey" } %>
@@ -69,21 +68,21 @@
 				</li>
 				<li>
 					<a href="#">Documentation</a>
-				  <ul>
-				   <li class="<%= "active" if current_page?(doc_start_path) %>">
-             <%= link_to "Getting Started", doc_start_path, { title: "Getting Started" } %>
-			  	 </li>
-			  	 <li class="<%= "active" if current_page?(doc_general_path) %>">
-             <%= link_to "General", doc_general_path, { title: "General" } %>
-			  	 </li>
-			  	 <li class="<%= "active" if current_page?(doc_websites_path) %>">
-             <%= link_to "Multiple Websites", doc_websites_path, { title: "Multiple Websites" } %>
-			  	 </li>
-			  	 <li class="<%= "active" if current_page?(doc_monitor_path) %>">
-             <%= link_to "Using Chat Monitor", doc_monitor_path, { title: "Using Chat Monitor" } %>
-			  	 </li>
-			    </ul>
-			  </li>
+          <ul>
+            <li class="<%= "active" if current_page?(doc_start_path) %>">
+              <%= link_to "Getting Started", doc_start_path, { title: "Getting Started" } %>
+            </li>
+            <li class="<%= "active" if current_page?(doc_general_path) %>">
+              <%= link_to "General", doc_general_path, { title: "General" } %>
+            </li>
+            <li class="<%= "active" if current_page?(doc_websites_path) %>">
+              <%= link_to "Multiple Websites", doc_websites_path, { title: "Multiple Websites" } %>
+            </li>
+            <li class="<%= "active" if current_page?(doc_monitor_path) %>">
+              <%= link_to "Using Chat Monitor", doc_monitor_path, { title: "Using Chat Monitor" } %>
+            </li>
+          </ul>
+        </li>
 			</ul>
 		</li>
 	</ul>
