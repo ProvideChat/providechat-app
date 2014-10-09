@@ -23,8 +23,8 @@ class WidgetsController < ApplicationController
         visitor.status = 'waiting_to_chat';
 
         chat = Chat.create(organization_id: @organization.id, website_id: website_id, visitor_id: params[:visitor_id],
-                            chat_requested: DateTime.now, visitor_name: params[:name], 
-                            visitor_email: params[:email], visitor_department: params[:department], 
+                            chat_requested: DateTime.now, visitor_name: params[:name],
+                            visitor_email: params[:email], visitor_department: params[:department],
                             visitor_question: params[:message], status: "not_started")
 
         visitor.chat_id = chat.id
@@ -36,22 +36,26 @@ class WidgetsController < ApplicationController
         }
 
       when "get_chat_messages"
-        action = params[:action]
+        context = params[:context]
         chat_id = params[:chat_id]
-        
+
         visitor_id = params[:visitor_id]
         visitor = Visitor.find(visitor_id)
         visitor.last_ping = DateTime.now
         visitor.save
-        
+
         chat = Chat.find(chat_id)
-        
-        if action == 'all'
+
+        if context == 'all'
           chat_messages = ChatMessage.where(chat_id: chat_id)
-        elsif action == 'unseen'
+          ChatMessage.where(chat_id: chat_id).update_all(seen_by_visitor: true)
+          logger.debug chat_messages
+        elsif context == 'unseen'
           chat_messages = ChatMessage.where(chat_id: chat_id, seen_by_visitor: false)
+          ChatMessage.where(chat_id: chat_id, seen_by_visitor: false).update_all(seen_by_visitor: true)
+          logger.debug chat_messages
         end
-        
+
         response = {
           'status' => chat.status,
           'messages' => chat_messages || Array.new
@@ -64,24 +68,24 @@ class WidgetsController < ApplicationController
         visitor_name = params[:visitor_name]
 
         ChatMessage.create(chat_id: chat_id, user_name: visitor_name, sender: "visitor", message_type: "in_chat",
-                                          seen_by_agent: false, message: message)
+                                          seen_by_agent: false, sent: DateTime.now, message: message)
 
         response = { 'success' => 'true' }
 
       when "get_key_press_status"
         chat_id = params[:chat_id]
-        
+
         response = { 'success' => 'true' }
 
       when "update_agent"
         chat_id = params[:chat_id]
         chat = Chat.find(chat_id)
-        
+
         response = {
           'chat_status' => chat.status,
           'display_name' => chat.agent.display_name
         }
-        
+
       when "process_offline"
         @organization.process_offline_msg(website_id, params[:name], params[:email], params[:department], params[:message])
 
@@ -109,9 +113,16 @@ class WidgetsController < ApplicationController
         chat_widget = ChatWidget.find_by(:website_id => visitor.website_id)
 
         if visitor
+          chat_id = 0
+          chat_status = ''
+          if visitor.chat
+            chat_id = visitor.chat.id
+            chat_status = visitor.chat.status
+          end
+
           response = { 'success' => 'true', 'visitor_id' => visitor.id, 'website_id' => visitor.website_id,
                        'agent_status' => @organization.agent_status, 'agent_response_timeout' => @organization.agent_response_timeout,
-                       'chat_id' => 0, 'chat_status' => '', 'visitor_name' => visitor.name, 'online_message' => chat_widget.online_message,
+                       'chat_id' => chat_id, 'chat_status' => chat_status, 'visitor_name' => visitor.name, 'online_message' => chat_widget.online_message,
                        'offline_message' => chat_widget.offline_message, 'title_message' => chat_widget.title_message }
         else
           response = { 'success' => 'false' }

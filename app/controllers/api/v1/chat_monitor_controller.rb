@@ -68,16 +68,19 @@ module Api
             }
 
           when "get_chat_messages"
-            action = params[:action]
+            context = params[:context]
             chat_id = params[:chat_id]
             agent_id = params[:agent_id]
 
             chat = Chat.find(chat_id)
 
-            if action == 'all'
+            logger.debug "GET_CHAT_MESSAGES: GETTING '#{context}' MESSAGES"
+            if context == 'all'
               chat_messages = ChatMessage.where(chat_id: chat_id)
-            elsif action == 'unseen'
-              chat_messages = ChatMessage.where(chat_id: chat_id, seen_by_visitor: false)
+              ChatMessage.where(chat_id: chat_id).update_all(seen_by_agent: true)
+            elsif context == 'unseen'
+              chat_messages = ChatMessage.where(chat_id: chat_id, seen_by_agent: false)
+              ChatMessage.where(chat_id: chat_id, seen_by_visitor: false).update_all(seen_by_agent: true)
             end
 
             response = {
