@@ -1,0 +1,17 @@
+= render 'layouts/page_header', :title => 'Departments', :icon => 'fa-sitemap', :subpage => 'New Department'
+.row
+  %article.col-sm-12.col-md-8.col-lg-6
+    #wid-id-0.jarviswidget.jarviswidget-color-darken{"data-widget-colorbutton" => "false", "data-widget-custombutton" => "false", "data-widget-editbutton" => "false"}
+      %header
+        %span.widget-icon
+          %i.fa.fa-sitemap
+        %h2 New Department
+      %div
+        .jarviswidget-editbox
+          / This area used as dropdown edit box
+        .widget-body.no-padding
+          .alert.alert-info.no-margin.fade.in
+            %i.fa-fw.fa.fa-info
+            Adds zebra-striping to table row within
+          .well
+            = render 'form'

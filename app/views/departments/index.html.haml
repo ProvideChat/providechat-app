@@ -1,0 +1,41 @@
+= render 'layouts/page_header', :title => 'Departments', :icon => 'fa-sitemap'
+
+.row
+  %article.col-sm-12.col-md-12.col-lg-8
+    #website-widget.jarviswidget.jarviswidget-color-darken{:role => "widget"}
+      %header{:role => "heading"}
+        %span.widget-icon
+          %i.fa.fa-sitemap
+        %h2
+          %strong Departments
+        .widget-toolbar{:role => "menu"}
+          = link_to "New Department", new_department_path, { title: "Add Department", class: "btn btn-primary" }
+        %span.jarviswidget-loader
+          %i.fa.fa-refresh.fa-spin
+
+      %div{:role => "content"}
+
+        .widget-body.no-padding
+          .alert.alert-info.no-margin.fade.in
+            %i.fa-fw.fa.fa-info
+            Inline help for departments will do here
+          %table.table.table-bordered
+            %thead
+              %tr
+                %th Name
+                %th Email
+                %th
+            %tbody
+              - @departments.each do |department|
+                %tr
+                  %td= department.name
+                  %td= department.email
+                  %td
+                    = link_to 'Edit', edit_department_path(department), :class => "btn btn-default"
+                    \ 
+                    \#{link_to 'Delete', department, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger"}
+              - if @departments.count == 0
+                %tr
+                  %td{:colspan => "4"} No departments
+
+      %br/
