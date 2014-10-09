@@ -11,9 +11,6 @@ class CreateVisitors < ActiveRecord::Migration
       t.timestamp :last_ping
       t.integer :page_views, :default => 0
       t.string :current_page, :default => ''
-      t.string :remote_addr, :default => ''
-      t.string :remote_host, :default => ''
-      t.string :country, :default => ''
       t.string :language, :default => ''
       t.string :referrer_host, :default => ''
       t.string :referrer_path, :default => ''
@@ -27,6 +24,17 @@ class CreateVisitors < ActiveRecord::Migration
       t.string :screen_resolution, :default => ''
       t.string :smart_invite_status, :default => ''
       t.string :operator_invite, :default => ''
+      t.string :ip_address, :default => ''
+      t.string :latitude, :default => ''
+      t.string :longitude, :default => ''
+      t.string :country_code, :default => ''
+      t.string :country_name, :default => ''
+      t.string :city, :default => ''
+      t.string :region_code, :default => ''
+      t.string :region_name, :default => ''
+      t.string :area_code, :default => ''
+      t.string :metro_code, :default => ''
+      t.string :zipcode, :default => ''
       t.integer :status
 
       t.timestamps
