@@ -71,11 +71,11 @@ ActiveRecord::Schema.define(version: 20140929042859) do
   create_table "chat_messages", force: true do |t|
     t.integer  "chat_id"
     t.string   "user_name"
-    t.string   "sender"
-    t.string   "message_type"
+    t.integer  "sender"
+    t.integer  "message_type"
     t.datetime "sent"
-    t.boolean  "seen_by_agent"
-    t.boolean  "seen_by_visitor"
+    t.boolean  "seen_by_agent",   default: false
+    t.boolean  "seen_by_visitor", default: false
     t.text     "message"
     t.datetime "created_at"
     t.datetime "updated_at"
