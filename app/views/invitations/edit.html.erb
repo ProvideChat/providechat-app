@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-xs-12 col-sm-10 col-md-8 col-lg-8">
 		<h1 class="page-title txt-color-blueDark">
-      Chat Widget / Invitations for
+      Chat Widget <i class="fa fa-chevron-right"></i> Invitations for
       <%= form_tag(chat_widgets_path, method: 'get', class: 'smart-form form-inline', id: 'edit_chat_widget', style: 'display: inline;') do %>
         <%= select_tag "website_id", options_from_collection_for_select(@websites, "id", "url", @invitation.website_id), :class => "form-control", :id => "website_id" %>
       <% end %>
