@@ -1,14 +1,14 @@
 = render 'layouts/page_header', :title => 'Dashboard'
 .row
   .col-xs-12.col-sm-6.col-md-6
-    #website-widget.jarviswidget.jarviswidget-color-blueLight{:role => "widget"}
+    #website-widget.jarviswidget.jarviswidget-color-darken{:role => "widget"}
       %header{:role => "heading"}
         %span.widget-icon
           %i.fa.fa-cloud
         %h2
           %strong Your Websites
         .widget-toolbar{:role => "menu"}
-          = link_to "Manage Websites", websites_path, { title: "Website Setup", class: "btn btn-default" }
+          = link_to "Manage Websites", websites_path, { title: "Website Setup", class: "btn btn-primary" }
         %span.jarviswidget-loader
           %i.fa.fa-refresh.fa-spin
       %div{:role => "content"}
@@ -21,30 +21,31 @@
                   URL
                 %th
                   Widget Installed?
-            - @websites.each do |website|
-              %tr
-                %td= website.name
-                %td= website.url
-                %td
-                  Checking  #{image_tag "select2-spinner.gif"}
-            - if @websites.count == 0
-              %tr
-                %td{:colspan => "3"}
-                  You haven't added any websites yet. #{link_to "Add Website", new_website_path, { title: "Add Website", class: "btn btn-primary" }}
+            %tbody
+              - @websites.each do |website|
+                %tr
+                  %td= website.name
+                  %td= website.url
+                  %td
+                    Checking  #{image_tag "select2-spinner.gif"}
+              - if @websites.count == 0
+                %tr
+                  %td{:colspan => "3"}
+                    You haven't added any websites yet. #{link_to "Add Website", new_website_path, { title: "Add Website", class: "btn btn-primary" }}
+
   .col-xs-12.col-sm-6.col-md-6
-    #agents-widget.jarviswidget.jarviswidget-color-blueLight{:role => "widget"}
+    #agents-widget.jarviswidget.jarviswidget-color-darken{:role => "widget"}
       %header{:role => "heading"}
         %span.widget-icon
           %i.fa.fa-user
         %h2
           %strong Your Agents
         .widget-toolbar{:role => "menu"}
-          = link_to "Manage Agents", agents_path, { title: "Manage Agents", class: "btn btn-default" }
+          = link_to "Manage Agents", agents_path, { title: "Manage Agents", class: "btn btn-primary" }
         %span.jarviswidget-loader
           %i.fa.fa-refresh.fa-spin
       / widget div
       %div{:role => "content"}
-        / widget content
         .widget-body
           %table.table.table-bordered
             %thead
@@ -52,24 +53,26 @@
                 %th Name
                 %th
                   Current Availability
-            - @agents.each do |agent|
-              %tr
-                %td
-                  %a{:href => "#", :onclick => "#', 'content');"}= agent.name
-                %td
-                  - if agent.availability == 'online'
-                    %span{:style => "color: #228b22;"}
-                      %strong Online
-                  - else
-                    %span{:style => "color: #b22222;"}
-                      %strong Offline
+            %tbody
+              - @agents.each do |agent|
+                %tr
+                  %td
+                    %a{:href => "#", :onclick => "#', 'content');"}= agent.name
+                  %td
+                    - if agent.availability == 'online'
+                      %span{:style => "color: #228b22;"}
+                        %strong Online
+                    - else
+                      %span{:style => "color: #b22222;"}
+                        %strong Offline
           %br/
           .widget-footer
             .pull-right
               You are currently using #{@agents.count} of #{current_agent.organization.max_agents} available agents
+
 .row
   .col-xs-12.col-sm-6.col-md-6
-    #blog-widget.jarviswidget.jarviswidget-color-blueLight{:role => "widget"}
+    #blog-widget.jarviswidget.jarviswidget-color-darken{:role => "widget"}
       %header{:role => "heading"}
         %span.widget-icon
           %i.fa.fa-rss
@@ -88,7 +91,7 @@
                 %td No blog entries found
 
   .col-xs-12.col-sm-6.col-md-6
-    #account-widget.jarviswidget.jarviswidget-color-blueLight{:role => "widget"}
+    #account-widget.jarviswidget.jarviswidget-color-darken{:role => "widget"}
       %header{:role => "heading"}
         %span.widget-icon
           %i.fa.fa-gears
