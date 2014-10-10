@@ -1,0 +1,44 @@
+= render 'layouts/page_header', :title => 'Agents', :icon => 'fa-user'
+.row
+  .col-sm-12.col-md-12.col-lg-12
+    #agent-table.jarviswidget.jarviswidget-color-darken{:role => "widget"}
+      %header{:role => "heading"}
+        %span.widget-icon
+          %i.fa.fa-user
+        %h2
+          %strong Agents
+        .widget-toolbar{:role => "menu"}
+          = link_to "New Agent", new_agent_path, { title: "Add Agent", class: "btn btn-primary" }
+        %span.jarviswidget-loader
+          %i.fa.fa-refresh.fa-spin
+      %div{:role => "content"}
+        .widget-body.no-padding
+          .alert.alert-info.no-margin.fade.in
+            %i.fa-fw.fa.fa-info
+            Inline help for agents will do here
+          %table.table.table-bordered
+            %thead
+              %tr
+                %th Name
+                %th Email
+                %th Account type
+                %th Avatar
+                %th
+            %tbody
+              - @agents.each do |agent|
+                %tr
+                  %td= agent.name
+                  %td= agent.email
+                  %td= agent.account_type.nil? ? 'Not set' : agent.account_type.capitalize
+                  %td= image_tag agent.avatar_url, :class => "img-circle", :style => "height: 32px; width: 32px;"
+                  %td
+                    = link_to edit_agent_path(agent), :class => "btn btn-default btn-sm" do
+                      %i.fa.fa-edit
+                      Edit
+                    - unless agent.id == current_agent.id && agent.account_type == 'superadmin'
+                      = link_to agent, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-sm" do
+                        %i.fa.fa-trash-o
+                        Delete
+              - if @agents.count == 0
+                %tr
+                  %td{:colspan => "8"} No agents

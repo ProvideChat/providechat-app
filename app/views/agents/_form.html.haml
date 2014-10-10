@@ -1,0 +1,44 @@
+= form_for(@agent, :html => {class: 'form-horizontal'}) do |f|
+  = render "layouts/error_messages", :f => @agent
+  %fieldset
+    .form-group
+      %label.col-md-4.control-label= f.label :name
+      .col-md-8
+        = f.text_field :name, :class => "form-control"
+    .form-group
+      %label.col-md-4.control-label= f.label :display_name
+      .col-md-8
+        = f.text_field :display_name, :class => "form-control"
+    .form-group
+      %label.col-md-4.control-label= f.label :email
+      .col-md-8
+        = f.text_field :email, :class => "form-control"
+    .form-group
+      %label.col-md-4.control-label= f.label :password
+      .col-md-8
+        = f.password_field :password, autocomplete: "off", :class => "form-control"
+    .form-group
+      %label.col-md-4.control-label= f.label :password_confirmation
+      .col-md-8
+        = f.password_field :password_confirmation, autocomplete: "off", :class => "form-control"
+    .form-group
+      %label.col-md-4.control-label= f.label :account_type
+      .col-md-8
+        - if @agent.account_type == 'superadmin'
+          Superadmin
+        - else
+          = f.select :account_type, [["Agent", "agent"], ["Admin", "admin"]], {:include_blank => "-- Select Account Type --"}, {:class => "form-control"}
+    .form-group
+      %label.col-md-4.control-label= f.label "Photo"
+      .col-md-8
+        = image_tag(@agent.avatar_url) if @agent.avatar?
+        = f.file_field :avatar, :class => "form-control"
+        = f.hidden_field :avatar_cache
+    if @agent.avatar?
+      .form-group
+        %label.col-md-4.control-label= f.label "Remove photo"
+        .col-md-8
+          = f.check_box :remove_avatar
+  .widget-footer
+    = link_to "Cancel", agents_path, :class => "btn btn-default"
+    = f.submit @agent.new_record? ? "Add Agent" : "Update Agent", :class => "btn btn-primary"

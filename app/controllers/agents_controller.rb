@@ -2,26 +2,21 @@ class AgentsController < ApplicationController
   before_action :authenticate_agent!
   before_action :set_agent, only: [:edit, :update, :destroy]
 
-  # GET /agents
-  # GET /agents.json
   def index
     @agents = Agent.where(organization_id: current_agent.organization_id)
   end
 
-  # GET /agents/new
   def new
     @agent = Agent.new
   end
 
-  # GET /agents/1/edit
   def edit
   end
 
-  # POST /agents
-  # POST /agents.json
   def create
     @agent = Agent.new(agent_params)
     @agent.organization_id = current_agent.organization_id
+    @agent.status = 'enabled'
 
     respond_to do |format|
       if @agent.save
@@ -34,8 +29,6 @@ class AgentsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /agents/1
-  # PATCH/PUT /agents/1.json
   def update
 
     if params[:agent][:password].blank? && params[:agent][:password_confirmation].blank?
@@ -54,8 +47,6 @@ class AgentsController < ApplicationController
     end
   end
 
-  # DELETE /agents/1
-  # DELETE /agents/1.json
   def destroy
     @agent.destroy
     respond_to do |format|
@@ -65,13 +56,11 @@ class AgentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_agent
       @agent = Agent.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def agent_params
-      params.require(:agent).permit(:name, :display_name, :email, :password, :password_confirmation, :account_type, :availability, :curr_chats, :max_chats, :active_chat_sound, :background_chat_sound, :visitor_arrived_sound, :avatar, :status)
+      params.require(:agent).permit(:name, :display_name, :email, :password, :password_confirmation, :account_type, :availability, :curr_chats, :max_chats, :active_chat_sound, :background_chat_sound, :visitor_arrived_sound, :avatar)
     end
 end
