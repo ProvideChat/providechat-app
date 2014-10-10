@@ -43,11 +43,11 @@ class CreateAgents < ActiveRecord::Migration
 
       t.timestamps
     end
-    
+
     add_index :agents, :organization_id
     add_index :agents, :email,                unique: true
     add_index :agents, :reset_password_token, unique: true
     # add_index :operators, :confirmation_token,   unique: true
-    # add_index :operators, :unlock_token,         unique: true    
+    # add_index :operators, :unlock_token,         unique: true
   end
 end
