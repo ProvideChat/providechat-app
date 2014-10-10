@@ -16,6 +16,7 @@ class DepartmentsController < ApplicationController
   def create
     @department = Department.new(department_params)
     @department.organization_id = current_agent.organization_id
+    @department.status = 'enabled'
 
     respond_to do |format|
       if @department.save
