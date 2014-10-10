@@ -24,18 +24,18 @@
       <div class="col-md-3"></div>
       <div class="col-md-4">
         <div class="input-group">
-      	  <input class="form-control hasDatepicker" data-dateformat="dd/mm/yy" id="from-date" type="text" placeholder="From">          
-          <span class="input-group-addon" id="to-date-icon"><i class="fa fa-calendar"></i></span>
+          <input class="form-control hasDatepicker" data-dateformat="dd/mm/yy" id="from-date" type="text" placeholder="From">
+          <span class="input-group-addon" id="to-date-icon"><i class="fa fa-calendar" id="from-date-icon"></i></span>
         </div>
       </div>
       <div class="col-md-1"></div>
       <div class="col-md-4">
         <div class="input-group">
-      	  <input class="form-control hasDatepicker" data-dateformat="dd/mm/yy" id="to-date" type="text" placeholder="To">
-          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+          <input class="form-control hasDatepicker" data-dateformat="dd/mm/yy" id="to-date" type="text" placeholder="To">
+          <span class="input-group-addon"><i class="fa fa-calendar" id="to-date-icon"></i></span>
         </div>
       </div>
-    </div>    
+    </div>
   </fieldset>
 	<footer>
     <%= submit_tag "Search", :class => "btn-lg btn-primary" %>
@@ -45,15 +45,23 @@
 <script>
 
 $(document).ready(function () {
-  
+
   $("#from-date").datepicker()
     .on('changeDate', function() {
       $(this).datepicker('hide');
-    });  
+    });
   $("#to-date").datepicker()
     .on('changeDate', function() {
       $(this).datepicker('hide');
-    });  
+    });
+
+  $('#from-date-icon').click(function() {
+    $("#from-date").datepicker('show');
+  });
+
+  $('#to-date-icon').click(function() {
+    $("#to-date").datepicker('show');
+  });
 });
 
-</script>	
+</script>
