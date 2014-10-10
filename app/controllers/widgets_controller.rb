@@ -48,13 +48,12 @@ class WidgetsController < ApplicationController
 
         if context == 'all'
           chat_messages = ChatMessage.where(chat_id: chat_id)
-          ChatMessage.where(chat_id: chat_id).update_all(seen_by_visitor: true)
-          logger.debug chat_messages
         elsif context == 'unseen'
           chat_messages = ChatMessage.where(chat_id: chat_id, seen_by_visitor: false)
-          ChatMessage.where(chat_id: chat_id, seen_by_visitor: false).update_all(seen_by_visitor: true)
-          logger.debug chat_messages
         end
+
+        logger.debug chat_messages
+        ChatMessage.where(chat_id: chat_id, seen_by_visitor: false).update_all(seen_by_visitor: true)
 
         response = {
           'status' => chat.status,
@@ -68,7 +67,7 @@ class WidgetsController < ApplicationController
         visitor_name = params[:visitor_name]
 
         ChatMessage.create(chat_id: chat_id, user_name: visitor_name, sender: "visitor", message_type: "in_chat",
-                                          seen_by_agent: false, sent: DateTime.now, message: message)
+                           seen_by_visitor: true, seen_by_agent: false, sent: DateTime.now, message: message)
 
         response = { 'success' => 'true' }
 
@@ -110,9 +109,10 @@ class WidgetsController < ApplicationController
         session = JSON.parse(params[:session])
         logger.debug "SESSION DETAILS: #{session}"
         visitor = Visitor.process_session(org_id, session)
-        chat_widget = ChatWidget.find_by(:website_id => visitor.website_id)
 
         if visitor
+          chat_widget = ChatWidget.find_by(:website_id => visitor.website_id)
+
           chat_id = 0
           chat_status = ''
           if visitor.chat

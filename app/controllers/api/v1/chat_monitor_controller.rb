@@ -37,9 +37,13 @@ module Api
 
           case method
           when "accept_chat"
-            chat_id = params[:chat_id]
             agent_id = params[:agent_id]
             visitor_id = params[:visitor_id]
+
+            visitor = Visitor.find(visitor_id)
+            chat_id = visitor.chat.id
+            visitor.status = 'in_chat'
+            visitor.save
 
             chat = Chat.find(chat_id)
             chat.agent_id = agent_id
@@ -74,14 +78,14 @@ module Api
 
             chat = Chat.find(chat_id)
 
-            logger.debug "GET_CHAT_MESSAGES: GETTING '#{context}' MESSAGES"
+            #logger.debug "GET_CHAT_MESSAGES: GETTING '#{context}' MESSAGES"
             if context == 'all'
               chat_messages = ChatMessage.where(chat_id: chat_id)
-              ChatMessage.where(chat_id: chat_id).update_all(seen_by_agent: true)
             elsif context == 'unseen'
               chat_messages = ChatMessage.where(chat_id: chat_id, seen_by_agent: false)
-              ChatMessage.where(chat_id: chat_id, seen_by_visitor: false).update_all(seen_by_agent: true)
             end
+
+            ChatMessage.where(chat_id: chat_id, seen_by_agent: false).update_all(seen_by_agent: true)
 
             response = {
               'status' => chat.status,
@@ -98,6 +102,18 @@ module Api
               'chat_id' => chat_id,
               'visitor_typing' => chat.visitor_typing
             }
+
+          when "agent_message"
+            agent_id = params[:agent_id]
+            chat_id = params[:chat_id]
+            message = params[:message]
+            agent_name = params[:agent_name]
+
+            ChatMessage.create(chat_id: chat_id, user_name: agent_name, sender: "agent", message_type: "in_chat",
+                               seen_by_agent: true, seen_by_visitor: false, sent: DateTime.now, message: message)
+
+            response = { 'success' => 'true' }
+
           else
             response = { 'success' => 'false' }
           end
