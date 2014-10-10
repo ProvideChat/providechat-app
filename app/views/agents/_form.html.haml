@@ -1,4 +1,4 @@
-= form_for(@agent, :html => {class: 'form-horizontal'}) do |f|
+= form_for(@agent, :html => {class: 'form-horizontal', :multipart => true}) do |f|
   = render "layouts/error_messages", :f => @agent
   %fieldset
     .form-group
@@ -34,11 +34,13 @@
         = image_tag(@agent.avatar_url) if @agent.avatar?
         = f.file_field :avatar, :class => "form-control"
         = f.hidden_field :avatar_cache
-    if @agent.avatar?
+    - if @agent.avatar?
       .form-group
-        %label.col-md-4.control-label= f.label "Remove photo"
+        %label.col-md-4.control-label
         .col-md-8
-          = f.check_box :remove_avatar
+          %label
+            = f.check_box :remove_avatar
+            Remove photo
   .widget-footer
     = link_to "Cancel", agents_path, :class => "btn btn-default"
     = f.submit @agent.new_record? ? "Add Agent" : "Update Agent", :class => "btn btn-primary"
