@@ -75,7 +75,10 @@
 
 <script>
 $(function() {
-  $('#color-picker').simplecolorpicker({theme: 'fontawesome', picker: true});
+  $('select[name="chat_widget[color]"]').colourPicker({
+    ico: '<%= image_path "jquery.colourPicker.gif" %>', 	
+    title:    true	
+  });
 });
 
  </script>

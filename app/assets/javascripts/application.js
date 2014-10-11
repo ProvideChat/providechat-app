@@ -18,7 +18,7 @@
 //= require bootstrap-datepicker
 //= require fastclick
 //= require jquery.mb.browser.js
-//= require jquery.simplecolorpicker
+//= require jquery.colorpicker
 //= require jquery.nestable
 //= require jquery.validate
 

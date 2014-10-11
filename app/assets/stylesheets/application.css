@@ -14,7 +14,7 @@
  *= require font-awesome
  *= require smartadmin-production
  *= require bootstrap-datepicker
- *= require jquery.simplecolorpicker
+ *= require jquery.colorpicker
  *= require styles
  *= require widget
  *= require_self
