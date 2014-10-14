@@ -42,5 +42,5 @@
             = f.check_box :remove_avatar
             Remove photo
   .widget-footer
-    = link_to "Cancel", agents_path, :class => "btn btn-default"
     = f.submit @agent.new_record? ? "Add Agent" : "Update Agent", :class => "btn btn-primary"
+    = link_to "Cancel", agents_path, :class => "btn btn-default"
