@@ -17,5 +17,5 @@
       .col-md-8
         = f.text_field :email, :class => "form-control"
   .widget-footer
-    = link_to "Cancel", departments_path, :class => "btn btn-default"
     = f.submit @department.new_record? ? "Add Department" : "Update Department", :class => "btn btn-primary"
+    = link_to "Cancel", departments_path, :class => "btn btn-default"
