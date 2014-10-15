@@ -16,6 +16,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'json'
+gem 'lograge'
 gem 'pg'
 gem 'mini_magick'
 gem 'sass-rails'
@@ -32,6 +33,7 @@ gem 'capistrano-rbenv', github: "capistrano/rbenv"
 group :development do
   gem 'spring'
   gem 'binding_of_caller'
+  gem 'quiet_assets'
 end
 
 group :test, :development do 
