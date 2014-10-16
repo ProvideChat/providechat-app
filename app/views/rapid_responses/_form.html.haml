@@ -1,0 +1,35 @@
+= form_for(@rapid_response) do |f|
+  - if @rapid_response.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@rapid_response.errors.count, "error")
+        prohibited this rapid_response from being saved:
+      %ul
+        - @rapid_response.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.label :organization_id
+    %br/
+    = f.number_field :organization_id
+  .field
+    = f.label :name
+    %br/
+    = f.text_field :name
+  .field
+    = f.label :text
+    %br/
+    = f.text_field :text
+  .field
+    = f.label :order
+    %br/
+    = f.number_field :order
+  .field
+    = f.label :ancestry
+    %br/
+    = f.text_field :ancestry
+  .field
+    = f.label :status
+    %br/
+    = f.text_field :status
+  .actions
+    = f.submit
