@@ -16,6 +16,10 @@
       %label.col-md-4.control-label= f.label :email
       .col-md-8
         = f.text_field :email, :class => "form-control"
+    .form-group
+      %label.col-md-4.control-label Websites
+      .col-md-8
+        = f.select :website_ids, Website.all.collect {|x| [x.name, x.id]}, {}, {:multiple => true, :style => "width:100%", :class  => "select2" }
   .widget-footer
     = f.submit @department.new_record? ? "Add Department" : "Update Department", :class => "btn btn-primary"
     = link_to "Cancel", departments_path, :class => "btn btn-default"
