@@ -46,7 +46,6 @@ group :test, :development do
   gem 'faker'
   gem 'bundler-audit'
   gem 'mailcatcher'
-  gem 'quiet_assets'
 end
 
 group :test do
