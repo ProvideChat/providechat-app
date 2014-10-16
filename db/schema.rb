@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140929042859) do
+ActiveRecord::Schema.define(version: 20141016034409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,13 @@ ActiveRecord::Schema.define(version: 20140929042859) do
   add_index "agents", ["email"], name: "index_agents_on_email", unique: true, using: :btree
   add_index "agents", ["organization_id"], name: "index_agents_on_organization_id", using: :btree
   add_index "agents", ["reset_password_token"], name: "index_agents_on_reset_password_token", unique: true, using: :btree
+
+  create_table "agents_websites", id: false, force: true do |t|
+    t.integer "agent_id",   null: false
+    t.integer "website_id", null: false
+  end
+
+  add_index "agents_websites", ["agent_id", "website_id"], name: "index_agents_websites_on_agent_id_and_website_id", using: :btree
 
   create_table "chat_messages", force: true do |t|
     t.integer  "chat_id"
@@ -129,11 +136,19 @@ ActiveRecord::Schema.define(version: 20140929042859) do
 
   add_index "departments", ["organization_id"], name: "index_departments_on_organization_id", using: :btree
 
+  create_table "departments_websites", id: false, force: true do |t|
+    t.integer "department_id", null: false
+    t.integer "website_id",    null: false
+  end
+
+  add_index "departments_websites", ["department_id", "website_id"], name: "index_departments_websites_on_department_id_and_website_id", using: :btree
+
   create_table "invitations", force: true do |t|
     t.integer  "organization_id"
     t.integer  "website_id"
     t.string   "invitation_message"
-    t.integer  "invite_mode"
+    t.boolean  "smart_invite_enabled"
+    t.string   "smart_invite_mode"
     t.integer  "invite_pageviews"
     t.integer  "invite_seconds"
     t.datetime "created_at"

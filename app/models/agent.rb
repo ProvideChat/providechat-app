@@ -1,5 +1,7 @@
 class Agent < ActiveRecord::Base
   belongs_to :organization
+  has_and_belongs_to_many :websites
+  has_many :chats
 
   enum account_type: [:agent, :admin, :superadmin]
   enum availability: [:offline, :online]

@@ -1,5 +1,6 @@
 class Visitor < ActiveRecord::Base
   has_one :chat
+  has_one :website
 
   enum status: [:no_chat, :waiting_to_chat, :in_chat, :chat_ended, :offsite]
 
