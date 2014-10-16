@@ -1,0 +1,45 @@
+= render 'layouts/page_header', :title => 'Settings', :icon => 'fa-sitemap', :subpage => 'New Website'
+.row
+  .col-sm-12.col-md-12.col-lg-12
+    #wid-id-0.jarviswidget.jarviswidget-color-darken
+      %header
+        %span.widget-icon
+          %i.fa.fa-cloud
+        %h2 Websites
+        .widget-toolbar{:role => "menu"}
+          = link_to 'New Website', new_website_path, { title: "Add Website", class: "btn btn-primary" }
+        %span.jarviswidget-loader
+          %i.fa.fa-refresh.fa-spin
+      %div{:role => "content"}
+        .widget-body.no-padding
+          .alert.alert-info.no-margin.fade.in
+            %i.fa-fw.fa.fa-info
+            Inline help for websites will do here
+          %table.table.table-bordered
+            %thead
+              %tr
+                %th Address
+                %th Name
+                %th Logo
+                %th Status
+                %th
+            %tbody
+              - @websites.each do |website|
+                %tr
+                  %td= website.url
+                  %td= website.name
+                  %td= website.logo
+                  %td
+                    = "<span class='label label-success'>#{website.status.capitalize}</span>".html_safe if website.status == 'enabled'
+                    = "<span class='label label-warning'>#{website.status.capitalize}</span>" if website.status == 'disabled'
+                  %td
+                    = link_to edit_website_path(website), :class => "btn btn-default" do
+                      %i.fa.fa-edit
+                      Edit
+                    &nbsp;
+                    = link_to website, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger" do
+                      %i.fa.fa-trash-o
+                      Delete
+              - if @websites.count == 0
+                %tr
+                  %td{:colspan => "6"} No websites configured

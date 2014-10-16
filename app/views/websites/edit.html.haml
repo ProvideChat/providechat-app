@@ -1,0 +1,13 @@
+= render 'layouts/page_header', :title => 'Settings', :icon => 'fa-sitemap', :subpage => 'Edit Website'
+.row
+  %article.col-sm-12.col-md-8.col-lg-6
+    #wid-id-0.jarviswidget{"data-widget-colorbutton" => "false", "data-widget-custombutton" => "false", "data-widget-editbutton" => "false"}
+      %header
+        %span.widget-icon
+          %i.fa.fa-edit
+        %h2 Edit Website
+      %div
+        .jarviswidget-editbox
+          / This area used as dropdown edit box
+        .widget-body
+          = render 'form'

@@ -31,11 +31,11 @@ class LogoUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :thumb do
-     process :resize_to_fit => [70, 18]
+     process :resize_to_fit => [0, 60]
   end
 
   version :widget do
-     process :resize_to_fit => [155, 40]
+     process :resize_to_fit => [0, 60]
   end
 
 

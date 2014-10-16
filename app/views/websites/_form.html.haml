@@ -1,0 +1,42 @@
+= form_for(@website, :html => {class: 'form-horizontal'}) do |f|
+  - if @website.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@website.errors.count, "error")
+        prohibited this website from being saved:
+      %ul
+        - @website.errors.full_messages.each do |message|
+          %li= message
+  %fieldset
+    .form-group
+      %label.col-md-4.control-label= f.label :name
+      .col-md-8
+        = f.text_field :name, :class => "form-control"
+    .form-group
+      %label.col-md-4.control-label= f.label :url
+      .col-md-8
+        = f.text_field :url, :class => "form-control"
+    .form-group
+      %label.col-md-4.control-label= f.label :default_department
+      .col-md-8
+        = f.text_field :default_department, :class => "form-control"
+    .form-group
+      %label.col-md-4.control-label= f.label :status
+      .col-md-8
+        = f.select :status, { "Enabled" => "enabled", "Disabled" => "disabled"}, :class => "form-control"
+    .form-group
+      %label.col-md-4.control-label= f.label "Photo"
+      .col-md-8
+        = image_tag(@website.logo_url) if @website.logo?
+        = f.file_field :logo, :class => "form-control"
+        = f.hidden_field :logo_cache
+    - if @website.logo?
+      .form-group
+        %label.col-md-4.control-label
+        .col-md-8
+          %label
+            = f.check_box :remove_logo
+            Remove logo
+    %footer
+      = f.submit "Submit", :class => "btn btn-primary"
+      = link_to "Back", websites_path, :class => "btn btn-default"
