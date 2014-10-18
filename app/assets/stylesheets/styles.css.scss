@@ -67,3 +67,7 @@
 .field_with_errors {
   @extend .has-error;
 }
+
+.jarviswidget-color-blueDark > header > .jarviswidget-ctrls a, .jarviswidget-color-blueDark .nav-tabs li:not(.active) a {
+  color: #333333 !important;
+}
