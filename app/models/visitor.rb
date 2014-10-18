@@ -114,7 +114,10 @@ class Visitor < ActiveRecord::Base
       if session['location']['error']
         Rails.logger.debug "No location data"
       end
-      visitor.status = 'no_chat'
+      
+      if visitor.new_record? 
+        visitor.status = 'no_chat'
+      end
 
       visitor.save
 
