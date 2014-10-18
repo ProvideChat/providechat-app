@@ -134,7 +134,6 @@
             </div>
           </div>
         </article>
-
       </div>
 		</div>
 	</div>
@@ -445,7 +444,7 @@
     var title = 'Chat Initiated';
     //displayMessage(title, msg);
 
-    var json_data = { "method": 'accept_chat', "agent_id": ProvideChat.agent_id, "visitor_id": visitor_id };
+    var json_data = { "method": 'accept_chat', "agent_id": ProvideChat.agent_id, "visitor_id": visitor_id, "agent_name": ProvideChat.agent_name };
 
     $.getJSON("/api/chat_monitor.json", json_data, function (response) {
       if (response.chat_id > 0) {
