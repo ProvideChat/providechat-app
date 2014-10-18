@@ -38,6 +38,7 @@ module Api
           case method
           when "accept_chat"
             agent_id = params[:agent_id]
+            agent_name = params[:agent_name]
             visitor_id = params[:visitor_id]
 
             visitor = Visitor.find(visitor_id)
@@ -50,6 +51,10 @@ module Api
             chat.status = 'in_progress'
             chat.chat_accepted = DateTime.now
             chat.save
+
+            ChatMessage.create(chat_id: chat_id, sender: "system", message_type: "start_chat", 
+                               seen_by_agent: false, seen_by_visitor: false, 
+                               sent: DateTime.now, message: "You are now chatting with #{agent_name}")
 
             response = {
               'chat_id' => chat.id,
@@ -78,14 +83,19 @@ module Api
 
             chat = Chat.find(chat_id)
 
-            #logger.debug "GET_CHAT_MESSAGES: GETTING '#{context}' MESSAGES"
+            #Rails.logger.info "GET_CHAT_MESSAGES: GETTING '#{context}' MESSAGES"
             if context == 'all'
-              chat_messages = ChatMessage.where(chat_id: chat_id)
+              chat_messages = ChatMessage.where(chat_id: chat_id)  
             elsif context == 'unseen'
               chat_messages = ChatMessage.where(chat_id: chat_id, seen_by_agent: false)
             end
 
-            ChatMessage.where(chat_id: chat_id, seen_by_agent: false).update_all(seen_by_agent: true)
+            chat_messages.each do |chat_message|
+              chat_message.seen_by_agent = true
+              chat_message.save
+            end
+            
+            #ChatMessage.where(chat_id: chat_id, seen_by_agent: false).update_all(seen_by_agent: true)
 
             response = {
               'status' => chat.status,

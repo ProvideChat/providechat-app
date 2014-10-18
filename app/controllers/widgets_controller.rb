@@ -52,8 +52,12 @@ class WidgetsController < ApplicationController
           chat_messages = ChatMessage.where(chat_id: chat_id, seen_by_visitor: false)
         end
 
-        logger.debug chat_messages
-        ChatMessage.where(chat_id: chat_id, seen_by_visitor: false).update_all(seen_by_visitor: true)
+        #logger.debug chat_messages
+        chat_messages.each do |chat_message|
+          chat_message.seen_by_visitor = true
+          chat_message.save
+        end
+        #ChatMessage.where(chat_id: chat_id, seen_by_visitor: false).update_all(seen_by_visitor: true)
 
         response = {
           'status' => chat.status,
@@ -80,9 +84,14 @@ class WidgetsController < ApplicationController
         chat_id = params[:chat_id]
         chat = Chat.find(chat_id)
 
+        display_name = ''
+        if chat.agent
+          display_name = chat.agent.display_name
+        end
+        
         response = {
           'chat_status' => chat.status,
-          'display_name' => chat.agent.display_name
+          'display_name' => display_name
         }
 
       when "process_offline"
