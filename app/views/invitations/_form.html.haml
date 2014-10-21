@@ -1,0 +1,32 @@
+= form_for(@invitation, :html => {class: 'form-horizontal', id: 'update-invitation'}) do |f|
+  - if @invitation.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@invitation.errors.count, "error")
+        prohibited this invitation from being saved:
+      %ul
+        - @invitation.errors.full_messages.each do |message|
+          %li= message
+  %header Smart Invitations
+  %fieldset
+    .form-group
+      %label.col-md-4.control-label= f.label :invitation_message, "Invitation message"
+      .col-md-8
+        = f.text_field :invitation_message, :placeholder => "The message to display to visitors", :class => "form-control"
+    .form-group
+      %label.col-md-2
+      .col-md-10
+        = f.radio_button :invite_mode, "no_invite", :class => "radio radio-inline", checked: @invitation.invite_mode == 'no_invite'
+        Do not invite visitors to chat.
+    .form-group
+      %label.col-md-2
+      .col-md-10
+        = f.radio_button :invite_mode, "page_views", :class => "radio radio-inline"
+        Invite after #{f.text_field :invite_pageviews, :placeholder => "Page views"} page views.
+    .form-group
+      %label.col-md-2
+      .col-md-10
+        = f.radio_button :invite_mode, "seconds", :class => "radio radio-inline"
+        Invite after #{f.text_field :invite_seconds, :placeholder => "Seconds"} seconds.
+        
+  %footer= f.submit "Update", :class => "btn btn-primary"
