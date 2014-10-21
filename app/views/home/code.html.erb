@@ -1,104 +1,54 @@
 <%= render 'layouts/page_header', :title => 'Chat Widget', :icon => 'fa-toggle-up', :subpage => 'Website Code' %>
 
+<div class="col-sm-12 col-md-12 col-lg-12">
+  <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+    <header>
+      <span class="widget-icon"> <i class="fa fa-code"></i> </span>
+      <h2>Website Code</h2>
+    </header>
 
-<table border="0" cellpadding="5" cellspacing="0">
- <tr>
-    <td class="fieldtext" align="right">
-		<span style="font-weight: normal; font-size: 9px;">
-		(<a href="javascript:document.getElementById('image').select();">select all</a>)</span>
-	</td>
-	<td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td class="fieldtext" valign="top">
-<textarea wrap="off" name="image_code" class="codetext" style="height: 130px; width: 580px;" id="image">
-<!-- Powered by: ProvideChat Live Help   http://www.providechat.com/ -->
-  <script id="pc-widget">
-  var ProvideChat = window.ProvideChat || {};
-  (function() {
-      ProvideChat.org_id = <%= current_agent.organization_id %>;
-      var pc = document.createElement('script'); pc.type = 'text/javascript'; pc.async = true;
-      pc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.providechat.dev/widget.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(pc, s);
-    })();
-  </script>
-<!-- copyright <?php echo date('Y'); ?> providechat.com -->
-</textarea>
+		<div>
+			<div class="widget-body">
+        <table border="0" cellpadding="5" cellspacing="0">
+         <tr>
+            <td class="fieldtext" align="right">
+              <span style="font-weight: normal; font-size: 9px;">
+                (<a href="javascript:document.getElementById('image').select();">select all</a>)
+              </span>
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td class="fieldtext" valign="top">
+        <textarea wrap="off" name="image_code" class="codetext" style="height: 220px; width: 580px;" id="image">
+        <!-- Powered by: ProvideChat Live Help   http://www.providechat.com/ -->
+          <script id="pc-widget">
+          var ProvideChat = window.ProvideChat || {};
+          (function() {
+              ProvideChat.org_id = <%= current_agent.organization_id %>;
+              var pc = document.createElement('script'); pc.type = 'text/javascript'; pc.async = true;
+              pc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.providechat.dev/widget.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(pc, s);
+            })();
+          </script>
+        <!-- copyright <?php echo date('Y'); ?> providechat.com -->
+        </textarea>
 
-    </td>
-    <td class="texttext" width="200" valign="top" align="center">
-		<img id="online" name="online" src="../design/displayStatusImage.php?id=<?php echo $o_id; ?>&website_id=<?php echo $website_id; ?>&status=online" alt="Online Image" />
-		<?php if ($edition == 'free') { echo $footer_text; } ?>
-	</td>
-  </tr>
-</table>
+            </td>
+            <td class="texttext" width="200" valign="top" align="center">
+              <img id="online" name="online" src="../design/displayStatusImage.php?id=<?php echo $o_id; ?>&website_id=<?php echo $website_id; ?>&status=online" alt="Online Image" />
+
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 
-<br />
-<div class="fieldheader">Provide Chat Text Link Code</div>
 
-<div style="margin-left: 10px;">
-<table border="0" cellpadding="5" cellspacing="0">
-  <tr>
-    <td class="fieldtext" align="right">
-		<span style="font-weight: normal; font-size: 9px;">
-		(<a href="javascript:document.getElementById('text').select();">select all</a>)</span>
-	</td>
-	<td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td class="fieldtext" valign="top">
-
-<textarea wrap="off" name="image_code" class="codetext" style="height: 130px; width: 580px;" id="text">
-<!-- Powered by: ProvideChat Live Help   http://www.providechat.com/ -->
-  <script id="pc-widget">
-  var ProvideChat = window.ProvideChat || {};
-  (function() {
-      ProvideChat.org_id = <%= current_agent.organization.id %>;
-      var pc = document.createElement('script'); pc.type = 'text/javascript'; pc.async = true;
-      pc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.providechat.dev/widget.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(pc, s);
-    })();
-  </script>
-<!-- copyright <?php echo date('Y'); ?> providechat.com -->
-</textarea>
-
-<script type="text/javascript">
-    var _pcq = _pcq || [];
-    _pcq.push(['_setAccount', 'UA-18238515-1']);
-    _pcq.push(['_trackPageview']);
-
-    (function() {
-      var pc = document.createElement('script'); pc.type = 'text/javascript'; pc.async = true;
-      pc.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-</script>
-
-
-<script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-18238515-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-</script>
-
-    </td>
-    <td class="fieldtext" width="200" valign="top" align="center">
-		<a href="#" style="font-family: verdana; arial, helvetica; font-size: 12px; text-decoration: underline;"><?php echo $online_textlink; ?></a>
-		<?php if ($edition == 'free') { echo $footer_text; } ?>
-	</td>
-  </tr>
-</table>
-</div>
-
-<br />
-<?php if (0): ?>
+<% if false %>
 <div class="fieldheader">Provide Chat Widget Code</div>
 
 <div style="margin-left: 10px;">
@@ -161,6 +111,7 @@ var ProvideChat = window.ProvideChat || {};
 		</td>
 	</tr>
 </table>
-<?php endif; ?>
-
 </form>
+<% end %>
+
+
