@@ -1,6 +1,7 @@
 class AgentsController < ApplicationController
   before_action :authenticate_agent!
   before_action :set_agent, only: [:edit, :update, :destroy]
+  before_action :set_websites, only: [:edit, :new]
 
   def index
     @agents = Agent.where(organization_id: current_agent.organization_id)
@@ -18,14 +19,10 @@ class AgentsController < ApplicationController
     @agent.organization_id = current_agent.organization_id
     @agent.status = 'enabled'
 
-    respond_to do |format|
-      if @agent.save
-        format.html { redirect_to agents_url, notice: 'Agent was successfully created.' }
-        format.json { render :show, status: :created, location: agents_url }
-      else
-        format.html { render :new }
-        format.json { render json: @agent.errors, status: :unprocessable_entity }
-      end
+    if @agent.save
+      redirect_to agents_url, notice: 'Agent was successfully created.'
+    else
+      render :new
     end
   end
 
@@ -36,28 +33,25 @@ class AgentsController < ApplicationController
         params[:agent].delete(:password_confirmation)
     end
 
-    respond_to do |format|
-      if @agent.update(agent_params)
-        format.html { redirect_to agents_url, notice: 'Agent was successfully updated.' }
-        format.json { head :ok}
-      else
-        format.html { render :edit }
-        format.json { render json: @agent.errors, status: :unprocessable_entity }
-      end
+    if @agent.update(agent_params)
+      redirect_to agents_url, notice: 'Agent was successfully updated.'
+    else
+      render :edit
     end
   end
 
   def destroy
     @agent.destroy
-    respond_to do |format|
-      format.html { redirect_to agents_url, notice: 'Agent was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to agents_url, notice: 'Agent was successfully destroyed.'
   end
 
   private
     def set_agent
       @agent = Agent.find(params[:id])
+    end
+
+    def set_websites
+      @websites = Website.where(organization_id: current_agent.organization_id)
     end
 
     def agent_params

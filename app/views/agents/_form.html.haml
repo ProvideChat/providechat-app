@@ -44,7 +44,7 @@
     .form-group
       %label.col-md-4.control-label Assigned Websites
       .col-md-8
-        = f.select :website_ids, Website.all.collect {|x| [x.name, x.id]}, {}, {:multiple => true, :style => "width:100%", :class  => "select2" }
+        = f.select :website_ids, @websites.collect {|x| [x.name, x.id]}, {}, {:multiple => true, :style => "width:100%", :class  => "select2" }
 
   .widget-footer
     = f.submit @agent.new_record? ? "Add Agent" : "Update Agent", :class => "btn btn-primary"
