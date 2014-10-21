@@ -1,0 +1,56 @@
+%h2 Chat Log
+
+%h4 Chat Overview
+
+%p
+  %strong Website:
+  = @chat.website.name
+
+%p
+  %strong Agent:
+  = @chat.agent.display_name
+
+%p
+  %strong Chat Status:
+  = @chat.status
+
+%p
+  %strong Time Visitor Requested to Chat:
+  = @chat.chat_requested
+
+%p
+  %strong Time Agent Accepted Chat:
+  = @chat.chat_accepted
+
+%p
+  %strong Chat Ended:
+  = @chat.chat_ended
+
+%p
+  %strong Visitor name:
+  = @chat.visitor_name
+
+%p
+  %strong Visitor email:
+  = @chat.visitor_email
+
+%p
+  %strong Visitor department:
+  = @chat.visitor_department
+
+%p
+  %strong Visitor question:
+  = @chat.visitor_question
+
+%hr
+
+%h4 Chat Transcript
+%ul
+- @chat.chat_messages.each do |chat_message|
+  %li 
+    %strong #{chat_message.user_name}:
+    = chat_message.message
+
+
+%p
+  = link_to 'Back', chats_path
