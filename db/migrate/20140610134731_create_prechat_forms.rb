@@ -3,7 +3,6 @@ class CreatePrechatForms < ActiveRecord::Migration
     create_table :prechat_forms do |t|
       t.integer :organization_id
       t.integer :website_id
-      t.boolean :enabled
       t.string :intro_text
       t.string :name_text
       t.string :email_text
