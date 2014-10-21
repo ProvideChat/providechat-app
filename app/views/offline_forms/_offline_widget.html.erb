@@ -1,50 +1,51 @@
-
-<div id="pc-chat-window" style="display: block;">
-  <div class="chat-widget chat-widget-open">
-    <div class="chat-widget-header" id="close-chat-widget">Welcome to Provide Chat
-      <div style="float: right; margin-right: 10px;">
-        <%= image_tag "widget/down-arrow.png" %>
-      </div>
-    </div>
-
-    <div id="chat-widget-content">
-      <div class="chat-widget-container">
-
-        <div style="margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px; display: none;" id="unavailable-success">
-
-          <p style="margin-top: 0px; "><%= @offline_form.success_message %></p>
-
-        </div>
-
-        <div style="margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px;" id="unavailable-form">
-
-          <p style="margin-top: 0px; "><%= @offline_form.intro_text %></p>
-
-          <input type="text" id="unavailable-text-box-1" placeholder="<%= "Text Box 1" %>"></p>
-
-          <input type="text" id="unavailable-text-box-2" placeholder="<%= "Text Box 2" %>"></p>
-
-          <p>
-            <select id="unavailable-department">
-              <option value="0">Any Department</option>
-              <% Department.all.each do |department| %>
-                <option value="<%= department.id %>"><%= department.name %></option>
-              <% end %>
-            </select>
-          </p>
-
-          <textarea rows="4" style="border: 1px solid #CCCCCC; width: 350px;" id="unavailable-message" placeholder="<%= @offline_form.message_text %>"></textarea></p>
-
-          <input type="submit" value="  <%= @offline_form.button_text %>  " style="" id="send-unavailable-email">
-
-          <div class="missing-fields">Please fill in all fields</div>
-
+<div class="widget-preview-container">
+  <div id="pc-chat-window" style="display: block;">
+    <div class="chat-widget chat-widget-open">
+      <div class="chat-widget-header" id="close-chat-widget">Welcome to Provide Chat
+        <div style="float: right; margin-right: 10px;">
+          <%= image_tag "widget/down-arrow.png" %>
         </div>
       </div>
-    </div>
 
-    <div class="chat-widget-footer">
-      <a href="http://www.providechat.com/" style="color: #EEEEEE;">Live Chat Software</a> powered by Provide Chat.
+      <div id="chat-widget-content">
+        <div class="chat-widget-container">
+
+          <div style="margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px; display: none;" id="unavailable-success">
+
+            <p style="margin-top: 0px; "><%= @offline_form.success_message %></p>
+
+          </div>
+
+          <div style="margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px;" id="unavailable-form">
+
+            <p style="margin-top: 0px; "><%= @offline_form.intro_text %></p>
+
+            <input type="text" id="unavailable-text-box-1" placeholder="<%= "Text Box 1" %>"></p>
+
+            <input type="text" id="unavailable-text-box-2" placeholder="<%= "Text Box 2" %>"></p>
+
+            <p>
+              <select id="unavailable-department">
+                <option value="0">Any Department</option>
+                <% Department.all.each do |department| %>
+                  <option value="<%= department.id %>"><%= department.name %></option>
+                <% end %>
+              </select>
+            </p>
+
+            <textarea rows="4" style="border: 1px solid #CCCCCC; width: 350px;" id="unavailable-message" placeholder="<%= @offline_form.message_text %>"></textarea></p>
+
+            <input type="submit" value="  <%= @offline_form.button_text %>  " style="" id="send-unavailable-email">
+
+            <div class="missing-fields">Please fill in all fields</div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-widget-footer">
+        <a href="http://www.providechat.com/" style="color: #EEEEEE;">Live Chat Software</a> powered by Provide Chat.
+      </div>
     </div>
   </div>
 </div>
