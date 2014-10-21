@@ -18,19 +18,19 @@
     <legend>Customize Language</legend>
 
 		<div class="form-group">
-			<label class="col-md-4 control-label"><%= f.label :online_message, "Closed Widget - Operators online" %></label>
+			<label class="col-md-4 control-label"><%= f.label :online_message, "Online - Widget Closed" %></label>
 			<div class="col-md-8">
         <%= f.text_field :online_message, :class => "form-control", :placeholder => @chat_widget.online_message %>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-md-4 control-label"><%= f.label :offline_message, "Closed Widget - Operators offline" %></label>
+			<label class="col-md-4 control-label"><%= f.label :offline_message, "Offline - Widget Closed" %></label>
 			<div class="col-md-8">
         <%= f.text_field :offline_message, :class => "form-control", :placeholder => @chat_widget.offline_message %>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-md-4 control-label"><%= f.label :title_message, "Open Widget - Titlebar Message" %></label>
+			<label class="col-md-4 control-label"><%= f.label :title_message, "Titlebar Message" %></label>
 			<div class="col-md-8">
         <%= f.text_field :title_message, :class => "form-control", :placeholder => @chat_widget.title_message %>
 			</div>
@@ -67,8 +67,11 @@
 		</div>
 
   </fieldset>
+  <hr>
 	<footer>
-    <%= f.submit "Update", :class => "btn btn-primary" %>
+    <%= f.submit "Save Changes", :class => "btn btn-primary" %>
+    <%= f.submit "Restore Defaults", :class => "btn btn-danger" %>
+    <%= f.submit "Cancel", :class => "btn btn-default" %>
 	</footer>
 
 <% end %>
@@ -76,8 +79,9 @@
 <script>
 $(function() {
   $('select[name="chat_widget[color]"]').colourPicker({
-    ico: '<%= image_path "jquery.colourPicker.gif" %>', 	
-    title:    true	
+    ico: '<%= image_path "color-picker.png" %>',
+    title: false,
+    inputBG: true
   });
 });
 

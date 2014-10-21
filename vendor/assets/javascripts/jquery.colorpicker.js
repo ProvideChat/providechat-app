@@ -166,8 +166,8 @@ jQuery.fn.colourPicker = function (conf) {
 	return this.each(function () {
 		// Insert icon and input
 		var select	= jQuery(this);
-		var icon	= jQuery('<a href="#"><img src="' + config.ico + '" alt="' + config.openTxt + '" /></a>').insertAfter(select);
-		var input	= jQuery('<input type="text" name="' + select.attr('name') + '" value="' + select.val() + '" size="6" />').insertAfter(select);
+		var icon	= jQuery('<a class="color-picker-icon" href="#"><img src="' + config.ico + '" alt="' + config.openTxt + '" /></a>').insertAfter(select);
+		var input	= jQuery('<input class="color-picker-text" type="text" name="' + select.attr('name') + '" value="' + select.val() + '" size="6" />').insertAfter(select);
 		var loc		= '';
 
 		// Build a list of colours based on the colours in the select
