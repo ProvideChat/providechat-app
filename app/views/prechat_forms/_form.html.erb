@@ -1,6 +1,7 @@
 <%= form_for(@prechat_form, :html => {class: 'form-horizontal'}) do |f| %>
   <%= render "layouts/error_messages", :f => @prechat_form %>
 
+  <header></header>
 	<fieldset>
 
 		<div class="form-group">
@@ -53,8 +54,11 @@
 		</div>
   </fieldset>
 
+  <hr>
 	<footer>
-    <%= f.submit "Update", :class => "btn btn-primary" %>
+    <%= f.submit "Save Changes", :class => "btn btn-primary" %>
+    <%= f.submit "Restore Defaults", :class => "btn btn-danger" %>
+    <%= f.submit "Cancel", :class => "btn btn-default" %>
 	</footer>
-
+  <hr>
 <% end %>
