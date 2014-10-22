@@ -1,6 +1,7 @@
 <%= form_for(@offline_form, :html => {class: 'form-horizontal'}) do |f| %>
   <%= render "layouts/error_messages", :f => @offline_form %>
 
+  <header></header>
 	<fieldset>
     <legend>Customize the Offline Message Form</legend>
 
@@ -56,6 +57,9 @@
   <hr>
 	<footer>
     <%= f.submit "Save Changes", :class => "btn btn-primary" %>
+    <%= f.submit "Restore Defaults", :class => "btn btn-danger" %>
+    <%= f.submit "Cancel", :class => "btn btn-default" %>
 	</footer>
+  <hr>
 <% end %>
 
