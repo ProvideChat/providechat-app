@@ -12,7 +12,7 @@
 
 	<div role="content">
 		<div class="jarviswidget-editbox">
-		</div>    
+		</div>
 
 		<div class="widget-body">
 
@@ -543,19 +543,11 @@
           console.log("MESSAGE: ");
           console.log(message);
 
-          /*
-          var msg_id = response.message[msgCount].id;
-          var msg_type = response.message[msgCount].type;
-          var msg_sender = response.message[msgCount].sender;
-          var msg_text = response.message[msgCount].text;
-          var msg_user = response.message[msgCount].user;
-          */
-
           // A message type of  is an operator message
           if (message.message_type === 'start_chat') {
 
             chatText = '<li class="message"><div class="message-text">';
-            chatText += '<time>2014-01-13</time>';
+            chatText += '<time>' + message.sent  + '</time>';
             chatText += '<a href="javascript:void(0);" class="username">' + message.user_name  + '</a> ' + message.message + '</li>';
 
             if (ProvideChat.activeChatId == chat_id) {
