@@ -1,16 +1,6 @@
 
 <%= form_for(@chat_widget, :html => {class: 'form-horizontal', id: 'update-widget'}) do |f| %>
-  <% if @chat_widget.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@chat_widget.errors.count, "error") %> prohibited this chat_widget from being saved:</h2>
-
-      <ul>
-      <% @chat_widget.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render "layouts/error_messages", :f => @chat_widget %>
 
   <header></header>
 	<fieldset>
