@@ -77,9 +77,15 @@
   color: #333333 !important;
 }
 
+/* select2 plugin */
 .select2 {
   font-family: "Open Sans", Arial, Helvetica, Sans-Serif;
 }
+
+.select2-hidden-accessible {
+  display: none;
+}
+
 
 
 .color-picker-text {
@@ -99,4 +105,140 @@
   margin-left: auto; 
   margin-right: auto;
   margin-top: 20px;
+}
+
+
+/*
+  * tooltips
+  */
+.form-horizontal .select select {
+  padding: 5px;
+}
+.form-horizontal .tooltip {
+  position: absolute;
+  z-index: 99999;
+  left: -9999px;
+  padding: 2px 8px 3px;
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 400;
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  opacity: 0;
+  transition: margin 0.3s, opacity 0.3s;
+  -o-transition: margin 0.3s, opacity 0.3s;
+  -ms-transition: margin 0.3s, opacity 0.3s;
+  -moz-transition: margin 0.3s, opacity 0.3s;
+  -webkit-transition: margin 0.3s, opacity 0.3s;
+}
+.form-horizontal .tooltip:after {
+  content: '';
+  position: absolute;
+}
+.form-horizontal .input-group input:focus + .tooltip,
+.form-horizontal .textarea textarea:focus + .tooltip {
+  opacity: 1;
+}
+.form-horizontal .tooltip-top-right {
+  bottom: 100%;
+  margin-bottom: 15px;
+}
+.form-horizontal .tooltip-top-right:after {
+  top: 100%;
+  right: 11px;
+  border-top: 4px solid rgba(0, 0, 0, 0.9);
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+.form-horizontal .input-group input:focus + .tooltip-top-right,
+.form-horizontal .textarea textarea:focus + .tooltip-top-right {
+  right: 0;
+  left: auto;
+  margin-bottom: 5px;
+}
+.form-horizontal .tooltip-top-left {
+  bottom: 100%;
+  margin-bottom: 15px;
+}
+.form-horizontal .tooltip-top-left:after {
+  top: 100%;
+  left: 11px;
+  border-top: 4px solid rgba(0, 0, 0, 0.9);
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+.form-horizontal .input-group input:focus + .tooltip-top-left,
+.form-horizontal .textarea textarea:focus + .tooltip-top-left {
+  right: auto;
+  left: 0;
+  margin-bottom: 5px;
+}
+.form-horizontal .tooltip-right {
+  top: 4px;
+  white-space: nowrap;
+  margin-left: 15px;
+}
+.form-horizontal .tooltip-right:after {
+  top: 6px;
+  right: 100%;
+  border-top: 4px solid transparent;
+  border-right: 4px solid rgba(0, 0, 0, 0.9);
+  border-bottom: 4px solid transparent;
+}
+.form-horizontal .input-group input:focus + .tooltip-right,
+.form-horizontal .textarea textarea:focus + .tooltip-right {
+  left: 100%;
+  margin-left: 5px;
+}
+.form-horizontal .tooltip-left {
+  top: 4px;
+  white-space: nowrap;
+  margin-right: 15px;
+}
+.form-horizontal .tooltip-left:after {
+  top: 6px;
+  left: 100%;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 4px solid rgba(0, 0, 0, 0.9);
+}
+.form-horizontal .input-group input:focus + .tooltip-left,
+.form-horizontal .textarea textarea:focus + .tooltip-left {
+  right: 100%;
+  left: auto;
+  margin-right: 5px;
+}
+.form-horizontal .tooltip-bottom-right {
+  top: 100%;
+  margin-top: 15px;
+}
+.form-horizontal .tooltip-bottom-right:after {
+  bottom: 100%;
+  right: 11px;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid rgba(0, 0, 0, 0.9);
+  border-left: 4px solid transparent;
+}
+.form-horizontal .input-group input:focus + .tooltip-bottom-right,
+.form-horizontal .textarea textarea:focus + .tooltip-bottom-right {
+  right: 0;
+  left: auto;
+  margin-top: 5px;
+}
+.form-horizontal .tooltip-bottom-left {
+  top: 100%;
+  margin-top: 15px;
+}
+.form-horizontal .tooltip-bottom-left:after {
+  bottom: 100%;
+  left: 11px;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid rgba(0, 0, 0, 0.9);
+  border-left: 4px solid transparent;
+}
+.form-horizontal .input-group input:focus + .tooltip-bottom-left,
+.form-horizonal .textarea textarea:focus + .tooltip-bottom-left {
+  right: auto;
+  left: 0;
+  margin-top: 5px;
 }
