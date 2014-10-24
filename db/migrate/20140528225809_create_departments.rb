@@ -4,11 +4,10 @@ class CreateDepartments < ActiveRecord::Migration
       t.integer :organization_id
       t.string :name
       t.string :email
-      t.integer :status
 
       t.timestamps
     end
-    
+
     add_index :departments, :organization_id
   end
 end
