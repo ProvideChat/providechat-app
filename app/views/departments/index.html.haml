@@ -18,7 +18,7 @@
         .widget-body.no-padding
           .alert.alert-info.no-margin.fade.in
             %i.fa-fw.fa.fa-info
-            Inline help for departments will do here
+            When a visitor first begins a chat, they select from a dropdown which department they would like to chat with. This is the name of the department that is displayed to your site visitor. Also, your agents can be assigned to accept chats from only certain departments. For example, if your agent is assigned to the Sales department, she can accept chats for the Sales department only.
           %table.table.table-bordered
             %thead
               %tr
@@ -31,13 +31,13 @@
                   %td= department.name
                   %td= department.email
                   %td
-                    = link_to edit_department_path(department), :class => "btn btn-default btn-sm" do
-                      %i.fa.fa-edit
-                      Edit
                     - unless current_agent.account_type == 'agent'
                       = link_to department, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-sm" do
                         %i.fa.fa-trash-o
                         Delete
+                    = link_to edit_department_path(department), :class => "btn btn-default btn-sm" do
+                      %i.fa.fa-edit
+                      Edit
 
               - if @departments.count == 0
                 %tr

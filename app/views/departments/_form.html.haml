@@ -11,15 +11,28 @@
     .form-group
       %label.col-md-4.control-label= f.label :name
       .col-md-8
-        = f.text_field :name, :class => "form-control"
+        .input-group
+          = f.text_field :name, :class => "form-control"
+          %b.tooltip.tooltip-top-right
+            %i.fa.fa-user.txt-color-teal
+            This is the name of your department.
+          %span{class:"input-group-addon"}
+            %i{class:"icon-append fa fa-question-circle"}
     .form-group
-      %label.col-md-4.control-label= f.label :email
+      %label.col-md-4.control-label Offline Email
       .col-md-8
-        = f.text_field :email, :class => "form-control"
+        .input-group
+          = f.text_field :email, :class => "form-control"
+          %b.tooltip.tooltip-top-right
+            %i.fa.fa-user.txt-color-teal
+            When you are offline, visitors can still send you a message through email. Visitors can select which department they would like their message sent to.
+          %span{class:"input-group-addon"}
+            %i{class:"icon-append fa fa-question-circle"}
+
     .form-group
       %label.col-md-4.control-label Websites
       .col-md-8
         = f.select :website_ids, @websites.collect {|x| [x.name, x.id]}, {}, {:multiple => true, :style => "width:100%", :class  => "select2" }
   .widget-footer
-    = f.submit @department.new_record? ? "Add Department" : "Update Department", :class => "btn btn-primary"
     = link_to "Cancel", departments_path, :class => "btn btn-default"
+    = f.submit @department.new_record? ? "Add Department" : "Update Department", :class => "btn btn-primary"
