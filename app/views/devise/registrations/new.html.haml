@@ -1,8 +1,9 @@
+= render partial: 'layouts/flash_messages', flash: flash
+
 .well.no-padding
   = form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {class: "smart-form client-form", id: "smart-form-register"}) do |f|
     %header
       Start using Provide Chat for free!
-    = devise_error_messages!
     %fieldset
       %legend 5 minute setup, no credit card required to begin your 14 day trial
       %section

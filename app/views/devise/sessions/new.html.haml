@@ -1,8 +1,9 @@
+= render partial: 'layouts/flash_messages', flash: flash
+
 .well.no-padding
   = form_for(resource, as: resource_name, url: session_path(resource_name), :html => {class: 'smart-form client-form', id: 'login-form'}) do |f|
     %header
       Sign in your Provide Chat account
-    = devise_error_messages!
     %fieldset
       %section
         %label.label= f.label :email
