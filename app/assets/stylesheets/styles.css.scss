@@ -97,6 +97,23 @@
   cursor: pointer;
 }
 
+/* Tab Styles */
+
+.tab-pane .jarviswidget {
+  margin-bottom: 0px;
+}
+
+ul.nav-tabs {
+  margin-left: 10px;
+}
+
+.nav-tabs li.active {
+  border-top: #ffffff 1px solid;
+  margin-top: -3px;
+  z-index: 100;
+}
+
+
 
 /* Colour picker mods */
 

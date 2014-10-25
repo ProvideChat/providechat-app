@@ -1,5 +1,138 @@
 <%= render 'layouts/page_header', :title => 'Chat Monitor', :icon => 'fa-comments' %>
 
+<div class="row">
+  <div class="col-sm-3">
+    <div class="jarviswidget" id="your-chats" data-widget-editbutton="false" data-widget-fullscreenbutton="false">
+
+      <header role="heading">
+        <h2> <%= current_agent.display_name %></h2>
+        <div class="widget-toolbar">
+          <%= render 'agent_status'%>
+        </div>
+      </header>
+
+      <div role="content">
+        <div class="widget-body widget-hide-overflow">
+
+          <p><strong>Current Chats</strong></p>
+      
+          <div id="current-chat-container">
+            <%= image_tag "select2-spinner.gif" %>
+          </div>
+            
+          <hr>
+          
+          <p><strong>Waiting to Chat</strong></p>
+      
+          <div id="waiting-to-chat-container">
+            <%= image_tag "select2-spinner.gif" %>
+          </div>
+          
+          <hr>
+          
+          <p><strong>Visitors</strong></p>
+
+          <div id="visitor-container">
+            <%= image_tag "select2-spinner.gif" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-sm-9">
+
+    <div class="tab-content">
+  		<div class="tab-pane active" id="hr1">
+
+  			<div class="tabbable tabs-below">
+  				<div class="tab-content">
+  					<div class="tab-pane active" id="AA">
+              <div class="jarviswidget" id="your-chats" data-widget-editbutton="false" data-widget-fullscreenbutton="false">
+
+                <header role="heading">
+                  <span class="widget-icon"> <i class="fa fa-comments"></i> </span>
+                  <h2> Bob Jones </h2>
+                  <div class="widget-toolbar">
+                  </div>
+                </header>
+
+                <div role="content">
+                  <div class="widget-body widget-hide-overflow">
+
+                    <div class="col-sm-6">
+                      <div id="no-active-chat" style="display: none;">
+                        <h4>No Active Chats</h4>
+                      </div>
+
+                      <div id="active-chat-tabs">
+                        <%= render 'chat' %>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div id="visitorInfo" style="height: 405px; overflow: auto;" align="left">
+                        <p><b class="maintext">Visitor Information</b></p>
+                        <p>No Visitor currently selected</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  					</div>
+  					<div class="tab-pane" id="BB">
+               <div class="jarviswidget" id="your-chats" data-widget-editbutton="false" data-widget-fullscreenbutton="false">
+
+                 <header role="heading">
+                   <span class="widget-icon"> <i class="fa fa-comments"></i> </span>
+                   <h2> Jennifer Brown</h2>
+                   <div class="widget-toolbar">
+                   </div>
+                 </header>
+
+                 <div role="content">
+                   <div class="widget-body widget-hide-overflow">
+
+                     <div class="col-sm-6">
+                       <div id="no-active-chat">
+                         <h4>No Active Chats</h4>
+                       </div>
+
+                       <div id="active-chat-tabs" style="display: none;">
+
+                         <div class="tabbable tabs-below" id="tabs">
+                           <div class="tab-content padding-10">
+                           </div>
+                           <ul class="nav nav-tabs">
+                           </ul>
+                         </div>
+                       </div>
+                     </div>
+                     <div class="col-sm-6">
+                       <div id="visitorInfo" style="height: 405px; overflow: auto;" align="left">
+                         <p><b class="maintext">Visitor Information</b></p>
+                         <p>No Visitor currently selected</p>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+  					</div>
+  				</div>
+  				<ul class="nav nav-tabs">
+  					<li class="active">
+  						<a data-toggle="tab" href="#AA">Bob Jones</a>
+  					</li>
+  					<li class="">
+  						<a data-toggle="tab" href="#BB">Jennifer Brown</a>
+  					</li>
+  				</ul>
+  			</div>
+  		</div>
+  	</div>
+  </div>
+</div>
+
+<br>
 <div class="jarviswidget jarviswidget-color-blueDark" id="chat-monitor" role="widget">
 	<header role="heading">
     <div class="jarviswidget-ctrls" role="menu">
@@ -14,8 +147,8 @@
 		<div class="jarviswidget-editbox">
 		</div>
 
-		<div class="widget-body">
-
+		<div class="widget-body no-padding">
+      
       <div class="row">
           <div class="col-sm-3 col-md-3">
             <p>Visitor Filter</p>
@@ -187,6 +320,7 @@
   ProvideChat.agent_id = 0;
   ProvideChat.agent_name = '';
   ProvideChat.max_chats = '';
+  ProvideChat.organization_id = 0;
 
   ProvideChat.activeChatId = 0;	// the chat id of the currently active tab
   ProvideChat.activeChats = [];	// associate array linking tab# to chatId - activeChats[tab#] = chatId
@@ -203,11 +337,11 @@
 
   ProvideChat.numChats = 0;
 
-  ProvideChat.init = function (agent_id, agent_name, max_chats) {
+  ProvideChat.init = function (agent_id, agent_name, organization_id, max_chats) {
     ProvideChat.agent_id = agent_id;
     ProvideChat.agent_name = agent_name;
     ProvideChat.max_chats = max_chats;
-  	//initjsDOMenu();
+    ProvideChat.organization_id = organization_id;
 
     updateVisitors();
 
@@ -215,92 +349,114 @@
   };
 
   function updateVisitors () {
-    var organization_id = $("#visitor-table").attr("data-id");
-    var after = "0";
-    if ($(".comment").length > 0) {
-      after = $(".comment:last-child").attr("data-time");
-    }
+          
     $.getJSON("/visitors.json", function (results) {
 
-      $('#loading_visitors').hide();
-
-      $('#visitors-online').html(results.length);
-
+      var in_chat = 0;
       var waiting_to_chat = 0;
-
-      if (results.length > 0) {
-        if ($("#no-visitors").length === 0) {
-          $("#no-visitors").remove();
+      var visitors = 0;
+ 
+      $.each(results, function(i, visitor) {
+        console.log(visitor);
+        
+        if ($("#visitor-" + visitor.id).length === 0) {
+          $("#visitor-" + visitor.id).remove();
+        }
+        
+        if (visitor.status == 'in_chat') {
+          if (in_chat === 0) {
+            $('#current-chat-container').html('');
+          }
+          $('#current-chat-container').append("<div id='visitor-" + visitor.id + "'>" + visitor.name + ", Chatting for " + visitor.time_in_chat + "</div>");
+          in_chat++;
+        }
+        else if (visitor.status == 'waiting_to_chat') {
+          if (waiting_to_chat === 0) {
+            $('#waiting-to-chat-container').html('');
+          }
+          $('#waiting-to-chat-container').append("<div id='visitor-" + visitor.id + "'>" + visitor.name + "</div>");
+          waiting_to_chat++;
+        } 
+        else if (visitor.status == 'no_chat') {
+          if (visitors === 0) {
+            $('#visitor-container').html('');
+          }
+          $('#visitor-container').append("<div id='visitor-" + visitor.id + "'>" + visitor.country_name + ', ' + visitor.region_name + "</div>");
+          visitors++;
+        }
+        
+        /*
+        var row_bg_color = '#ffffff';
+        if (visitor.status == 'waiting_to_chat') {
+          waiting_to_chat = waiting_to_chat + 1;
+          row_bg_color = '#F0E68C';
         }
 
-        $.each(results, function(i, visitor) {
-          console.log(visitor);
-          var row_bg_color = '#ffffff';
+        if (visitor.status == 'in_chat') {
+          row_bg_color = '#B4EEB4';
+        }
+
+        if ($("#visitor_row_" + visitor.id).length === 0) {
+          var visitor_row = '<tr id="visitor_row_' + visitor.id + '" data-active="true" data-visitor-id="' + visitor.id + '" style="background-color: ' + row_bg_color + ';"><td>' + visitor.id + '</td>';
+          visitor_row = visitor_row + '<td>' + processVisitorName(visitor) + '</td>';
+          visitor_row = visitor_row + '<td>' + processDepartmentName(visitor) + '</td>';
+          visitor_row = visitor_row + '<td>' + processVisitorStatus(visitor) + '</td>';
+          visitor_row = visitor_row + '<td>' + processAgent(visitor) + '</td>';
+          visitor_row = visitor_row + '<td>' + visitor.current_page + '</td>';
+          visitor_row = visitor_row + '<td><a href="javascript:void();" id="view_visitor_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs"><i class="fa fa-user"></i> Visitor Info</a>';
+          visitor_row = visitor_row + '&nbsp;<a href="javascript:void();" id="accept_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs" disabled="disabled"><i class="fa fa-comments-o"></i> Accept</a>';
+          visitor_row = visitor_row + '&nbsp;<a href="javascript:void();" id="invite_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs" disabled="disabled"><i class="fa fa-external-link"></i> Invite</a>';
+          visitor_row = visitor_row + '</td></tr>';
+          $('#visitor-table > tbody:last').append(visitor_row);
+          $('#view_visitor_' + visitor.id).click(function() {
+            viewVisitor($(this).data("visitor-id"));
+          });
+          $('#accept_chat_' + visitor.id).click(function() {
+            startChat($(this).data("visitor-id"));
+          });
+
+        } else {
+          $("#visitor_row_" + visitor.id).css("background-color", row_bg_color);
+          $("#visitor_row_" + visitor.id).find("td").eq(1).html(processVisitorName(visitor));
+          $("#visitor_row_" + visitor.id).find("td").eq(3).html(processVisitorStatus(visitor));
+          $("#visitor_row_" + visitor.id).find("td").eq(4).html(processAgent(visitor));
+          $("#visitor_row_" + visitor.id).find("td").eq(5).html(visitor.current_page);
+
           if (visitor.status == 'waiting_to_chat') {
-            waiting_to_chat = waiting_to_chat + 1;
-            row_bg_color = '#F0E68C';
+            $('#accept_chat_' + visitor.id).attr("disabled", false);
+            $('#accept_chat_' + visitor.id).html('<i class="fa fa-comments-o"></i> Accept</a>');
           }
 
           if (visitor.status == 'in_chat') {
-            row_bg_color = '#B4EEB4';
+            $('#accept_chat_' + visitor.id).attr("disabled", false);
+            $('#accept_chat_' + visitor.id).html('<i class="fa fa-comments-o"></i> View Chat</a>');
           }
 
-          if ($("#visitor_row_" + visitor.id).length === 0) {
-            var visitor_row = '<tr id="visitor_row_' + visitor.id + '" data-active="true" data-visitor-id="' + visitor.id + '" style="background-color: ' + row_bg_color + ';"><td>' + visitor.id + '</td>';
-            visitor_row = visitor_row + '<td>' + processVisitorName(visitor) + '</td>';
-            visitor_row = visitor_row + '<td>' + processDepartmentName(visitor) + '</td>';
-            visitor_row = visitor_row + '<td>' + processVisitorStatus(visitor) + '</td>';
-            visitor_row = visitor_row + '<td>' + processAgent(visitor) + '</td>';
-            visitor_row = visitor_row + '<td>' + visitor.current_page + '</td>';
-            visitor_row = visitor_row + '<td><a href="javascript:void();" id="view_visitor_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs"><i class="fa fa-user"></i> Visitor Info</a>';
-            visitor_row = visitor_row + '&nbsp;<a href="javascript:void();" id="accept_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs" disabled="disabled"><i class="fa fa-comments-o"></i> Accept</a>';
-            visitor_row = visitor_row + '&nbsp;<a href="javascript:void();" id="invite_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs" disabled="disabled"><i class="fa fa-external-link"></i> Invite</a>';
-            visitor_row = visitor_row + '</td></tr>';
-            $('#visitor-table > tbody:last').append(visitor_row);
-            $('#view_visitor_' + visitor.id).click(function() {
-              viewVisitor($(this).data("visitor-id"));
-            });
-            $('#accept_chat_' + visitor.id).click(function() {
-              startChat($(this).data("visitor-id"));
-            });
-
-          } else {
-            $("#visitor_row_" + visitor.id).css("background-color", row_bg_color);
-            $("#visitor_row_" + visitor.id).find("td").eq(1).html(processVisitorName(visitor));
-            $("#visitor_row_" + visitor.id).find("td").eq(3).html(processVisitorStatus(visitor));
-            $("#visitor_row_" + visitor.id).find("td").eq(4).html(processAgent(visitor));
-            $("#visitor_row_" + visitor.id).find("td").eq(5).html(visitor.current_page);
-
-            if (visitor.status == 'waiting_to_chat') {
-              $('#accept_chat_' + visitor.id).attr("disabled", false);
-              $('#accept_chat_' + visitor.id).html('<i class="fa fa-comments-o"></i> Accept</a>');
-            }
-
-            if (visitor.status == 'in_chat') {
-              $('#accept_chat_' + visitor.id).attr("disabled", false);
-              $('#accept_chat_' + visitor.id).html('<i class="fa fa-comments-o"></i> View Chat</a>');
-            }
-
-            $("#visitor_row_" + visitor.id).data("active", true);
-          }
-        });
-
-        $('#waiting-to-chat').html(waiting_to_chat);
-
-        $('#visitor-table > tbody  > tr').each(function() {
-          if ($(this).data("active") === true) {
-            $(this).data("active", false);
-          } else {
-            $(this).remove();
-          }
-        });
-      } else {
-        if ($("#no-visitors").length === 0) {
-          $('#visitor-table > tbody  > tr').each(function() {
-            $(this).remove();
-          });
-          $('#visitor-table').append('<tr id="no-visitors"><td colspan="7"><h4>No visitors at this time</h4></td></tr>');
+          $("#visitor_row_" + visitor.id).data("active", true);
         }
+        */
+      });
+
+      //$('#waiting-to-chat').html(waiting_to_chat);
+      /*
+      $('#visitor-table > tbody  > tr').each(function() {
+        if ($(this).data("active") === true) {
+          $(this).data("active", false);
+        } else {
+          $(this).remove();
+        }
+      });
+      */
+      
+      if (in_chat === 0) {
+        $('#current-chat-container').html("<p>No current chats</p>");
+      }
+      if (waiting_to_chat === 0) {
+        $('#waiting-to-chat-container').html("<p>No one waiting</p>");
+      }
+      
+      if (visitors === 0) {
+        $('#visitor-container').html("<p>No visitors</p>");
       }
     });
   }
@@ -837,7 +993,7 @@
 })(window.ProvideChat = window.ProvideChat || {}, jQuery);
 
 $( document ).ready(function() {
-  ProvideChat.init (<%= current_agent.id %>, '<%= current_agent.display_name %>', 5);
+  ProvideChat.init (<%= current_agent.id %>, '<%= current_agent.display_name %>', <%= current_agent.organization_id %>, 5);
 });
 
 </script>
