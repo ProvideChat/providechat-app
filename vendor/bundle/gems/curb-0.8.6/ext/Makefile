@@ -11,12 +11,12 @@ ECHO = $(ECHO1:0=@echo)
 #### Start of system configuration section. ####
 
 srcdir = .
-topdir = /Users/derek/.rbenv/versions/2.1.2/include/ruby-2.1.0
+topdir = /Users/derek/.rbenv/versions/2.1.3/include/ruby-2.1.0
 hdrdir = $(topdir)
-arch_hdrdir = /Users/derek/.rbenv/versions/2.1.2/include/ruby-2.1.0/x86_64-darwin13.0
+arch_hdrdir = /Users/derek/.rbenv/versions/2.1.3/include/ruby-2.1.0/x86_64-darwin14.0
 PATH_SEPARATOR = :
 VPATH = $(srcdir):$(arch_hdrdir)/ruby:$(hdrdir)/ruby
-prefix = $(DESTDIR)/Users/derek/.rbenv/versions/2.1.2
+prefix = $(DESTDIR)/Users/derek/.rbenv/versions/2.1.3
 rubysitearchprefix = $(rubylibprefix)/$(sitearch)
 rubyarchprefix = $(rubylibprefix)/$(arch)
 rubylibprefix = $(libdir)/$(RUBY_BASE_NAME)
@@ -30,8 +30,8 @@ rubyhdrdir = $(includedir)/$(RUBY_VERSION_NAME)
 vendorarchdir = $(vendorlibdir)/$(sitearch)
 vendorlibdir = $(vendordir)/$(ruby_version)
 vendordir = $(rubylibprefix)/vendor_ruby
-sitearchdir = $(DESTDIR)./.gem.20140919-4894-cg2vg2
-sitelibdir = $(DESTDIR)./.gem.20140919-4894-cg2vg2
+sitearchdir = $(DESTDIR)./.gem.20141024-12882-6s7aiw
+sitelibdir = $(DESTDIR)./.gem.20141024-12882-6s7aiw
 sitedir = $(rubylibprefix)/site_ruby
 rubyarchdir = $(rubylibdir)/$(arch)
 rubylibdir = $(rubylibprefix)/$(ruby_version)
@@ -81,9 +81,9 @@ CCDLFLAGS = -fno-common
 CFLAGS   = $(CCDLFLAGS)  -O3 -Wno-error=shorten-64-to-32  -pipe  -g -Wall $(ARCH_FLAG)
 INCFLAGS = -I. -I$(arch_hdrdir) -I$(hdrdir)/ruby/backward -I$(hdrdir) -I$(srcdir)
 DEFS     = 
-CPPFLAGS = -DRUBY_EXTCONF_H=\"$(RUBY_EXTCONF_H)\" -I/Users/derek/.rbenv/versions/2.1.2/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT $(DEFS) $(cppflags)
+CPPFLAGS = -DRUBY_EXTCONF_H=\"$(RUBY_EXTCONF_H)\" -I/Users/derek/.rbenv/versions/2.1.3/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT $(DEFS) $(cppflags)
 CXXFLAGS = $(CCDLFLAGS) $(cxxflags) $(ARCH_FLAG)
-ldflags  = -L. -L/Users/derek/.rbenv/versions/2.1.2/lib  -fstack-protector
+ldflags  = -L. -L/Users/derek/.rbenv/versions/2.1.3/lib  -fstack-protector
 dldflags = -Wl,-undefined,dynamic_lookup -Wl,-multiply_defined,suppress 
 ARCH_FLAG = 
 DLDFLAGS = $(ldflags) $(dldflags) $(ARCH_FLAG)
@@ -99,7 +99,7 @@ RUBY_VERSION_NAME = $(RUBY_BASE_NAME)-$(ruby_version)
 RUBYW_BASE_NAME = rubyw
 RUBY_BASE_NAME = ruby
 
-arch = x86_64-darwin13.0
+arch = x86_64-darwin14.0
 sitearch = $(arch)
 ruby_version = 2.1.0
 ruby = $(bindir)/ruby
