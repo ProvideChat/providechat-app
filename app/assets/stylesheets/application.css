@@ -16,6 +16,7 @@
  *= require bootstrap-datepicker
  *= require jquery.colorpicker
  *= require styles
+ *= require monitor
  *= require widget
  *= require_self
  */
