@@ -4,7 +4,6 @@ class CreateChatMessages < ActiveRecord::Migration
       t.integer :chat_id
       t.string :user_name
       t.integer :sender
-      t.integer :message_type
       t.timestamp :sent
       t.boolean :seen_by_agent, :default => false
       t.boolean :seen_by_visitor, :default => false
