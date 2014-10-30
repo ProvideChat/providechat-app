@@ -11,33 +11,36 @@
     <div class="widget-body widget-hide-overflow">
       <div class="col-sm-6">
         <div id="chat-body-<%= chat_id %>" class="chat-body custom-scroll" data-chat-id="<%= chat_id %>">
-        	<ul id="chat-messages-<%= chat_id %>" data-chat-id="<%= chat_id %>">
+          <ul id="chat-messages-<%= chat_id %>" data-chat-id="<%= chat_id %>">
 
-        	</ul>
+          </ul>
         </div>
 
         <div class="chat-footer">
-        	<div class="textarea-div">
-        		<div class="typearea">
-        			<textarea placeholder="Write a reply..." id="chat-message-content-<%= chat_id %>" class="custom-scroll" data-chat-id="<%= chat_id %>"></textarea>
-        		</div>
-        	</div>
+          <div class="textarea-div">
+            <div class="typearea">
+              <textarea placeholder="Write a reply..." id="chat-message-content-<%= chat_id %>" class="custom-scroll" data-chat-id="<%= chat_id %>"></textarea>
+            </div>
+          </div>
 
-        	<span class="textarea-controls">
-        		<button class="btn btn-sm btn-primary pull-right" id="send-message-<%= chat_id %>" data-chat-id="<%= chat_id %>">
-        			Send Message
-        		</button>
-            <span class="pull-right smart-form" style="margin-top: 3px; margin-right: 10px;"> <label class="checkbox pull-right">
-        		<input type="checkbox" name="subscription" id="subscription">
-        		<i></i>Press <strong> ENTER </strong> to send </label> </span> <a href="javascript:void(0);" class="pull-left"></a>
+          <span class="textarea-controls">
+            <button class="btn btn-sm btn-primary pull-right" id="send-message-<%= chat_id %>" data-chat-id="<%= chat_id %>">
+              Send Message
+            </button>
+            <span class="pull-right smart-form" style="margin-top: 3px; margin-right: 10px;">
+              <label class="checkbox pull-right"> <input type="checkbox" name="subscription" id="subscription">
+              <i></i>Press <strong> ENTER </strong> to send </label>
+            </span>
+            <a href="javascript:void(0);" class="pull-left"></a>
           </span>
 
         </div>
       </div>
       <div class="col-sm-6">
-        <div id="visitor-info-<%= visitor_id %>" style="height: 405px; overflow: auto;" align="left">
-          <p><b class="maintext">Visitor Information</b></p>
-          <p>No Visitor currently selected</p>
+        <h4><%= visitor_name %>'s Information</h4>
+        <hr>
+        <div id="visitor-info-<%= visitor_id %>" style="height: 345px; overflow: auto;" align="left" data-visitor-id="<%= visitor_id %>">
+          <%= image_tag "select2-spinner.gif" %>
         </div>
       </div>
     </div>

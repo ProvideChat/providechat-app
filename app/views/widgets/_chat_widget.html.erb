@@ -34,29 +34,24 @@
 
   <div class="chat-widget-container" style="height: 325px;">
 
-  <div class="agent-area">
-    <div style="float: left;">
-      <img src="http://widget.providechat.com/images/silouette.gif" height="60" width="60" style="padding: 1px; border: 1px solid #999999;" id="agent-image">
+    <div class="agent-area">
+      <div style="float: left;">
+        <img src="http://widget.providechat.com/images/silouette.gif" height="60" width="60" style="padding: 1px; border: 1px solid #999999;" id="agent-image">
+      </div>
+      <div style="float: left; margin-left: 10px;">
+        <p style="font-weight: bold; font-size: 16px; margin-top: 0px;" id="agent-name"></p>
+      </div>
     </div>
-    <div style="float: left; margin-left: 10px;">
-      <p style="font-weight: bold; font-size: 16px; margin-top: 0px;" id="agent-name"></p>
+
+    <div style="background-color: #3B3B3B; width: 392px; height: 30px; position: absolute; right: 4px; border-top: 1px solid #000000; border-bottom: 1px solid #000000; display:none;">
+      <input type="text" style="width: 200px; font-family: Lucida Sans Unicode, verdana, helvetica; font-size: 12px; border: 1px solid #000000; border-radius: 3px; margin-left: 5px; height: 22px; padding: 2px; margin-top: 4px;" value="">
     </div>
-  </div>
 
-  <div style="background-color: #3B3B3B; width: 392px; height: 30px; position: absolute; right: 4px; border-top: 1px solid #000000; border-bottom: 1px solid #000000; display:none;">
-
-  <input type="text" style="width: 200px; font-family: Lucida Sans Unicode, verdana, helvetica; font-size: 12px; border: 1px solid #000000; border-radius: 3px; margin-left: 5px; height: 22px; padding: 2px; margin-top: 4px;" value="">
-
-  </div>
-
-  <div id="chat-message-area">
-
-  </div>
+    <div id="chat-message-area"></div>
 
   </div>
 
   <div class="send-message">
-  <textarea id="chat-message-box" placeholder="Your message..."></textarea>
-
+    <textarea id="chat-message-box" placeholder="Your message..."></textarea>
   </div>
 </div>

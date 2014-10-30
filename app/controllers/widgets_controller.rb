@@ -61,6 +61,7 @@ class WidgetsController < ApplicationController
 
         response = {
           'status' => chat.status,
+          'agent_name' => chat.agent.display_name,
           'messages' => chat_messages || Array.new
         }
 
@@ -70,7 +71,7 @@ class WidgetsController < ApplicationController
         message = params[:message]
         visitor_name = params[:visitor_name]
 
-        ChatMessage.create(chat_id: chat_id, user_name: visitor_name, sender: "visitor", message_type: "in_chat",
+        ChatMessage.create(chat_id: chat_id, user_name: visitor_name, sender: "visitor",
                            seen_by_visitor: true, seen_by_agent: false, sent: DateTime.now, message: message)
 
         response = { 'success' => 'true' }

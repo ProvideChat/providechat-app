@@ -67,148 +67,6 @@
   </div>
 </div>
 
-<br>
-
-<div class="jarviswidget jarviswidget-color-blueDark" id="chat-monitor" role="widget">
-	<header role="heading">
-    <div class="jarviswidget-ctrls" role="menu">
-      <a href="javascript:void(0);" class="button-icon jarviswidget-toggle-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
-      <a href="javascript:void(0);" class="button-icon jarviswidget-fullscreen-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Fullscreen"><i class="fa fa-expand "></i></a>
-    </div>
-    <h2>Chat Monitor</h2>
-    <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
-  </header>
-
-	<div role="content">
-		<div class="jarviswidget-editbox">
-		</div>
-
-		<div class="widget-body no-padding">
-
-      <div class="row">
-          <div class="col-sm-3 col-md-3">
-            <p>Visitor Filter</p>
-            <select id="visitorFilter" class="form-control">
-              <option value="all">All</option>
-              <option value="mine">My Chats</option>
-              <option value="active">All Active Chats</option>
-              <option value="waiting">Waiting to Chat</option>
-              <option value="visitor">Not in Chat</option>
-            </select>
-          </div>
-          <div class="col-sm-2 col-md-3">
-            <p>Website Filter</p>
-            <select id="websiteFilter" name="websiteFilter" class="form-control">
-              <option value="0">All</option>
-            </select>
-          </div>
-          <div class="col-sm-2 col-md-2">
-            <p>Visitors Online</p>
-            <div id="visitors-online" style="font-size: 24px; margin-top: 4px; font-weight: bold;">..</div>
-          </div>
-          <div class="col-sm-2 col-md-2">
-            <p>Waiting to Chat</p>
-            <div id="waiting-to-chat" style="font-size: 24px; margin-top: 4px; font-weight: bold;">..</div>
-          </div>
-        </div>
-
-      <div class="row">
-        <div class="col-sm-12">
-          &nbsp;
-        </div>
-      </div>
-
-      <div class="row">
-          <div class="col-sm-12 col-md-12 col-lg-12">
-            <div id="visitor_list" style="overflow: auto; height: 190px; border: 1px solid #BBBBBB; border-width: 1px 0px 1px 1px;">
-
-              <table class="table table-bordered" id="visitor-table" data-id="<%= current_agent.organization_id %>">
-                <thead>
-                  <tr>
-                    <th colspan="2">Visitor ID</th>
-                    <th>Department</th>
-                    <th>Status / Duration</th>
-                    <th>Operator</th>
-                    <th>Current Page</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                </tbody>
-              </table>
-
-              <div id="loading_visitors">
-                <p style="text-align: center; margin-top: 10px;">
-                  <%= image_tag "ajax-loader.gif" %>
-                </p>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-      <div class="row">
-          <div class="col-sm-12">
-            &nbsp;
-          </div>
-        </div>
-
-      <div class="row">
-        <article class="col-sm-12 col-md-6 col-lg-6">
-          <div class="jarviswidget" id="your-chats" data-widget-editbutton="false" data-widget-fullscreenbutton="false">
-
-            <header role="heading">
-              <span class="widget-icon"> <i class="fa fa-comments"></i> </span>
-              <h2> Your Chats </h2>
-              <div class="widget-toolbar">
-              </div>
-            </header>
-
-            <div role="content">
-              <div class="widget-body widget-hide-overflow">
-
-                <div id="no-active-chat">
-                  <h4>No Active Chats</h4>
-                </div>
-
-                <div id="active-chat-tabs" style="display: none;">
-
-                  <div class="tabbable tabs-below">
-                    <div class="tab-content padding-10">
-                    </div>
-                    <ul class="nav nav-tabs">
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </article>
-
-        <article class="col-sm-12 col-md-6 col-lg-6">
-          <div class="jarviswidget" id="widget-preview">
-            <header>
-              <span class="widget-icon"> <i class="fa fa-toggle-up"></i> </span>
-              <h2>Selected Visitor</h2>
-            </header>
-
-            <div>
-              <div class="widget-body">
-                <div id="visitorInfo" style="height: 405px; overflow: auto;" align="left">
-                  <p><b class="maintext">Visitor Information</b></p>
-                  <p>No Visitor currently selected</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-      </div>
-		</div>
-	</div>
-</div>
-
-
 <div style="display: none;">
 
   <div id="confirmCloseTab" title="Close this chat tab?">
@@ -502,7 +360,6 @@
 
       var visitorInfo = '';
 
-      visitorInfo += '<h6>Visitor Information</h6>';
       visitorInfo += '<table class="table table-bordered">';
       visitorInfo += '<tr><td><b>Name: </b></td><td>' + visitor.name + '</td></tr>';
       visitorInfo += '<tr><td><b>Email: </b></td><td>' + visitor.email + '</td></tr>';
@@ -540,7 +397,7 @@
       visitorInfo += '<tr><td><b>Operating System: </b></td><td><table border="0" cellpadding="0" cellspacing="0"><tr>';
       visitorInfo += '<td>' + visitor.operating_system + '</td><td><img src="' + visitor.osImg + '" height="16px" width="16px" hspace="3px"></td></tr></table>';
 
-      $('#visitorInfo').html(visitorInfo);
+      $('#visitor-info-' + visitor_id).html(visitorInfo);
     });
   }
 
@@ -609,8 +466,48 @@
         sendChatText(response.chat_id);
       });
 
+      viewVisitor(visitor_id);
+
       ProvideChat.chatTimer[response.chat_id] = setInterval(function(){ getChatText(response.chat_id, false); }, 2000);
       ProvideChat.keypressStatusTimer[response.chat_id] = setInterval(function () { getKeypressStatus(response.chat_id); }, 1500);
+    });
+  }
+  
+  function setup_chat(chat_id) {
+    if (ProvideChat.activeChatId == chat_id) {
+      // Set the focus to the Message Box.
+      $('#txt_message'+ProvideChat.activeChatId).focus();
+    }
+
+    $.shiftdown = false;
+    $.ctrldown = false;
+
+    $("#txt_message"+chat_id).keydown(function (e) {
+      if (e.which === 16) {
+        $.shiftdown = true;
+      }
+      if ((e.which === 17)) {
+        $.ctrldown = true;
+      }
+    });
+
+    $("#txt_message"+chat_id).keyup(function (e) {
+      if (e.which === 16) {
+        $.shiftdown = false;
+      }
+      if ((e.which === 17)) {
+        $.ctrldown = false;
+      }
+
+      if ((e.which === 13) && (($.shiftdown === true) || ($.ctrldown === true))) {
+        $("#txt_message"+chat_id).value += "\n";
+      }
+      else if (e.which === 13) {
+        sendChatText( chat_id );
+        updateKeypress(chat_id, 'no');
+      } else {
+        updateKeypress(chat_id, 'yes');
+      }
     });
   }
 
@@ -631,6 +528,10 @@
       var endChat = false;
       var newMessageAlert = false;
 
+      if ((getAllMessages === true) || ($("#chat-messages-"+chat_id).length === 0)) {
+        $("#chat-messages-"+chat_id).html('<div style="margin: 10px; font-family: Lucida Sans Unicode, verdana, helvetica;"><h5>You are now chatting with ' + response.visitor_name + '</h5></div><hr />');
+      }
+
 			// if we get some JSON messages returned then process and display them, otherwise
 			// show the operator connection message
 
@@ -649,107 +550,57 @@
           $("#chatWindow" + chat_id).html(chatText);
 
   			// A status of 2 means the chat is active
-      } else if ((response.status === 'in_progress') || (response.status === 'agent_ended') ||
-                (response.status === 'visitor_ended') || (response.status === 'visitor_timeout'))
-      {
+      } else if (response.status === 'in_progress') {
+
         $.each(response.messages, function(count, message) {
 
           console.log("MESSAGE: ");
           console.log(message);
 
-          // A message type of  is an operator message
-          if (message.message_type === 'start_chat') {
-
-            chatText = '<li class="message"><div class="message-text">';
-            chatText += '<time>' + message.sent  + '</time>';
-            chatText += '<a href="javascript:void(0);" class="username">' + message.user_name  + '</a> ' + message.message + '</li>';
-
-            if (ProvideChat.activeChatId == chat_id) {
-              // Set the focus to the Message Box.
-              $('#txt_message'+ProvideChat.activeChatId).focus();
-            }
-
-            $.shiftdown = false;
-            $.ctrldown = false;
-
-            $("#txt_message"+chat_id).keydown(function (e) {
-              if (e.which === 16) {
-                $.shiftdown = true;
-              }
-              if ((e.which === 17)) {
-                $.ctrldown = true;
-              }
-            });
-
-            $("#txt_message"+chat_id).keyup(function (e) {
-              if (e.which === 16) {
-                $.shiftdown = false;
-              }
-              if ((e.which === 17)) {
-                $.ctrldown = false;
-              }
-
-              if ((e.which === 13) && (($.shiftdown === true) || ($.ctrldown === true))) {
-                $("#txt_message"+chat_id).value += "\n";
-              }
-              else if (e.which === 13) {
-                sendChatText( chat_id );
-                updateKeypress(chat_id, 'no');
-              } else {
-                updateKeypress(chat_id, 'yes');
-              }
-            });
-          }
-          else if (message.message_type === 'in_chat') {
-
-            if (message.sender === 'agent')
-            {
-              chatText = '<li class="message"><div class="message-text">';
-              chatText += '<time>2014-01-13</time>';
-              chatText += '<a href="javascript:void(0);" class="username">' + message.user_name  + '</a> ' + message.message + '</li>';
-            }
-            else if (message.sender === "visitor")
-            {
-              chatText = '<li class="message"><div class="message-text">';
-              chatText += '<time>2014-01-13</time>';
-              chatText += '<a href="javascript:void(0);" class="username">' + message.user_name  + '</a> ' + message.message + '</li>';
-
-              $('#typingNotification' + chat_id).html ('');
-
-              newMessageAlert = true;
-            }
-          }
-          else if (message.message_type === 'end_chat')
+          if (message.sender === 'agent')
           {
             chatText = '<li class="message"><div class="message-text">';
             chatText += '<time>2014-01-13</time>';
-            chatText += message.message +  '<br /><br /><b>Chat Statistics:</b><br />';
-            chatText += 'Chat session started: ' + response.started + '<br />';
-            chatText += 'Chat Session ended: ' + response.ended + '<br />';
-            chatText += 'Total chat session duration: ' + response.duration + '</li>';
-
-            endChat = true;
-
-            //endChatOff();
+            chatText += '<a href="javascript:void(0);" class="username">' + message.user_name  + '</a> ' + message.message + '</li>';
           }
+          else if (message.sender === "visitor")
+          {
+            chatText = '<li class="message"><div class="message-text">';
+            chatText += '<time>2014-01-13</time>';
+            chatText += '<a href="javascript:void(0);" class="username">' + message.user_name  + '</a> ' + message.message + '</li>';
 
-          if (message.message_type === 'startChat') {
-            $("#chat-messages-"+chat_id).html(chatText);
-          } else if ((message.message_type === 'in_chat') || (message.message_type === 'end_chat')) {
-            $("#chat-messages-"+chat_id).append(chatText);
-            $('#chat-messages-'+chat_id).scrollTop($('#chat-messages-'+chat_id).height());
+            $('#typingNotification' + chat_id).html ('');
+
+            newMessageAlert = true;
           }
         });
+      } else if ((response.status === 'agent_ended') || (response.status === 'visitor_ended') ||
+                   (response.status === 'visitor_timeout'))
+      {
+        chatText = '<li class="message"><div class="message-text">';
+        chatText += '<time>2014-01-13</time>';
+        chatText += message.message +  '<br /><br /><b>Chat Statistics:</b><br />';
+        chatText += 'Chat session started: ' + response.started + '<br />';
+        chatText += 'Chat Session ended: ' + response.ended + '<br />';
+        chatText += 'Total chat session duration: ' + response.duration + '</li>';
 
-        if (endChat === true) {
-  			  // Refresh chat in 2 seconds
-          //chatTimer[chatId] = setTimeout(function(){ getChatText(chatId, false); }, 2000);
-          clearInterval(ProvideChat.chatTimer[chat_id]);
-          ProvideChat.chatTimer[chat_id] = null;
-          clearTimeout(ProvideChat.keypressStatusTimer[chat_id]);
-          ProvideChat.keypressStatusTimer[chat_id] = null;
-          $('#typingNotification' + chat_id).html ('');
-        }
+        endChat = true;
+
+        //endChatOff();
+      }
+
+      $("#chat-messages-"+chat_id).append(chatText);
+      $('#chat-messages-'+chat_id).scrollTop($('#chat-messages-'+chat_id).height());
+
+
+      if (endChat === true) {
+			  // Refresh chat in 2 seconds
+        //chatTimer[chatId] = setTimeout(function(){ getChatText(chatId, false); }, 2000);
+        clearInterval(ProvideChat.chatTimer[chat_id]);
+        ProvideChat.chatTimer[chat_id] = null;
+        clearTimeout(ProvideChat.keypressStatusTimer[chat_id]);
+        ProvideChat.keypressStatusTimer[chat_id] = null;
+        $('#typingNotification' + chat_id).html ('');
       }
 
       /*

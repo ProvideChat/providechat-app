@@ -52,10 +52,6 @@ module Api
             chat.chat_accepted = DateTime.now
             chat.save
 
-            ChatMessage.create(chat_id: chat_id, sender: "system", message_type: "start_chat", 
-                               seen_by_agent: false, seen_by_visitor: false, 
-                               sent: DateTime.now, message: "You are now chatting with #{agent_name}")
-
             response = {
               'chat_id' => chat.id,
               'visitor_id' => visitor_id,
@@ -85,7 +81,7 @@ module Api
 
             #Rails.logger.info "GET_CHAT_MESSAGES: GETTING '#{context}' MESSAGES"
             if context == 'all'
-              chat_messages = ChatMessage.where(chat_id: chat_id)  
+              chat_messages = ChatMessage.where(chat_id: chat_id)
             elsif context == 'unseen'
               chat_messages = ChatMessage.where(chat_id: chat_id, seen_by_agent: false)
             end
@@ -94,11 +90,12 @@ module Api
               chat_message.seen_by_agent = true
               chat_message.save
             end
-            
+
             #ChatMessage.where(chat_id: chat_id, seen_by_agent: false).update_all(seen_by_agent: true)
 
             response = {
               'status' => chat.status,
+              'visitor_name' => chat.visitor_name,
               'messages' => chat_messages || Array.new
             }
 
@@ -119,8 +116,8 @@ module Api
             message = params[:message]
             agent_name = params[:agent_name]
 
-            ChatMessage.create(chat_id: chat_id, user_name: agent_name, sender: "agent", message_type: "in_chat",
-                               seen_by_agent: true, seen_by_visitor: false, sent: DateTime.now, message: message)
+            ChatMessage.create(chat_id: chat_id, user_name: agent_name, sender: "agent", seen_by_agent: true,
+                               seen_by_visitor: false, sent: DateTime.now, message: message)
 
             response = { 'success' => 'true' }
 
