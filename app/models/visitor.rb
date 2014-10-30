@@ -52,18 +52,31 @@ class Visitor < ActiveRecord::Base
     referrer_search = session['current_session']['referrer_info']['search']
     #referrer_query = session['current_session']['referrer_info']['query']
 
+    # IP Info
+
     ip_address = session['location']['ip']
     latitude = session['location']['latitude']
     longitude = session['location']['longitude']
     country_code = session['location']['country_code']
-    country_name = session['location']['country_name']
-    city = session['location']['city']
-    region_code = session['location']['region_code']
-    region_name = session['location']['region_name']
-    zipcode = session['location']['zipcode']
-    area_code = session['location']['area_code']
-    metro_code = session['location']['metro_code']
+    
+    country_name = ''
+    if session['location_provider'] == 'Telize'
+      country_name = session['location']['country_name']
+    elsif session['location_provider'] == 'FreeGeoIP'
+      country_name = session['location']['country_name']
+    end
 
+    area_code = session['location']['area_code']
+    
+    city, region_name, region_name, zipcode, metro_code = "", "", "", "", ""
+    if session['location_provider'] == 'FreeGeoIP'
+      city = session['location']['city']
+      region_code = session['location']['region_code']
+      region_name = session['location']['region_name']
+      zipcode = session['location']['zipcode']
+      metro_code = session['location']['metro_code']
+    end
+    
     search_engine = session['current_session']['search']['engine']
     search_query = session['current_session']['search']['query']
 
