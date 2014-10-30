@@ -18,12 +18,12 @@
             <div id="current-chat-container">
               <%= image_tag "select2-spinner.gif" %>
             </div>
-            
+
             <p class="people-header">Waiting to Chat</p>
             <div id="waiting-to-chat-container">
               <%= image_tag "select2-spinner.gif" %>
             </div>
-                    
+
             <p class="people-header">Visitors</p>
             <div id="visitor-container">
               <%= image_tag "select2-spinner.gif" %>
@@ -33,15 +33,30 @@
       </div>
     </div>
   </div>
-  
+
   <div class="col-sm-8">
+    <div id="no-active-chat" class-"no-chats">
+      <div class="jarviswidget" id="your-chats" data-widget-editbutton="false" data-widget-fullscreenbutton="false">
 
-    <div class="tab-content">
-  		<div class="tab-pane active" id="hr1">
+        <header role="heading">
+          <span class="widget-icon"> <i class="fa fa-comments"></i> </span>
+          <h2> No Active Chats </h2>
+        </header>
 
-  			<div class="tabbable tabs-below">
-  				<div class="tab-content">
-  					<div class="tab-pane active" id="AA">
+        <div role="content">
+          <div class="widget-body widget-hide-overflow">
+            <h4>No Active Chats</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="active-chat-tabs" style="display: none;">
+      <div class="tab-pane active" id="hr1">
+
+        <div class="tabbable tabs-below">
+          <div class="tab-content">
+            <div class="tab-pane active" id="AA">
               <div class="jarviswidget" id="your-chats" data-widget-editbutton="false" data-widget-fullscreenbutton="false">
 
                 <header role="heading">
@@ -53,11 +68,7 @@
 
                 <div role="content">
                   <div class="widget-body widget-hide-overflow">
-
                     <div class="col-sm-6">
-                      <div id="no-active-chat" style="display: none;">
-                        <h4>No Active Chats</h4>
-                      </div>
 
                       <div id="active-chat-tabs">
                         <%= render 'chat' %>
@@ -72,8 +83,8 @@
                   </div>
                 </div>
               </div>
-  					</div>
-  					<div class="tab-pane" id="BB">
+            </div>
+            <div class="tab-pane" id="BB">
                <div class="jarviswidget" id="your-chats" data-widget-editbutton="false" data-widget-fullscreenbutton="false">
 
                  <header role="heading">
@@ -110,19 +121,19 @@
                    </div>
                  </div>
                </div>
-  					</div>
-  				</div>
-  				<ul class="nav nav-tabs">
-  					<li class="active">
-  						<a data-toggle="tab" href="#AA">Bob Jones</a>
-  					</li>
-  					<li class="">
-  						<a data-toggle="tab" href="#BB">Jennifer Brown</a>
-  					</li>
-  				</ul>
-  			</div>
-  		</div>
-  	</div>
+             </div>
+          </div>
+          <ul class="nav nav-tabs">
+            <li class="active">
+              <a data-toggle="tab" href="#AA">Bob Jones</a>
+            </li>
+            <li class="">
+              <a data-toggle="tab" href="#BB">Jennifer Brown</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -142,7 +153,7 @@
 		</div>
 
 		<div class="widget-body no-padding">
-      
+
       <div class="row">
           <div class="col-sm-3 col-md-3">
             <p>Visitor Filter</p>
@@ -343,20 +354,20 @@
   };
 
   function updateVisitors () {
-          
+
     $.getJSON("/visitors.json", function (results) {
 
       var in_chat = 0;
       var waiting_to_chat = 0;
       var visitors = 0;
- 
+
       $.each(results, function(i, visitor) {
         console.log(visitor);
-        
+
         if ($("#visitor-" + visitor.id).length === 0) {
           $("#visitor-" + visitor.id).remove();
         }
-        
+
         if (visitor.status == 'in_chat') {
           if (in_chat === 0) {
             $('#current-chat-container').html('');
@@ -368,6 +379,10 @@
           $('#current-chat-container').append('<br /><span class="visitor-detail">Chatting for ' + visitor.time_in_chat + '</span>');
           $('#current-chat-container').append("</div>");
           in_chat++;
+
+          $('#view_visitor_' + visitor.id).click(function() {
+            viewVisitor($(this).data("visitor-id"));
+          });
         }
         else if (visitor.status == 'waiting_to_chat') {
           if (waiting_to_chat === 0) {
@@ -379,9 +394,13 @@
           $('#waiting-to-chat-container').append('<a href="javascript:void();" id="accept_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs"><i class="fa fa-comments-o"></i> Accept</a>')
           $('#waiting-to-chat-container').append('<br /><span class="visitor-detail">Waiting for ' + visitor.time_waiting_to_chat + '</span>');
           $('#waiting-to-chat-container').append("</div>");
-          
+
+          $('#accept_chat_' + visitor.id).click(function() {
+            startChat($(this).data("visitor-id"));
+          });
+
           waiting_to_chat++;
-        } 
+        }
         else if (visitor.status == 'no_chat') {
           if (visitors === 0) {
             $('#visitor-container').html('');
@@ -391,10 +410,10 @@
           $('#visitor-container').append(visitor.region_name + ', ' + visitor.country_name + '&nbsp;');
           $('#visitor-container').append('<a href="javascript:void();" id="invite_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs"><i class="fa fa-external-link"></i> Invite</a>');
           $('#visitor-container').append('<br /><span class="visitor-detail">' + visitor.current_page + '</span>');
-          $('#visitor-container').append("</div>");          
+          $('#visitor-container').append("</div>");
           visitors++;
         }
-        
+
         /*
         var row_bg_color = '#ffffff';
         if (visitor.status == 'waiting_to_chat') {
@@ -457,14 +476,14 @@
         }
       });
       */
-      
+
       if (in_chat === 0) {
         $('#current-chat-container').html("<p>No current chats</p>");
       }
       if (waiting_to_chat === 0) {
         $('#waiting-to-chat-container').html("<p>No one waiting</p>");
       }
-      
+
       if (visitors === 0) {
         $('#visitor-container').html("<p>No visitors</p>");
       }
