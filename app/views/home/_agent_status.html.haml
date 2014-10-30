@@ -20,8 +20,8 @@
     %a{:href => "javascript:void(0);", :data => {:status => 'signoff'}}
       %i.fa.fa-power-off
       Sign Off
-      
-      
+
+
 :javascript
   $(document).ready(function() {
 
@@ -44,10 +44,12 @@
       if (status === 'online') {
         $('#agent-status').removeClass('btn-danger');
         $('#agent-status').addClass('btn-success');
+        $('#agent-status').html('Online <i class="fa fa-caret-down"></i>');
         update_agent_availability('online');
       } else if (status === 'offline') {
         $('#agent-status').removeClass('btn-success');
         $('#agent-status').addClass('btn-danger');
+        $('#agent-status').html('Offline <i class="fa fa-caret-down"></i>');
         update_agent_availability('offline');
       } else if (status === 'signoff') {
         alert("Are you sure?");
