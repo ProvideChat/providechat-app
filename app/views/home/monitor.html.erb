@@ -54,82 +54,12 @@
     <div class="tab-content" id="active-chat-tabs" style="display: none;">
       <div class="tab-pane active" id="hr1">
 
-        <div class="tabbable tabs-below">
+        <div class="tabbable tabs-below" id="tabs">
           <div class="tab-content">
-            <div class="tab-pane active" id="AA">
-              <div class="jarviswidget" id="your-chats" data-widget-editbutton="false" data-widget-fullscreenbutton="false">
 
-                <header role="heading">
-                  <span class="widget-icon"> <i class="fa fa-comments"></i> </span>
-                  <h2> Bob Jones </h2>
-                  <div class="widget-toolbar">
-                  </div>
-                </header>
-
-                <div role="content">
-                  <div class="widget-body widget-hide-overflow">
-                    <div class="col-sm-6">
-
-                      <div id="active-chat-tabs">
-                        <%= render 'chat' %>
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <div id="visitorInfo" style="height: 405px; overflow: auto;" align="left">
-                        <p><b class="maintext">Visitor Information</b></p>
-                        <p>No Visitor currently selected</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="tab-pane" id="BB">
-               <div class="jarviswidget" id="your-chats" data-widget-editbutton="false" data-widget-fullscreenbutton="false">
-
-                 <header role="heading">
-                   <span class="widget-icon"> <i class="fa fa-comments"></i> </span>
-                   <h2> Jennifer Brown</h2>
-                   <div class="widget-toolbar">
-                   </div>
-                 </header>
-
-                 <div role="content">
-                   <div class="widget-body widget-hide-overflow">
-
-                     <div class="col-sm-6">
-                       <div id="no-active-chat">
-                         <h4>No Active Chats</h4>
-                       </div>
-
-                       <div id="active-chat-tabs" style="display: none;">
-
-                         <div class="tabbable tabs-below" id="tabs">
-                           <div class="tab-content padding-10">
-                           </div>
-                           <ul class="nav nav-tabs">
-                           </ul>
-                         </div>
-                       </div>
-                     </div>
-                     <div class="col-sm-6">
-                       <div id="visitorInfo" style="height: 405px; overflow: auto;" align="left">
-                         <p><b class="maintext">Visitor Information</b></p>
-                         <p>No Visitor currently selected</p>
-                       </div>
-                     </div>
-                   </div>
-                 </div>
-               </div>
-             </div>
           </div>
           <ul class="nav nav-tabs">
-            <li class="active">
-              <a data-toggle="tab" href="#AA">Bob Jones</a>
-            </li>
-            <li class="">
-              <a data-toggle="tab" href="#BB">Jennifer Brown</a>
-            </li>
+
           </ul>
         </div>
       </div>
@@ -138,6 +68,7 @@
 </div>
 
 <br>
+
 <div class="jarviswidget jarviswidget-color-blueDark" id="chat-monitor" role="widget">
 	<header role="heading">
     <div class="jarviswidget-ctrls" role="menu">
@@ -242,7 +173,7 @@
 
                 <div id="active-chat-tabs" style="display: none;">
 
-                  <div class="tabbable tabs-below" id="tabs">
+                  <div class="tabbable tabs-below">
                     <div class="tab-content padding-10">
                     </div>
                     <ul class="nav nav-tabs">
@@ -375,13 +306,13 @@
           $('#current-chat-container').append("<div id='visitor-" + visitor.id + "'>");
           $('#current-chat-container').append('<%= image_tag "monitor/person-green.png", class: "visitor-image" %>');
           $('#current-chat-container').append(visitor.name + '&nbsp;');
-          $('#current-chat-container').append('<a href="javascript:void();" id="view_visitor_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs"><i class="fa fa-user"></i> View</a>');
+          $('#current-chat-container').append('<a href="javascript:void(0);" id="view_visitor_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs"><i class="fa fa-user"></i> View</a>');
           $('#current-chat-container').append('<br /><span class="visitor-detail">Chatting for ' + visitor.time_in_chat + '</span>');
           $('#current-chat-container').append("</div>");
           in_chat++;
 
           $('#view_visitor_' + visitor.id).click(function() {
-            viewVisitor($(this).data("visitor-id"));
+            startChat($(this).data("visitor-id"));
           });
         }
         else if (visitor.status == 'waiting_to_chat') {
@@ -391,7 +322,7 @@
           $('#waiting-to-chat-container').append("<div id='visitor-" + visitor.id + "'>");
           $('#waiting-to-chat-container').append('<%= image_tag "monitor/person-yellow.png", class: "visitor-image" %>');
           $('#waiting-to-chat-container').append(visitor.name + '&nbsp;');
-          $('#waiting-to-chat-container').append('<a href="javascript:void();" id="accept_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs"><i class="fa fa-comments-o"></i> Accept</a>')
+          $('#waiting-to-chat-container').append('<a href="javascript:void(0);" id="accept_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs"><i class="fa fa-comments-o"></i> Accept</a>')
           $('#waiting-to-chat-container').append('<br /><span class="visitor-detail">Waiting for ' + visitor.time_waiting_to_chat + '</span>');
           $('#waiting-to-chat-container').append("</div>");
 
@@ -408,7 +339,7 @@
           $('#visitor-container').append("<div id='visitor-" + visitor.id + "'>");
           $('#visitor-container').append('<%= image_tag "monitor/person-grey.png", class: "visitor-image" %>');
           $('#visitor-container').append(visitor.region_name + ', ' + visitor.country_name + '&nbsp;');
-          $('#visitor-container').append('<a href="javascript:void();" id="invite_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs"><i class="fa fa-external-link"></i> Invite</a>');
+          $('#visitor-container').append('<a href="javascript:void(0);" id="invite_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs"><i class="fa fa-external-link"></i> Invite</a>');
           $('#visitor-container').append('<br /><span class="visitor-detail">' + visitor.current_page + '</span>');
           $('#visitor-container').append("</div>");
           visitors++;

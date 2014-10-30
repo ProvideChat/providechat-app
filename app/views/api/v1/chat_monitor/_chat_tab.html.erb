@@ -1,23 +1,49 @@
-<div id="chat-body-<%= chat_id %>" class="chat-body custom-scroll" data-chat-id="<%= chat_id %>">
-	<ul id="chat-messages-<%= chat_id %>" data-chat-id="<%= chat_id %>">
+<div class="jarviswidget" data-widget-editbutton="false" data-widget-fullscreenbutton="false">
 
-	</ul>
+  <header role="heading">
+    <span class="widget-icon"> <i class="fa fa-comments"></i> </span>
+    <h2><%= visitor_name %> </h2>
+    <div class="widget-toolbar">
+    </div>
+  </header>
+
+  <div role="content">
+    <div class="widget-body widget-hide-overflow">
+      <div class="col-sm-6">
+        <div id="chat-body-<%= chat_id %>" class="chat-body custom-scroll" data-chat-id="<%= chat_id %>">
+        	<ul id="chat-messages-<%= chat_id %>" data-chat-id="<%= chat_id %>">
+
+        	</ul>
+        </div>
+
+        <div class="chat-footer">
+        	<div class="textarea-div">
+        		<div class="typearea">
+        			<textarea placeholder="Write a reply..." id="chat-message-content-<%= chat_id %>" class="custom-scroll" data-chat-id="<%= chat_id %>"></textarea>
+        		</div>
+        	</div>
+
+        	<span class="textarea-controls">
+        		<button class="btn btn-sm btn-primary pull-right" id="send-message-<%= chat_id %>" data-chat-id="<%= chat_id %>">
+        			Send Message
+        		</button>
+            <span class="pull-right smart-form" style="margin-top: 3px; margin-right: 10px;"> <label class="checkbox pull-right">
+        		<input type="checkbox" name="subscription" id="subscription">
+        		<i></i>Press <strong> ENTER </strong> to send </label> </span> <a href="javascript:void(0);" class="pull-left"></a>
+          </span>
+
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div id="visitor-info-<%= visitor_id %>" style="height: 405px; overflow: auto;" align="left">
+          <p><b class="maintext">Visitor Information</b></p>
+          <p>No Visitor currently selected</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="chat-footer">
-	<div class="textarea-div">
-		<div class="typearea">
-			<textarea placeholder="Write a reply..." id="chat-message-content-<%= chat_id %>" class="custom-scroll" data-chat-id="<%= chat_id %>"></textarea>
-		</div>
-	</div>
 
-	<span class="textarea-controls">
-		<button class="btn btn-sm btn-primary pull-right" id="send-message-<%= chat_id %>" data-chat-id="<%= chat_id %>">
-			Send Message
-		</button>
-    <span class="pull-right smart-form" style="margin-top: 3px; margin-right: 10px;"> <label class="checkbox pull-right">
-		<input type="checkbox" name="subscription" id="subscription">
-		<i></i>Press <strong> ENTER </strong> to send </label> </span> <a href="javascript:void(0);" class="pull-left"></a>
-  </span>
 
-</div>
+

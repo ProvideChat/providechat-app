@@ -73,7 +73,7 @@ module Api
               'visitor_id' => visitor_id,
               'visitor_name' => visitor_name,
               'chat_status' => chat_status,
-              'html' => render_to_string(partial: 'chat_tab.html.erb', :layout => false, :locals => { :chat_id => chat_id })
+              'html' => render_to_string(partial: 'chat_tab.html.erb', :layout => false, :locals => { :chat_id => chat_id, :visitor_name => visitor_name, :visitor_id => visitor_id })
             }
 
           when "get_chat_messages"
