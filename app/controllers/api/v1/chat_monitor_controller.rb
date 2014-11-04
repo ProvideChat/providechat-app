@@ -121,6 +121,14 @@ module Api
 
             response = { 'success' => 'true' }
 
+          when "end_chat"
+            chat_id = params[:chat_id]
+
+            chat = Chat.find(chat_id)
+            chat.status = 'agent_ended'
+            chat.save
+            
+            response = { 'success' => 'true' }            
           else
             response = { 'success' => 'false' }
           end
