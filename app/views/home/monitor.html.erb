@@ -421,7 +421,14 @@
     $.getJSON("/api/chat_monitor.json", json_data, function (response) {
       if (response.chat_id > 0) {
         ProvideChat.activeChatId = response.chat_id;
-        add_new_tab (response.chat_id, response.visitor_id, response.visitor_name, 'inProgress');
+        
+        if ($("#chat_tab_" + response.chat_id).length === 0) {
+          console.log("test 1");
+          add_new_tab (response.chat_id, response.visitor_id, response.visitor_name, 'inProgress');
+        } else {
+          console.log("test 2");
+          $("#chat_tab_" + response.chat_id).tab('show');
+        }
       }
     });
   }
@@ -440,7 +447,7 @@
       console.log(tabId);
       console.log(response.visitor_name);
       $('.tab-content').append('<div class="tab-pane" id="' + tabId + '">' + response.html + '</div>');
-      $('.nav-tabs').append('<li><a data-toggle="tab" href="#chat_' + id + '">' + response.visitor_name + '</a></li>');
+      $('.nav-tabs').append('<li><a data-toggle="tab" id="chat_tab_' + chat_id + '" href="#chat_' + id + '">' + response.visitor_name + '</a></li>');
 
       // add this
       $('.nav-tabs li:nth-child(' + id + ') a').click();
@@ -722,7 +729,11 @@
   }
 
 
-  function endActiveChat(chatId) {
+  function end_chat(chat_id) {
+
+    var json_data = { "method": 'end_chat', "chat_id": chat_id };
+
+    $.getJSON("/api/chat_monitor.json", json_data, function (response) {
 
     $.ajax({
       type: "POST",
