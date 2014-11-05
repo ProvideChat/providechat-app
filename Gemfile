@@ -18,7 +18,7 @@ gem 'jquery-ui-rails'
 gem 'json'
 gem 'lograge'
 gem 'pg'
-gem 'mini_magick'
+gem 'mini_magick', '~> 4.0.0.rc'
 gem 'sass-rails'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'sidekiq'
