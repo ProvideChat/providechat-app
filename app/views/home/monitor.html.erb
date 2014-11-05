@@ -734,12 +734,6 @@
     var json_data = { "method": 'end_chat', "chat_id": chat_id };
 
     $.getJSON("/api/chat_monitor.json", json_data, function (response) {
-
-    $.ajax({
-      type: "POST",
-      dataType: "json",
-      url: "process-chat.php",
-      data: "action=end&chatId=" + chatId
     });
 
     //endChatOff();
