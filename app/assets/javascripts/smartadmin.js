@@ -1,17 +1,18 @@
-/*         ______________________________________
-  ________|                                      |_______
-  \       |           SmartAdmin WebApp          |      /
-   \      |      Copyright © 2014 MyOrange       |     /
-   /      |______________________________________|     \
-  /__________)                                (_________\
+/*                  ______________________________________
+           ________|                                      |_______
+           \       |           SmartAdmin WebApp          |      /
+            \      |      Copyright © 2015 MyOrange       |     /
+            /      |______________________________________|     \
+           /__________)                                (_________\
 
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
  * =======================================================================
  * SmartAdmin is FULLY owned and LICENSED by MYORANGE INC.
  * This script may NOT be RESOLD or REDISTRUBUTED under any
- * circumstances, and is only to be used with this purchased
- * copy of SmartAdmin Template.
+ * circumstances (this extends the use of public repositories, which is
+ * absolutely NOT ALLOWED under any circumstances), and is only to be used 
+ * with this purchased copy of SmartAdmin Template
  * =======================================================================
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
@@ -20,13 +21,16 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * =======================================================================
- * original filename: app.js
- * filesize: 50,499 bytes
- * author: Sunny (@bootstraphunt)
- * email: info@myorange.ca
+ * original filename  : app.js
+ * filesize           : 62,499~ bytes
+ * author             : Sunny (@bootstraphunt)
+ * email              : info@myorange.ca
+ * legal notice       : This script is part of a theme sold by
+ *                      https://wrapbootstrap.com/?ref=myorange 
+ *    
  * =======================================================================
- * INDEX:
- *
+ * INDEX (Note: line numbers for index items may not be up to date):
+ * 
  * 1. APP CONFIGURATION..................................[ app.config.js ]
  * 2. APP DOM REFERENCES.................................[ app.config.js ]
  * 3. DETECT MOBILE DEVICES...................................[line: 149 ]
@@ -60,17 +64,16 @@
  * 11.UPDATE BREADCRUMB.......................................[line: 1775]
  * 12.PAGE SETUP..............................................[line: 1798]
  * 13.POP OVER THEORY.........................................[line: 1852]
- *
+ * 14.DELETE MODEL DATA ON HIDDEN.............................[line: 1991]
+ * 15.HELPFUL FUNCTIONS.......................................[line: 2027]
+ * 
  * =======================================================================
- *         IMPORTANT: ALL CONFIG VARS WERE MOVED TO APP.CONFIG.JS
+ *       IMPORTANT: ALL CONFIG VARS IS NOW MOVED TO APP.CONFIG.JS
  * =======================================================================
- *
- *
- * GLOBAL: Reference DOM
- */
-	$.root_ = $('body');
-/*
- * GLOBAL: interval array (to be used with jarviswidget in ajax and angular mode) to clear auto fetch interval
+ * 
+ * 
+ * GLOBAL: interval array (to be used with jarviswidget in ajax and 
+ * angular mode) to clear auto fetch interval
  */
 	$.intervalArr = [];
 /*
@@ -78,26 +81,26 @@
  */
 var calc_navbar_height = function() {
 		var height = null;
-
+	
 		if ($('#header').length)
 			height = $('#header').height();
-
+	
 		if (height === null)
 			height = $('<div id="header"></div>').height();
-
+	
 		if (height === null)
 			return 49;
 		// default
 		return height;
 	},
-
-	navbar_height = calc_navbar_height,
+	
+	navbar_height = calc_navbar_height, 
 /*
  * APP DOM REFERENCES
  * Description: Obj DOM reference, please try to avoid changing these
- */
+ */	
 	shortcut_dropdown = $('#shortcut'),
-
+	
 	bread_crumb = $('#ribbon ol.breadcrumb'),
 /*
  * Top menu on/off
@@ -109,59 +112,59 @@ var calc_navbar_height = function() {
 	thisDevice = null,
 /*
  * DETECT MOBILE DEVICES
- * Description: Detects mobile device - if any of the listed device is detected
- * a class is inserted to $.root_ and the variable thisDevice is decleard.
- * (so far this is covering most hand held devices)
- */
+ * Description: Detects mobile device - if any of the listed device is 
+ * detected a class is inserted to $.root_ and the variable thisDevice 
+ * is decleard. (so far this is covering most hand held devices)
+ */	
 	ismobile = (/iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase())),
 /*
  * JS ARRAY SCRIPT STORAGE
  * Description: used with loadScript to store script path and file name
  * so it will not load twice
- */
+ */	
 	jsArray = {},
 /*
  * App Initialize
  * Description: Initializes the app with intApp();
- */
+ */	
 	initApp = (function(app) {
-
+		
 		/*
 		 * ADD DEVICE TYPE
 		 * Detect if mobile or desktop
-		 */
+		 */		
 		app.addDeviceType = function() {
-
+			
 			if (!ismobile) {
 				// Desktop
 				$.root_.addClass("desktop-detected");
 				thisDevice = "desktop";
-				return false;
+				return false; 
 			} else {
 				// Mobile
 				$.root_.addClass("mobile-detected");
 				thisDevice = "mobile";
-
+				
 				if (fastClick) {
 					// Removes the tap delay in idevices
-					// dependency: js/plugin/fastclick/fastclick.js
+					// dependency: js/plugin/fastclick/fastclick.js 
 					$.root_.addClass("needsclick");
-					FastClick.attach(document.body);
-					return false;
+					FastClick.attach(document.body); 
+					return false; 
 				}
-
+				
 			}
-
+			
 		};
 		/* ~ END: ADD DEVICE TYPE */
-
+		
 		/*
 		 * CHECK FOR MENU POSITION
 		 * Scans localstroage for menu position (vertical or horizontal)
 		 */
 		app.menuPos = function() {
-
-		 	if ($.root_.hasClass("menu-on-top") || localStorage.getItem('sm-setmenu')=='top' ) {
+			
+		 	if ($.root_.hasClass("menu-on-top") || localStorage.getItem('sm-setmenu')=='top' ) { 
 		 		topmenu = true;
 		 		$.root_.addClass("menu-on-top");
 		 	}
@@ -172,18 +175,18 @@ var calc_navbar_height = function() {
 		 * SMART ACTIONS
 		 */
 		app.SmartActions = function(){
-
+				
 			var smartActions = {
-
-			    // LOGOUT MSG
+			    
+			    // LOGOUT MSG 
 			    userLogout: function($this){
-
+			
 					// ask verification
 					$.SmartMessageBox({
 						title : "<i class='fa fa-sign-out txt-color-orangeDark'></i> Logout <span class='txt-color-orangeDark'><strong>" + $('#show-shortcut').text() + "</strong></span> ?",
 						content : $this.data('logout-msg') || "You can improve your security further after logging out by closing this opened browser",
 						buttons : '[No][Yes]'
-
+			
 					}, function(ButtonPressed) {
 						if (ButtonPressed == "Yes") {
 							$.root_.addClass('animated fadeOutUp');
@@ -193,33 +196,32 @@ var calc_navbar_height = function() {
 					function logout() {
 						window.location = $this.attr('href');
 					}
-
+			
 				},
-
+		
 				// RESET WIDGETS
 			    resetWidgets: function($this){
-					$.widresetMSG = $this.data('reset-msg');
-
+					
 					$.SmartMessageBox({
 						title : "<i class='fa fa-refresh' style='color:green'></i> Clear Local Storage",
-						content : $.widresetMSG || "Would you like to RESET all your saved widgets and clear LocalStorage?",
+						content : $this.data('reset-msg') || "Would you like to RESET all your saved widgets and clear LocalStorage?1",
 						buttons : '[No][Yes]'
 					}, function(ButtonPressed) {
 						if (ButtonPressed == "Yes" && localStorage) {
 							localStorage.clear();
 							location.reload();
 						}
-
+			
 					});
 			    },
-
-			    // LAUNCH FULLSCREEN
+			    
+			    // LAUNCH FULLSCREEN 
 			    launchFullscreen: function(element){
-
+			
 					if (!$.root_.hasClass("full-screen")) {
-
+				
 						$.root_.addClass("full-screen");
-
+				
 						if (element.requestFullscreen) {
 							element.requestFullscreen();
 						} else if (element.mozRequestFullScreen) {
@@ -229,11 +231,11 @@ var calc_navbar_height = function() {
 						} else if (element.msRequestFullscreen) {
 							element.msRequestFullscreen();
 						}
-
+				
 					} else {
-
+						
 						$.root_.removeClass("full-screen");
-
+						
 						if (document.exitFullscreen) {
 							document.exitFullscreen();
 						} else if (document.mozCancelFullScreen) {
@@ -241,11 +243,11 @@ var calc_navbar_height = function() {
 						} else if (document.webkitExitFullscreen) {
 							document.webkitExitFullscreen();
 						}
-
+				
 					}
-
+			
 			   },
-
+			
 			   // MINIFY MENU
 			    minifyMenu: function($this){
 			    	if (!$.root_.hasClass("menu-on-top")){
@@ -255,53 +257,55 @@ var calc_navbar_height = function() {
 						$this.effect("highlight", {}, 500);
 					}
 			    },
-
-			    // TOGGLE MENU
+			    
+			    // TOGGLE MENU 
 			    toggleMenu: function(){
 			    	if (!$.root_.hasClass("menu-on-top")){
 						$('html').toggleClass("hidden-menu-mobile-lock");
 						$.root_.toggleClass("hidden-menu");
 						$.root_.removeClass("minified");
-			    	} else if ( $.root_.hasClass("menu-on-top") && $.root_.hasClass("mobile-view-activated") ) {
+			    	//} else if ( $.root_.hasClass("menu-on-top") && $.root_.hasClass("mobile-view-activated") ) {
+			    	// suggested fix from Christian Jäger	
+			    	} else if ( $.root_.hasClass("menu-on-top") && $(window).width() < 979 ) {	
 			    		$('html').toggleClass("hidden-menu-mobile-lock");
 						$.root_.toggleClass("hidden-menu");
 						$.root_.removeClass("minified");
 			    	}
-			    },
-
-			    // TOGGLE SHORTCUT
+			    },     
+			
+			    // TOGGLE SHORTCUT 
 			    toggleShortcut: function(){
-
+			    	
 					if (shortcut_dropdown.is(":visible")) {
 						shortcut_buttons_hide();
 					} else {
 						shortcut_buttons_show();
 					}
-
+		
 					// SHORT CUT (buttons that appear when clicked on user name)
 					shortcut_dropdown.find('a').click(function(e) {
 						e.preventDefault();
 						window.location = $(this).attr('href');
 						setTimeout(shortcut_buttons_hide, 300);
-
+				
 					});
-
+				
 					// SHORTCUT buttons goes away if mouse is clicked outside of the area
 					$(document).mouseup(function(e) {
 						if (!shortcut_dropdown.is(e.target) && shortcut_dropdown.has(e.target).length === 0) {
 							shortcut_buttons_hide();
 						}
 					});
-
+					
 					// SHORTCUT ANIMATE HIDE
 					function shortcut_buttons_hide() {
 						shortcut_dropdown.animate({
 							height : "hide"
 						}, 300, "easeOutCirc");
 						$.root_.removeClass('shortcut-on');
-
+				
 					}
-
+				
 					// SHORTCUT ANIMATE SHOW
 					function shortcut_buttons_show() {
 						shortcut_dropdown.animate({
@@ -309,72 +313,72 @@ var calc_navbar_height = function() {
 						}, 200, "easeOutCirc");
 						$.root_.addClass('shortcut-on');
 					}
-
-			    }
-
+			
+			    }  
+			   
 			};
-
+				
 			$.root_.on('click', '[data-action="userLogout"]', function(e) {
 				var $this = $(this);
 				smartActions.userLogout($this);
 				e.preventDefault();
-
+				
 				//clear memory reference
 				$this = null;
-
-			});
+				
+			}); 
 
 			/*
-			 * BUTTON ACTIONS
-			 */
-			$.root_.on('click', '[data-action="resetWidgets"]', function(e) {
+			 * BUTTON ACTIONS 
+			 */		
+			$.root_.on('click', '[data-action="resetWidgets"]', function(e) {	
 				var $this = $(this);
 				smartActions.resetWidgets($this);
 				e.preventDefault();
-
+				
 				//clear memory reference
 				$this = null;
 			});
-
-			$.root_.on('click', '[data-action="launchFullscreen"]', function(e) {
+			
+			$.root_.on('click', '[data-action="launchFullscreen"]', function(e) {	
 				smartActions.launchFullscreen(document.documentElement);
 				e.preventDefault();
-			});
-
+			}); 
+			
 			$.root_.on('click', '[data-action="minifyMenu"]', function(e) {
 				var $this = $(this);
 				smartActions.minifyMenu($this);
 				e.preventDefault();
-
+				
 				//clear memory reference
 				$this = null;
-			});
-
-			$.root_.on('click', '[data-action="toggleMenu"]', function(e) {
+			}); 
+			
+			$.root_.on('click', '[data-action="toggleMenu"]', function(e) {	
 				smartActions.toggleMenu();
 				e.preventDefault();
-			});
-
-			$.root_.on('click', '[data-action="toggleShortcut"]', function(e) {
+			});  
+		
+			$.root_.on('click', '[data-action="toggleShortcut"]', function(e) {	
 				smartActions.toggleShortcut();
 				e.preventDefault();
-			});
-
+			}); 
+					
 		};
 		/* ~ END: SMART ACTIONS */
-
+		
 		/*
 		 * ACTIVATE NAVIGATION
 		 * Description: Activation will fail if top navigation is on
 		 */
 		app.leftNav = function(){
-
+			
 			// INITIALIZE LEFT NAV
 			if (!topmenu) {
 				if (!null) {
 					$('nav ul').jarvismenu({
-						accordion : true,
-						speed : menu_speed,
+						accordion : menu_accordion || true,
+						speed : menu_speed || true,
 						closedSign : '<em class="fa fa-plus-square-o"></em>',
 						openedSign : '<em class="fa fa-minus-square-o"></em>'
 					});
@@ -382,43 +386,42 @@ var calc_navbar_height = function() {
 					alert("Error - menu anchor does not exist");
 				}
 			}
-
+			
 		};
 		/* ~ END: ACTIVATE NAVIGATION */
-
+		
 		/*
 		 * MISCELANEOUS DOM READY FUNCTIONS
 		 * Description: fire with jQuery(document).ready...
 		 */
 		app.domReadyMisc = function() {
-
+			
 			/*
 			 * FIRE TOOLTIPS
 			 */
 			if ($("[rel=tooltip]").length) {
 				$("[rel=tooltip]").tooltip();
 			}
-
+		
 			// SHOW & HIDE MOBILE SEARCH FIELD
 			$('#search-mobile').click(function() {
 				$.root_.addClass('search-mobile');
 			});
-
+		
 			$('#cancel-search-js').click(function() {
 				$.root_.removeClass('search-mobile');
 			});
-
+		
 			// ACTIVITY
 			// ajax drop
 			$('#activity').click(function(e) {
 				var $this = $(this);
-
+		
 				if ($this.find('.badge').hasClass('bg-color-red')) {
 					$this.find('.badge').removeClassPrefix('bg-color-');
 					$this.find('.badge').text("0");
-					// console.log("Ajax call for activity")
 				}
-
+		
 				if (!$this.next('.ajax-dropdown').is(':visible')) {
 					$this.next('.ajax-dropdown').fadeIn(150);
 					$this.addClass('active');
@@ -426,30 +429,28 @@ var calc_navbar_height = function() {
 					$this.next('.ajax-dropdown').fadeOut(150);
 					$this.removeClass('active');
 				}
-
-				var mytest = $this.next('.ajax-dropdown').find('.btn-group > .active > input').attr('id');
-				//console.log(mytest)
-
+		
+				var theUrlVal = $this.next('.ajax-dropdown').find('.btn-group > .active > input').attr('id');
+				
 				//clear memory reference
 				$this = null;
-				mytest = null;
-
+				theUrlVal = null;
+						
 				e.preventDefault();
 			});
-
+		
 			$('input[name="activity"]').change(function() {
-				//alert($(this).val())
 				var $this = $(this);
-
+		
 				url = $this.attr('id');
 				container = $('.ajax-notifications');
-
+				
 				loadURL(url, container);
-
+				
 				//clear memory reference
-				$this = null;
+				$this = null;		
 			});
-
+		
 			// close dropdown if mouse is not inside the area of .ajax-dropdown
 			$(document).mouseup(function(e) {
 				if (!$('.ajax-dropdown').is(e.target) && $('.ajax-dropdown').has(e.target).length === 0) {
@@ -457,7 +458,7 @@ var calc_navbar_height = function() {
 					$('.ajax-dropdown').prev().removeClass("active");
 				}
 			});
-
+			
 			// loading animation (demo purpose only)
 			$('button[data-btn-loading]').on('click', function() {
 				var btn = $(this);
@@ -465,29 +466,46 @@ var calc_navbar_height = function() {
 				setTimeout(function() {
 					btn.button('reset');
 				}, 3000);
-
-				//clear memory reference
-				$this = null;
 			});
-
+		
 			// NOTIFICATION IS PRESENT
 			// Change color of lable once notification button is clicked
 
 			$this = $('#activity > .badge');
-
+	
 			if (parseInt($this.text()) > 0) {
 				$this.addClass("bg-color-red bounceIn animated");
-
+				
 				//clear memory reference
 				$this = null;
 			}
 
-
+			
 		};
+		/* ~ END: MISCELANEOUS DOM */
+	
+		/*
+		 * MISCELANEOUS DOM READY FUNCTIONS
+		 * Description: fire with jQuery(document).ready...
+		 */
+		app.mobileCheckActivation = function(){
+			
+			if ($(window).width() < 979) {
+				$.root_.addClass('mobile-view-activated');
+				$.root_.removeClass('minified');
+			} else if ($.root_.hasClass('mobile-view-activated')) {
+				$.root_.removeClass('mobile-view-activated');
+			}
+
+			if (debugState){
+				console.log("mobileCheckActivation");
+			}
+			
+		} 
 		/* ~ END: MISCELANEOUS DOM */
 
 		return app;
-
+		
 	})({});
 
 	initApp.addDeviceType();
@@ -497,18 +515,18 @@ var calc_navbar_height = function() {
  * Description: Fire when DOM is ready
  */
 	jQuery(document).ready(function() {
-
+		
 		initApp.SmartActions();
 		initApp.leftNav();
 		initApp.domReadyMisc();
-
+	
 	});
 /*
  * RESIZER WITH THROTTLE
  * Source: http://benalman.com/code/projects/jquery-resize/examples/resize/
  */
 	(function ($, window, undefined) {
-
+	
 	    var elems = $([]),
 	        jq_resize = $.resize = $.extend($.resize, {}),
 	        timeout_id, str_setTimeout = 'setTimeout',
@@ -516,18 +534,18 @@ var calc_navbar_height = function() {
 	        str_data = str_resize + '-special-event',
 	        str_delay = 'delay',
 	        str_throttle = 'throttleWindow';
-
+	
 	    jq_resize[str_delay] = throttle_delay;
-
+	
 	    jq_resize[str_throttle] = true;
-
+	
 	    $.event.special[str_resize] = {
-
+	
 	        setup: function () {
 	            if (!jq_resize[str_throttle] && this[str_setTimeout]) {
 	                return false;
 	            }
-
+	
 	            var elem = $(this);
 	            elems = elems.add(elem);
 	            try {
@@ -541,7 +559,7 @@ var calc_navbar_height = function() {
 	                    h: elem.height // elem.height();
 	                });
 	            }
-
+	
 	            if (elems.length === 1) {
 	                loopy();
 	            }
@@ -550,7 +568,7 @@ var calc_navbar_height = function() {
 	            if (!jq_resize[str_throttle] && this[str_setTimeout]) {
 	                return false;
 	            }
-
+	
 	            var elem = $(this);
 	            elems = elems.not(elem);
 	            elem.removeData(str_data);
@@ -558,19 +576,19 @@ var calc_navbar_height = function() {
 	                clearTimeout(timeout_id);
 	            }
 	        },
-
+	
 	        add: function (handleObj) {
 	            if (!jq_resize[str_throttle] && this[str_setTimeout]) {
 	                return false;
 	            }
 	            var old_handler;
-
+	
 	            function new_handler(e, w, h) {
 	                var elem = $(this),
 	                    data = $.data(this, str_data);
 	                data.w = w !== undefined ? w : elem.width();
 	                data.h = h !== undefined ? h : elem.height();
-
+	
 	                old_handler.apply(this, arguments);
 	            }
 	            if ($.isFunction(handleObj)) {
@@ -582,59 +600,55 @@ var calc_navbar_height = function() {
 	            }
 	        }
 	    };
-
+	
 	    function loopy() {
 	        timeout_id = window[str_setTimeout](function () {
 	            elems.each(function () {
 	                var width;
 	                var height;
-
+	
 	                var elem = $(this),
 	                    data = $.data(this, str_data); //width = elem.width(), height = elem.height();
-
+	
 	                // Highcharts fix
 	                try {
 	                    width = elem.width();
 	                } catch (e) {
 	                    width = elem.width;
 	                }
-
+	
 	                try {
 	                    height = elem.height();
 	                } catch (e) {
 	                    height = elem.height;
 	                }
 	                //fixed bug
-
-
+	
+	
 	                if (width !== data.w || height !== data.h) {
 	                    elem.trigger(str_resize, [data.w = width, data.h = height]);
 	                }
-
+	
 	            });
 	            loopy();
-
+	
 	        }, jq_resize[str_delay]);
-
+	
 	    }
-
+	
 	})(jQuery, this);
 /*
 * ADD CLASS WHEN BELOW CERTAIN WIDTH (MOBILE MENU)
-* Description: changes the page min-width of #CONTENT and NAV when navigation is resized.
+* Description: tracks the page min-width of #CONTENT and NAV when navigation is resized.
 * This is to counter bugs for minimum page width on many desktop and mobile devices.
-* Note: This script uses JSthrottle technique so don't worry about memory/CPU usage
+* Note: This script utilizes JSthrottle script so don't worry about memory/CPU usage
 */
 	$('#main').resize(function() {
-
-		if ($(window).width() < 979) {
-			$.root_.addClass('mobile-view-activated');
-			$.root_.removeClass('minified');
-		} else if ($.root_.hasClass('mobile-view-activated')) {
-			$.root_.removeClass('mobile-view-activated');
-		}
-
+		
+		initApp.mobileCheckActivation();
+		
 	});
+
 /* ~ END: NAV OR #LEFT-BAR RESIZE DETECT */
 
 /*
@@ -658,42 +672,42 @@ var calc_navbar_height = function() {
  */
 // TODO: delete this function later on - no longer needed (?)
 	var ie = ( function() {
-
+	
 		var undef, v = 3, div = document.createElement('div'), all = div.getElementsByTagName('i');
-
+	
 		while (div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->', all[0]);
-
+	
 		return v > 4 ? v : undef;
-
-	}());
+	
+	}()); 
 /* ~ END: DETECT IE VERSION */
 
 /*
  * CUSTOM MENU PLUGIN
  */
 	$.fn.extend({
-
+	
 		//pass the options variable to the function
 		jarvismenu : function(options) {
-
+	
 			var defaults = {
 				accordion : 'true',
 				speed : 200,
 				closedSign : '[+]',
 				openedSign : '[-]'
 			},
-
+	
 			// Extend our default options with those provided.
 				opts = $.extend(defaults, options),
 			//Assign current element to variable, in this case is UL element
 				$this = $(this);
-
+	
 			//add a mark [+] to a multilevel menu
 			$this.find("li").each(function() {
 				if ($(this).find("ul").size() !== 0) {
 					//add the multilevel sign next to the link
 					$(this).find("a:first").append("<b class='collapse-sign'>" + opts.closedSign + "</b>");
-
+	
 					//avoid jumping to the top of the page when the href is an #
 					if ($(this).find("a:first").attr('href') == "#") {
 						$(this).find("a:first").click(function() {
@@ -702,18 +716,18 @@ var calc_navbar_height = function() {
 					}
 				}
 			});
-
+	
 			//open active level
 			$this.find("li.active").each(function() {
 				$(this).parents("ul").slideDown(opts.speed);
 				$(this).parents("ul").parent("li").find("b:first").html(opts.openedSign);
 				$(this).parents("ul").parent("li").addClass("open");
 			});
-
+	
 			$this.find("li a").click(function() {
-
+	
 				if ($(this).parent().find("ul").size() !== 0) {
-
+	
 					if (opts.accordion) {
 						//Do nothing when the list is open
 						if (!$(this).parent().find("ul").is(':visible')) {
@@ -733,7 +747,7 @@ var calc_navbar_height = function() {
 											$(this).parent("li").find("b:first").html(opts.closedSign);
 											$(this).parent("li").removeClass("open");
 										});
-
+	
 									}
 								}
 							});
@@ -744,7 +758,7 @@ var calc_navbar_height = function() {
 							$(this).parent("li").removeClass("open");
 							$(this).parent("li").find("b:first").delay(opts.speed).html(opts.closedSign);
 						});
-
+	
 					} else {
 						$(this).parent().find("ul:first").slideDown(opts.speed, function() {
 							/*$(this).effect("highlight", {color : '#616161'}, 500); - disabled due to CPU clocking on phones*/
@@ -771,9 +785,9 @@ var calc_navbar_height = function() {
 /*
  * INITIALIZE FORMS
  * Description: Select2, Masking, Datepicker, Autocomplete
- */
+ */	
 	function runAllForms() {
-
+	
 		/*
 		 * BOOTSTRAP SLIDER PLUGIN
 		 * Usage:
@@ -782,14 +796,14 @@ var calc_navbar_height = function() {
 		if ($.fn.slider) {
 			$('.slider').slider();
 		}
-
+	
 		/*
 		 * SELECT2 PLUGIN
 		 * Usage:
 		 * Dependency: js/plugin/select2/
 		 */
 		if ($.fn.select2) {
-			$('.select2').each(function() {
+			$('select.select2').each(function() {
 				var $this = $(this),
 					width = $this.attr('data-select-width') || '100%';
 				//, _showSearchInput = $this.attr('data-select-search') === 'true';
@@ -803,45 +817,45 @@ var calc_navbar_height = function() {
 				$this = null;
 			});
 		}
-
+	
 		/*
 		 * MASKING
 		 * Dependency: js/plugin/masked-input/
 		 */
 		if ($.fn.mask) {
 			$('[data-mask]').each(function() {
-
+	
 				var $this = $(this),
 					mask = $this.attr('data-mask') || 'error...', mask_placeholder = $this.attr('data-mask-placeholder') || 'X';
-
+	
 				$this.mask(mask, {
 					placeholder : mask_placeholder
 				});
-
+				
 				//clear memory reference
 				$this = null;
 			});
 		}
-
+	
 		/*
 		 * AUTOCOMPLETE
 		 * Dependency: js/jqui
 		 */
 		if ($.fn.autocomplete) {
 			$('[data-autocomplete]').each(function() {
-
+	
 				var $this = $(this),
 					availableTags = $this.data('autocomplete') || ["The", "Quick", "Brown", "Fox", "Jumps", "Over", "Three", "Lazy", "Dogs"];
-
+	
 				$this.autocomplete({
 					source : availableTags
 				});
-
+				
 				//clear memory reference
 				$this = null;
 			});
 		}
-
+	
 		/*
 		 * JQUERY UI DATE
 		 * Dependency: js/libs/jquery-ui-1.10.3.min.js
@@ -849,21 +863,21 @@ var calc_navbar_height = function() {
 		 */
 		if ($.fn.datepicker) {
 			$('.datepicker').each(function() {
-
+	
 				var $this = $(this),
 					dataDateFormat = $this.attr('data-dateformat') || 'dd.mm.yy';
-
+	
 				$this.datepicker({
 					dateFormat : dataDateFormat,
 					prevText : '<i class="fa fa-chevron-left"></i>',
 					nextText : '<i class="fa fa-chevron-right"></i>',
 				});
-
+				
 				//clear memory reference
 				$this = null;
 			});
 		}
-
+	
 		/*
 		 * AJAX BUTTON LOADING TEXT
 		 * Usage: <button type="button" data-loading-text="Loading..." class="btn btn-xs btn-default ajax-refresh"> .. </button>
@@ -873,12 +887,12 @@ var calc_navbar_height = function() {
 			btn.button('loading');
 			setTimeout(function() {
 				btn.button('reset');
+				//clear memory reference
+				btn = null;
 			}, 3000);
 
-			//clear memory reference
-			btn = null;
 		});
-
+	
 	}
 /* ~ END: INITIALIZE FORMS */
 
@@ -892,17 +906,17 @@ var calc_navbar_height = function() {
 		 * DEPENDENCY: js/plugins/sparkline/jquery.sparkline.min.js
 		 * See usage example below...
 		 */
-
+	
 		/* Usage:
 		 * 		<div class="sparkline-line txt-color-blue" data-fill-color="transparent" data-sparkline-height="26px">
 		 *			5,6,7,9,9,5,9,6,5,6,6,7,7,6,7,8,9,7
 		 *		</div>
 		 */
-
+	
 		if ($.fn.sparkline) {
-
+	
 			// variable declearations:
-
+	
 			var barColor,
 			    sparklineHeight,
 			    sparklineBarWidth,
@@ -917,7 +931,7 @@ var calc_navbar_height = function() {
 			    thisMaxSpotColor,
 			    thishighlightSpotColor,
 			    thisHighlightLineColor,
-			    thisSpotRadius,
+			    thisSpotRadius,			        
 				pieColors,
 			    pieWidthHeight,
 			    pieBorderColor,
@@ -976,22 +990,21 @@ var calc_navbar_height = function() {
 			    thishighlightSpotColor2,
 			    thisFillColor1,
 			    thisFillColor2;
-
-
-			$('.sparkline').each(function() {
+					    				    	
+			$('.sparkline:not(:has(>canvas))').each(function() {
 				var $this = $(this),
 					sparklineType = $this.data('sparkline-type') || 'bar';
-
+	
 				// BAR CHART
 				if (sparklineType == 'bar') {
-
+	
 						barColor = $this.data('sparkline-bar-color') || $this.css('color') || '#0000f0';
 					    sparklineHeight = $this.data('sparkline-height') || '26px';
 					    sparklineBarWidth = $this.data('sparkline-barwidth') || 5;
 					    sparklineBarSpacing = $this.data('sparkline-barspacing') || 2;
 					    sparklineNegBarColor = $this.data('sparkline-negbar-color') || '#A90329';
 					    sparklineStackedColor = $this.data('sparkline-barstacked-color') || ["#A90329", "#0099c6", "#98AA56", "#da532c", "#4490B1", "#6E9461", "#990099", "#B4CAD3"];
-
+					        
 					$this.sparkline('html', {
 						barColor : barColor,
 						type : sparklineType,
@@ -1002,14 +1015,14 @@ var calc_navbar_height = function() {
 						negBarColor : sparklineNegBarColor,
 						zeroAxis : 'false'
 					});
-
+					
 					$this = null;
-
+	
 				}
-
+	
 				// LINE CHART
 				if (sparklineType == 'line') {
-
+	
 						sparklineHeight = $this.data('sparkline-height') || '20px';
 					    sparklineWidth = $this.data('sparkline-width') || '90px';
 					    thisLineColor = $this.data('sparkline-line-color') || $this.css('color') || '#0000f0';
@@ -1021,15 +1034,15 @@ var calc_navbar_height = function() {
 					    thishighlightSpotColor = $this.data('sparkline-highlightspot-color') || '#50f050';
 					    thisHighlightLineColor = $this.data('sparkline-highlightline-color') || 'f02020';
 					    thisSpotRadius = $this.data('sparkline-spotradius') || 1.5;
-						thisChartMinYRange = $this.data('sparkline-min-y') || 'undefined';
-						thisChartMaxYRange = $this.data('sparkline-max-y') || 'undefined';
-						thisChartMinXRange = $this.data('sparkline-min-x') || 'undefined';
-						thisChartMaxXRange = $this.data('sparkline-max-x') || 'undefined';
-						thisMinNormValue = $this.data('min-val') || 'undefined';
-						thisMaxNormValue = $this.data('max-val') || 'undefined';
+						thisChartMinYRange = $this.data('sparkline-min-y') || 'undefined'; 
+						thisChartMaxYRange = $this.data('sparkline-max-y') || 'undefined'; 
+						thisChartMinXRange = $this.data('sparkline-min-x') || 'undefined'; 
+						thisChartMaxXRange = $this.data('sparkline-max-x') || 'undefined'; 
+						thisMinNormValue = $this.data('min-val') || 'undefined'; 
+						thisMaxNormValue = $this.data('max-val') || 'undefined'; 
 						thisNormColor =  $this.data('norm-color') || '#c0c0c0';
 						thisDrawNormalOnTop = $this.data('draw-normal') || false;
-
+					    
 					$this.sparkline('html', {
 						type : 'line',
 						width : sparklineWidth,
@@ -1051,21 +1064,21 @@ var calc_navbar_height = function() {
 						normalRangeMax : thisMaxNormValue,
 						normalRangeColor : thisNormColor,
 						drawNormalOnTop : thisDrawNormalOnTop
-
+	
 					});
-
+					
 					$this = null;
-
+	
 				}
-
+	
 				// PIE CHART
 				if (sparklineType == 'pie') {
-
+	
 						pieColors = $this.data('sparkline-piecolor') || ["#B4CAD3", "#4490B1", "#98AA56", "#da532c","#6E9461", "#0099c6", "#990099", "#717D8A"];
 					    pieWidthHeight = $this.data('sparkline-piesize') || 90;
 					    pieBorderColor = $this.data('border-color') || '#45494C';
 					    pieOffset = $this.data('sparkline-offset') || 0;
-
+					    
 					$this.sparkline('html', {
 						type : 'pie',
 						width : pieWidthHeight,
@@ -1076,14 +1089,14 @@ var calc_navbar_height = function() {
 						offset : pieOffset,
 						borderColor : pieBorderColor
 					});
-
+					
 					$this = null;
-
+	
 				}
-
+	
 				// BOX PLOT
 				if (sparklineType == 'box') {
-
+	
 						thisBoxWidth = $this.data('sparkline-width') || 'auto';
 					    thisBoxHeight = $this.data('sparkline-height') || 'auto';
 					    thisBoxRaw = $this.data('sparkline-boxraw') || false;
@@ -1100,7 +1113,7 @@ var calc_navbar_height = function() {
 					    thisBoxOutlineFill = $this.data('sparkline-outlinefill-color') || '#f0f0f0';
 					    thisBoxMedianColor = $this.data('sparkline-outlinemedian-color') || '#f00000';
 					    thisBoxTargetColor = $this.data('sparkline-outlinetarget-color') || '#40a020';
-
+					    
 					$this.sparkline('html', {
 						type : 'box',
 						width : thisBoxWidth,
@@ -1119,49 +1132,49 @@ var calc_navbar_height = function() {
 						outlierFillColor : thisBoxOutlineFill,
 						medianColor : thisBoxMedianColor,
 						targetColor : thisBoxTargetColor
-
+	
 					});
-
+					
 					$this = null;
-
+	
 				}
-
+	
 				// BULLET
 				if (sparklineType == 'bullet') {
-
+	
 					var thisBulletHeight = $this.data('sparkline-height') || 'auto';
 					    thisBulletWidth = $this.data('sparkline-width') || 2;
 					    thisBulletColor = $this.data('sparkline-bullet-color') || '#ed1c24';
 					    thisBulletPerformanceColor = $this.data('sparkline-performance-color') || '#3030f0';
 					    thisBulletRangeColors = $this.data('sparkline-bulletrange-color') || ["#d3dafe", "#a8b6ff", "#7f94ff"];
-
+					    
 					$this.sparkline('html', {
-
+	
 						type : 'bullet',
 						height : thisBulletHeight,
 						targetWidth : thisBulletWidth,
 						targetColor : thisBulletColor,
 						performanceColor : thisBulletPerformanceColor,
 						rangeColors : thisBulletRangeColors
-
+	
 					});
-
+					
 					$this = null;
-
+	
 				}
-
+	
 				// DISCRETE
 				if (sparklineType == 'discrete') {
-
+	
 					 	thisDiscreteHeight = $this.data('sparkline-height') || 26;
 					    thisDiscreteWidth = $this.data('sparkline-width') || 50;
 					    thisDiscreteLineColor = $this.css('color');
 					    thisDiscreteLineHeight = $this.data('sparkline-line-height') || 5;
 					    thisDiscreteThrushold = $this.data('sparkline-threshold') || 'undefined';
 					    thisDiscreteThrusholdColor = $this.data('sparkline-threshold-color') || '#ed1c24';
-
+					    
 					$this.sparkline('html', {
-
+	
 						type : 'discrete',
 						width : thisDiscreteWidth,
 						height : thisDiscreteHeight,
@@ -1169,16 +1182,16 @@ var calc_navbar_height = function() {
 						lineHeight : thisDiscreteLineHeight,
 						thresholdValue : thisDiscreteThrushold,
 						thresholdColor : thisDiscreteThrusholdColor
-
+	
 					});
-
+					
 					$this = null;
-
+	
 				}
-
+	
 				// TRISTATE
 				if (sparklineType == 'tristate') {
-
+	
 					 	thisTristateHeight = $this.data('sparkline-height') || 26;
 					    thisTristatePosBarColor = $this.data('sparkline-posbar-color') || '#60f060';
 					    thisTristateNegBarColor = $this.data('sparkline-negbar-color') || '#f04040';
@@ -1186,9 +1199,9 @@ var calc_navbar_height = function() {
 					    thisTristateBarWidth = $this.data('sparkline-barwidth') || 5;
 					    thisTristateBarSpacing = $this.data('sparkline-barspacing') || 2;
 					    thisZeroAxis = $this.data('sparkline-zeroaxis') || false;
-
+					    
 					$this.sparkline('html', {
-
+	
 						type : 'tristate',
 						height : thisTristateHeight,
 						posBarColor : thisBarColor,
@@ -1197,52 +1210,52 @@ var calc_navbar_height = function() {
 						barWidth : thisTristateBarWidth,
 						barSpacing : thisTristateBarSpacing,
 						zeroAxis : thisZeroAxis
-
+	
 					});
-
+					
 					$this = null;
-
+	
 				}
-
+	
 				//COMPOSITE: BAR
 				if (sparklineType == 'compositebar') {
-
+	
 				 	sparklineHeight = $this.data('sparkline-height') || '20px';
 				    sparklineWidth = $this.data('sparkline-width') || '100%';
 				    sparklineBarWidth = $this.data('sparkline-barwidth') || 3;
 				    thisLineWidth = $this.data('sparkline-line-width') || 1;
-				    thisLineColor = $this.data('sparkline-color-top') || '#ed1c24';
-				    thisBarColor = $this.data('sparkline-color-bottom') || '#333333';
-
+				    thisLineColor = $this.data('data-sparkline-linecolor') || '#ed1c24';
+				    thisBarColor = $this.data('data-sparkline-barcolor') || '#333333';
+					    
 					$this.sparkline($this.data('sparkline-bar-val'), {
-
+	
 						type : 'bar',
 						width : sparklineWidth,
 						height : sparklineHeight,
 						barColor : thisBarColor,
 						barWidth : sparklineBarWidth
 						//barSpacing: 5
-
+	
 					});
-
+	
 					$this.sparkline($this.data('sparkline-line-val'), {
-
+	
 						width : sparklineWidth,
 						height : sparklineHeight,
 						lineColor : thisLineColor,
 						lineWidth : thisLineWidth,
 						composite : true,
 						fillColor : false
-
+	
 					});
-
+					
 					$this = null;
-
+	
 				}
-
+	
 				//COMPOSITE: LINE
 				if (sparklineType == 'compositeline') {
-
+	
 						sparklineHeight = $this.data('sparkline-height') || '20px';
 					    sparklineWidth = $this.data('sparkline-width') || '90px';
 					    sparklineValue = $this.data('sparkline-bar-val');
@@ -1267,58 +1280,58 @@ var calc_navbar_height = function() {
 					        thisHighlightLineColor1;
 					    thisFillColor1 = $this.data('sparkline-fillcolor-top') || 'transparent';
 					    thisFillColor2 = $this.data('sparkline-fillcolor-bottom') || 'transparent';
-
+					    
 					$this.sparkline(sparklineValue, {
-
+	
 						type : 'line',
 						spotRadius : thisSpotRadius1,
-
+	
 						spotColor : thisSpotColor,
 						minSpotColor : thisMinSpotColor1,
 						maxSpotColor : thisMaxSpotColor1,
 						highlightSpotColor : thishighlightSpotColor1,
 						highlightLineColor : thisHighlightLineColor1,
-
+	
 						valueSpots : sparklineValueSpots1,
-
+	
 						lineWidth : thisLineWidth1,
 						width : sparklineWidth,
 						height : sparklineHeight,
 						lineColor : thisLineColor1,
 						fillColor : thisFillColor1
-
+	
 					});
-
+	
 					$this.sparkline($this.data('sparkline-line-val'), {
-
+	
 						type : 'line',
 						spotRadius : thisSpotRadius2,
-
+	
 						spotColor : thisSpotColor,
 						minSpotColor : thisMinSpotColor2,
 						maxSpotColor : thisMaxSpotColor2,
 						highlightSpotColor : thishighlightSpotColor2,
 						highlightLineColor : thisHighlightLineColor2,
-
+	
 						valueSpots : sparklineValueSpots2,
-
+	
 						lineWidth : thisLineWidth2,
 						width : sparklineWidth,
 						height : sparklineHeight,
 						lineColor : thisLineColor2,
 						composite : true,
 						fillColor : thisFillColor2
-
+	
 					});
-
+					
 					$this = null;
-
+	
 				}
-
+	
 			});
-
+	
 		}// end if
-
+	
 		/*
 		 * EASY PIE CHARTS
 		 * DEPENDENCY: js/plugins/easy-pie-chart/jquery.easy-pie-chart.min.js
@@ -1326,17 +1339,17 @@ var calc_navbar_height = function() {
 		 *			<span class="percent percent-sign">35</span>
 		 * 	  	  </div>
 		 */
-
+	
 		if ($.fn.easyPieChart) {
-
+	
 			$('.easy-pie-chart').each(function() {
 				var $this = $(this),
 					barColor = $this.css('color') || $this.data('pie-color'),
-				    trackColor = $this.data('pie-track-color') || '#eeeeee',
+				    trackColor = $this.data('pie-track-color') || 'rgba(0,0,0,0.04)',
 				    size = parseInt($this.data('pie-size')) || 25;
-
+				    
 				$this.easyPieChart({
-
+					
 					barColor : barColor,
 					trackColor : trackColor,
 					scaleColor : false,
@@ -1345,17 +1358,17 @@ var calc_navbar_height = function() {
 					animate : 1500,
 					rotate : -90,
 					size : size,
-					onStep : function(value) {
-						this.$el.find('span').text(~~value);
-					}
-
+					onStep: function(from, to, percent) {
+            			$(this.el).find('.percent').text(Math.round(percent));
+        			}
+					
 				});
-
+				
 				$this = null;
 			});
-
+	
 		} // end if
-
+	
 	}
 /* ~ END: INITIALIZE CHARTS */
 
@@ -1364,19 +1377,19 @@ var calc_navbar_height = function() {
  * Setup Desktop Widgets
  */
 	function setup_widgets_desktop() {
-
+	
 		if ($.fn.jarvisWidgets && enableJarvisWidgets) {
-
+	
 			$('#widget-grid').jarvisWidgets({
-
+	
 				grid : 'article',
 				widgets : '.jarviswidget',
-				localStorage : true,
+				localStorage : localStorageJarvisWidgets,
 				deleteSettingsKey : '#deletesettingskey-options',
 				settingsKeyLabel : 'Reset settings?',
 				deletePositionKey : '#deletepositionkey-options',
 				positionKeyLabel : 'Reset position?',
-				sortable : true,
+				sortable : sortableJarvisWidgets,
 				buttonsHidden : false,
 				// toggle button
 				toggleButton : true,
@@ -1386,6 +1399,7 @@ var calc_navbar_height = function() {
 				},
 				// delete btn
 				deleteButton : true,
+				deleteMsg:'Warning: This action cannot be undone!',
 				deleteClass : 'fa fa-times',
 				deleteSpeed : 200,
 				onDelete : function() {
@@ -1434,27 +1448,27 @@ var calc_navbar_height = function() {
 				},
 				rtl : false, // best not to toggle this!
 				onChange : function() {
-
+					
 				},
 				onSave : function() {
-
+					
 				},
-				ajaxnav : $.navAsAjax // declears how the localstorage should be saved (HTML or AJAX page)
-
+				ajaxnav : $.navAsAjax // declears how the localstorage should be saved (HTML or AJAX Version)
+	
 			});
-
+	
 		}
-
+	
 	}
 /*
  * SETUP DESKTOP WIDGET
  */
 	function setup_widgets_mobile() {
-
+	
 		if (enableMobileWidgets && enableJarvisWidgets) {
 			setup_widgets_desktop();
 		}
-
+	
 	}
 /* ~ END: INITIALIZE JARVIS WIDGETS */
 
@@ -1487,34 +1501,36 @@ var calc_navbar_height = function() {
  * loadScript("js/my_lovely_script.js", myPrettyCode);
  */
 	function loadScript(scriptName, callback) {
-
+	
 		if (!jsArray[scriptName]) {
 			jsArray[scriptName] = true;
-
+	
 			// adding the script tag to the head as suggested before
 			var body = document.getElementsByTagName('body')[0],
 				script = document.createElement('script');
 			script.type = 'text/javascript';
 			script.src = scriptName;
-
+	
 			// then bind the event to the callback function
 			// there are several events for cross browser compatibility
 			script.onload = callback;
-
+	
 			// fire the loading
 			body.appendChild(script);
-
+			
 			// clear DOM reference
 			//body = null;
 			//script = null;
-
+	
 		} else if (callback) {
 			// changed else to else if(callback)
-			//console.log("JS file already added!");
+			if (debugState){
+				root.root.console.log("This script was already loaded %c: " + scriptName, debugStyle_warning);
+			}
 			//execute function
 			callback();
 		}
-
+	
 	}
 /* ~ END: LOAD SCRIPTS */
 
@@ -1528,17 +1544,17 @@ var calc_navbar_height = function() {
 	    if ($('nav').length) {
 		    checkURL();
 	    }
-
+	
 	    $(document).on('click', 'nav a[href!="#"]', function(e) {
 		    e.preventDefault();
 		    var $this = $(e.currentTarget);
-
+	
 		    // if parent is not active then get hash, or else page is assumed to be loaded
 			if (!$this.parent().hasClass("active") && !$this.attr('target')) {
-
+	
 			    // update window with hash
 			    // you could also do here:  thisDevice === "mobile" - and save a little more memory
-
+	
 			    if ($.root_.hasClass('mobile-view-activated')) {
 				    $.root_.removeClass('hidden-menu');
 				    $('html').removeClass("hidden-menu-mobile-lock");
@@ -1561,34 +1577,34 @@ var calc_navbar_height = function() {
 						window.location.hash = $this.attr('href');
 					}
 			    }
-
+			    
 			    // clear DOM reference
 			    // $this = null;
 		    }
-
+	
 	    });
-
+	
 	    // fire links with targets on different window
 	    $(document).on('click', 'nav a[target="_blank"]', function(e) {
 		    e.preventDefault();
 		    var $this = $(e.currentTarget);
-
+	
 		    window.open($this.attr('href'));
 	    });
-
+	
 	    // fire links with targets on same window
 	    $(document).on('click', 'nav a[target="_top"]', function(e) {
 		    e.preventDefault();
 		    var $this = $(e.currentTarget);
-
+	
 		    window.location = ($this.attr('href'));
 	    });
-
+	
 	    // all links with hash tags are ignored
 	    $(document).on('click', 'nav a[href="#"]', function(e) {
 		    e.preventDefault();
 	    });
-
+	
 	    // DO on hash change
 	    $(window).on('hashchange', function() {
 		    checkURL();
@@ -1598,27 +1614,27 @@ var calc_navbar_height = function() {
  * CHECK TO SEE IF URL EXISTS
  */
 	function checkURL() {
-
+	
 		//get the url by removing the hash
 		//var url = location.hash.replace(/^#/, '');
 		var url = location.href.split('#').splice(1).join('#');
 		//BEGIN: IE11 Work Around
 		if (!url) {
-
+		
 			try {
 				var documentUrl = window.document.URL;
 				if (documentUrl) {
 					if (documentUrl.indexOf('#', 0) > 0 && documentUrl.indexOf('#', 0) < (documentUrl.length + 1)) {
 						url = documentUrl.substring(documentUrl.indexOf('#', 0) + 1);
-
+		
 					}
-
+		
 				}
-
+		
 			} catch (err) {}
 		}
 		//END: IE11 Work Around
-
+	
 		container = $('#content');
 		// Do this if url exists (for page refresh, etc...)
 		if (url) {
@@ -1627,33 +1643,41 @@ var calc_navbar_height = function() {
 			// match the url and add the active class
 			$('nav li:has(a[href="' + url + '"])').addClass("active");
 			var title = ($('nav a[href="' + url + '"]').attr('title'));
-
+	
 			// change page title from global var
 			document.title = (title || document.title);
-			//console.log("page title: " + document.title);
-
+			
+			// debugState
+			if (debugState){
+				root.console.log("Page title: %c " + document.title, debugStyle_green);
+			}
+			
 			// parse url to jquery
 			loadURL(url + location.search, container);
 
 		} else {
-
+	
 			// grab the first URL from nav
 			var $this = $('nav > ul > li:first-child > a[href!="#"]');
-
+	
 			//update hash
 			window.location.hash = $this.attr('href');
-
+			
 			//clear dom reference
 			$this = null;
-
+	
 		}
-
+	
 	}
 /*
  * LOAD AJAX PAGES
- */
+ */ 
 	function loadURL(url, container) {
-		//console.log(container)
+
+		// debugState
+		if (debugState){
+			root.root.console.log("Loading URL: %c" + url, debugStyle);
+		}
 
 		$.ajax({
 			type : "GET",
@@ -1661,11 +1685,11 @@ var calc_navbar_height = function() {
 			dataType : 'html',
 			cache : true, // (warning: setting it to false will cause a timestamp and will call the request twice)
 			beforeSend : function() {
-
+				
 				//IE11 bug fix for googlemaps (delete all google map instances)
 				//check if the page is ajax = true, has google map class and the container is #content
 				if ($.navAsAjax && $(".google_maps")[0] && (container[0] == $("#content")[0]) ) {
-
+					
 					// target gmaps if any on page
 					var collection = $(".google_maps"),
 						i = 0;
@@ -1674,107 +1698,248 @@ var calc_navbar_height = function() {
 					    i ++;
 					    // get map id from class elements
 					    var divDealerMap = document.getElementById(this.id);
-
+					    
 					    if(i == collection.length + 1) {
 						    // "callback"
-						    //console.log("all maps destroyed");
 						} else {
 							// destroy every map found
 							if (divDealerMap) divDealerMap.parentNode.removeChild(divDealerMap);
-							//console.log(this.id + " destroying maps...");
+
+							// debugState
+							if (debugState){
+								root.console.log("Destroying maps.........%c" + this.id, debugStyle_warning);
+							}
 						}
 					});
 
-					//console.log("google maps nuked!!!");
-
+					// debugState
+					if (debugState){
+						root.console.log("✔ Google map instances nuked!!!");
+					}
+					
 				} //end fix
-
+				
 				// destroy all datatable instances
 				if ( $.navAsAjax && $('.dataTables_wrapper')[0] && (container[0] == $("#content")[0]) ) {
-
-					var tables = $.fn.dataTable.fnTables(true);
+					
+					var tables = $.fn.dataTable.fnTables(true);				
 					$(tables).each(function () {
-					    $(this).dataTable().fnDestroy();
+						
+						if($(this).find('.details-control').length != 0) {
+							$(this).find('*').addBack().off().remove();
+							$(this).dataTable().fnDestroy();
+						} else {
+							$(this).dataTable().fnDestroy();
+						}
+					    
 					});
-					//console.log("datatable nuked!!!");
+					
+					// debugState
+					if (debugState){
+						root.console.log("✔ Datatable instances nuked!!!");
+					}
 				}
 				// end destroy
-
+				
 				// pop intervals (destroys jarviswidget related intervals)
 				if ( $.navAsAjax && $.intervalArr.length > 0 && (container[0] == $("#content")[0]) && enableJarvisWidgets ) {
-
+					
 					while($.intervalArr.length > 0)
 	        			clearInterval($.intervalArr.pop());
-	        			//console.log("all intervals cleared..")
-
+	        			// debugState
+						if (debugState){
+							root.console.log("✔ All JarvisWidget intervals cleared");
+						}
+	        			
 				}
 				// end pop intervals
+				
+				// destroy all widget instances
+				if ( $.navAsAjax && (container[0] == $("#content")[0]) && enableJarvisWidgets && $("#widget-grid")[0] ) {
+					
+					$("#widget-grid").jarvisWidgets('destroy');
+					// debugState
+					if (debugState){
+						root.console.log("✔ JarvisWidgets destroyed");
+					} 
+					
+				}
+				// end destroy all widgets 
+				
+				// cluster destroy: destroy other instances that could be on the page 
+				// this runs a script in the current loaded page before fetching the new page
+				if ( $.navAsAjax && (container[0] == $("#content")[0]) ) {
 
+					/*
+					 * The following elements should be removed, if they have been created:
+					 *
+					 *	colorList
+					 *	icon
+					 *	picker
+					 *	inline
+					 *	And unbind events from elements:
+					 *	
+					 *	icon
+					 *	picker
+					 *	inline
+					 *	especially $(document).on('mousedown')
+					 *	It will be much easier to add namespace to plugin events and then unbind using selected namespace.
+					 *	
+					 *	See also:
+					 *	
+					 *	http://f6design.com/journal/2012/05/06/a-jquery-plugin-boilerplate/
+					 *	http://keith-wood.name/pluginFramework.html
+					 */
+					
+					// this function is below the pagefunction for all pages that has instances
+
+					if (typeof pagedestroy == 'function') { 
+
+					  try {
+						    pagedestroy(); 
+
+						    if (debugState){
+								root.console.log("✔ Pagedestroy()");
+						   } 
+						}
+						catch(err) {
+						   pagedestroy = undefined; 
+
+						   if (debugState){
+								root.console.log("! Pagedestroy() Catch Error");
+						   } 
+					  }
+
+					} 
+
+					// destroy all inline charts
+					
+					if ( $.fn.sparkline && $("#content .sparkline")[0] ) {
+						$("#content .sparkline").sparkline( 'destroy' );
+						
+						if (debugState){
+							root.console.log("✔ Sparkline Charts destroyed!");
+						} 
+					}
+					
+					if ( $.fn.easyPieChart && $("#content .easy-pie-chart")[0] ) {
+						$("#content .easy-pie-chart").easyPieChart( 'destroy' );
+						
+						if (debugState){
+							root.console.log("✔ EasyPieChart Charts destroyed!");
+						} 
+					}
+
+					
+
+					// end destory all inline charts
+					
+					// destroy form controls: Datepicker, select2, autocomplete, mask, bootstrap slider
+					
+					if ( $.fn.select2 && $("#content select.select2")[0] ) {
+						$("#content select.select2").select2('destroy');
+						
+						if (debugState){
+							root.console.log("✔ Select2 destroyed!");
+						}
+					}
+					
+					if ( $.fn.mask && $('#content [data-mask]')[0] ) {
+						$('#content [data-mask]').unmask();
+						
+						if (debugState){
+							root.console.log("✔ Input Mask destroyed!");
+						}
+					}
+					
+					if ( $.fn.datepicker && $('#content .datepicker')[0] ) {
+						$('#content .datepicker').off();
+						$('#content .datepicker').remove();
+						
+						if (debugState){
+							root.console.log("✔ Datepicker destroyed!");
+						}
+					}
+					
+					if ( $.fn.slider && $('#content .slider')[0] ) {
+						$('#content .slider').off();
+						$('#content .slider').remove();
+						
+						if (debugState){
+							root.console.log("✔ Bootstrap Slider destroyed!");
+						}
+					}
+								
+					// end destroy form controls
+					
+					
+				}
+				// end cluster destroy
+				
 				// empty container and var to start garbage collection (frees memory)
 				pagefunction = null;
 				container.removeData().html("");
-
+				
 				// place cog
 				container.html('<h1 class="ajax-loading-animation"><i class="fa fa-cog fa-spin"></i> Loading...</h1>');
-
+			
 				// Only draw breadcrumb if it is main content material
 				if (container[0] == $("#content")[0]) {
-
+					
 					// clear everything else except these key DOM elements
 					// we do this because sometime plugins will leave dynamic elements behind
 					$('body').find('> *').filter(':not(' + ignore_key_elms + ')').empty().remove();
-
+					
 					// draw breadcrumb
 					drawBreadCrumb();
-
+					
 					// scroll up
 					$("html").animate({
 						scrollTop : 0
 					}, "fast");
-				}
+				} 
 				// end if
 			},
 			success : function(data) {
-
+				
 				// dump data to container
 				container.css({
 					opacity : '0.0'
 				}).html(data).delay(50).animate({
 					opacity : '1.0'
 				}, 300);
-
+				
 				// clear data var
 				data = null;
 				container = null;
 			},
-			error : function(xhr, ajaxOptions, thrownError) {
-				container.html('<h4 class="ajax-loading-error"><i class="fa fa-warning txt-color-orangeDark"></i> Error 404! Page not found.</h4>');
+			error : function(xhr, status, thrownError, error) {
+				container.html('<h4 class="ajax-loading-error"><i class="fa fa-warning txt-color-orangeDark"></i> Error requesting <span class="txt-color-red">' + url + '</span>: ' + xhr.status + ' <span style="text-transform: capitalize;">'  + thrownError + '</span></h4>');
 			},
-			async : true
+			async : true 
 		});
-
-		//console.log("ajax request sent");
+	
 	}
 /*
  * UPDATE BREADCRUMB
- */
-	function drawBreadCrumb() {
-		var nav_elems = $('nav li.active > a'),
-			count = nav_elems.length;
-
-		//console.log("breadcrumb")
-		bread_crumb.empty();
-		bread_crumb.append($("<li>Home</li>"));
-		nav_elems.each(function() {
-			bread_crumb.append($("<li></li>").html($.trim($(this).clone().children(".badge").remove().end().text())));
-			// update title when breadcrumb is finished...
-			if (!--count) document.title = bread_crumb.find("li:last-child").text();
-			//nav_elems = null;
+ */ 
+	function drawBreadCrumb(opt_breadCrumbs) {
+		var a = $("nav li.active > a"),
+			b = a.length;
+	
+		bread_crumb.empty(), 
+		bread_crumb.append($("<li>Home</li>")), a.each(function() {
+			bread_crumb.append($("<li></li>").html($.trim($(this).clone().children(".badge").remove().end().text()))), --b || (document.title = bread_crumb.find("li:last-child").text())
 		});
-
-		// clear dom reference
-		nav_elems = null;
-
+		
+		// Push breadcrumb manually -> drawBreadCrumb(["Users", "John Doe"]);
+		// Credits: Philip Whitt | philip.whitt@sbcglobal.net
+		if (opt_breadCrumbs != undefined) {
+			$.each(opt_breadCrumbs, function(index, value) {
+				bread_crumb.append($("<li></li>").html(value)); 
+				document.title = bread_crumb.find("li:last-child").text();
+			});
+		}
 	}
 /* ~ END: APP AJAX REQUEST SETUP */
 
@@ -1784,64 +1949,95 @@ var calc_navbar_height = function() {
  * to check for form elements, tooltip activation, popovers, etc...
  */
 	function pageSetUp() {
-
+	
 		if (thisDevice === "desktop"){
 			// is desktop
-
+			
 			// activate tooltips
-			$("[rel=tooltip]").tooltip();
-
+			$("[rel=tooltip], [data-rel=tooltip]").tooltip();
+		
 			// activate popovers
-			$("[rel=popover]").popover();
-
+			$("[rel=popover], [data-rel=popover]").popover();
+		
 			// activate popovers with hover states
-			$("[rel=popover-hover]").popover({
+			$("[rel=popover-hover], [data-rel=popover-hover]").popover({
 				trigger : "hover"
 			});
-
+	
 			// setup widgets
 			setup_widgets_desktop();
-
+		
 			// activate inline charts
 			runAllCharts();
-
+		
 			// run form elements
 			runAllForms();
-
+	
 		} else {
-
+			
 			// is mobile
-
+			
 			// activate popovers
-			$("[rel=popover]").popover();
-
+			$("[rel=popover], [data-rel=popover]").popover();
+		
 			// activate popovers with hover states
-			$("[rel=popover-hover]").popover({
+			$("[rel=popover-hover], [data-rel=popover-hover]").popover({
 				trigger : "hover"
 			});
-
+		
 			// activate inline charts
 			runAllCharts();
-
+		
 			// setup widgets
 			setup_widgets_mobile();
-
+		
 			// run form elements
 			runAllForms();
-
+			
 		}
-
+	
 	}
+/* ~ END: PAGE SETUP */
+
 /*
- * 1 POP OVER THEORY
+ * ONE POP OVER THEORY
  * Keep only 1 active popover per trigger - also check and hide active popover if user clicks on document
  */
 	$('body').on('click', function(e) {
-		$('[rel="popover"]').each(function() {
+		$('[rel="popover"], [data-rel="popover"]').each(function() {
 			//the 'is' for buttons that trigger popups
 			//the 'has' for icons within a button that triggers a popup
 			if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
 				$(this).popover('hide');
 			}
 		});
+	}); 
+/* ~ END: ONE POP OVER THEORY */
+
+/*
+ * DELETE MODEL DATA ON HIDDEN
+ * Clears the model data once it is hidden, this way you do not create duplicated data on multiple modals
+ */
+	$('body').on('hidden.bs.modal', '.modal', function () {
+	  $(this).removeData('bs.modal');
 	});
+/* ~ END: DELETE MODEL DATA ON HIDDEN */
+
+/*
+ * HELPFUL FUNCTIONS
+ * We have included some functions below that can be resued on various occasions
+ * 
+ * Get param value
+ * example: alert( getParam( 'param' ) );
+ */
+	function getParam(name) {
+	    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+	    var regexS = "[\\?&]" + name + "=([^&#]*)";
+	    var regex = new RegExp(regexS);
+	    var results = regex.exec(window.location.href);
+	    if (results == null)
+	        return "";
+	    else
+	        return results[1];
+	}
+/* ~ END: HELPFUL FUNCTIONS */
