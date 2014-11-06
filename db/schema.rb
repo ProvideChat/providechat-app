@@ -45,8 +45,6 @@ ActiveRecord::Schema.define(version: 20141016034409) do
     t.string   "encrypted_password",     default: "", null: false
     t.integer  "account_type"
     t.integer  "availability"
-    t.integer  "curr_chats"
-    t.integer  "max_chats"
     t.boolean  "active_chat_sound"
     t.boolean  "background_chat_sound"
     t.boolean  "visitor_arrived_sound"
