@@ -5,8 +5,7 @@ FactoryGirl.define do
     organization_id 1
     url "MyString"
     name "MyString"
-    default_department 1
+    email "support@providechat.com"
     logo "MyString"
-    status "MyString"
   end
 end

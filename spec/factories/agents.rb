@@ -5,14 +5,12 @@ FactoryGirl.define do
     name "MyString"
     display_name "MyString"
     email "MyString"
-    account_type "MyString"
-    availability "MyString"
-    curr_chats 1
-    max_chats 1
+    account_type "superadmin"
+    availability "online"
     active_chat_sound "MyString"
     background_chat_sound "MyString"
     visitor_arrived_sound "MyString"
     avatar "MyString"
-    status "MyString"
+    status "enabled"
   end
 end
