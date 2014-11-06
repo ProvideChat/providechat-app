@@ -207,17 +207,18 @@ ActiveRecord::Schema.define(version: 20141016034409) do
 
   create_table "rapid_responses", force: true do |t|
     t.integer  "organization_id"
+    t.integer  "website_id",      default: 0
     t.string   "name"
     t.string   "text"
     t.integer  "order"
     t.string   "ancestry"
-    t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "rapid_responses", ["ancestry"], name: "index_rapid_responses_on_ancestry", using: :btree
   add_index "rapid_responses", ["organization_id"], name: "index_rapid_responses_on_organization_id", using: :btree
+  add_index "rapid_responses", ["website_id"], name: "index_rapid_responses_on_website_id", using: :btree
 
   create_table "visitors", force: true do |t|
     t.integer  "organization_id"
