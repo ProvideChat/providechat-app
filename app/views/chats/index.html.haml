@@ -1,7 +1,12 @@
 = render 'layouts/page_header', :title => 'Chat Transcripts', :icon => 'fa-file-text-o'
 .row
-  %article.col-sm-8.col-md-8.col-lg-6
-    #wid-id-0.jarviswidget.jarviswidget-color-blueDark{"data-widget-colorbutton" => "false", "data-widget-custombutton" => "false", "data-widget-editbutton" => "false"}
+  %article.col-sm-10.col-md-8.col-lg-6
+    .alert.alert-info.no-margin.fade.in
+      %i.fa-fw.fa.fa-info
+      This is where you can search for previous chats. You can review chats to ensure that you are giving your customers the proper service they derserve, or you can use a Ticket ID provided by your visitor to review their most recent chat.
+
+    %br
+    #wid-id-0.jarviswidget.jarviswidget-color-blueDark
       %header
         %span.widget-icon
           %i.fa.fa-search
@@ -37,7 +42,7 @@
                   %td= chat.id
                   %td= chat.agent.name
                   %td= chat.website.url
-                  %td= chat.visitor.name
+                  %td= chat.visitor.name if chat.visitor
                   %td= chat.chat_ended
                   %td= chat.visitor_department
                   %td= chat.status
