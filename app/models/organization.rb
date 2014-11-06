@@ -3,8 +3,8 @@ class Organization < ActiveRecord::Base
   has_many :departments
   has_many :websites
 
-  validates :agent_session_timeout, numericality: { only_integer: true, :greater_than: 0 }
-  validates :agent_response_timeout, numericality: { only_integer: true, :greater_than: 0 }
+  validates :agent_session_timeout, numericality: { only_integer: true, greater_than: 0 }
+  validates :agent_response_timeout, numericality: { only_integer: true, greater_than: 0 }
 
 
   include ActionView::Helpers::TextHelper
