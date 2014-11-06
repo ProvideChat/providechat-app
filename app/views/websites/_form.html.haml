@@ -1,12 +1,5 @@
 = form_for(@website, :html => {class: 'form-horizontal'}) do |f|
-  - if @website.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@website.errors.count, "error")
-        prohibited this website from being saved:
-      %ul
-        - @website.errors.full_messages.each do |message|
-          %li= message
+  = render "layouts/error_messages", :f => @website
   %fieldset
     .form-group
       %label.col-md-4.control-label= f.label :name
@@ -37,6 +30,7 @@
           %label
             = f.check_box :remove_logo
             Remove logo
-    %footer
-      = f.submit "Submit", :class => "btn btn-primary"
-      = link_to "Back", websites_path, :class => "btn btn-default"
+
+  .widget-footer
+    = link_to "Back", websites_path, :class => "btn btn-default"
+    = f.submit @website.new_record? ? "Add Website" : "Update Website", :class => "btn btn-primary"
