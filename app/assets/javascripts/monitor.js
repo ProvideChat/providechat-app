@@ -2,7 +2,6 @@
   "use strict";
 
   ProvideChat.agent_id = 0;
-  ProvideChat.max_chats = '';
 
   ProvideChat.activeChatId = 0;	// the chat id of the currently active tab
   ProvideChat.activeChats = [];	// associate array linking tab# to chatId - activeChats[tab#] = chatId
@@ -19,9 +18,8 @@
 
   ProvideChat.numChats = 0;
 
-  ProvideChat.init = function (agent_id, max_chats) {
+  ProvideChat.init = function (agent_id) {
     ProvideChat.agent_id = agent_id
-    ProvideChat.max_chats = max_chats
   	//initjsDOMenu();
 
     updateVisitors();

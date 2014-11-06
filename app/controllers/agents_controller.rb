@@ -55,6 +55,6 @@ class AgentsController < ApplicationController
     end
 
     def agent_params
-      params.require(:agent).permit(:name, :display_name, :email, :password, :password_confirmation, :account_type, :availability, :curr_chats, :max_chats, :active_chat_sound, :background_chat_sound, :visitor_arrived_sound, :avatar, :remove_avatar, :avatar_cache, website_ids: [])
+      params.require(:agent).permit(:name, :display_name, :email, :password, :password_confirmation, :account_type, :availability, :active_chat_sound, :background_chat_sound, :visitor_arrived_sound, :avatar, :remove_avatar, :avatar_cache, website_ids: [])
     end
 end

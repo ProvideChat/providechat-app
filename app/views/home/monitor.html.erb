@@ -113,7 +113,6 @@
 
   ProvideChat.agent_id = 0;
   ProvideChat.agent_name = '';
-  ProvideChat.max_chats = '';
   ProvideChat.organization_id = 0;
 
   ProvideChat.activeChatId = 0;	// the chat id of the currently active tab
@@ -131,10 +130,9 @@
 
   ProvideChat.numChats = 0;
 
-  ProvideChat.init = function (agent_id, agent_name, organization_id, max_chats) {
+  ProvideChat.init = function (agent_id, agent_name, organization_id) {
     ProvideChat.agent_id = agent_id;
     ProvideChat.agent_name = agent_name;
-    ProvideChat.max_chats = max_chats;
     ProvideChat.organization_id = organization_id;
 
     updateVisitors();
@@ -807,7 +805,7 @@
 })(window.ProvideChat = window.ProvideChat || {}, jQuery);
 
 $( document ).ready(function() {
-  ProvideChat.init (<%= current_agent.id %>, '<%= current_agent.display_name %>', <%= current_agent.organization_id %>, 5);
+  ProvideChat.init (<%= current_agent.id %>, '<%= current_agent.display_name %>', <%= current_agent.organization_id %>);
 });
 
 </script>

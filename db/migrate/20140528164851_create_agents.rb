@@ -8,8 +8,6 @@ class CreateAgents < ActiveRecord::Migration
       t.string :encrypted_password, null: false, default: ""
       t.integer :account_type
       t.integer :availability
-      t.integer :curr_chats
-      t.integer :max_chats
       t.boolean :active_chat_sound
       t.boolean :background_chat_sound
       t.boolean :visitor_arrived_sound
