@@ -79,7 +79,6 @@ ActiveRecord::Schema.define(version: 20141016034409) do
     t.integer  "chat_id"
     t.string   "user_name"
     t.integer  "sender"
-    t.integer  "message_type"
     t.datetime "sent"
     t.boolean  "seen_by_agent",   default: false
     t.boolean  "seen_by_visitor", default: false
@@ -129,7 +128,6 @@ ActiveRecord::Schema.define(version: 20141016034409) do
     t.integer  "organization_id"
     t.string   "name"
     t.string   "email"
-    t.integer  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -183,14 +181,11 @@ ActiveRecord::Schema.define(version: 20141016034409) do
   end
 
   create_table "organizations", force: true do |t|
-    t.string   "name"
-    t.string   "email"
     t.integer  "account_type"
     t.integer  "max_agents"
     t.integer  "payment_system"
-    t.integer  "inactive_visitor_removal"
-    t.integer  "agent_session_timeout"
-    t.integer  "agent_response_timeout"
+    t.integer  "agent_session_timeout",  default: 30
+    t.integer  "agent_response_timeout", default: 2
     t.boolean  "completed_setup"
     t.integer  "status"
     t.datetime "created_at"
@@ -200,7 +195,6 @@ ActiveRecord::Schema.define(version: 20141016034409) do
   create_table "prechat_forms", force: true do |t|
     t.integer  "organization_id"
     t.integer  "website_id"
-    t.boolean  "enabled"
     t.string   "intro_text"
     t.string   "name_text"
     t.string   "email_text"
@@ -273,14 +267,13 @@ ActiveRecord::Schema.define(version: 20141016034409) do
 
   create_table "websites", force: true do |t|
     t.integer  "organization_id"
-    t.string   "url",                default: "", null: false
-    t.string   "name",               default: "", null: false
-    t.integer  "default_department"
+    t.string   "url",               default: "", null: false
+    t.string   "name",              default: "", null: false
+    t.string   "email",             default: "", null: false
     t.string   "logo"
     t.boolean  "widget_installed"
     t.boolean  "smart_invites"
     t.string   "smart_invite_mode"
-    t.integer  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
