@@ -1,12 +1,5 @@
 = form_for(@organization, :html => {class: 'form-horizontal'}) do |f|
-  - if @organization.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@organization.errors.count, "error")
-        prohibited this organization from being saved:
-      %ul
-        - @organization.errors.full_messages.each do |message|
-          %li= message
+  = render "layouts/error_messages", :f => @organization
   %fieldset
     .form-group
       %label.col-md-4.control-label Main Email
@@ -22,7 +15,7 @@
       %label.col-md-4.control-label Agent Inactivity Timeout
       .col-md-8
         .input-group
-          = f.text_field :agent_session_timeout, :class => "form-control"
+          = f.number_field :agent_session_timeout, :class => "form-control"
           %b.tooltip.tooltip-top-right
             %i.fa.fa-user.txt-color-teal
             This is the number of minutes your agent has to be inactive for within Provide Chat until they are automatically logged out and set to offline.
@@ -32,11 +25,12 @@
       %label.col-md-4.control-label= f.label :agent_response_timeout
       .col-md-8
         .input-group
-          = f.text_field :agent_response_timeout, :class => "form-control"
+          = f.number_field :agent_response_timeout, :class => "form-control"
           %b.tooltip.tooltip-top-right
             %i.fa.fa-user.txt-color-teal
             This is the number of minutes your agent has to respond to a visitor's chat request. If your agent doesn't respond in time the visitor will be sent to the Offline Message form.
           %span{class:"input-group-addon"}
             %i{class:"icon-append fa fa-question-circle"}
-            
-  %footer= f.submit "Save Settings", :class => "btn-lg btn-primary"
+
+  .widget-footer
+    = f.submit "Save Settings", :class => "btn btn-primary"
