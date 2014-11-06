@@ -3,6 +3,10 @@ class Organization < ActiveRecord::Base
   has_many :departments
   has_many :websites
 
+  validates :agent_session_timeout, numericality: { only_integer: true }
+  validates :agent_response_timeout, numericality: { only_integer: true }
+
+
   include ActionView::Helpers::TextHelper
 
   enum payment_system: [:stripe, :paypal]
