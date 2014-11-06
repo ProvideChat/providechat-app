@@ -2,6 +2,7 @@ class Organization < ActiveRecord::Base
   has_many :agents
   has_many :departments
   has_many :websites
+  has_many :offline_messages
 
   validates :agent_session_timeout, numericality: { only_integer: true, greater_than: 0 }
   validates :agent_response_timeout, numericality: { only_integer: true, greater_than: 0 }

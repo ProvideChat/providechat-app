@@ -1,6 +1,6 @@
 class Visitor < ActiveRecord::Base
   has_one :chat
-  has_one :website
+  belongs_to :website
 
   enum status: [:no_chat, :waiting_to_chat, :in_chat, :chat_ended, :offsite]
 
@@ -42,7 +42,7 @@ class Visitor < ActiveRecord::Base
 
     #remote_addr = session['']
     current_visits = session['current_session']['visits']
-    total_visits = session['original_session']['visits']
+    #total_visits = session['original_session']['visits']
     #remote_host = session['current_session']['referrer_info']['host']
     current_page = session['current_session']['url']
     #country = session['locale']['country']

@@ -5,6 +5,8 @@ class Website < ActiveRecord::Base
   has_many :offline_forms
   has_many :invitations
   has_many :chats
+  has_many :rapid_responses
+  has_many :visitors
   has_and_belongs_to_many :agents
   has_and_belongs_to_many :departments
 
