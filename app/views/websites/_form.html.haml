@@ -22,14 +22,6 @@
           %span{class:"input-group-addon"}
             %i{class:"icon-append fa fa-question-circle"}
     .form-group
-      %label.col-md-4.control-label= f.label :default_department
-      .col-md-8
-        = f.text_field :default_department, :class => "form-control"
-    .form-group
-      %label.col-md-4.control-label= f.label :status
-      .col-md-8
-        = f.select :status, { "Enabled" => "enabled", "Disabled" => "disabled"}, :class => "form-control"
-    .form-group
       %label.col-md-4.control-label= f.label "Photo"
       .col-md-8
         = image_tag(@website.logo_url) if @website.logo?

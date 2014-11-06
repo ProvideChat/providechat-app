@@ -12,8 +12,6 @@ class Website < ActiveRecord::Base
 
   mount_uploader :logo, LogoUploader
 
-  enum status: [:disabled, :enabled]
-
   private
   def create_widget_support
     chat_widget = ChatWidget.new
