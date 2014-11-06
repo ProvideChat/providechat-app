@@ -5,8 +5,8 @@ class CreateOrganizations < ActiveRecord::Migration
       t.integer :account_type
       t.integer :max_agents
       t.integer :payment_system
-      t.integer :agent_session_timeout
-      t.integer :agent_response_timeout
+      t.integer :agent_session_timeout, :default => 30
+      t.integer :agent_response_timeout, :default => 2
 
       t.boolean :completed_setup
 
