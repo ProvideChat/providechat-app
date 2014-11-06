@@ -4,6 +4,7 @@ class CreateWebsites < ActiveRecord::Migration
       t.integer :organization_id
       t.string :url,    null: false, default: ""
       t.string :name,   null: false, default: ""
+      t.string :email,  null: false, default: ""
       t.string :logo
       t.boolean :widget_installed
       t.boolean :smart_invites
@@ -11,7 +12,7 @@ class CreateWebsites < ActiveRecord::Migration
 
       t.timestamps
     end
-    
+
     add_index :websites, :organization_id
   end
 end

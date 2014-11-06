@@ -15,7 +15,6 @@ class Organization < ActiveRecord::Base
 
   def self.create_default_organization
     organization = Organization.new
-    organization.email = resource.email
     organization.account_type = 'trial'
     organization.max_agents = 1
     organization.agent_session_timeout = 20

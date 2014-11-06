@@ -22,6 +22,16 @@
           %span{class:"input-group-addon"}
             %i{class:"icon-append fa fa-question-circle"}
     .form-group
+      %label.col-md-4.control-label Main Email
+      .col-md-8
+        .input-group
+          = f.text_field :email, :class => "form-control"
+          %b.tooltip.tooltip-top-right
+            %i.fa.fa-user.txt-color-teal
+            This is the email that any offline messages will be redirected to if your visitor didn't select a Department, or you do not have any departments.
+          %span{class:"input-group-addon"}
+            %i{class:"icon-append fa fa-question-circle"}
+    .form-group
       %label.col-md-4.control-label= f.label "Photo"
       .col-md-8
         = image_tag(@website.logo_url) if @website.logo?

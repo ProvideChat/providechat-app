@@ -2,12 +2,9 @@ class OrganizationsController < ApplicationController
   before_action :authenticate_agent!
   before_action :set_organization, only: [:edit, :update]
 
-  # GET /organizations/1/edit
   def edit
   end
 
-  # PATCH/PUT /organizations/1
-  # PATCH/PUT /organizations/1.json
   def update
     respond_to do |format|
       if @organization.update(organization_params)
@@ -21,13 +18,11 @@ class OrganizationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_organization
       @organization = Organization.find(current_agent.organization_id)
     end
 
     def organization_params
-      params.require(:organization).permit(:email, :default_department,
-          :agent_session_timeout, :agent_response_timeout )
+      params.require(:organization).permit(:agent_session_timeout, :agent_response_timeout )
     end
 end

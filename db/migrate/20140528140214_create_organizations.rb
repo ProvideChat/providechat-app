@@ -1,7 +1,6 @@
 class CreateOrganizations < ActiveRecord::Migration
   def change
     create_table :organizations do |t|
-      t.string :email
 
       t.integer :account_type
       t.integer :max_agents
