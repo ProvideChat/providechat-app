@@ -15,7 +15,7 @@
       %label.col-md-4.control-label Agent Inactivity Timeout
       .col-md-8
         .input-group
-          = f.number_field :agent_session_timeout, :class => "form-control"
+          = f.number_field :agent_session_timeout, :class => "form-control", :min => 1
           %b.tooltip.tooltip-top-right
             %i.fa.fa-user.txt-color-teal
             This is the number of minutes your agent has to be inactive for within Provide Chat until they are automatically logged out and set to offline.
@@ -25,7 +25,7 @@
       %label.col-md-4.control-label= f.label :agent_response_timeout
       .col-md-8
         .input-group
-          = f.number_field :agent_response_timeout, :class => "form-control"
+          = f.number_field :agent_response_timeout, :class => "form-control", :min => 1
           %b.tooltip.tooltip-top-right
             %i.fa.fa-user.txt-color-teal
             This is the number of minutes your agent has to respond to a visitor's chat request. If your agent doesn't respond in time the visitor will be sent to the Offline Message form.
