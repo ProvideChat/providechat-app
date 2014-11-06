@@ -14,14 +14,13 @@
         .widget-body.no-padding
           .alert.alert-info.no-margin.fade.in
             %i.fa-fw.fa.fa-info
-            Inline help for websites will do here
+            You can place Provide Chat's chat widget on more than one website. For every website you would like to use Provide Chat on you will have to add it here.
           %table.table.table-bordered
             %thead
               %tr
                 %th Address
                 %th Name
                 %th Logo
-                %th Status
                 %th
             %tbody
               - @websites.each do |website|
@@ -29,9 +28,6 @@
                   %td= website.url
                   %td= website.name
                   %td= website.logo
-                  %td
-                    = "<span class='label label-success'>#{website.status.capitalize}</span>".html_safe if website.status == 'enabled'
-                    = "<span class='label label-warning'>#{website.status.capitalize}</span>" if website.status == 'disabled'
                   %td
                     = link_to edit_website_path(website), :class => "btn btn-default" do
                       %i.fa.fa-edit
@@ -42,4 +38,4 @@
                       Delete
               - if @websites.count == 0
                 %tr
-                  %td{:colspan => "6"} No websites configured
+                  %td{:colspan => "5"} No websites configured
