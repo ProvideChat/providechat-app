@@ -17,10 +17,6 @@
       .col-md-8
         = f.text_field :email, :class => "form-control"
     .form-group
-      %label.col-md-4.control-label= f.label :inactive_visitor_removal
-      .col-md-8
-        = f.select :inactive_visitor_removal, @organization.inactive_visitor_options, {}, {:class => "form-control"}
-    .form-group
       %label.col-md-4.control-label= f.label :agent_session_timeout
       .col-md-8
         = f.select :agent_session_timeout, @organization.agent_session_timeouts, {}, {:class => "form-control"}

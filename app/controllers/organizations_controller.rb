@@ -28,7 +28,7 @@ class OrganizationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def organization_params
-      params.require(:organization).permit(:name, :email, :default_department, :inactive_visitor_removal, 
+      params.require(:organization).permit(:name, :email, :default_department,
           :agent_session_timeout, :agent_response_timeout )
     end
 end

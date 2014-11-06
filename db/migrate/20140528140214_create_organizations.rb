@@ -7,7 +7,6 @@ class CreateOrganizations < ActiveRecord::Migration
       t.integer :account_type
       t.integer :max_agents
       t.integer :payment_system
-      t.integer :inactive_visitor_removal
       t.integer :agent_session_timeout
       t.integer :agent_response_timeout
 
