@@ -13,10 +13,24 @@ class Organization < ActiveRecord::Base
   enum account_type: [:trial, :paid, :free]
   enum status: [:disabled, :enabled]
 
+  def self.create_default_organization
+    organization = Organization.new
+    organization.email = resource.email
+    organization.account_type = 'trial'
+    organization.max_agents = 1
+    organization.agent_session_timeout = 20
+    organization.agent_response_timeout = 2
+    organization.status = 'enabled'
+    organization.payment_system = 'stripe'
+    organization.save
+
+    organization
+  end
+
   def agent_status
     Agent.where(:organization_id => self.id, :availability => 1).count > 0 ? "online" : "offline"
   end
-  
+
   def process_offline_msg(website_id, name, email, department, message)
   end
 end

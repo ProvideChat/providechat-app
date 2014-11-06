@@ -4,13 +4,7 @@ class RegistrationsController < Devise::RegistrationsController
     super
 
     if resource.save
-      organization = Organization.new
-      organization.email = resource.email
-      organization.account_type = 'trial'
-      organization.max_agents = 1
-      organization.status = 'enabled'
-      organization.payment_system = 'stripe'
-      organization.save
+      organization = Organization.create_default_organization
 
       resource.account_type = 'superadmin'
       resource.organization_id = organization.id
