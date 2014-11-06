@@ -26,9 +26,8 @@ class OrganizationsController < ApplicationController
       @organization = Organization.find(current_agent.organization_id)
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def organization_params
-      params.require(:organization).permit(:name, :email, :default_department,
+      params.require(:organization).permit(:email, :default_department,
           :agent_session_timeout, :agent_response_timeout )
     end
 end
