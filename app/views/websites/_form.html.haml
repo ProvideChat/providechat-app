@@ -4,11 +4,23 @@
     .form-group
       %label.col-md-4.control-label= f.label :name
       .col-md-8
-        = f.text_field :name, :class => "form-control"
+        .input-group
+          = f.text_field :name, :class => "form-control"
+          %b.tooltip.tooltip-top-right
+            %i.fa.fa-user.txt-color-teal
+            This is the name of your website (e.g. Provide Chat)
+          %span{class:"input-group-addon"}
+            %i{class:"icon-append fa fa-question-circle"}
     .form-group
       %label.col-md-4.control-label= f.label :url
       .col-md-8
-        = f.text_field :url, :class => "form-control"
+        .input-group
+          = f.text_field :url, :class => "form-control"
+          %b.tooltip.tooltip-top-right
+            %i.fa.fa-user.txt-color-teal
+            This is your website's URL or website address (e.g. http://www.providechat.com/)
+          %span{class:"input-group-addon"}
+            %i{class:"icon-append fa fa-question-circle"}
     .form-group
       %label.col-md-4.control-label= f.label :default_department
       .col-md-8
