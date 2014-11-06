@@ -3,7 +3,13 @@
     .form-group
       %label.col-md-3.control-label Ticket ID
       .col-md-9
-        = text_field_tag "chat_id", nil, :class => "form-control"
+        .input-group
+          = text_field_tag "chat_id", nil, :class => "form-control"
+          %b.tooltip.tooltip-top-right
+            %i.fa.fa-info.txt-color-teal
+            This is the Ticket ID provided to you by your visitor. You can use this to reference a chat from them.
+          %span{class:"input-group-addon"}
+            %i{class:"icon-append fa fa-question-circle"}
     .form-group
       %label.col-md-3.control-label Agent
       .col-md-9
