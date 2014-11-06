@@ -24,6 +24,10 @@ RSpec.configure do |config|
   config.order = "random"
   config.use_transactional_fixtures = false
 
+  # This setting enables warnings. It's recommended, but in some cases may
+  # be too noisy due to issues in dependencies.
+  config.warnings = true
+
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
 =begin
