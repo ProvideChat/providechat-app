@@ -15,7 +15,6 @@ departments = Department.where(:organization_id => org_id)
 
 if pre_chat_form.department_enabled && departments && departments.count > 0
 %>
-
   <p>
     <select id="pre-chat-department">
       <option value="0">Any Department</option>

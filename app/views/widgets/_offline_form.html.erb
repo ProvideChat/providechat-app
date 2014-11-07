@@ -19,7 +19,7 @@
 <%
 departments = Department.where(:organization_id => org_id)
 
-if offline_form.department_enabled && departments.count > 0
+if offline_form.department_enabled && departments && departments.count > 0
 %>
   <p>
     <select id="offline-department">
