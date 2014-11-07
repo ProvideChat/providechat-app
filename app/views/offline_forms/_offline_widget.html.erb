@@ -20,18 +20,22 @@
 
             <p style="margin-top: 0px; "><%= @offline_form.intro_text %></p>
 
-            <input type="text" id="unavailable-text-box-1" placeholder="<%= "Text Box 1" %>"></p>
+            <input type="text" id="unavailable-text-box-1" placeholder="<%= @offline_form.name_text %>"></p>
 
-            <input type="text" id="unavailable-text-box-2" placeholder="<%= "Text Box 2" %>"></p>
+            <% if @offline_form.email_enabled %>
+              <input type="text" id="unavailable-text-box-2" placeholder="<%= @offline_form.email_text %>"></p>
+            <% end %>
 
-            <p>
-              <select id="unavailable-department">
-                <option value="0">Any Department</option>
-                <% Department.all.each do |department| %>
-                  <option value="<%= department.id %>"><%= department.name %></option>
-                <% end %>
-              </select>
-            </p>
+            <% if @offline_form.department_enabled && @departments.count > 0 %>
+              <p>
+                <select id="unavailable-department">
+                  <option value="0"><%= @offline_form.department_text %></option>
+                  <% @departments.each do |department| %>
+                    <option value="<%= department.id %>"><%= department.name %></option>
+                  <% end %>
+                </select>
+              </p>
+            <% end %>
 
             <textarea rows="4" style="border: 1px solid #CCCCCC; width: 350px;" id="unavailable-message" placeholder="<%= @offline_form.message_text %>"></textarea></p>
 

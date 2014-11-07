@@ -15,15 +15,14 @@ class OfflineFormsController < ApplicationController
 
   def edit
     @offline_form = OfflineForm.find(params[:id])
+    @departments = Department.where(organization_id: current_agent.organization_id)
   end
 
   def update
     @offline_form = OfflineForm.find(params[:id])
 
-    logger.debug offline_form_params
-
     if @offline_form.update(offline_form_params)
-      redirect_to edit_offline_form_path(@offline_form), notice: 'Your offline form was successfully updated.'
+      redirect_to edit_offline_form_path(@offline_form), :flash => { :success => 'Your offline form was successfully updated.' }
     else
       render :edit
     end

@@ -14,7 +14,7 @@
   <% if @offline_form %>
 
     <div class="col-sm-12 col-md-12 col-lg-12">
-      <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+      <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0">
         <header>
           <span class="widget-icon"> <i class="fa fa-toggle-up"></i> </span>
           <h2>Offline Message</h2>
@@ -22,6 +22,11 @@
 
 				<div>
 					<div class="widget-body">
+            <div class="alert alert-info no-margin fade in">
+              <i class="fa-fw fa fa-info"></i>
+              This is the form that your visitor completes so they can send you an email while you are offline.
+            </div>
+            <br>
             <div class="col-sm-12 col-sm-8 col-lg-6">
               <%= render 'form' %>
             </div>
