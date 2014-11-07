@@ -7,8 +7,8 @@ class Invitation < ActiveRecord::Base
 
   private
     def set_defaults
-      self.invitation_message = "Hi there, I'm %name%, is there anything I can help you with today?"
-      self.invite_mode = "disabled"
+      self.invitation_message = "Hi there, is there anything I can help you with today?"
+      self.invite_mode = "no_invite"
       self.invite_pageviews = 3
       self.invite_seconds = 15
     end

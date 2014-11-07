@@ -9,7 +9,7 @@ class InvitationsController < ApplicationController
       @invitation = Invitation.find_by(:website_id => website_id)
       redirect_to edit_invitation_path(@invitation.id)
     else
-      redirect_to websites_path, notice: "You need to add a website before you can modify the Chat Widget"
+      redirect_to websites_path, :flash => { :warning => 'You need to add a website before you can modify the Chat Widget' }
     end
   end
 
@@ -20,14 +20,10 @@ class InvitationsController < ApplicationController
   def update
     @invitation = Invitation.find(params[:id])
 
-    respond_to do |format|
-      if @invitation.update(invitation_params)
-        format.html { redirect_to @invitation, notice: 'Invitation was successfully updated.' }
-        format.json { render :show, status: :ok, location: @invitation }
-      else
-        format.html { render :edit }
-        format.json { render json: @invitation.errors, status: :unprocessable_entity }
-      end
+    if @invitation.update(invitation_params)
+      redirect_to edit_invitation_path(@invitation), :flash => { :success => 'Invitation was successfully updated.' }
+    else
+      render :edit
     end
   end
 
