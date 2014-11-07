@@ -19,11 +19,11 @@
               <input type="text" id="start-chat-text-box-2" placeholder="<%= @prechat_form.email_text %>"></p>
             <% end %>
 
-            <% if @prechat_form.department_text %>
+            <% if @prechat_form.department_enabled && @departments.count > 0 %>
               <p>
                 <select id="unavailable-department">
                   <option value="0">Any Department</option>
-                  <% Department.all.each do |department| %>
+                  <% @departments.each do |department| %>
                     <option value="<%= department.id %>"><%= department.name %></option>
                   <% end %>
                 </select>

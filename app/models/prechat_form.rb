@@ -5,7 +5,6 @@ class PrechatForm < ActiveRecord::Base
   
   private
     def set_defaults
-      self.enabled = true
       self.intro_text = 'Thank you for contacting us!'
       self.name_text = 'Name'
       self.email_text =  'Email'

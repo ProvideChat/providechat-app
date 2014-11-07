@@ -4,24 +4,23 @@ class PrechatFormsController < ApplicationController
 
   def index
     params.has_key?(:website_id) ? website_id = params[:website_id] : website_id = Website.where(organization_id: current_agent.organization_id).first
-    
+
     if website_id
       @prechat_form = PrechatForm.find_by(:website_id => website_id)
-      redirect_to edit_prechat_form_path(@prechat_form)    
+      redirect_to edit_prechat_form_path(@prechat_form)
     else
       redirect_to websites_path, notice: "You need to add a website before you can modify the Pre-chat Form"
     end
   end
 
-  # GET /prechat_surveys/1/edit
   def edit
     @prechat_form = PrechatForm.find(params[:id])
+    @departments = Department.where(organization_id: current_agent.organization_id)
   end
 
-  # PATCH/PUT /prechat_surveys/1
   def update
     @prechat_form = PrechatForm.find(params[:id])
-    
+
     if @prechat_form.update(prechat_form_params)
       redirect_to edit_prechat_form_path(@prechat_form), notice: 'Prechat survey was successfully updated.'
     else
@@ -35,6 +34,6 @@ class PrechatFormsController < ApplicationController
     end
 
     def prechat_form_params
-      params.require(:prechat_form).permit(:enabled, :intro_text, :name_text, :email_text, :email_enabled, :department_text, :department_enabled, :message_text, :button_text)
+      params.require(:prechat_form).permit(:intro_text, :name_text, :email_text, :email_enabled, :department_text, :department_enabled, :message_text, :button_text)
     end
 end
