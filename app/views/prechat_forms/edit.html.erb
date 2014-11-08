@@ -23,17 +23,18 @@
         </header>
 
 				<div>
-					<div class="widget-body">
+					<div class="widget-body no-padding">
             <div class="alert alert-info no-margin fade in">
               <i class="fa-fw fa fa-info"></i>
               This is the form that your visitor completes before they initiate a chat with you.
             </div>
-            <br>
-            <div class="col-sm-12 col-sm-8 col-lg-6">
-              <%= render 'form' %>
-            </div>
-            <div class="col-sm-12 col-md-12 col-lg-6">
-              <%= render 'pre_chat' %>
+            <div class="form-container">
+              <div class="col-sm-12 col-sm-8 col-lg-6">
+                <%= render 'form' %>
+              </div>
+              <div class="col-sm-12 col-md-12 col-lg-6">
+                <%= render 'pre_chat' %>
+              </div>
             </div>
           </div>
         </div>

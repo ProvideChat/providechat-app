@@ -16,12 +16,6 @@
     .form-group
       .col-md-3
       .col-md-9
-        %label
-          = f.radio_button :invite_mode, "no_invite", :class => "radio radio-inline", checked: @invitation.invite_mode == 'no_invite'
-          Do not invite visitors to chat.
-    .form-group
-      .col-md-3
-      .col-md-9
         .form-inline
           %label
             = f.radio_button :invite_mode, "page_views", :class => "radio radio-inline"
@@ -36,6 +30,12 @@
             = f.radio_button :invite_mode, "seconds", :class => "radio radio-inline"
             Invite after 
             #{f.text_field :invite_seconds, :placeholder => "Seconds", :class => "form-control", :style => "width: 40px;"} seconds.
+    .form-group
+      .col-md-3
+      .col-md-9
+        %label
+          = f.radio_button :invite_mode, "no_invite", :class => "radio radio-inline", checked: @invitation.invite_mode == 'no_invite'
+          Do not invite visitors to chat.
 
   .widget-footer
     = f.submit "Update", :class => "btn btn-primary"
