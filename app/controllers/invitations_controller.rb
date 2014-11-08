@@ -27,14 +27,13 @@ class InvitationsController < ApplicationController
     end
   end
 
-
   private
-    def set_websites
-      @websites = Website.where(organization_id: current_agent.organization_id)
-    end
+  
+  def set_websites
+    @websites = Website.where(organization_id: current_agent.organization_id)
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def invitation_params
-      params.require(:invitation).permit(:organization_id, :website_id, :invitation_message, :smart_invite_enabled, :smart_invite_mode, :invite_pageviews, :invite_seconds)
-    end
+  def invitation_params
+    params.require(:invitation).permit(:organization_id, :website_id, :invitation_message, :invite_mode, :invite_pageviews, :invite_seconds)
+  end
 end
