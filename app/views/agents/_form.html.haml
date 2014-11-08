@@ -43,29 +43,30 @@
           %span{class:"input-group-addon"}
             %i{class:"icon-append fa fa-question-circle"}
     .form-group
-      %label.col-md-4.control-label= f.label :password_confirmation
+      %label.col-md-4.control-label= f.label :password_confirmation, "Confirm Password"
       .col-md-8
         = f.password_field :password_confirmation, autocomplete: "off", :class => "form-control"
     .form-group
-      %label.col-md-4.control-label= f.label :account_type
+      %label.col-md-4.control-label= f.label :account_type, "Access Level"
       .col-md-8
         - if @agent.account_type == 'superadmin'
           %div{style: "padding-top: 6px;"}
             %strong Super Admin
         - else
-          .input-group
-            = f.select :account_type, [["Agent", "agent"], ["Admin", "admin"]], {:include_blank => "-- Select Account Type --"}, {:class => "form-control"}
-            %b.tooltip.tooltip-top-right
-              %i.fa.fa-user.txt-color-teal
-              Select the access level for this account.
-            %span{class:"input-group-addon"}
-              %i{class:"icon-append fa fa-question-circle"}
+          = f.select :account_type, [["Agent", "agent"], ["Admin", "admin"]], {:include_blank => "-- Select Account Type --"}, {:class => "form-control"}
+          %span{class:"help-block"}
+            %strong Agents 
+            can chat with visitors, view the chat monitor, and view previous chat transcripts. 
+            %strong Admins 
+            have all the same permissions as agents, along with access to administer account settings.
     .form-group
       %label.col-md-4.control-label= f.label "Photo"
       .col-md-8
         = image_tag(@agent.avatar_url) if @agent.avatar?
         = f.file_field :avatar, :class => "form-control"
         = f.hidden_field :avatar_cache
+        %span{class:"help-block"}
+          We recommend uploading a photo of your face here. This will be displayed in the chat widget when visitors chat with you.
     - if @agent.avatar?
       .form-group
         %label.col-md-4.control-label
