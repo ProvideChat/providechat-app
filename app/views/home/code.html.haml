@@ -6,24 +6,23 @@
         %i.fa.fa-code
       %h2 Website Code
     %div
-      .widget-body
+      .widget-body.no-padding
         .alert.alert-info.no-margin.fade.in
           %i.fa-fw.fa.fa-info
           To install the Provide Chat Widget, paste this code (unaltered, in it’s entirety) on every page of your website just before the closing </body> tag.
 
-        %br
+        .code-container
+          .row
+            .col-md-12
+              .pull-right
+                %a{:href => "#", :id => "select-code"}> (select all)
 
-        .row
-          .col-md-12
-            .pull-right
-              %a{:href => "#", :id => "select-code"}> (select all)
+              %textarea#widget-code.codetext= render :partial => "home/widget_include_code"
 
-            %textarea#widget-code.codetext= render :partial => "home/widget_include_code"
-
-        %hr
-        .row
-          .col-md-12
-            %a{:href => "#", :id => "email-code"}Or you can send these instructions to your webmaster
+          %hr
+          .row
+            .col-md-12
+              %a{:href => "#", :id => "email-code"}Or you can send these instructions to your webmaster
 
 :javascript
   $(document).ready(function () {
