@@ -11,8 +11,15 @@ class Website < ActiveRecord::Base
   has_and_belongs_to_many :departments
 
   after_create :create_widget_support
+  before_validation :smart_url_update
 
   mount_uploader :logo, LogoUploader
+
+  protected
+
+  def smart_url_update
+    self.url = self.url.sub(/^https?\:\/\//, '').sub(/\/$/, '')
+  end
 
   private
   def create_widget_support
