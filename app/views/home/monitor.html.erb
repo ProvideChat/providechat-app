@@ -213,69 +213,7 @@
           $('#visitor-container').append("</div>");
           visitors++;
         }
-
-        /*
-        var row_bg_color = '#ffffff';
-        if (visitor.status == 'waiting_to_chat') {
-          waiting_to_chat = waiting_to_chat + 1;
-          row_bg_color = '#F0E68C';
-        }
-
-        if (visitor.status == 'in_chat') {
-          row_bg_color = '#B4EEB4';
-        }
-
-        if ($("#visitor_row_" + visitor.id).length === 0) {
-          var visitor_row = '<tr id="visitor_row_' + visitor.id + '" data-active="true" data-visitor-id="' + visitor.id + '" style="background-color: ' + row_bg_color + ';"><td>' + visitor.id + '</td>';
-          visitor_row = visitor_row + '<td>' + processVisitorName(visitor) + '</td>';
-          visitor_row = visitor_row + '<td>' + processDepartmentName(visitor) + '</td>';
-          visitor_row = visitor_row + '<td>' + processVisitorStatus(visitor) + '</td>';
-          visitor_row = visitor_row + '<td>' + processAgent(visitor) + '</td>';
-          visitor_row = visitor_row + '<td>' + visitor.current_page + '</td>';
-          visitor_row = visitor_row + '<td><a href="javascript:void();" id="view_visitor_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs"><i class="fa fa-user"></i> Visitor Info</a>';
-          visitor_row = visitor_row + '&nbsp;<a href="javascript:void();" id="accept_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs" disabled="disabled"><i class="fa fa-comments-o"></i> Accept</a>';
-          visitor_row = visitor_row + '&nbsp;<a href="javascript:void();" id="invite_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs" disabled="disabled"><i class="fa fa-external-link"></i> Invite</a>';
-          visitor_row = visitor_row + '</td></tr>';
-          $('#visitor-table > tbody:last').append(visitor_row);
-          $('#view_visitor_' + visitor.id).click(function() {
-            viewVisitor($(this).data("visitor-id"));
-          });
-          $('#accept_chat_' + visitor.id).click(function() {
-            startChat($(this).data("visitor-id"));
-          });
-
-        } else {
-          $("#visitor_row_" + visitor.id).css("background-color", row_bg_color);
-          $("#visitor_row_" + visitor.id).find("td").eq(1).html(processVisitorName(visitor));
-          $("#visitor_row_" + visitor.id).find("td").eq(3).html(processVisitorStatus(visitor));
-          $("#visitor_row_" + visitor.id).find("td").eq(4).html(processAgent(visitor));
-          $("#visitor_row_" + visitor.id).find("td").eq(5).html(visitor.current_page);
-
-          if (visitor.status == 'waiting_to_chat') {
-            $('#accept_chat_' + visitor.id).attr("disabled", false);
-            $('#accept_chat_' + visitor.id).html('<i class="fa fa-comments-o"></i> Accept</a>');
-          }
-
-          if (visitor.status == 'in_chat') {
-            $('#accept_chat_' + visitor.id).attr("disabled", false);
-            $('#accept_chat_' + visitor.id).html('<i class="fa fa-comments-o"></i> View Chat</a>');
-          }
-
-          $("#visitor_row_" + visitor.id).data("active", true);
-        }
-        */
       });
-
-      //$('#waiting-to-chat').html(waiting_to_chat);
-      /*
-      $('#visitor-table > tbody  > tr').each(function() {
-        if ($(this).data("active") === true) {
-          $(this).data("active", false);
-        } else {
-          $(this).remove();
-        }
-      });
-      */
 
       if (in_chat === 0) {
         $('#current-chat-container').html("<p>No current chats</p>");
@@ -371,42 +309,26 @@
 
       var visitorInfo = '';
 
-      visitorInfo += '<table class="table table-bordered">';
-      visitorInfo += '<tr><td><b>Name: </b></td><td>' + visitor.name + '</td></tr>';
-      visitorInfo += '<tr><td><b>Email: </b></td><td>' + visitor.email + '</td></tr>';
-      visitorInfo += '<tr><td><b>Department: </b></td><td>' + visitor.department + '</td></tr>';
-      visitorInfo += '<tr><td><b>IP Address: </b></td><td>' + visitor.ip_address + '</td></tr>';
-      visitorInfo += '<tr><td><b>Pages Viewed: </b></td><td>' + visitor.page_views + '</td></tr>';
-      visitorInfo += '<tr><td><b>Time on Site: </b></td><td>' + visitor.timeDiff + '</td></tr>';
-      visitorInfo += '<tr><td><b>Country: </b></td><td>' + visitor.country_name + '&nbsp;&nbsp;<img width="32" height="32" src="/images/flags/' + visitor.country_code + '.png"></td></tr>';
-      visitorInfo += '<tr><td><b>Current Page: </b></td><td><a href="' + visitor.current_page + '" target="_blank" style="color: #0066CC;">' + visitor.current_page + '</a></td></tr>';
-      visitorInfo += '<tr><td><b>Location: </b></td><td>Latitude ' + visitor.latitude + ', Longitude ' + visitor.longitude + '</td></tr>';
-      visitorInfo += '<tr><td><b>City: </b></td><td>' + visitor.city + '</td></tr>';
-      visitorInfo += '<tr><td><b>Region: </b></td><td>' + visitor.region_name + ' (' + visitor.region_code + ')</td></tr>';
-      visitorInfo += '<tr><td><b>Area Code: </b></td><td>' + visitor.area_code + '</td></tr>';
-      visitorInfo += '<tr><td><b>Metro Code: </b></td><td>' + visitor.metro_code + '</td></tr>';
-      visitorInfo += '<tr><td><b>ZipCode: </b></td><td>' + visitor.zipcode + '</td></tr>';
-
-      visitorInfo += '<tr><td><br><b>Initial Question: </b></td><td>' + visitor.question + '</td></tr></table>';
-
-      visitorInfo += '<h6>Referrer Information</h6>';
-      visitorInfo += '<table class="table table-bordered">';
-      visitorInfo += '<tr><td><b>Name: </b></td><td>' + visitor.referer_host + '</td></tr>';
-      visitorInfo += '<tr><td><b>Search Query: </b></td><td>' + visitor.search_query + '</td></tr>';
-      visitorInfo += '<tr><td><b>Website: </b></td><td>' + visitor.referer_url + '</td></tr>';
-      visitorInfo += '<tr><td><b>Search Engine: </b></td><td>' + visitor.search_engine + '</td></tr></table>';
-      //salesInfoContent += '<tr><td colspan="2"><img src="' + response.searchEngineImg + '" width="80" height="32"></td></tr></table>';
+      visitorInfo += '<p><b>Email: </b>' + visitor.email + '</p>';
+      visitorInfo += '<p><b>Department: </b>' + visitor.department + '</p>';
+      visitorInfo += '<p><b>Initial Question: </b>' + visitor.question + '</p>';
+      visitorInfo += '<p><b>IP Address: </b>' + visitor.ip_address + '</p>';
+      visitorInfo += '<p><b>Pages Viewed: </b>' + visitor.page_views + '</p>';
+      visitorInfo += '<p><b>Time on Site: </b>' + visitor.timeDiff + '</p>';
+      visitorInfo += '<p><b>Country: </b>' + visitor.country_name + '&nbsp;&nbsp;<img width="32" height="32" src="/images/flags/' + visitor.country_code + '.png"></p>';
+      visitorInfo += '<p><b>Current Page: </b><a href="' + visitor.current_page + '" target="_blank" style="color: #0066CC;">' + visitor.current_page + '</a></p>';
+      visitorInfo += '<p><b>Location: </b>Latitude ' + visitor.latitude + ', Longitude ' + visitor.longitude + '</p>';
+      visitorInfo += '<p<b>City: </b>' + visitor.city + '</p>';
+      visitorInfo += '<p><b>Region: </b>' + visitor.region_name + ' (' + visitor.region_code + ')</p>';
+      visitorInfo += '<p><b>Area Code: </b>' + visitor.area_code + '</p>';
+      visitorInfo += '<p><b>Metro Code: </b>' + visitor.metro_code + '</p>';
+      visitorInfo += '<p><b>ZipCode: </b>' + visitor.zipcode + '</p>';
 
       visitorInfo += '<h6>System Information</h6>';
-      visitorInfo += '<table class="table table-bordered">';
-      visitorInfo += '<tr><td><b>IP Address: </b></td><td >' + visitor.ip_address + '</td></tr>';
-      visitorInfo += '<tr><td><b>Screen Resolution: </b></td><td >' + visitor.screen_resolution + '</td></tr>';
-      visitorInfo += '<tr><td><b>Browser: </b></td><td><table border="0" cellpadding="0" cellspacing="0"><tr>';
-      visitorInfo += '<td>' + visitor.browser_name + '</td><td><img src="' + visitor.browserImg + '" height="16px" width="16px" hspace="3px"></td></tr></table></td></tr>';
-      visitorInfo += '<tr><td><b>Browser Version: </b></td><td><table border="0" cellpadding="0" cellspacing="0"><tr>';
-      visitorInfo += '<td>' + visitor.browser_version + '</td></tr></table></td></tr>';
-      visitorInfo += '<tr><td><b>Operating System: </b></td><td><table border="0" cellpadding="0" cellspacing="0"><tr>';
-      visitorInfo += '<td>' + visitor.operating_system + '</td><td><img src="' + visitor.osImg + '" height="16px" width="16px" hspace="3px"></td></tr></table>';
+      visitorInfo += '<p><b>Screen Resolution: </b>' + visitor.screen_resolution + '</p>';
+      visitorInfo += '<p><b>Browser: </b>' + visitor.browser_name + '<img src="' + visitor.browserImg + '" height="16px" width="16px" hspace="3px"></p';
+      visitorInfo += '<p><b>Browser Version: </b>' + visitor.browser_version + '</p>';
+      visitorInfo += '<p><b>Operating System: </b>' + visitor.operating_system + '<img src="' + visitor.osImg + '" height="16px" width="16px" hspace="3px"></p>';
 
       $('#visitor-info-' + visitor_id).html(visitorInfo);
     });
@@ -544,7 +466,7 @@
       var newMessageAlert = false;
 
       if ((get_all_messages === true) || ($("#chat-messages-"+chat_id).length === 0)) {
-        $("#chat-messages-"+chat_id).html('<div style="margin: 10px; font-family: Lucida Sans Unicode, verdana, helvetica;"><h5>You are now chatting with ' + response.visitor_name + '</h5></div><hr />');
+        $("#chat-messages-"+chat_id).html('<div style="margin: 10px; font-family: Lucida Sans Unicode, verdana, helvetica;"><p>You are now chatting with ' + response.visitor_name + '</p></div><hr />');
       }
 
 			// if we get some JSON messages returned then process and display them, otherwise
@@ -552,36 +474,25 @@
 
       ProvideChat.chatStatus[chat_id] = response.status;
 
-			// A status of 1 means the chat is now accepted
-      if (response.status === 'not_started') {
-
-          chatText = '<li class="message"><div class="message-text">';
-          chatText += '<time>2014-01-13</time>';
-          chatText += '<a href="javascript:void(0);" class="username">' + response.visitorName + '</a> ' + response.visitorQuestion + '</li>';
-          //chatText += '<td class="maintext">This chat has not started yet</td>';
-
-  				//lastMessageId[chatId] = response.message[0].id;
-
-          $("#chatWindow" + chat_id).html(chatText);
-
-  			// A status of 2 means the chat is active
-      } else if (response.status === 'in_progress') {
+      if (response.status === 'in_progress') {
 
         $.each(response.messages, function(count, message) {
 
           console.log("MESSAGE: ");
           console.log(message);
+          
+          var message_timestamp = new Date(message.sent);
 
           if (message.sender === 'agent')
           {
             chatText += '<li class="message"><div class="message-text">';
-            chatText += '<time>2014-01-13</time>';
+            chatText += '<time>' +  message_timestamp.getHours() + ':' + message_timestamp.getMinutes() + '</time>';
             chatText += '<a href="javascript:void(0);" class="username">' + message.user_name  + '</a> ' + message.message + '</li>';
           }
           else if (message.sender === "visitor")
           {
             chatText += '<li class="message"><div class="message-text">';
-            chatText += '<time>2014-01-13</time>';
+            chatText += '<time>' + message_timestamp.getHours() + ':' + message_timestamp.getMinutes() + '</time>';
             chatText += '<a href="javascript:void(0);" class="username">' + message.user_name  + '</a> ' + message.message + '</li>';
 
             $('#typingNotification' + chat_id).html ('');
@@ -756,7 +667,7 @@
         clearTimeout(keypressMsgTimer[chat_id]);
         keypressMsgTimer[chat_id] = null;
       }
-      keypressMsgTimer[chat_id] = setTimeout(function () { updateKeypress(chat_id, 'no'); }, 3000); // reset the keypress in 5 seconds
+      keypressMsgTimer[chat_id] = setTimeout(function () { updateKeypress(chat_id, 'no'); }, 3000); 
 
     } else {
 
@@ -770,7 +681,7 @@
         success: function (json) {
           clearTimeout(keypressMsgTimer[chat_id]);
           keypressMsgTimer[chat_id] = null;
-          keypressMsgTimer[chat_id] = setTimeout(function () { updateKeypress(chat_id, 'no'); }, 3000); // reset the keypress in 5 seconds
+          keypressMsgTimer[chat_id] = setTimeout(function () { updateKeypress(chat_id, 'no'); }, 3000);
 
           result = null;
         }
