@@ -99,6 +99,15 @@ module Api
               'messages' => chat_messages || Array.new
             }
 
+          when "get_current_chats"
+            agent_id = params[:agent_id]
+
+            current_chats = Chat.where(agent_id: agent_id)
+
+            response = {
+              'current_chats' => current_chats || Array.new
+            }
+
           when "get_visitor_typing"
 
             chat_id = params[:chat_id]

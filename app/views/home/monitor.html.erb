@@ -135,10 +135,23 @@
     ProvideChat.agent_name = agent_name;
     ProvideChat.organization_id = organization_id;
 
+    loadCurrentChats();
     updateVisitors();
 
-    ProvideChat.visitorTimer = setInterval(function(){updateVisitors();}, 10000);
+    ProvideChat.visitorTimer = setInterval(function(){updateVisitors();}, 2000);
   };
+
+  function loadCurrentChats () {
+
+    var json_data = { "method": 'get_current_chats', "agent_id": ProvideChat.agent_id };
+
+    $.getJSON("/api/chat_monitor.json", json_data, function (response) {
+
+      $.each(response.current_chats, function(i, current_chat) {
+        startChat( current_chat.visitor_id );
+      });
+    });
+  }
 
   function updateVisitors () {
 
