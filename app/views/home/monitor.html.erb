@@ -432,12 +432,9 @@
     $.getJSON("/api/chat_monitor.json", json_data, function (response) {
       if (response.chat_id > 0) {
         ProvideChat.activeChatId = response.chat_id;
-        
         if ($("#chat_tab_" + response.chat_id).length === 0) {
-          console.log("test 1");
           add_new_tab (response.chat_id, response.visitor_id, response.visitor_name, 'inProgress');
         } else {
-          console.log("test 2");
           $("#chat_tab_" + response.chat_id).tab('show');
         }
       }
@@ -530,11 +527,11 @@
   }
 
   //Gets the current messages from the server
-  function getChatText( chat_id, getAllMessages ) {
+  function getChatText( chat_id, get_all_messages ) {
 
     var json_data = { "method": 'get_chat_messages', "chat_id": chat_id, "agent_id": ProvideChat.agent_id, "context" : "unseen" };
 
-    if (getAllMessages === true) {
+    if (get_all_messages === true) {
       json_data.context = "all";
     }
 
@@ -546,7 +543,7 @@
       var endChat = false;
       var newMessageAlert = false;
 
-      if ((getAllMessages === true) || ($("#chat-messages-"+chat_id).length === 0)) {
+      if ((get_all_messages === true) || ($("#chat-messages-"+chat_id).length === 0)) {
         $("#chat-messages-"+chat_id).html('<div style="margin: 10px; font-family: Lucida Sans Unicode, verdana, helvetica;"><h5>You are now chatting with ' + response.visitor_name + '</h5></div><hr />');
       }
 
@@ -577,13 +574,13 @@
 
           if (message.sender === 'agent')
           {
-            chatText = '<li class="message"><div class="message-text">';
+            chatText += '<li class="message"><div class="message-text">';
             chatText += '<time>2014-01-13</time>';
             chatText += '<a href="javascript:void(0);" class="username">' + message.user_name  + '</a> ' + message.message + '</li>';
           }
           else if (message.sender === "visitor")
           {
-            chatText = '<li class="message"><div class="message-text">';
+            chatText += '<li class="message"><div class="message-text">';
             chatText += '<time>2014-01-13</time>';
             chatText += '<a href="javascript:void(0);" class="username">' + message.user_name  + '</a> ' + message.message + '</li>';
 
