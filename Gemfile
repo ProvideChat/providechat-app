@@ -42,6 +42,7 @@ group :test, :development do
   gem 'better_errors'
   gem 'brakeman', :require => false
   gem 'byebug'
+  gem 'dotenv-rails'
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'faker'
