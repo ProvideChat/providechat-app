@@ -173,7 +173,7 @@
             $('#current-chat-container').html('');
           }
           $('#current-chat-container').append("<div id='visitor-" + visitor.id + "'>");
-          $('#current-chat-container').append('<%= image_tag "monitor/person-green.png", class: "visitor-image" %>');
+          $('#current-chat-container').append('<%= image_tag "monitor/current-chat.png", class: "visitor-image" %>');
           $('#current-chat-container').append(visitor.name + '&nbsp;');
           $('#current-chat-container').append('<a href="javascript:void(0);" id="view_visitor_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs"><i class="fa fa-user"></i> View</a>');
           $('#current-chat-container').append('<br /><span class="visitor-detail">Chatting for ' + visitor.time_in_chat + '</span>');
@@ -189,7 +189,7 @@
             $('#waiting-to-chat-container').html('');
           }
           $('#waiting-to-chat-container').append("<div id='visitor-" + visitor.id + "'>");
-          $('#waiting-to-chat-container').append('<%= image_tag "monitor/person-yellow.png", class: "visitor-image" %>');
+          $('#waiting-to-chat-container').append('<%= image_tag "monitor/waiting-to-chat.png", class: "visitor-image" %>');
           $('#waiting-to-chat-container').append(visitor.name + '&nbsp;');
           $('#waiting-to-chat-container').append('<a href="javascript:void(0);" id="accept_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs"><i class="fa fa-comments-o"></i> Accept</a>')
           $('#waiting-to-chat-container').append('<br /><span class="visitor-detail">Waiting for ' + visitor.time_waiting_to_chat + '</span>');
@@ -206,7 +206,7 @@
             $('#visitor-container').html('');
           }
           $('#visitor-container').append("<div id='visitor-" + visitor.id + "'>");
-          $('#visitor-container').append('<%= image_tag "monitor/person-grey.png", class: "visitor-image" %>');
+          $('#visitor-container').append('<%= image_tag "monitor/visitor-browsing.png", class: "visitor-image" %>');
           $('#visitor-container').append(visitor.region_name + ', ' + visitor.country_name + '&nbsp;');
           $('#visitor-container').append('<a href="javascript:void(0);" id="invite_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs"><i class="fa fa-external-link"></i> Invite</a>');
           $('#visitor-container').append('<br /><span class="visitor-detail">' + visitor.current_page + '</span>');
