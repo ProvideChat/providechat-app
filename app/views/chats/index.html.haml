@@ -17,37 +17,29 @@
 
 .row
   .col-sm-12.col-md-12.col-lg-12
-    #agent-table.jarviswidget{:role => "widget"}
-      %header{:role => "heading"}
-        %h2
-          %strong Chats
-        %span.jarviswidget-loader
-          %i.fa.fa-refresh.fa-spin
-      %div{:role => "content"}
-        .widget-body
-          %table.table.table-bordered
-            %thead
-              %tr
-                %th Chat ID
-                %th Agent
-                %th Website
-                %th Visitor Details
-                %th Date
-                %th Department
-                %th Status
-                %th
-            %tbody
-              - @chats.each do |chat|
-                %tr
-                  %td= chat.id
-                  %td= chat.agent.name
-                  %td= chat.website.url
-                  %td= chat.visitor.name if chat.visitor
-                  %td= chat.chat_ended
-                  %td= chat.visitor_department
-                  %td= chat.status
-                  %td= link_to 'View Transcript', chat
-              - if @chats.count == 0
-                %tr
-                  %td{:colspan => "8"}
-                    %h4 No chats found
+    %table.table.table-bordered
+      %thead
+        %tr
+          %th Chat ID
+          %th Agent
+          %th Website
+          %th Visitor Name
+          %th Date
+          %th Department
+          %th Status
+          %th
+      %tbody
+        - @chats.each do |chat|
+          %tr
+            %td= chat.id
+            %td= chat.agent.name
+            %td= chat.website.url
+            %td= chat.visitor.name if chat.visitor
+            %td= chat.chat_accepted
+            %td= chat.visitor_department
+            %td= chat.status
+            %td= link_to 'View Transcript', chat
+        - if @chats.count == 0
+          %tr
+            %td{:colspan => "8"}
+              %h4 No chats found
