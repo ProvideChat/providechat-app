@@ -4,6 +4,8 @@ class Visitor < ActiveRecord::Base
 
   enum status: [:no_chat, :waiting_to_chat, :in_chat, :chat_ended, :offsite]
 
+  before_save :titleize_name
+
 #  t.integer  "organization_id"
 #  t.integer  "website_id"
 #  t.string   "name"
@@ -58,7 +60,7 @@ class Visitor < ActiveRecord::Base
     latitude = session['location']['latitude']
     longitude = session['location']['longitude']
     country_code = session['location']['country_code']
-    
+
     country_name = ''
     if session['location_provider'] == 'Telize'
       country_name = session['location']['country_name']
@@ -67,7 +69,7 @@ class Visitor < ActiveRecord::Base
     end
 
     area_code = session['location']['area_code']
-    
+
     city, region_name, region_name, zipcode, metro_code = "", "", "", "", ""
     if session['location_provider'] == 'FreeGeoIP'
       city = session['location']['city']
@@ -76,7 +78,7 @@ class Visitor < ActiveRecord::Base
       zipcode = session['location']['zipcode']
       metro_code = session['location']['metro_code']
     end
-    
+
     search_engine = session['current_session']['search']['engine']
     search_query = session['current_session']['search']['query']
 
@@ -127,8 +129,8 @@ class Visitor < ActiveRecord::Base
       if session['location']['error']
         Rails.logger.debug "No location data"
       end
-      
-      if visitor.new_record? 
+
+      if visitor.new_record?
         visitor.status = 'no_chat'
       end
 
@@ -138,5 +140,11 @@ class Visitor < ActiveRecord::Base
     else
       false
     end
+  end
+
+  protected
+
+  def titleize_name
+    self.name = self.name.titleize
   end
 end
