@@ -5,20 +5,15 @@
       %label.col-md-4.control-label= f.label :name
       .col-md-8
         .input-group
-          = f.text_field :name, :class => "form-control"
-          %b.tooltip.tooltip-top-right
-            %i.fa.fa-user.txt-color-teal
-            This is your name, it will not be displayed to visitors (e.g. Adams Jones)
+          = f.text_field :name, :class => "form-control name-field"
           %span{class:"input-group-addon"}
             %i{class:"icon-append fa fa-question-circle"}
+          
     .form-group
       %label.col-md-4.control-label= f.label :display_name
       .col-md-8
         .input-group
-          = f.text_field :display_name, :class => "form-control"
-          %b.tooltip.tooltip-top-right
-            %i.fa.fa-user.txt-color-teal
-            When chatting with a visitor, this is the name visitors will know you as (e.g. Adam)
+          = f.text_field :display_name, :class => "form-control display-name-field"
           %span{class:"input-group-addon"}
             %i{class:"icon-append fa fa-question-circle"}
 
@@ -26,22 +21,18 @@
       %label.col-md-4.control-label= f.label :email
       .col-md-8
         .input-group
-          = f.text_field :email, :class => "form-control"
-          %b.tooltip.tooltip-top-right
-            %i.fa.fa-user.txt-color-teal
-            This is your email address (e.g. adam@providechat.com). You will use this email address to log into your account.
+          = f.text_field :email, :class => "form-control email-field"
           %span{class:"input-group-addon"}
             %i{class:"icon-append fa fa-question-circle"}
+
     .form-group
       %label.col-md-4.control-label= f.label :password
       .col-md-8
         .input-group
-          = f.password_field :password, autocomplete: "off", :class => "form-control"
-          %b.tooltip.tooltip-top-right
-            %i.fa.fa-user.txt-color-teal
-            This is the password you will use to log in.
+          = f.password_field :password, autocomplete: "off", :class => "form-control password-field"
           %span{class:"input-group-addon"}
             %i{class:"icon-append fa fa-question-circle"}
+
     .form-group
       %label.col-md-4.control-label= f.label :password_confirmation, "Confirm Password"
       .col-md-8
@@ -53,17 +44,19 @@
           %div{style: "padding-top: 6px;"}
             %strong Super Admin
         - else
-          = f.select :account_type, [["Agent", "agent"], ["Admin", "admin"]], {:include_blank => "-- Select Account Type --"}, {:class => "form-control"}
-          %span{class:"help-block"}
-            %strong Agents 
-            can chat with visitors, view the chat monitor, and view previous chat transcripts. 
-            %strong Admins 
-            have all the same permissions as agents, along with access to administer account settings.
+          .input-group
+            = f.select :account_type, [["Agent", "agent"], ["Admin", "admin"]], {:include_blank => "-- Select Account Type --"}, {:class => "form-control account-field"}
+            %span{class:"input-group-addon"}
+              %i{class:"icon-append fa fa-question-circle"}
     .form-group
       %label.col-md-4.control-label= f.label "Photo"
-      .col-md-8.photo-field
+      .col-md-8
         = image_tag(@agent.avatar_url) if @agent.avatar?
-        = f.file_field :avatar, :class => "form-control"
+        .input-group
+          = f.file_field :avatar, :class => "form-control photo-field"
+          %span{class:"input-group-addon"}
+            %i{class:"icon-append fa fa-question-circle"}
+          
         = f.hidden_field :avatar_cache
     - if @agent.avatar?
       .form-group
@@ -74,19 +67,73 @@
             Remove photo
     .form-group
       %label.col-md-4.control-label Assigned Websites
-      .col-md-8
-        = f.select :website_ids, @websites.collect {|x| [x.name, x.id]}, {}, {:multiple => true, :style => "width:100%", :class  => "select2" }
+      .col-md-8.websites-field
+        .input-group
+          = f.select :website_ids, @websites.collect {|x| [x.name, x.id]}, {}, {:multiple => true, :style => "width:100%", :class  => "select2" }
+          %span{class:"input-group-addon"}
+            %i{class:"icon-append fa fa-question-circle"}
 
   .widget-footer
     = link_to "Cancel", agents_path, :class => "btn btn-default"
     = f.submit @agent.new_record? ? "Add Agent" : "Update Agent", :class => "btn btn-primary"
 
 :javascript
-  $('.photo-field').qtip({
-    content: 'We recommend uploading a photo of your face here. This will be displayed in the chat widget when visitors chat with you.',
-    position: {
-      my: 'top left',  // Position my top left...
-      at: 'bottom center', // at the bottom right of...
-      target: $('.photo-field') // my target
-    }
+  $( document ).ready(function() {
+    
+    function default_style(content, field) {
+      var style = { 
+        content: content,
+        show: {
+          event: 'click'
+        },
+        hide: {
+          event: 'unfocus'
+        },
+        position: {
+          my: 'bottom right',  // Position my top left...
+          at: 'top right', // at the bottom right of...
+          adjust: { x: 20 },
+          target: $(field) // my target
+        }
+      };
+      
+      return style;
+    };
+    
+    $('.name-field').qtip(
+      default_style('This is your name, it will not be displayed to visitors (e.g. Adams Jones)', '.name-field')
+    );
+
+    $('.display-name-field').qtip(
+      default_style('When chatting with a visitor, this is the name visitors will know you as (e.g. Adam)', '.display-name-field')
+    );
+    
+    $('.email-field').qtip(
+      default_style('This is your email address (e.g. adam@providechat.com). You will use this email address to log into your account.', '.email-field')
+    );
+    
+    $('.password-field').qtip(
+      default_style('This is the password you will use to log in.', '.password-field')
+    );
+    
+    $('.account-field').qtip(
+      default_style('<p><strong>Agents</strong> can chat with visitors, view the chat monitor, and view previous chat transcripts.</p><p><strong>Admins</strong> have all the same permissions as agents, along with access to administer account settings.</p>', '.account-field')
+    );
+    
+    $('.photo-field').qtip({
+      content: 'We recommend uploading a photo of your face here. This will be displayed in the chat widget when visitors chat with you.',
+      hide: {
+        event: 'unfocus'
+      },      
+      position: {
+        my: 'bottom right',  // Position my top left...
+        at: 'top right', // at the bottom right of...
+        adjust: { x: 20 },
+        target: $('.photo-field') // my target
+      }
+    });
+
+    $('.websites-field').qtip(
+      default_style('You will be able to chat with visitors on these websites', '.websites-field')
+    );
   });
