@@ -18,6 +18,7 @@
  *= require smartadmin-rtl
  *= require bootstrap-datepicker
  *= require jquery.colorpicker
+ *= require qtip2
  *= require styles
  *= require monitor
  *= require widget

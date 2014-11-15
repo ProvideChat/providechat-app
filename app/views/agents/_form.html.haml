@@ -61,12 +61,10 @@
             have all the same permissions as agents, along with access to administer account settings.
     .form-group
       %label.col-md-4.control-label= f.label "Photo"
-      .col-md-8
+      .col-md-8.photo-field
         = image_tag(@agent.avatar_url) if @agent.avatar?
         = f.file_field :avatar, :class => "form-control"
         = f.hidden_field :avatar_cache
-        %span{class:"help-block"}
-          We recommend uploading a photo of your face here. This will be displayed in the chat widget when visitors chat with you.
     - if @agent.avatar?
       .form-group
         %label.col-md-4.control-label
@@ -82,3 +80,13 @@
   .widget-footer
     = link_to "Cancel", agents_path, :class => "btn btn-default"
     = f.submit @agent.new_record? ? "Add Agent" : "Update Agent", :class => "btn btn-primary"
+
+:javascript
+  $('.photo-field').qtip({
+    content: 'We recommend uploading a photo of your face here. This will be displayed in the chat widget when visitors chat with you.',
+    position: {
+      my: 'top left',  // Position my top left...
+      at: 'bottom center', // at the bottom right of...
+      target: $('.photo-field') // my target
+    }
+  });

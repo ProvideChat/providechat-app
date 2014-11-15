@@ -21,4 +21,4 @@
 //= require jquery.colorpicker
 //= require jquery.nestable
 //= require jquery.validate
-
+//= require qtip2
