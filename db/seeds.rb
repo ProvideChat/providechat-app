@@ -9,7 +9,7 @@
 organization = Organization.create( max_agents: 3, payment_system: "stripe", status: "enabled" )
 organization.save!
 
-agent = Agent.create( name: "Derek Barber", display_name: "Derek", organization_id: organization.id, account_type: "superadmin", email: "derek@providechat.com", password: "password", password_confirmation: "password", status: "enabled")
+agent = Agent.create( name: "Derek Barber", display_name: "Derek", organization_id: organization.id, access_level: "superadmin", email: "derek@providechat.com", password: "password", password_confirmation: "password", status: "enabled")
 agent.save!
 
 #website = Website.create( organization: organization.id, url: "http://www.providechat.dev", name: "Provide Chat", email: "derek@smartsettle.com")
