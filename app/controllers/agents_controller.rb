@@ -1,7 +1,7 @@
 class AgentsController < ApplicationController
   before_action :authenticate_agent!
   before_action :set_agent, only: [:edit, :update, :destroy]
-  before_action :set_websites, only: [:edit, :new]
+  before_action :set_websites, only: [:edit, :new, :update, :create]
 
   def index
     @agents = Agent.where(organization_id: current_agent.organization_id)
