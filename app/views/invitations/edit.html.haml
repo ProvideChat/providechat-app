@@ -20,8 +20,10 @@
         %div
           .widget-body.no-padding
             .alert.alert-info.no-margin.fade.in
-              %i.fa-fw.fa.fa-info
-              When enabled, every visitor on your website will receive an invitation to chat with one of your operators after a predefined period of time or page views.
+              %div{style: "float: left;"}
+                %i.fa-fw.fa.fa-info
+              %div{style: "margin-left: 24px;"}
+                When enabled, every visitor on your website will receive an invitation to chat with one of your operators after a predefined period of time or page views.
             %div.form-container
               = render 'form'
   - else

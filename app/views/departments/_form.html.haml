@@ -36,3 +36,64 @@
   .widget-footer
     = link_to "Cancel", departments_path, :class => "btn btn-default"
     = f.submit @department.new_record? ? "Add Department" : "Update Department", :class => "btn btn-primary"
+
+:javascript
+  $( document ).ready(function() {
+
+    function default_style(content, field) {
+      var style = {
+        content: content,
+        show: {
+          event: 'click'
+        },
+        hide: {
+          event: 'unfocus'
+        },
+        position: {
+          my: 'bottom right',  // Position my top left...
+          at: 'top right', // at the bottom right of...
+          adjust: { x: 20 },
+          target: $(field) // my target
+        }
+      };
+
+      return style;
+    };
+
+    $('.name-field').qtip(
+      default_style('This is your full name, it will not be displayed to visitors (e.g. Adams Jones)', '.name-field')
+    );
+
+    $('.display-name-field').qtip(
+      default_style('When chatting with a visitor, this is the name visitors will know you as (e.g. Adam)', '.display-name-field')
+    );
+
+    $('.email-field').qtip(
+      default_style('This is your email address (e.g. adam@providechat.com). You will use this email address to log into your account.', '.email-field')
+    );
+
+    $('.password-field').qtip(
+      default_style('This is the password you will use to log in.', '.password-field')
+    );
+
+    $('.access-field').qtip(
+      default_style('<strong>Agents</strong> can chat with visitors, view the chat monitor, and view previous chat transcripts.<br><br><strong>Admins</strong> have all the same permissions as agents, along with access to administer account settings.', '.access-field')
+    );
+
+    $('.photo-field').qtip({
+      content: 'We recommend uploading a photo of your face here. This will be displayed in the chat widget when visitors chat with you.',
+      hide: {
+        event: 'unfocus'
+      },
+      position: {
+        my: 'bottom right',  // Position my top left...
+        at: 'top right', // at the bottom right of...
+        adjust: { x: 20 },
+        target: $('.photo-field') // my target
+      }
+    });
+
+    $('.websites-field').qtip(
+      default_style('You will be able to chat with visitors on these websites', '.websites-field')
+    );
+  });
