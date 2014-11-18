@@ -70,10 +70,9 @@
     .form-group
       %label.col-md-4.control-label Assigned Websites
       .col-md-8.websites-field
-        .input-group
-          = f.select :website_ids, @websites.collect {|x| [x.name, x.id]}, {}, {:multiple => true, :style => "width:100%", :class  => "select2" }
-          %span{class:"input-group-addon"}
-            %i{class:"icon-append fa fa-question-circle"}
+        = f.select :website_ids, @websites.collect {|x| [x.name, x.id]}, {}, {:multiple => true, :style => "width:100%", :class  => "select2" }
+        .help-text{style: "font-size: 10px;"}
+          You will be able to chat with visitors on these websites
 
   .widget-footer
     = link_to "Cancel", agents_path, :class => "btn btn-default"
@@ -134,8 +133,4 @@
         target: $('.photo-field') // my target
       }
     });
-
-    $('.websites-field').qtip(
-      default_style('You will be able to chat with visitors on these websites', '.websites-field')
-    );
   });
