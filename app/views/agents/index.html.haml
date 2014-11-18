@@ -13,6 +13,9 @@
           %i.fa.fa-refresh.fa-spin
       %div{:role => "content"}
         .widget-body.no-padding
+          .alert.alert-info.no-margin.fade.in
+            %i.fa-fw.fa.fa-info
+            Agents are the foundation of your Provide Chat system. Your account is able to have #{current_agent.organization.max_agents} agents.
           %table.table.table-bordered
             %thead
               %tr
