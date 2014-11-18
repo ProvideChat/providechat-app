@@ -12,20 +12,14 @@
       %label.col-md-4.control-label= f.label :name
       .col-md-8
         .input-group
-          = f.text_field :name, :class => "form-control"
-          %b.tooltip.tooltip-top-right
-            %i.fa.fa-user.txt-color-teal
-            This is the name of your department.
+          = f.text_field :name, :class => "form-control name-field"
           %span{class:"input-group-addon"}
             %i{class:"icon-append fa fa-question-circle"}
     .form-group
       %label.col-md-4.control-label Offline Email
       .col-md-8
         .input-group
-          = f.text_field :email, :class => "form-control"
-          %b.tooltip.tooltip-top-right
-            %i.fa.fa-user.txt-color-teal
-            When you are offline, visitors can still send you a message through email. If they select this department, it gets sent to this email address.
+          = f.text_field :email, :class => "form-control email-field"
           %span{class:"input-group-addon"}
             %i{class:"icon-append fa fa-question-circle"}
 
@@ -33,6 +27,9 @@
       %label.col-md-4.control-label Websites
       .col-md-8
         = f.select :website_ids, @websites.collect {|x| [x.name, x.id]}, {}, {:multiple => true, :style => "width:100%", :class  => "select2" }
+        .help-text{style: "font-size: 10px;"}
+          This department will be available on these websites
+
   .widget-footer
     = link_to "Cancel", departments_path, :class => "btn btn-default"
     = f.submit @department.new_record? ? "Add Department" : "Update Department", :class => "btn btn-primary"
@@ -61,37 +58,12 @@
     };
 
     $('.name-field').qtip(
-      default_style('This is your full name, it will not be displayed to visitors (e.g. Adams Jones)', '.name-field')
-    );
-
-    $('.display-name-field').qtip(
-      default_style('When chatting with a visitor, this is the name visitors will know you as (e.g. Adam)', '.display-name-field')
+      default_style('This is the name of the department', '.name-field')
     );
 
     $('.email-field').qtip(
-      default_style('This is your email address (e.g. adam@providechat.com). You will use this email address to log into your account.', '.email-field')
+      default_style('When all agents are offline, visitors can still send you a message through email. If they select this department, it gets sent to this email address.', '.email-field')
     );
-
-    $('.password-field').qtip(
-      default_style('This is the password you will use to log in.', '.password-field')
-    );
-
-    $('.access-field').qtip(
-      default_style('<strong>Agents</strong> can chat with visitors, view the chat monitor, and view previous chat transcripts.<br><br><strong>Admins</strong> have all the same permissions as agents, along with access to administer account settings.', '.access-field')
-    );
-
-    $('.photo-field').qtip({
-      content: 'We recommend uploading a photo of your face here. This will be displayed in the chat widget when visitors chat with you.',
-      hide: {
-        event: 'unfocus'
-      },
-      position: {
-        my: 'bottom right',  // Position my top left...
-        at: 'top right', // at the bottom right of...
-        adjust: { x: 20 },
-        target: $('.photo-field') // my target
-      }
-    });
 
     $('.websites-field').qtip(
       default_style('You will be able to chat with visitors on these websites', '.websites-field')
