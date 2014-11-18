@@ -35,7 +35,7 @@
       %label.col-md-4.control-label= f.label "Photo"
       .col-md-8
         = image_tag(@website.logo_url) if @website.logo?
-        = f.file_field :logo, :class => "form-control"
+        = f.file_field :logo, :class => "form-control file-form-control"
         = f.hidden_field :logo_cache
     - if @website.logo?
       .form-group
