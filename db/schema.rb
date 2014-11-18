@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20141016034409) do
     t.string   "display_name",           default: "", null: false
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
-    t.integer  "account_type"
+    t.integer  "access_level"
     t.integer  "availability"
     t.boolean  "active_chat_sound"
     t.boolean  "background_chat_sound"
