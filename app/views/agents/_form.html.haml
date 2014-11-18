@@ -37,17 +37,19 @@
       %label.col-md-4.control-label= f.label :password_confirmation, "Confirm Password"
       .col-md-8
         = f.password_field :password_confirmation, autocomplete: "off", :class => "form-control"
-    .form-group
-      %label.col-md-4.control-label= f.label :access_level, "Access Level"
-      .col-md-8
-        - if @agent.access_level == 'superadmin'
-          %div{style: "padding-top: 7px;"}
-            %strong Super Admin
-        - else
-          .input-group
-            = f.select :access_level, [["Agent", "agent"], ["Admin", "admin"]], {:include_blank => "-- Select Account Type --"}, {:class => "form-control access-field"}
-            %span{class:"input-group-addon"}
-              %i{class:"icon-append fa fa-question-circle"}
+    
+    - unless @agent.id == current_agent.id && current_agent.access_level == 'agent'
+      .form-group
+        %label.col-md-4.control-label= f.label :access_level, "Access Level"
+        .col-md-8
+          - if @agent.access_level == 'superadmin'
+            %div{style: "padding-top: 7px;"}
+              %strong Super Admin
+          - else
+            .input-group
+              = f.select :access_level, [["Agent", "agent"], ["Admin", "admin"]], {:include_blank => "-- Select Account Type --"}, {:class => "form-control access-field"}
+              %span{class:"input-group-addon"}
+                %i{class:"icon-append fa fa-question-circle"}
     .form-group
       %label.col-md-4.control-label= f.label "Photo"
       .col-md-8
