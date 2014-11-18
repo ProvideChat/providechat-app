@@ -31,7 +31,7 @@
                   %td= department.name
                   %td= department.email
                   %td
-                    - unless current_agent.account_type == 'agent'
+                    - unless current_agent.access_level == 'agent'
                       = link_to department, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-sm" do
                         %i.fa.fa-trash-o
                         Delete

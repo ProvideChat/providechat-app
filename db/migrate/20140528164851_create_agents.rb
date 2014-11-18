@@ -6,7 +6,7 @@ class CreateAgents < ActiveRecord::Migration
       t.string :display_name,       null: false, default: ""
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
-      t.integer :account_type
+      t.integer :access_level
       t.integer :availability
       t.boolean :active_chat_sound
       t.boolean :background_chat_sound

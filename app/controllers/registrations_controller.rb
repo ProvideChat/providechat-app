@@ -6,7 +6,7 @@ class RegistrationsController < Devise::RegistrationsController
     if resource.save
       organization = Organization.create_default_organization
 
-      resource.account_type = 'superadmin'
+      resource.access_level = 'superadmin'
       resource.organization_id = organization.id
       resource.save
     end

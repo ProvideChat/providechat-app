@@ -3,7 +3,7 @@ class Agent < ActiveRecord::Base
   has_and_belongs_to_many :websites
   has_many :chats
 
-  enum account_type: [:agent, :admin, :superadmin]
+  enum access_level: [:agent, :admin, :superadmin]
   enum availability: [:offline, :online]
   enum status: [:disabled, :enabled]
 
@@ -18,4 +18,5 @@ class Agent < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
   validates :email, format: { with: VALID_EMAIL_REGEX },
                       uniqueness: { case_sensitive: false }
+  validates :access_level, presence: true
 end
