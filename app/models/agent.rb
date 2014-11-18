@@ -19,4 +19,12 @@ class Agent < ActiveRecord::Base
   validates :email, format: { with: VALID_EMAIL_REGEX },
                       uniqueness: { case_sensitive: false }
   validates :access_level, presence: true
+  
+  def access_level_display
+    if self.access_level == 'superadmin'
+      "Super Admin"
+    else
+      self.access_level.capitalize
+    end
+  end
 end
