@@ -1,13 +1,11 @@
 %header#header
   #logo-group
-    %span#logo= image_tag "logo.png", alt: "Provide Chat"
+    %span#logo= image_tag "logo.png", alt: "Provide Chat", height: 30, width: 114
   .pull-right
     #hide-menu.btn-header.pull-right
       %span
         %a{:href => "javascript:void(0);", :title => "Collapse Menu", :"data-action" => "toggleMenu"}
           %i.fa.fa-reorder
-    / end collapse menu
-    / logout button
     .btn-header.transparent.pull-right
       %span
         = link_to destroy_agent_session_path, :method => :delete, :class => "btn btn-sm" do
@@ -20,4 +18,4 @@
       %span
         %a{:href => "javascript:void(0)", :title => "Search"}
           %i.fa.fa-search
-    / end search mobile button
+

@@ -30,12 +30,19 @@
 #logo-group {
   margin-left: auto;
   margin-right: auto;
-  width: 113px;
+  width: 122px;
 }
 
 #logo {
-  width: 113px;
-  margin: 10px 10px 10px 10px;
+  width: 134px;
+  height: 30px;
+  margin: 10px 0px 0px 10px;
+  padding: 0;
+}
+
+#logo img {
+  width: 114px;
+  height: 30px;
 }
 
 #header {
