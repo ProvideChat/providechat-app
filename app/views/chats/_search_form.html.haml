@@ -4,22 +4,31 @@
       %label.col-md-3.control-label Ticket ID
       .col-md-9
         .input-group
-          = text_field_tag "chat_id", nil, :class => "form-control"
-          %b.tooltip.tooltip-top-right
-            %i.fa.fa-info.txt-color-teal
-            This is the Ticket ID provided to you by your visitor. You can use this to reference a chat from them.
+          = text_field_tag "chat_id", nil, :class => "form-control ticket-field"
+          %span{class:"input-group-addon"}
+            %i{class:"icon-append fa fa-question-circle"}
+    .form-group
+      %label.col-md-3.control-label Visitor Email
+      .col-md-9
+        .input-group
+          = text_field_tag "visitor_email", nil, :class => "form-control email-field"
           %span{class:"input-group-addon"}
             %i{class:"icon-append fa fa-question-circle"}
     .form-group
       %label.col-md-3.control-label Agent
       .col-md-9
-        = select_tag :agent_ids, options_from_collection_for_select(@agents, "id", "name"), {:multiple => true, :style => "width:100%", :class  => "select2", :placeholder => "Select agent(s)" }
+        = select_tag :agent_ids, options_from_collection_for_select(@agents, "id", "name"), {:multiple => true, :style => "width:100%", :class  => "select2", :placeholder => "Any agent(s)" }
+        .help-text{style: "font-size: 10px;"}
+          Limit search to specific agents or leave blank to search all agents.
     .form-group
       %label.col-md-3.control-label Website
       .col-md-9
-        = select_tag :website_ids, options_from_collection_for_select(@websites, "id", "name"), {:multiple => true, :style => "width:100%", :class  => "select2", :placeholder => "Select website(s)" }
+        = select_tag :website_ids, options_from_collection_for_select(@websites, "id", "name"), {:multiple => true, :style => "width:100%", :class  => "select2", :placeholder => "Any website(s)" }
+        .help-text{style: "font-size: 10px;"}
+          Limit search to specific websites or leave blank to search all websites.
     .form-group
-      .col-md-3
+      %label.col-md-3.control-label
+        Date Range
       .col-md-4
         .input-group
           %input#from-date.form-control.hasDatepicker{"data-dateformat" => "dd/mm/yy", :placeholder => "From", :type => "text"}/
@@ -54,4 +63,13 @@
     $('#to-date-icon').click(function() {
       $("#to-date").datepicker('show');
     });
+
+    $('.ticket-field').qtip(
+      default_style('This is the Ticket ID provided to you by your visitor. You can use this to reference a chat from them.', '.ticket-field')
+    );
+
+    $('.email-field').qtip(
+      default_style('This is your visitors email address, you can search for all previous chats that they had using this email address.', '.email-field')
+    );
+    
   });
