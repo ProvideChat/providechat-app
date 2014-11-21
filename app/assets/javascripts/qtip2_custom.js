@@ -17,3 +17,22 @@ function default_style(content, field) {
 
   return style;
 };
+
+function no_icon_style(content, field) {
+  var style = {
+    content: content,
+    show: {
+      event: 'click'
+    },
+    hide: {
+      event: 'unfocus'
+    },
+    position: {
+      my: 'bottom right',
+      at: 'top right',
+      target: $(field)
+    }
+  };
+
+  return style;
+};

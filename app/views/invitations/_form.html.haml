@@ -4,13 +4,7 @@
     .form-group
       %label.col-md-3.control-label= f.label :invitation_message, "Invitation message"
       .col-md-9
-        .input-group
-          = f.text_field :invitation_message, :class => "form-control"
-          %b.tooltip.tooltip-top-right
-            %i.fa.fa-user.txt-color-teal
-            When enabled, every visitor on your website will receive an invitation to chat with one of your operators after a predefined period of time or page views.
-          %span{class:"input-group-addon"}
-            %i{class:"icon-append fa fa-question-circle"}
+        = f.text_area :invitation_message, :class => "form-control message-field"
   %fieldset
     %legend Smart Invitations
     .form-group
@@ -38,4 +32,12 @@
           Do not invite visitors to chat.
 
   .widget-footer
-    = f.submit "Update", :class => "btn btn-primary"
+    = f.submit "Save Changes", :class => "btn btn-primary"
+
+:javascript
+  $( document ).ready(function() {
+
+    $('.message-field').qtip(
+      no_icon_style('This message is displayed to your visitors when you invite them to chat with your agents.', '.message-field')
+    );
+  });
