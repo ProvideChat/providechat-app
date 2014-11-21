@@ -22,3 +22,4 @@
 //= require jquery.nestable
 //= require jquery.validate
 //= require qtip2
+//= require qtip2_custom

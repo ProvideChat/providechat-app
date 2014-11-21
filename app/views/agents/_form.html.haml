@@ -81,26 +81,6 @@
 :javascript
   $( document ).ready(function() {
 
-    function default_style(content, field) {
-      var style = {
-        content: content,
-        show: {
-          event: 'click'
-        },
-        hide: {
-          event: 'unfocus'
-        },
-        position: {
-          my: 'bottom right',  // Position my top left...
-          at: 'top right', // at the bottom right of...
-          adjust: { x: 20 },
-          target: $(field) // my target
-        }
-      };
-
-      return style;
-    };
-
     $('.name-field').qtip(
       default_style('This is your full name, it will not be displayed to visitors (e.g. Adams Jones)', '.name-field')
     );
