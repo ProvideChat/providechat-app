@@ -2,7 +2,7 @@
 	<div class="col-xs-12 col-sm-10 col-md-8 col-lg-8">
 		<h1 class="page-title txt-color-blueDark">
       Chat Widget <i class="fa fa-angle-double-right"></i> Offline Message for
-      <%= form_tag(chat_widgets_path, method: 'get', class: 'form-inline', id: 'edit_chat_widget', style: 'display: inline;') do %>
+      <%= form_tag(offline_forms_path, method: 'get', class: 'form-inline', id: 'edit_offline_form', style: 'display: inline;') do %>
         <%= select_tag "website_id", options_from_collection_for_select(@websites, "id", "url", @offline_form.website_id), :class => "select2", :id => "website_id", :style => "max-width: 300px; margin-top: -5px;" %>
       <% end %>
     </h1>
