@@ -19,7 +19,7 @@ class DepartmentsController < ApplicationController
     @department.organization_id = current_agent.organization_id
 
     if @department.save
-      redirect_to departments_url, notice: 'Department was successfully created.'
+      redirect_to departments_url, :flash => { :success => 'Department was successfully updated.' }
     else
       render :new
     end
@@ -27,7 +27,7 @@ class DepartmentsController < ApplicationController
 
   def update
     if @department.update(department_params)
-      redirect_to departments_url, notice: 'Department was successfully updated.'
+      redirect_to departments_url, :flash => { :success => 'Department was successfully updated.' }
     else
       render :edit
     end
@@ -35,7 +35,7 @@ class DepartmentsController < ApplicationController
 
   def destroy
     @department.destroy
-    redirect_to departments_url, notice: 'Department was successfully destroyed.'
+    redirect_to departments_url, :flash => { :success => 'Department was successfully updated.' }
   end
 
   private

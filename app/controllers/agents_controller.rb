@@ -20,7 +20,7 @@ class AgentsController < ApplicationController
     @agent.status = 'enabled'
 
     if @agent.save
-      redirect_to agents_url, notice: 'Agent was successfully created.'
+      redirect_to agents_url, :flash => { :success => 'Agent was successfully created.' }
     else
       render :new
     end
@@ -34,7 +34,7 @@ class AgentsController < ApplicationController
     end
 
     if @agent.update(agent_params)
-      redirect_to agents_url, notice: 'Agent was successfully updated.'
+      redirect_to agents_url, :flash => { :success => 'Agent was successfully updated.' }
     else
       render :edit
     end
@@ -42,7 +42,7 @@ class AgentsController < ApplicationController
 
   def destroy
     @agent.destroy
-    redirect_to agents_url, notice: 'Agent was successfully destroyed.'
+    redirect_to agents_url, :flash => { :success => 'Agent was successfully deleted.' }
   end
 
   private
