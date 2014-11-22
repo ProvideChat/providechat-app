@@ -71,6 +71,14 @@
   font-size: 80%;
 }
 
+/* SmartAdmin Tweaks */
+
+.jarviswidget {
+  .widget-body.no-padding {
+    min-height: 40px;
+  }
+}
+
 /* Form tweaks for Firefox */
 
 input::-moz-focus-inner {

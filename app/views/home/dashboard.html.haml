@@ -12,7 +12,7 @@
         %span.jarviswidget-loader
           %i.fa.fa-refresh.fa-spin
       %div{:role => "content"}
-        .widget-body
+        .widget-body.no-padding
           %table.table.table-bordered
             %thead
               %tr
@@ -32,6 +32,8 @@
                 %tr
                   %td{:colspan => "3"}
                     You haven't added any websites yet. #{link_to "Add Website", new_website_path, { title: "Add Website", class: "btn btn-primary" }}
+          .widget-footer
+            .pull-right
 
   .col-xs-12.col-sm-6.col-md-6
     #agents-widget.jarviswidget.jarviswidget-color-darken{:role => "widget"}
@@ -44,9 +46,8 @@
           = link_to "Manage Agents", agents_path, { title: "Manage Agents", class: "btn btn-primary" }
         %span.jarviswidget-loader
           %i.fa.fa-refresh.fa-spin
-      / widget div
       %div{:role => "content"}
-        .widget-body
+        .widget-body.no-padding
           %table.table.table-bordered
             %thead
               %tr
@@ -65,7 +66,6 @@
                     - else
                       %span{:style => "color: #b22222;"}
                         %strong Offline
-          %br/
           .widget-footer
             .pull-right
               You are currently using #{@agents.count} of #{current_agent.organization.max_agents} available agents
@@ -81,7 +81,7 @@
         %span.jarviswidget-loader
           %i.fa.fa-refresh.fa-spin
       %div{:role => "content"}
-        .widget-body
+        .widget-body.no-padding
           %table.table.table-bordered
             - @blog_feed.entries.first(5).each do |entry|
               %tr
