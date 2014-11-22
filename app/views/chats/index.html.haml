@@ -17,6 +17,8 @@
         .widget-body
           = render 'search_form'
 
+= render partial: 'layouts/flash_messages', flash: flash
+
 .row
   .col-sm-12.col-md-12.col-lg-12
     %table.table.table-bordered

@@ -1,5 +1,7 @@
 = render 'layouts/page_header', :title => 'Departments', :icon => 'fa-sitemap'
 
+= render partial: 'layouts/flash_messages', flash: flash
+
 .row
   %article.col-sm-12.col-md-12.col-lg-8
     #website-widget.jarviswidget.jarviswidget-color-darken{:role => "widget"}
