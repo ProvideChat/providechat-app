@@ -86,6 +86,7 @@
             - @blog_feed.entries.first(5).each do |entry|
               %tr
                 %td= link_to entry.title, entry.url, :target => "blank"
+                %td= entry.published.to_formatted_s(:long_ordinal)
             - if @blog_feed.entries.count == 0
               %tr
                 %td No blog entries found
