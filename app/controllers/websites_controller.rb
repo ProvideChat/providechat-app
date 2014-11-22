@@ -17,43 +17,33 @@ class WebsitesController < ApplicationController
     @website = Website.new(website_params)
     @website.organization_id = current_agent.organization_id
 
-    respond_to do |format|
-      if @website.save
-        format.html { redirect_to websites_path, notice: 'Website was successfully created.' }
-        format.json { render :show, status: :created, location: websites_path }
-      else
-        format.html { render :new }
-        format.json { render json: @website.errors, status: :unprocessable_entity }
-      end
+    if @website.save
+      redirect_to websites_path, :flash => { :success => 'Website was successfully created.' }
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @website.update(website_params)
-        format.html { redirect_to websites_path, notice: 'Website was successfully updated.' }
-        format.json { render :show, status: :ok, location: websites_path }
-      else
-        format.html { render :edit }
-        format.json { render json: @website.errors, status: :unprocessable_entity }
-      end
+    if @website.update(website_params)
+      redirect_to websites_path, :flash => { :success => 'Website was successfully updated.' }
+    else
+      render :edit
     end
   end
 
   def destroy
     @website.destroy
-    respond_to do |format|
-      format.html { redirect_to websites_url, notice: 'Website was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to websites_url, :flash => { :success => 'Website was successfully deleted.' }
   end
 
   private
-    def set_website
-      @website = Website.find(params[:id])
-    end
 
-    def website_params
-      params.require(:website).permit(:organization_id, :url, :name, :email, :logo, :remove_logo, :logo_cache)
-    end
+  def set_website
+    @website = Website.find(params[:id])
+  end
+
+  def website_params
+    params.require(:website).permit(:organization_id, :url, :name, :email, :logo, :remove_logo, :logo_cache)
+  end
 end
