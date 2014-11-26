@@ -25,19 +25,4 @@
                 %th Logo
                 %th
             %tbody
-              - @websites.each do |website|
-                %tr
-                  %td= website.url
-                  %td= website.name
-                  %td= image_tag website.logo_url
-                  %td
-                    = link_to edit_website_path(website), :class => "btn btn-default" do
-                      %i.fa.fa-edit
-                      Edit
-                    &nbsp;
-                    = link_to website, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger" do
-                      %i.fa.fa-trash-o
-                      Delete
-              - if @websites.count == 0
-                %tr
-                  %td{:colspan => "5"} No websites configured
+              = render(@websites) || render('no_websites')
