@@ -30,22 +30,4 @@
                 %th Photo
                 %th
             %tbody
-              - @agents.each do |agent|
-                %tr
-                  %td= agent.name
-                  %td= agent.email
-                  %td= agent.access_level_display
-                  %td= image_tag agent.avatar_url, :style => "height: 32px; width: 32px;"
-                  %td
-                    - if agent.id == current_agent.id || current_agent.access_level != 'agent'
-                      = link_to edit_agent_path(agent), :class => "btn btn-default btn-sm" do
-                        %i.fa.fa-edit
-                        Edit
-                      &nbsp;
-                    - if agent.id != current_agent.id && current_agent.access_level != 'agent' && agent.access_level != 'superadmin'
-                      = link_to agent, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-sm" do
-                        %i.fa.fa-trash-o
-                        Delete
-              - if @agents.count == 0
-                %tr
-                  %td{:colspan => "8"} No agents
+              = render(@agents) || render('no_agents')
