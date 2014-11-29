@@ -72,13 +72,14 @@ class ChatWidget < ActiveRecord::Base
   end
 
   private
-    def set_defaults
-      self.online_message = 'Chat Now'
-      self.offline_message = 'Send A Message'
-      self.title_message = 'Welcome to Provide Chat'
-      self.color = '#3B3B3B'
-      self.display_logo = true
-      self.display_agent_avatar = true
-      self.display_mobile_icon = true
-    end
+
+  def set_defaults
+    self.online_message = 'Chat Now'
+    self.offline_message = 'Send A Message'
+    self.title_message = 'Welcome to Provide Chat'
+    self.color = '#3B3B3B'
+    self.display_logo = true
+    self.display_agent_avatar = true
+    self.display_mobile_icon = true
+  end
 end
