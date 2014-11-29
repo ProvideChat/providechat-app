@@ -10,44 +10,35 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-md-4 control-label"><%= f.label :name_text, "Name" %></label>
+			<label class="col-md-4 control-label"><%= f.label :name_text, "Name Field" %></label>
 			<div class="col-md-8">
         <%= f.text_field :name_text, :class => "form-control" %>
-			</div>
-		</div>
-  </fieldset>
-	<fieldset>
-    <legend></legend>
-		<div class="form-group">
-			<label class="col-md-4 control-label"><%= f.label :email_enabled, "Display Email Field" %></label>
-			<div class="col-md-8">
-        <%= f.check_box :email_enabled, :class => "form-control" %>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-md-4 control-label"><%= f.label :email_text, "Email Field" %></label>
 			<div class="col-md-8">
         <%= f.text_field :email_text, :class => "form-control" %>
+        <div class="help-text" style="font-size: 10px;">
+          <label>
+            <%= f.check_box :email_enabled, :style => "height: 12px;" %>
+            &nbsp;Display Email Field
+          </label>
+        </div>
 			</div>
-		</div>
-  </fieldset>
-	<fieldset>
-    <legend></legend>
-		<div class="form-group">
-			<label class="col-md-4 control-label"><%= f.label :department_enabled, "Display Department Field" %></label>
-			<div class="col-md-8">
-        <%= f.check_box :department_enabled, :class => "form-control" %>
-			</div>
-		</div>
+    </div>
 		<div class="form-group">
 			<label class="col-md-4 control-label"><%= f.label :department_text, "Department Field" %></label>
 			<div class="col-md-8">
         <%= f.text_field :department_text, :class => "form-control" %>
+        <div class="help-text" style="font-size: 10px;">
+          <label>
+            <%= f.check_box :department_enabled, :style => "height: 12px;" %>
+            &nbsp;Display Department Field
+          </label>          
+        </div>
 			</div>
 		</div>
-  </fieldset>
-	<fieldset>
-    <legend></legend>
 		<div class="form-group">
 			<label class="col-md-4 control-label"><%= f.label :message_text, "Initial Question Field" %></label>
 			<div class="col-md-8">
