@@ -7,7 +7,6 @@ class Organization < ActiveRecord::Base
   validates :agent_session_timeout, numericality: { only_integer: true, greater_than: 0 }
   validates :agent_response_timeout, numericality: { only_integer: true, greater_than: 0 }
 
-
   include ActionView::Helpers::TextHelper
 
   enum payment_system: [:stripe, :paypal]
