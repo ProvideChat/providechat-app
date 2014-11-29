@@ -21,7 +21,7 @@ class AgentDecorator < Draper::Decorator
     if object.avatar_url.present?
       object.avatar_url
     else
-      "avatars/silhouette.png"
+      "silhouette.png"
     end
   end
 end
