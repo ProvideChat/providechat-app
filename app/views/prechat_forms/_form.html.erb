@@ -55,9 +55,9 @@
 
   <hr>
 	<footer>
-    <%= f.submit "Save Changes", :class => "btn btn-primary" %>
-    <%= f.submit "Restore Defaults", :class => "btn btn-danger" %>
-    <%= f.submit "Cancel Changes", :class => "btn btn-default" %>
+    <%= f.submit "Save Changes", :class => "btn btn-primary", :name => "save_changes" %>
+    <%= f.submit "Restore Defaults", :class => "btn btn-danger", :name => "restore_defaults" %>
+    <%= f.submit "Cancel Changes", :class => "btn btn-default", :name => "cancel_changes" %>
 	</footer>
   <hr>
 <% end %>
