@@ -21,7 +21,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
   # end
   def default_url
-    ActionController::Base.helpers.image_path("silouette.gif")
+    ActionController::Base.helpers.image_path("silhouette.png")
   end
 
   process :resize_to_fit => [60, 60]
