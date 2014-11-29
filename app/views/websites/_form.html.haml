@@ -5,37 +5,33 @@
       %label.col-md-4.control-label= f.label :name
       .col-md-8
         .input-group
-          = f.text_field :name, :class => "form-control"
-          %b.tooltip.tooltip-top-right
-            %i.fa.fa-user.txt-color-teal
-            This is the name of your website (e.g. Provide Chat)
+          = f.text_field :name, :class => "form-control name-field"
           %span{class:"input-group-addon"}
             %i{class:"icon-append fa fa-question-circle"}
     .form-group
       %label.col-md-4.control-label= f.label :url
       .col-md-8
         .input-group
-          = f.text_field :url, :class => "form-control"
-          %b.tooltip.tooltip-top-right
-            %i.fa.fa-user.txt-color-teal
-            This is your website's URL or website address (e.g. www.providechat.com)
+          = f.text_field :url, :class => "form-control url-field"
           %span{class:"input-group-addon"}
             %i{class:"icon-append fa fa-question-circle"}
     .form-group
       %label.col-md-4.control-label Main Email
       .col-md-8
         .input-group
-          = f.text_field :email, :class => "form-control"
-          %b.tooltip.tooltip-top-right
-            %i.fa.fa-user.txt-color-teal
-            This is the email that any offline messages will be redirected to if your visitor didn't select a Department, or you do not have any departments.
+          = f.text_field :email, :class => "form-control email-field"
           %span{class:"input-group-addon"}
             %i{class:"icon-append fa fa-question-circle"}
     .form-group
       %label.col-md-4.control-label= f.label "Photo"
       .col-md-8
         = image_tag(@website.logo_url) if @website.logo?
-        = f.file_field :logo, :class => "form-control file-form-control"
+        .input-group
+          = f.file_field :logo, :class => "form-control photo-field file-form-control"
+          %span{class:"input-group-addon"}
+            %i{class:"icon-append fa fa-question-circle"}
+        .help-text{style: "font-size: 10px;"}
+          Photo dimensions should be 60 x 60 pixels
         = f.hidden_field :logo_cache
     - if @website.logo?
       .form-group
@@ -48,3 +44,33 @@
   .widget-footer
     = link_to "Back", websites_path, :class => "btn btn-default"
     = f.submit @website.new_record? ? "Add Website" : "Update Website", :class => "btn btn-primary"
+
+
+:javascript
+  $( document ).ready(function() {
+
+    $('.name-field').qtip(
+      default_style('This is the name of your website (e.g. Provide Chat)', '.name-field')
+    );
+
+    $('.url-field').qtip(
+      default_style("This is your website's URL or website address (e.g. www.providechat.com)", '.url-field')
+    );
+
+    $('.email-field').qtip(
+      default_style("This is the email that any offline messages will be redirected to if your visitor didn't select a Department, or you do not have any departments.", '.email-field')
+    );
+    
+    $('.photo-field').qtip({
+      content: 'The logo you upload here will be displayed in the header of the chat widget.',
+      hide: {
+        event: 'unfocus'
+      },
+      position: {
+        my: 'bottom right',  // Position my top left...
+        at: 'top right', // at the bottom right of...
+        adjust: { x: 20 },
+        target: $('.photo-field') // my target
+      }
+    });
+  });
