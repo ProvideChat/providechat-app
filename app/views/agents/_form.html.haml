@@ -60,6 +60,8 @@
             %i{class:"icon-append fa fa-question-circle"}
 
         = f.hidden_field :avatar_cache
+        .help-text{style: "font-size: 10px;"}
+          Photo should be 60 x 60 pixels        
     - if @agent.avatar?
       .form-group
         %label.col-md-4.control-label
