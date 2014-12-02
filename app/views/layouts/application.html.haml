@@ -31,7 +31,7 @@
       .login-info
         %span
           %a{:href => "#"}
-            = current_agent.avatar.nil? ? image_tag('silhouette.png'): image_tag(current_agent.avatar.url)
+            = image_tag(current_agent.avatar.url)
             %span
               = current_agent.name
           .btn-group.pull-right
