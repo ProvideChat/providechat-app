@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.3'
+ruby '2.1.4'
 
 gem 'rails', '4.1.8'
 
@@ -23,6 +23,7 @@ gem 'mini_magick', '~> 4.0.0.rc'
 gem 'sass-rails'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'sidekiq'
+gem "skylight"
 gem 'uglifier', '>= 1.3.0'
 
 
