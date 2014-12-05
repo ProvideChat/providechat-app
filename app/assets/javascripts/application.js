@@ -21,5 +21,7 @@
 //= require jquery.colorpicker
 //= require jquery.nestable
 //= require jquery.validate
+//= require turbolinks
 //= require qtip2
 //= require qtip2_custom
+//= require providechat
