@@ -103,16 +103,7 @@
       default_style('<strong>Agents</strong> can chat with visitors, view the chat monitor, and view previous chat transcripts.<br><br><strong>Admins</strong> have all the same permissions as agents, along with access to administer account settings.', '.access-field')
     );
 
-    $('.photo-field').qtip({
-      content: 'We recommend uploading a photo of your face here. This will be displayed in the chat widget when visitors chat with you.',
-      hide: {
-        event: 'unfocus'
-      },
-      position: {
-        my: 'bottom right',  // Position my top left...
-        at: 'top right', // at the bottom right of...
-        adjust: { x: 20 },
-        target: $('.photo-field') // my target
-      }
-    });
+    $('.photo-field').qtip(
+      on_focus_style('We recommend uploading a photo of your face here. This will be displayed in the chat widget when visitors chat with you.', '.photo-field')
+    );
   });
