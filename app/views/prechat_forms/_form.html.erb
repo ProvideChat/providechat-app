@@ -55,9 +55,9 @@
 
   <hr>
 	<footer>
-    <%= f.submit "Save Changes", :class => "btn btn-primary", :name => "save_changes" %>
-    <%= f.submit "Restore Defaults", :class => "btn btn-danger", :name => "restore_defaults" %>
-    <%= f.submit "Cancel Changes", :class => "btn btn-default", :name => "cancel_changes" %>
+    <%= f.submit "Apply Changes", :class => "btn btn-primary", :name => "save_changes" %>
+    <%= f.submit "Cancel", :class => "btn btn-default", :name => "cancel_changes", data: { confirm: 'Are you sure you want to cancel your current changes?' } %>
+    <%= f.submit "Reset Defaults", :class => "btn btn-danger", :name => "restore_defaults", data: { confirm: 'Are you sure you want to reset the prechat form to default settings?' }  %>
 	</footer>
   <hr>
 <% end %>
