@@ -729,4 +729,8 @@ $( document ).ready(function() {
   ProvideChat.init (<%= current_agent.id %>, '<%= current_agent.display_name %>', <%= current_agent.organization_id %>);
 });
 
+$(window).bind('page:change', function() {
+  ProvideChat.init (<%= current_agent.id %>, '<%= current_agent.display_name %>', <%= current_agent.organization_id %>);
+});
+
 </script>

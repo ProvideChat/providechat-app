@@ -81,8 +81,7 @@
     = f.submit @agent.new_record? ? "Add Agent" : "Update Agent", :class => "btn btn-primary"
 
 :javascript
-  $( document ).ready(function() {
-
+  function initialize_qtip() {
     $('.name-field').qtip(
       default_style('This is your full name, it will not be displayed to visitors (e.g. Adams Jones)', '.name-field')
     );
@@ -106,4 +105,12 @@
     $('.photo-field').qtip(
       on_focus_style('We recommend uploading a photo of your face here. This will be displayed in the chat widget when visitors chat with you.', '.photo-field')
     );
+  }
+    
+  $( document ).ready(function() {
+    initialize_qtip();
+  });
+  
+  $(window).bind('page:change', function() {
+    initialize_qtip();
   });

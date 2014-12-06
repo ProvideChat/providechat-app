@@ -44,8 +44,17 @@
     = submit_tag "Search", :class => "btn btn-primary"
 
 :javascript
-  $(document).ready(function () {
+  function initialize_qtip() {
+    $('.ticket-field').qtip(
+      default_style('This is the Ticket ID provided to you by your visitor. You can use this to reference a chat from them.', '.ticket-field')
+    );
 
+    $('.email-field').qtip(
+      default_style('This is your visitors email address, you can search for all previous chats that they had using this email address.', '.email-field')
+    );
+  }
+  
+  function initialize_datepicker() {
     $("#from-date").datepicker()
       .on('changeDate', function() {
         $(this).datepicker('hide');
@@ -63,13 +72,14 @@
     $('#to-date-icon').click(function() {
       $("#to-date").datepicker('show');
     });
+  }
 
-    $('.ticket-field').qtip(
-      default_style('This is the Ticket ID provided to you by your visitor. You can use this to reference a chat from them.', '.ticket-field')
-    );
+  $( document ).ready(function() {
+    initialize_qtip();
+    initialize_datepicker();
+  });
 
-    $('.email-field').qtip(
-      default_style('This is your visitors email address, you can search for all previous chats that they had using this email address.', '.email-field')
-    );
-    
+  $(window).bind('page:change', function() {
+    initialize_qtip();
+    initialize_datepicker();
   });

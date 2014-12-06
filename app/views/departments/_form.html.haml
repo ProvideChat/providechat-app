@@ -35,8 +35,7 @@
     = f.submit @department.new_record? ? "Add Department" : "Update Department", :class => "btn btn-primary"
 
 :javascript
-  $( document ).ready(function() {
-
+  function initialize_qtip() {
     $('.name-field').qtip(
       default_style('This is the name of the department', '.name-field')
     );
@@ -48,4 +47,12 @@
     $('.websites-field').qtip(
       default_style('You will be able to chat with visitors on these websites', '.websites-field')
     );
+  }
+
+  $( document ).ready(function() {
+    initialize_qtip();
+  });
+
+  $(window).bind('page:change', function() {
+    initialize_qtip();
   });

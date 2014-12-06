@@ -47,8 +47,7 @@
 
 
 :javascript
-  $( document ).ready(function() {
-
+  function initialize_qtip() {
     $('.name-field').qtip(
       default_style('This is the name of your website (e.g. Provide Chat)', '.name-field')
     );
@@ -60,17 +59,16 @@
     $('.email-field').qtip(
       default_style("This is the email that any offline messages will be redirected to if your visitor didn't select a Department, or you do not have any departments.", '.email-field')
     );
-    
-    $('.photo-field').qtip({
-      content: 'The logo you upload here will be displayed in the header of the chat widget.',
-      hide: {
-        event: 'unfocus'
-      },
-      position: {
-        my: 'bottom right',  // Position my top left...
-        at: 'top right', // at the bottom right of...
-        adjust: { x: 20 },
-        target: $('.photo-field') // my target
-      }
-    });
+
+    $('.photo-field').qtip(
+      on_focus_style('The logo you upload here will be displayed in the header of the chat widget.', '.photo-field')
+    );
+  }
+
+  $( document ).ready(function() {
+    initialize_qtip();
+  });
+
+  $(window).bind('page:change', function() {
+    initialize_qtip();
   });
