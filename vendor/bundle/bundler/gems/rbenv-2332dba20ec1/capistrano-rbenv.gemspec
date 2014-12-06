@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.email = ["shatrov@me.com", "yamashita@geishatokyo.com"]
   s.files = [".gitignore", "CHANGELOG.md", "Gemfile", "LICENSE.txt", "README.md", "Rakefile", "capistrano-rbenv.gemspec", "lib/capistrano-rbenv.rb", "lib/capistrano/rbenv.rb", "lib/capistrano/tasks/rbenv.rake"]
   s.homepage = "https://github.com/capistrano/rbenv"
-  s.rubygems_version = "2.4.2"
+  s.rubygems_version = "2.2.2"
   s.summary = "rbenv integration for Capistrano"
 
   if s.respond_to? :specification_version then

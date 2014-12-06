@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/thoughtbot/capybara-webkit"
   s.licenses = ["MIT"]
   s.required_ruby_version = Gem::Requirement.new(">= 1.9.0")
-  s.rubygems_version = "2.4.2"
+  s.rubygems_version = "2.2.2"
   s.summary = "Headless Webkit driver for Capybara"
   s.test_files = ["spec/browser_spec.rb", "spec/capybara_webkit_builder_spec.rb", "spec/connection_spec.rb", "spec/cookie_jar_spec.rb", "spec/driver_rendering_spec.rb", "spec/driver_resize_window_spec.rb", "spec/driver_spec.rb", "spec/errors_spec.rb", "spec/integration/session_spec.rb", "spec/selenium_compatibility_spec.rb", "spec/self_signed_ssl_cert.rb", "spec/spec_helper.rb", "spec/support/app_runner.rb", "spec/support/matchers/include_response.rb"]
 

@@ -1,0 +1,4 @@
+I, [2014-12-05T19:12:10.872762 #11867]  INFO -- : SKYLIGHT_HDR_PATH=/Users/derek/work/providechat-app/vendor/bundle/gems/skylight-0.4.3/ext; SKYLIGHT_LIB_PATH=/Users/derek/work/providechat-app/vendor/bundle/gems/skylight-0.4.3/lib/skylight/native/x86_64-darwin
+I, [2014-12-05T19:12:10.873791 #11867]  INFO -- : [SKYLIGHT] fetching native ext; curr-platform=x86_64-darwin; requested-arch=x86_64-darwin; version=0.4.0-17128bb
+I, [2014-12-05T19:12:10.874068 #11867]  INFO -- : [SKYLIGHT] attempting to fetch from remote; uri=https://s3.amazonaws.com/skylight-agent-packages/skylight-native/0.4.0-17128bb/skylight_x86_64-darwin.tar.gz
+I, [2014-12-05T19:12:14.498799 #11867]  INFO -- : [SKYLIGHT] successfully downloaded native ext; out=/Users/derek/work/providechat-app/vendor/bundle/gems/skylight-0.4.3/ext/skylight_x86_64-darwin.tar.gz
