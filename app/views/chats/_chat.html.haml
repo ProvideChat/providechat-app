@@ -1,8 +1,11 @@
 %tr
   %td= chat.id
-  %td= chat.agent.name
+  %td= chat.agent ? chat.agent.name : 'None'
   %td= chat.website.url
-  %td= chat.visitor.name if chat.visitor
-  %td= chat.chat_accepted
-  %td= chat.visitor_department
-  %td= link_to 'View Transcript', chat
+  %td= chat.visitor ? chat.visitor.name : 'Not specified'
+  %td= local_time(chat.chat_accepted, '%B %e, %Y %l:%M%P')
+  %td= chat.department ? chat.department.name : 'Any Department'
+  %td
+    = link_to chat, class: 'btn btn-default' do
+      %i.fa.fa-bars
+      &nbsp; View Transcript
