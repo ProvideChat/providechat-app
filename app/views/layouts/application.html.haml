@@ -60,6 +60,13 @@
     :javascript
       $(document).ready(function() {
         pageSetUp();
+
+        NProgress.configure({
+          showSpinner: false,
+          ease: 'ease',
+          speed: 500
+        });
+
       });
       
       $(window).bind('page:change', function() {
