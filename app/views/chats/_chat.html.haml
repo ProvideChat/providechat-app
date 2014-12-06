@@ -1,0 +1,8 @@
+%tr
+  %td= chat.id
+  %td= chat.agent.name
+  %td= chat.website.url
+  %td= chat.visitor.name if chat.visitor
+  %td= chat.chat_accepted
+  %td= chat.visitor_department
+  %td= link_to 'View Transcript', chat

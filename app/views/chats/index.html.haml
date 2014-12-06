@@ -30,20 +30,6 @@
           %th Visitor Name
           %th Date
           %th Department
-          %th Status
           %th
       %tbody
-        - @chats.each do |chat|
-          %tr
-            %td= chat.id
-            %td= chat.agent.name
-            %td= chat.website.url
-            %td= chat.visitor.name if chat.visitor
-            %td= chat.chat_accepted
-            %td= chat.visitor_department
-            %td= chat.status
-            %td= link_to 'View Transcript', chat
-        - if @chats.count == 0
-          %tr
-            %td{:colspan => "8"}
-              %h4 No chats found
+        = render(@chats) || render('no_chats')
