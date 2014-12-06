@@ -23,15 +23,15 @@
           %span{class:"input-group-addon"}
             %i{class:"icon-append fa fa-question-circle"}
     .form-group
-      %label.col-md-4.control-label= f.label "Photo"
+      %label.col-md-4.control-label= f.label "Logo"
       .col-md-8
         = image_tag(@website.logo_url) if @website.logo?
         .input-group
-          = f.file_field :logo, :class => "form-control photo-field file-form-control"
+          = f.file_field :logo, :class => "form-control logo-field file-form-control"
           %span{class:"input-group-addon"}
             %i{class:"icon-append fa fa-question-circle"}
         .help-text{style: "font-size: 10px;"}
-          Photo dimensions should be 60 x 60 pixels
+          Logo image dimensions should be 60 x 60 pixels
         = f.hidden_field :logo_cache
     - if @website.logo?
       .form-group
@@ -61,7 +61,7 @@
     );
 
     $('.photo-field').qtip(
-      on_focus_style('The logo you upload here will be displayed in the header of the chat widget.', '.photo-field')
+      on_focus_style('The logo you upload here will be displayed in the header of the chat widget.', '.logo-field')
     );
   }
 
