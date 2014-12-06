@@ -59,7 +59,9 @@
 
     :javascript
       $(document).ready(function() {
-
         pageSetUp();
-
+      });
+      
+      $(window).bind('page:change', function() {
+        pageSetUp();
       });
