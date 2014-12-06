@@ -18,7 +18,7 @@ class Website < ActiveRecord::Base
   validates :name, :url, presence: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
   validates :email, format: { with: VALID_EMAIL_REGEX }
-  validate_uniqueness_of :url, scope: :organization_id
+  validates_uniqueness_of :url, scope: :organization_id
 
   protected
 
