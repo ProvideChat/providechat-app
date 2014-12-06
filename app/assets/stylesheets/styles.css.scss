@@ -71,10 +71,18 @@
   background: #ffffff;
 }
 
+/* Form Tweaks */
+
 .help-block {
   font-size: 80%;
 }
 
+/* disable the input-group-addon changing it's background colour on focus */
+input[type="text"]:focus + .input-group-addon {
+  border-color: #0091d9;
+  background-color: #eeeeee;
+  color: #555555;
+}
 /* SmartAdmin Tweaks */
 
 .jarviswidget {
