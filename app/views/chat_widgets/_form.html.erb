@@ -10,19 +10,28 @@
 		<div class="form-group">
 			<label class="col-md-4 control-label"><%= f.label :online_message, "Online - Widget Closed" %></label>
 			<div class="col-md-8">
-        <%= f.text_field :online_message, :class => "form-control", :placeholder => @chat_widget.online_message %>
+        <div class="input-group">
+          <%= f.text_field :online_message, :class => "form-control online-titlebar", :placeholder => @chat_widget.online_message %>
+          <span class="input-group-addon"><i class="icon-append fa fa-question-circle"></i></span>
+        </div>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-md-4 control-label"><%= f.label :offline_message, "Offline - Widget Closed" %></label>
 			<div class="col-md-8">
-        <%= f.text_field :offline_message, :class => "form-control", :placeholder => @chat_widget.offline_message %>
+        <div class="input-group">
+          <%= f.text_field :offline_message, :class => "form-control offline-titlebar", :placeholder => @chat_widget.offline_message %>
+          <span class="input-group-addon"><i class="icon-append fa fa-question-circle"></i></span>
+        </div>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-md-4 control-label"><%= f.label :title_message, "Titlebar Message" %></label>
 			<div class="col-md-8">
-        <%= f.text_field :title_message, :class => "form-control", :placeholder => @chat_widget.title_message %>
+        <div class="input-group">
+          <%= f.text_field :title_message, :class => "form-control open-titlebar", :placeholder => @chat_widget.title_message %>
+          <span class="input-group-addon"><i class="icon-append fa fa-question-circle"></i></span>
+        </div>
 			</div>
 		</div>
   </fieldset>
@@ -32,6 +41,9 @@
 			<label class="col-md-4 control-label"><%= f.label :color, "Widget Color" %></label>
 			<div class="col-md-8">
         <%= f.select :color, ChatWidget.color_options, {}, {:id => "color-picker", :class => "form-control"}  %>
+        <div class="help-text" style="font-size: 10px;">
+          You can change the color of the widget to match your website's look & feel.
+        </div>
 			</div>
 		</div>
 
@@ -46,7 +58,7 @@
 				<div class="checkbox">
 					<label>
             <%= f.check_box :display_agent_avatar %>
-            <i></i>Display agent's avatar</label>
+            <i></i>Display agent's photo</label>
 				</div>
 				<div class="checkbox">
 					<label>
@@ -59,20 +71,50 @@
   </fieldset>
   <hr>
 	<footer>
-    <%= f.submit "Save Changes", :class => "btn btn-primary" %>
-    <%= f.submit "Restore Defaults", :class => "btn btn-danger" %>
-    <%= f.submit "Cancel Changes", :class => "btn btn-default" %>
+    <%= f.submit "Apply Changes", :class => "btn btn-primary" %>
+    <%= f.submit "Cancel", :class => "btn btn-default", data: { confirm: 'Are you sure you want to cancel your current changes?' } %>
+    <%= f.submit "Reset Defaults", :class => "btn btn-danger", data: { confirm: 'Are you sure you want to reset the chat widget to default settings?' } %>
 	</footer>
+  <hr>
 
 <% end %>
 
 <script>
-$(function() {
-  $('select[name="chat_widget[color]"]').colourPicker({
-    ico: '<%= image_path "color-picker.png" %>',
-    title: false,
-    inputBG: true
+  function initialize_colourpicker() {
+    $('select[name="chat_widget[color]"]').colourPicker({
+      ico: '<%= image_path "color-picker.png" %>',
+      title: false,
+      inputBG: true
+    });
+  }
+  
+  function initialize_qtip() {
+    $('.online-titlebar').qtip(
+      default_style('When the widget is collapsed and your agents are online, this is the message that will appear in the titlebar', '.online-titlebar')
+    );
+
+    $('.offline-titlebar').qtip(
+      default_style('When the widget is collapsed and your agents are offline, this is the message that will appear in the titlebar.', '.offline-titlebar')
+    );
+
+    $('.open-titlebar').qtip(
+      default_style('When the widget is open, this is the message that will appear in the titlebar.', '.open-titlebar')
+    );
+
+    $('.widget-color').qtip(
+      default_style('You can change the color of the widget to match the look and feel of your website.', '.widget-color')
+    );
+  }
+    
+  $( document ).ready(function() {
+    initialize_qtip();
+    initialize_colourpicker();
   });
-});
+  
+  $(window).bind('page:change', function() {
+    initialize_qtip();
+    initialize_colourpicker();
+  });
+
 
  </script>
