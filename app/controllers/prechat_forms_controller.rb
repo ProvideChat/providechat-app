@@ -21,7 +21,7 @@ class PrechatFormsController < ApplicationController
   def update
     @prechat_form = PrechatForm.find(params[:id])
 
-    if flash_message = @prechat_form.process_update(params, prechat_form_params)      
+    if flash_message = @prechat_form.process_update(params, prechat_form_params)
       redirect_to edit_prechat_form_path(@prechat_form), notice: 'Prechat survey was successfully updated.'
     else
       render :edit
