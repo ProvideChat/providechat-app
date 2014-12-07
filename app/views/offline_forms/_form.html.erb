@@ -36,7 +36,7 @@
           <label>
             <%= f.check_box :department_enabled, :style => "position: relative; top: 1px;" %>
             &nbsp;Display Department Field
-          </label>          
+          </label>
         </div>
 			</div>
 		</div>
@@ -59,9 +59,8 @@
 	<footer>
     <%= f.submit "Apply Changes", :class => "btn btn-primary", :name => "save_changes" %>
     <%= f.submit "Cancel", :class => "btn btn-default", :name => "cancel_changes", data: { confirm: 'Are you sure you want to cancel your current changes?' } %>
-    <%= f.submit "Restore Defaults", :class => "btn btn-danger", :name => "restore_defaults", data: { confirm: 'Are you sure you want to reset the offline form to default settings?' } %>
+    <%= f.submit "Reset Defaults", :class => "btn btn-danger", :name => "restore_defaults", data: { confirm: 'Are you sure you want to reset the offline form to default settings?' } %>
 
 	</footer>
   <hr>
 <% end %>
-
