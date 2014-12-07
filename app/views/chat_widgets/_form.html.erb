@@ -42,7 +42,7 @@
 			<div class="col-md-8">
         <%= f.select :color, ChatWidget.color_options, {}, {:id => "color-picker", :class => "form-control"}  %>
         <div class="help-text" style="font-size: 10px;">
-          You can change the color of the widget to match your website's look & feel.
+          You can change the color of the widget to match your website's look and feel.
         </div>
 			</div>
 		</div>
@@ -58,12 +58,12 @@
 				<div class="checkbox">
 					<label>
             <%= f.check_box :display_agent_avatar %>
-            <i></i>Display agent's photo</label>
+            Display agent's photo</label>
 				</div>
 				<div class="checkbox">
 					<label>
             <%= f.check_box :hide_when_offline %>
-            <i></i>Hide widget when all operators are offline</label>
+            Hide widget when all operators are offline</label>
 				</div>
 			</div>
 		</div>
@@ -71,9 +71,9 @@
   </fieldset>
   <hr>
 	<footer>
-    <%= f.submit "Apply Changes", :class => "btn btn-primary" %>
-    <%= f.submit "Cancel", :class => "btn btn-default", data: { confirm: 'Are you sure you want to cancel your current changes?' } %>
-    <%= f.submit "Reset Defaults", :class => "btn btn-danger", data: { confirm: 'Are you sure you want to reset the chat widget to default settings?' } %>
+    <%= f.submit "Apply Changes", :class => "btn btn-primary", :name => "save_changes" %>
+    <%= f.submit "Cancel", :class => "btn btn-default", :name => "cancel_changes", data: { confirm: 'Are you sure you want to cancel your current changes?' } %>
+    <%= f.submit "Reset Defaults", :class => "btn btn-danger", :name => "restore_defaults", data: { confirm: 'Are you sure you want to reset the chat widget to default settings?' } %>
 	</footer>
   <hr>
 
@@ -115,6 +115,4 @@
     initialize_qtip();
     initialize_colourpicker();
   });
-
-
  </script>
