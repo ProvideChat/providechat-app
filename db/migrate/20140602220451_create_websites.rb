@@ -6,7 +6,7 @@ class CreateWebsites < ActiveRecord::Migration
       t.string :name,   null: false, default: ""
       t.string :email,  null: false, default: ""
       t.string :logo
-      t.boolean :widget_installed
+      t.timestamp :last_ping
       t.boolean :smart_invites
       t.string :smart_invite_mode
 
