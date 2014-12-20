@@ -13,8 +13,6 @@ class Website < ActiveRecord::Base
   after_create :create_widget_support
   before_validation :smart_url_update
 
-  mount_uploader :logo, LogoUploader
-
   validates :name, :url, presence: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
   validates :email, format: { with: VALID_EMAIL_REGEX }

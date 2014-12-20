@@ -3,6 +3,8 @@ class ChatWidget < ActiveRecord::Base
   belongs_to :website
   before_create :set_defaults
 
+  mount_uploader :logo, LogoUploader
+
   def process_update(params, chat_widget_params)
     if params.has_key?(:restore_defaults)
       self.set_defaults
