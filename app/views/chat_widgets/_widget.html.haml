@@ -12,7 +12,10 @@
               %div{:style => "float: left;"}
                 = image_tag "silhouette.png", :id => "operator-image", :style => "height: 60px; width: 60px; border: 1px solid #999999;"
               %div{:style => "float: left; margin-left: 10px;"}
-                %p#operator-name{:style => "font-weight: bold; font-size: 16px; margin-top: 0px;"} Jonathan Miller
+                %p#operator-name{:style => "font-weight: bold; font-size: 16px; margin-top: 0px;"}
+                  = current_agent.display_name
+            %div{:style => "float: right;"}
+              = image_tag(@chat_widget.logo_url) if @chat_widget.logo? && @chat_widget.display_logo?
             %div{:style => "background-color: #3B3B3B; width: 392px; height: 30px; position: absolute; right: 4px; border-top: 1px solid #000000; border-bottom: 1px solid #000000; display:none;"}
               %input{:style => "width: 200px; font-family: Lucida Sans Unicode, verdana, helvetica; font-size: 12px; border: 1px solid #000000; border-radius: 3px; margin-left: 5px; height: 22px; padding: 2px; margin-top: 4px;", :type => "text", :value => "luke@providechat.com"}/
             #chat-message-area
