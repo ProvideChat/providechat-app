@@ -1,0 +1,49 @@
+.row
+  .col-md-12.col-lg-12
+    %h1.page-title.txt-color-blueDark
+      Chat Widget
+      %i.fa.fa-angle-double-right
+      Customization for
+      = form_tag(chat_widgets_path, method: 'get', class: 'form-inline', id: 'edit_chat_widget', style: 'display: inline;') do
+        = select_tag "website_id", options_from_collection_for_select(@websites, "id", "url", @chat_widget.website_id), :class => "select2", :id => "website_id", :style => "max-width: 300px; margin-top: -5px;"
+= render partial: 'layouts/flash_messages', flash: flash
+.row
+  - if @chat_widget
+    .col-sm-12.col-md-12.col-lg-12
+      #customize-chat-widget.jarviswidget.jarviswidget.jarviswidget-color-darken
+        %header
+          %span.widget-icon
+            %i.fa.fa-toggle-up
+          %h2 Customize Chat Widget
+        %div
+          .widget-body.no-padding
+            .alert.alert-info.no-margin.fade.in
+              %div{:style => "float: left;"}
+                %i.fa-fw.fa.fa-info
+              %div{:style => "margin-left: 24px;"}
+                Use this section to customize the look and feel of the chat widget. This is what your website visitors will use to chat with your agents.
+            .form-container
+              .col-sm-12.col-md-5.col-lg-6
+                = render 'form'
+              .col-sm-12.col-md-7.col-lg-6
+                = render 'widget'
+  - else
+    .col-sm-12.col-md-8.col-lg-8
+      .alert.alert-warning.alert-block
+        %h4.alert-heading No websites configured yet!
+        You have no yet added any websites, please #{link_to "add a website", new_website_path}
+        to customize the chat widget for that website.
+:javascript
+  function initialize_website_dropdown() {
+    $('#website_id').on ('change', function() {
+      $('#edit_chat_widget').submit();
+    });
+  }
+
+  $( document ).ready(function() {
+    initialize_website_dropdown();
+  });
+
+  $(window).bind('page:change', function() {
+    initialize_website_dropdown();
+  });

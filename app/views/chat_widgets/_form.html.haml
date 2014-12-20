@@ -1,0 +1,116 @@
+= form_for(@chat_widget, :html => {class: 'form-horizontal', id: 'update-widget'}) do |f|
+  = render "layouts/error_messages", :f => @chat_widget
+  %header
+  %fieldset
+    %legend Customize Language
+    .form-group
+      %label.col-md-4.control-label= f.label :online_message, "Online - Widget Closed"
+      .col-md-8
+        .input-group
+          = f.text_field :online_message, :class => "form-control online-titlebar", :placeholder => @chat_widget.online_message
+          %span.input-group-addon
+            %i.icon-append.fa.fa-question-circle
+    .form-group
+      %label.col-md-4.control-label= f.label :offline_message, "Offline - Widget Closed"
+      .col-md-8
+        .input-group
+          = f.text_field :offline_message, :class => "form-control offline-titlebar", :placeholder => @chat_widget.offline_message
+          %span.input-group-addon
+            %i.icon-append.fa.fa-question-circle
+    .form-group
+      %label.col-md-4.control-label= f.label :title_message, "Titlebar Message"
+      .col-md-8
+        .input-group
+          = f.text_field :title_message, :class => "form-control open-titlebar", :placeholder => @chat_widget.title_message
+          %span.input-group-addon
+            %i.icon-append.fa.fa-question-circle
+  %fieldset
+    %legend Customize Look
+    .form-group
+      %label.col-md-4.control-label= f.label :color, "Widget Color"
+      .col-md-8
+        = f.select :color, ChatWidget.color_options, {}, {:id => "color-picker", :class => "form-control"}
+        .help-text{:style => "font-size: 10px;"}
+          You can change the color of the widget to match your website's look and feel.
+
+    .form-group
+      %label.col-md-4.control-label= f.label "Logo"
+      .col-md-8
+        = image_tag(@chat_widget.logo_url) if @chat_widget.logo?
+        .input-group
+          = f.file_field :logo, :class => "form-control logo-field file-form-control"
+          %span{class:"input-group-addon"}
+            %i{class:"icon-append fa fa-question-circle"}
+        .help-text{style: "font-size: 10px;"}
+          Logo image dimensions should be 60 x 60 pixels
+        = f.hidden_field :logo_cache
+    - if @chat_widget.logo?
+      .form-group
+        %label.col-md-4.control-label
+        .col-md-8
+          %label
+            = f.check_box :remove_logo
+            Remove logo
+            
+    .form-group
+      %label.col-md-3.control-label
+      .col-md-9
+        .checkbox
+          %label
+            = f.check_box :display_logo
+            Display logo in widget
+        .checkbox
+          %label
+            = f.check_box :display_agent_avatar
+            Display agent's photo in widget
+        .checkbox
+          %label
+            = f.check_box :hide_when_offline
+            Hide widget when all operators are offline
+  %hr/
+  %footer
+    = f.submit "Apply Changes", :class => "btn btn-primary", :name => "save_changes"
+    = f.submit "Cancel", :class => "btn btn-default", :name => "cancel_changes", data: { confirm: 'Are you sure you want to cancel your current changes?' }
+    = f.submit "Reset Defaults", :class => "btn btn-danger", :name => "restore_defaults", data: { confirm: 'Are you sure you want to reset the chat widget to default settings?' }
+  %hr/
+  
+:javascript
+  function initialize_colourpicker() {
+    $('select[name="chat_widget[color]"]').colourPicker({
+      ico: '#{image_path "color-picker.png"}',
+      title: false,
+      inputBG: true
+    });
+  }
+  
+  function initialize_qtip() {
+    $('.online-titlebar').qtip(
+      default_style('When the widget is collapsed and your agents are online, this is the message that will appear in the titlebar', '.online-titlebar')
+    );
+
+    $('.offline-titlebar').qtip(
+      default_style('When the widget is collapsed and your agents are offline, this is the message that will appear in the titlebar.', '.offline-titlebar')
+    );
+
+    $('.open-titlebar').qtip(
+      default_style('When the widget is open, this is the message that will appear in the titlebar.', '.open-titlebar')
+    );
+
+    $('.widget-color').qtip(
+      default_style('You can change the color of the widget to match the look and feel of your website.', '.widget-color')
+    );
+
+    $('.photo-field').qtip(
+      on_focus_style('The logo you upload here will be displayed in the header of the chat widget.', '.logo-field')
+    );
+  }
+    
+  $( document ).ready(function() {
+    initialize_qtip();
+    initialize_colourpicker();
+  });
+  
+  $(window).bind('page:change', function() {
+    initialize_qtip();
+    initialize_colourpicker();
+  });
