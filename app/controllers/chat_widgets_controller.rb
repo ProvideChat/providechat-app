@@ -34,6 +34,8 @@ class ChatWidgetsController < ApplicationController
   end
 
   def chat_widget_params
-    params.require(:chat_widget).permit(:online_message, :offline_message, :title_message, :hide_when_offline, :color, :display_logo, :display_agent_avatar, :display_mobile_icon)
+    params.require(:chat_widget).permit(:online_message, :offline_message, :title_message, :hide_when_offline, 
+                                        :color, :logo, :remove_logo, :logo_cache, :display_logo, 
+                                        :display_agent_avatar, :display_mobile_icon)
   end
 end

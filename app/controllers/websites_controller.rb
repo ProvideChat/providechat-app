@@ -44,6 +44,6 @@ class WebsitesController < ApplicationController
   end
 
   def website_params
-    params.require(:website).permit(:organization_id, :url, :name, :email, :logo, :remove_logo, :logo_cache)
+    params.require(:website).permit(:organization_id, :url, :name, :email)
   end
 end
