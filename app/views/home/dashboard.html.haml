@@ -14,25 +14,7 @@
           %i.fa.fa-refresh.fa-spin
       %div{:role => "content"}
         .widget-body.no-padding
-          %table.table.table-bordered
-            %thead
-              %tr
-                %th Name
-                %th
-                  URL
-                %th
-                  Widget Installed?
-            %tbody
-              - @websites.each do |website|
-                %tr
-                  %td= website.name
-                  %td= website.url
-                  %td
-                    Checking  #{image_tag "select2-spinner.gif"}
-              - if @websites.count == 0
-                %tr
-                  %td{:colspan => "3"}
-                    You haven't added any websites yet. #{link_to "Add Website", new_website_path, { title: "Add Website", class: "btn btn-primary" }}
+          = render :partial => 'websites_listing', :locals => { websites: @websites}
           .widget-footer
             .pull-right
 
@@ -49,24 +31,7 @@
           %i.fa.fa-refresh.fa-spin
       %div{:role => "content"}
         .widget-body.no-padding
-          %table.table.table-bordered
-            %thead
-              %tr
-                %th Name
-                %th
-                  Current Availability
-            %tbody
-              - @agents.each do |agent|
-                %tr
-                  %td
-                    %a{:href => "#", :onclick => "#', 'content');"}= agent.name
-                  %td
-                    - if agent.availability == 'online'
-                      %span{:style => "color: #228b22;"}
-                        %strong Online
-                    - else
-                      %span{:style => "color: #b22222;"}
-                        %strong Offline
+          = render :partial => 'agents_availability', :locals => { agents: @agents}
           .widget-footer
             .pull-right
               You are currently using #{@agents.count} of #{current_agent.organization.max_agents} available agents

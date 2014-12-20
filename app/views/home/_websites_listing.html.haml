@@ -1,0 +1,20 @@
+- if @websites.count == 0
+  %table.table.table-bordered
+    %tr
+      %td{:colspan => "3"}
+        You haven't added any websites yet. #{link_to "Add Website", new_website_path, { title: "Add Website", class: "btn btn-primary btn-sm" }}
+- else
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th Name
+        %th
+          URL
+        %th
+          Widget Installed?
+    %tbody
+      - @websites.each do |website|
+        %tr
+          %td= website.name
+          %td= website.url
+          %td= website.widget_status

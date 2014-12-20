@@ -1,0 +1,18 @@
+%table.table.table-bordered
+  %thead
+    %tr
+      %th Name
+      %th
+        Current Availability
+  %tbody
+    - agents.each do |agent|
+      %tr
+        %td
+          %a{:href => "#", :onclick => "#', 'content');"}= agent.name
+        %td
+          - if agent.availability == 'online'
+            %span{:style => "color: #228b22;"}
+              %strong Online
+          - else
+            %span{:style => "color: #b22222;"}
+              %strong Offline
