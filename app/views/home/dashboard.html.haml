@@ -86,10 +86,11 @@
           %table.table.table-bordered
             - @blog_feed.entries.first(5).each do |entry|
               %tr
-                %td{style: 'width: 75%;'}
+                %td
                   = link_to entry.title, entry.url, :target => "blank"
-                %td{style: 'width: 25%;'}
-                  = entry.published.strftime("%b. %e, %Y")
+                  \-
+                  %i
+                    = entry.published.strftime("%B %e, %Y")
             - if @blog_feed.entries.count == 0
               %tr
                 %td No blog entries found
