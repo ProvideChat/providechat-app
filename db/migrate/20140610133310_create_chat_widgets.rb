@@ -8,6 +8,7 @@ class CreateChatWidgets < ActiveRecord::Migration
       t.string :title_message
       t.boolean :hide_when_offline
       t.string :color
+      t.string :logo
       t.boolean :display_logo
       t.boolean :display_agent_avatar
       t.boolean :display_mobile_icon
