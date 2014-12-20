@@ -20,6 +20,16 @@ class Website < ActiveRecord::Base
   validates :email, format: { with: VALID_EMAIL_REGEX }
   validates_uniqueness_of :url, scope: :organization_id
 
+  def widget_status
+    if last_ping.nil?
+      "Not Installed"
+    elsif last_ping > 10.minutes.ago
+      "Online"
+    else
+      "Offline"
+    end
+  end
+  
   protected
 
   def smart_url_update
