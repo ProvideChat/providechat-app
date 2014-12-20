@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 20141016034409) do
     t.string   "title_message"
     t.boolean  "hide_when_offline"
     t.string   "color"
+    t.string   "logo"
     t.boolean  "display_logo"
     t.boolean  "display_agent_avatar"
     t.boolean  "display_mobile_icon"
@@ -269,8 +270,7 @@ ActiveRecord::Schema.define(version: 20141016034409) do
     t.string   "url",               default: "", null: false
     t.string   "name",              default: "", null: false
     t.string   "email",             default: "", null: false
-    t.string   "logo"
-    t.boolean  "widget_installed"
+    t.datetime "last_ping"
     t.boolean  "smart_invites"
     t.string   "smart_invite_mode"
     t.datetime "created_at"
