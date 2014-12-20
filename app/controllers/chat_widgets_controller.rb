@@ -9,7 +9,7 @@ class ChatWidgetsController < ApplicationController
       @chat_widget = ChatWidget.find_by(:website_id => website_id)
       redirect_to edit_chat_widget_path(@chat_widget)
     else
-      redirect_to websites_path, notice: "You need to add a website before you can modify the Chat Widget"
+      redirect_to websites_path, :flash => { :warning => "You need to add a website before you can modify the Chat Widget" }
     end
   end
 
@@ -21,7 +21,7 @@ class ChatWidgetsController < ApplicationController
     @chat_widget = ChatWidget.find(params[:id])
 
     if flash_message = @chat_widget.process_update(params, chat_widget_params)
-      redirect_to edit_chat_widget_path(@chat_widget), notice: 'Chat widget was successfully updated.'
+      redirect_to edit_chat_widget_path(@chat_widget), :flash => { :success => 'Chat widget was successfully updated.' }
     else
       render :edit
     end
