@@ -4053,7 +4053,7 @@ body.nooverflow {
 	 * WIDGET BODY AJAX LOAD
 	 */
 .widget-body-ajax-loading::before {
-  content: url('../img/ajax-loader.gif');
+  content: url('ajax-loader.gif');
   padding-top: 18%;
   text-align: center;
   font-weight: bold;
@@ -4648,7 +4648,7 @@ body.nooverflow {
 /* Selection Border */
 .jcrop-vline,
 .jcrop-hline {
-  background: #ffffff url("../img/jcrop/Jcrop.gif");
+  background: #ffffff url("smartadmin/jcrop/Jcrop.gif");
   font-size: 0;
   position: absolute;
 }
@@ -5915,11 +5915,11 @@ Version: 3.4.5 Timestamp: Mon Nov  4 08:22:42 PST 2013
   top: 34%;
 }
 .select2-search input.select2-active {
-  background: #ffffff url('../img/select2-spinner.gif') no-repeat 100%;
-  background: url('../img/select2-spinner.gif') no-repeat 100%, -webkit-gradient(linear, left bottom, left top, color-stop(0.85, #ffffff), color-stop(0.99, #eeeeee));
-  background: url('../img/select2-spinner.gif') no-repeat 100%, -webkit-linear-gradient(center bottom, #ffffff 85%, #eeeeee 99%);
-  background: url('../img/select2-spinner.gif') no-repeat 100%, -moz-linear-gradient(center bottom, #ffffff 85%, #eeeeee 99%);
-  background: url('../img/select2-spinner.gif') no-repeat 100%, linear-gradient(top, #ffffff 85%, #eeeeee 99%);
+  background: #ffffff url('select2-spinner.gif') no-repeat 100%;
+  background: url('select2-spinner.gif') no-repeat 100%, -webkit-gradient(linear, left bottom, left top, color-stop(0.85, #ffffff), color-stop(0.99, #eeeeee));
+  background: url('select2-spinner.gif') no-repeat 100%, -webkit-linear-gradient(center bottom, #ffffff 85%, #eeeeee 99%);
+  background: url('select2-spinner.gif') no-repeat 100%, -moz-linear-gradient(center bottom, #ffffff 85%, #eeeeee 99%);
+  background: url('select2-spinner.gif') no-repeat 100%, linear-gradient(top, #ffffff 85%, #eeeeee 99%);
 }
 .select2-container-active .select2-choice,
 .select2-container-active .select2-choices {
@@ -6055,7 +6055,7 @@ disabled look for disabled choices in the results dropdown
   display: none;
 }
 .select2-more-results.select2-active {
-  background: #f4f4f4 url('../img/select2-spinner.gif') no-repeat 100%;
+  background: #f4f4f4 url('select2-spinner.gif') no-repeat 100%;
 }
 .select2-more-results {
   background: #f4f4f4;
@@ -6120,7 +6120,7 @@ disabled look for disabled choices in the results dropdown
   background: transparent !important;
 }
 .select2-container-multi .select2-choices .select2-search-field input.select2-active {
-  background: #ffffff url('../img/select2-spinner.gif') no-repeat 100% !important;
+  background: #ffffff url('select2-spinner.gif') no-repeat 100% !important;
 }
 .select2-default {
   color: #999 !important;
@@ -6561,7 +6561,7 @@ disabled look for disabled choices in the results dropdown
   width: 30px;
 }
 .editableform-loading {
-  background: url('../img/loading.gif') center center no-repeat;
+  background: url('smartadmin/loading.gif') center center no-repeat;
   height: 25px;
   width: auto;
   min-width: 25px;
@@ -7886,7 +7886,7 @@ a.editable-click.editable-disabled:hover {
   color: rgba(255, 255, 255, 0.9);
 }
 .voice-command-active.service-allowed #speech-btn > :first-child > a {
-  background: url('../img/voicecommand/active-btn.gif') no-repeat center center #0e70ca;
+  background: url('smartadmin/voicecommand/active-btn.gif') no-repeat center center #0e70ca;
   border: 1px solid #125A9C;
   color: rgba(255, 255, 255, 0.9);
 }

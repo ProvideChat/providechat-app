@@ -24,4 +24,6 @@
 //= require turbolinks
 //= require qtip2
 //= require qtip2_custom
+//= require nprogress
+//= require nprogress-turbolinks
 //= require providechat

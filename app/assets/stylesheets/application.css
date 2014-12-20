@@ -19,6 +19,8 @@
  *= require bootstrap-datepicker
  *= require jquery.colorpicker
  *= require qtip2
+ *= require nprogress
+ *= require nprogress-bootstrap
  *= require styles
  *= require monitor
  *= require widget

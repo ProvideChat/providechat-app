@@ -32,7 +32,11 @@ class WidgetsController < ApplicationController
 
         response = {
           'chat_id' => chat.id,
-          'html' => render_to_string(partial: 'chat_widget.html.erb', :layout => false, :locals => { :org_id => org_id })
+          'html' => render_to_string(
+                      partial: 'chat_widget.html.erb',
+                      :layout => false,
+                      :locals => { :org_id => org_id }
+                    )
         }
 
       when "get_chat_messages"
@@ -89,7 +93,7 @@ class WidgetsController < ApplicationController
         if chat.agent
           display_name = chat.agent.display_name
         end
-        
+
         response = {
           'chat_status' => chat.status,
           'display_name' => display_name
@@ -101,17 +105,29 @@ class WidgetsController < ApplicationController
       when "get_pre_chat"
         pre_chat_form = PrechatForm.find_by(:website_id => website_id)
         response = {
-          'html' => render_to_string(partial: 'pre_chat.html.erb', :layout => false, :locals => { :pre_chat_form => pre_chat_form, :org_id => org_id })
+          'html' => render_to_string(
+                      partial: 'pre_chat.html.erb',
+                      :layout => false,
+                      :locals => { :pre_chat_form => pre_chat_form, :org_id => org_id, :website_id => website_id }
+                    )
         }
       when "get_in_chat"
         chat_widget = ChatWidget.find_by(:website_id => website_id)
         response = {
-          'html' => render_to_string(partial: 'chat_widget.html.erb', :layout => false, :locals => { :chat_widget => chat_widget })
+          'html' => render_to_string(
+                      partial: 'chat_widget.html.erb',
+                      :layout => false,
+                      :locals => { :chat_widget => chat_widget }
+                    )
         }
       when "get_offline"
         offline_form = OfflineForm.find_by(:website_id => website_id)
         response = {
-          'html' => render_to_string(partial: 'offline_form.html.erb', :layout => false, :locals => { :offline_form => offline_form, :org_id => org_id })
+          'html' => render_to_string(
+                      partial: 'offline_form.html.erb',
+                      :layout => false,
+                      :locals => { :offline_form => offline_form, :org_id => org_id, :website_id => website_id }
+                    )
         }
       when "update_status"
         response = { 'agent_status' => @organization.agent_status }

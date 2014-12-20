@@ -62,9 +62,17 @@
 </div>
 
 <script>
-  $(function() {
+  function initialize_website_dropdown() {
     $('#website_id').on ('change', function() {
       $('#edit_chat_widget').submit();
     });
+  }
+
+  $( document ).ready(function() {
+    initialize_website_dropdown();
+  });
+
+  $(window).bind('page:change', function() {
+    initialize_website_dropdown();
   });
 </script>

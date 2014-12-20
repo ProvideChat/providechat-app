@@ -36,10 +36,8 @@
               = current_agent.name
           .btn-group.pull-right
 
-      / end user info
       = render "layouts/left_nav"
-    / END NAVIGATION
-    / MAIN PANEL
+
     #main{:role => "main"}
       #content
         = yield
@@ -50,7 +48,6 @@
           %span.txt-color-white ProvideChat © 2013-2014
         .col-xs-6.col-sm-6.text-right.hidden-xs
 
-
     = javascript_include_tag 'smartadmin.config'
     = javascript_include_tag 'jarvis.widget'
     = javascript_include_tag 'smart-notification'
@@ -58,10 +55,20 @@
     = javascript_include_tag 'smartadmin'
 
     :javascript
+      function initialize_nprogress() {
+        NProgress.configure({
+          showSpinner: false,
+          ease: 'ease',
+          speed: 500
+        });
+      }
+
       $(document).ready(function() {
         pageSetUp();
+        initialize_nprogress();
       });
-      
+
       $(window).bind('page:change', function() {
         pageSetUp();
+        initialize_nprogress();
       });

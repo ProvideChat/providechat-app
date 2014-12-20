@@ -21,6 +21,7 @@ gem 'local_time'
 gem 'lograge'
 gem 'pg'
 gem 'mini_magick', '~> 4.0.0.rc'
+gem 'nprogress-rails'
 gem 'sass-rails'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'sidekiq'
@@ -35,6 +36,7 @@ gem 'capistrano-rails', '~> 1.1.1'
 gem 'capistrano-rbenv', github: "capistrano/rbenv"
 
 group :development do
+  gem 'better_errors'
   gem 'spring'
   gem 'binding_of_caller'
   gem 'quiet_assets'
@@ -42,23 +44,25 @@ end
 
 group :test, :development do 
   gem 'annotate'
-  gem 'better_errors'
   gem 'brakeman', :require => false
   gem 'byebug'
   gem 'dotenv-rails'
   gem 'factory_girl_rails'
   gem 'rspec-rails'
-  gem 'faker'
   gem 'bundler-audit'
   gem 'mailcatcher'
 end
 
 group :test do
   gem 'capybara'
-  gem 'capybara-webkit', :git => 'https://github.com/thoughtbot/capybara-webkit.git' 
+  gem 'capybara-webkit', :git => 'https://github.com/thoughtbot/capybara-webkit.git'
+  gem 'capybara-email'
   gem 'database_cleaner'
+  gem 'faker'
   gem 'launchy'
-  gem 'shoulda'
+  gem 'shoulda-matchers'
+  gem "timecop"
+  gem "webmock"
 end
 
 

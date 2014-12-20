@@ -3,6 +3,20 @@ class ChatWidget < ActiveRecord::Base
   belongs_to :website
   before_create :set_defaults
 
+  def process_update(params, chat_widget_params)
+    if params.has_key?(:restore_defaults)
+      self.set_defaults
+      self.save
+      "Your chat widget was reset to default settings."
+    elsif params.has_key?(:save_changes)
+      self.update(chat_widget_params)
+      self.save
+      "Your chat widget was successfully updated."
+    else
+      "Your changes were cancelled"
+    end
+  end
+
   def self.color_options
     {
       "#ffffff" => "ffffff",
@@ -22,7 +36,7 @@ class ChatWidget < ActiveRecord::Base
       "#67fd9a" => "67fd9a",
       "#38fff8" => "38fff8",
       "#68fdff" => "68fdff",
-      "#9698ed" => "9698ed",      
+      "#9698ed" => "9698ed",
       "#c0c0c0" => "c0c0c0",
       "#fe0000" => "fe0000",
       "#f8a102" => "f8a102",
@@ -71,7 +85,7 @@ class ChatWidget < ActiveRecord::Base
     }
   end
 
-  private
+  protected
 
   def set_defaults
     self.online_message = 'Chat Now'
