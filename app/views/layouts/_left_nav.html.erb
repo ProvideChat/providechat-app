@@ -55,9 +55,11 @@
         <li class="<%= "active" if controller?('websites') %>">
           <%= link_to "Websites", websites_path, { title: "Websites" } %>
         </li>
-				<li class="<%= "active" if controller?('rapid_responses') %>">
-          <%= link_to "Rapid Responses", rapid_responses_path, { title: "Rapid Responses" } %>
-				</li>
+        <% if false %>
+  				<li class="<%= "active" if controller?('rapid_responses') %>">
+            <%= link_to "Rapid Responses", rapid_responses_path, { title: "Rapid Responses" } %>
+  				</li>
+        <% end %>
 			</ul>
 		</li>
 		<li>
