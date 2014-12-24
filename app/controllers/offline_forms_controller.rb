@@ -14,6 +14,7 @@ class OfflineFormsController < ApplicationController
 
   def edit
     @offline_form = OfflineForm.find(params[:id])
+    @chat_widget = ChatWidget.find_by(:website_id => @offline_form.website_id)
     @websites = Website.where(organization_id: current_agent.organization_id)
     @departments = Website.find(@offline_form.website_id).departments
   end

@@ -14,6 +14,7 @@ class PrechatFormsController < ApplicationController
 
   def edit
     @prechat_form = PrechatForm.find(params[:id])
+    @chat_widget = ChatWidget.find_by(:website_id => @prechat_form.website_id)
     @websites = Website.where(organization_id: current_agent.organization_id)
     @departments = Website.find(@prechat_form.website_id).departments
   end

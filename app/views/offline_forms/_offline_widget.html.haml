@@ -1,6 +1,6 @@
 .widget-preview-container
   #pc-chat-window{:style => "display: block;"}
-    .chat-widget.chat-widget-open
+    .chat-widget.chat-widget-open{:style => "background-color: \##{@chat_widget.color}; border-color: #{darken_color(@chat_widget.color)};"}
       #close-chat-widget.chat-widget-header
         Welcome to Provide Chat
         %div{:style => "float: right; margin-right: 10px;"}
@@ -9,12 +9,14 @@
       #chat-widget-content
         .chat-widget-container
           #unavailable-success{:style => "margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px; display: none;"}
-            %p{:style => "margin-top: 0px; "}= @offline_form.success_message
+            %p= @offline_form.success_message
           #unavailable-form{:style => "margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px;"}
-            %p{:style => "margin-top: 0px; "}= @offline_form.intro_text
-            %input#unavailable-text-box-1{:placeholder => @offline_form.name_text, :type => "text"}/
+            %p= @offline_form.intro_text
+            %p
+              %input#unavailable-text-box-1{:placeholder => @offline_form.name_text, :type => "text"}/
             - if @offline_form.email_enabled
-              %input#unavailable-text-box-2{:placeholder => @offline_form.email_text, :type => "text"}/
+              %p
+                %input#unavailable-text-box-2{:placeholder => @offline_form.email_text, :type => "text"}/
             - if @offline_form.department_enabled && @departments.count > 0
               %p
                 %select#unavailable-department
