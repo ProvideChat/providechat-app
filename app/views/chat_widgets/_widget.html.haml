@@ -4,7 +4,9 @@
       #close-chat-widget.chat-widget-header
         = @chat_widget.title_message
         %div{:style => "float: right; margin-right: 10px;"}
-          = image_tag "widget/down-arrow.png", :id => "close-chat-widget"
+          = image_tag "widget/down-arrow.png"
+          = image_tag "widget/close.png"
+          
       #chat-widget-content
         #in-chat
           .chat-widget-container{:style => "height: 325px;"}
