@@ -33,32 +33,28 @@
         .help-text{:style => "font-size: 10px;"}
           You can change the color of the widget to match your website's look and feel.
 
-    .form-group
-      %label.col-md-4.control-label= f.label "Logo"
-      .col-md-8
-        = image_tag(@chat_widget.logo_url) if @chat_widget.logo?
-        .input-group
-          = f.file_field :logo, :class => "form-control logo-field file-form-control"
-          %span{class:"input-group-addon"}
-            %i{class:"icon-append fa fa-question-circle"}
-        .help-text{style: "font-size: 10px;"}
-          Logo image dimensions should be 60 x 60 pixels
-        = f.hidden_field :logo_cache
-    - if @chat_widget.logo?
-      .form-group
-        %label.col-md-4.control-label
-        .col-md-8
-          %label
-            = f.check_box :remove_logo
-            Remove logo
             
     .form-group
       %label.col-md-3.control-label
       .col-md-9
         .checkbox
           %label
-            = f.check_box :display_logo
+            = f.check_box :display_logo, :id => 'display_logo'
             Display logo in widget
+          
+        .form-group{:id => 'logo-upload', :style => 'margin: 10px 20px;'}
+          - if @chat_widget.logo?
+            = image_tag(@chat_widget.logo_url)
+            %br
+            %label
+              = f.check_box :remove_logo
+              Remove logo
+
+          = f.file_field :logo
+          .help-text{style: "font-size: 10px;"}
+            Logo dimensions should be 60 x 60 pixels
+          = f.hidden_field :logo_cache
+        
         .checkbox
           %label
             = f.check_box :display_agent_avatar
@@ -81,6 +77,22 @@
       title: false,
       inputBG: true
     });
+  }
+  
+  function logo_upload() {
+    if ($('#display_logo').is(':checked')) {
+      $("#logo-upload").show();
+    } else {
+      $("#logo-upload").hide();
+    }
+    
+    $('#display_logo').click(function() {
+      if( $(this).is(':checked')) {
+        $("#logo-upload").show();
+      } else {
+        $("#logo-upload").hide();
+      }
+    }); 
   }
   
   function initialize_qtip() {
@@ -108,9 +120,11 @@
   $( document ).ready(function() {
     initialize_qtip();
     initialize_colourpicker();
+    logo_upload();
   });
   
   $(window).bind('page:change', function() {
     initialize_qtip();
     initialize_colourpicker();
+    logo_upload();
   });
