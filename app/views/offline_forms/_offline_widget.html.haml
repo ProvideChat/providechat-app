@@ -2,7 +2,7 @@
   #pc-chat-window{:style => "display: block;"}
     .chat-widget.chat-widget-open{:style => "background-color: \##{@chat_widget.color}; border-color: #{darken_color(@chat_widget.color)};"}
       #close-chat-widget.chat-widget-header
-        Welcome to Provide Chat
+        = @chat_widget.offline_message
         %div{:style => "float: right; margin-right: 10px;"}
           = image_tag "widget/down-arrow.png"
           = image_tag "widget/close.png"
