@@ -1,0 +1,42 @@
+= form_for(@offline_form, :html => {class: 'form-horizontal'}) do |f|
+  = render "layouts/error_messages", :f => @offline_form
+  %header
+  %fieldset
+    .form-group
+      %label.col-md-4.control-label= f.label :intro_text, "Introduction"
+      .col-md-8
+        = f.text_area :intro_text, :class => "form-control", :rows => 4
+    .form-group
+      %label.col-md-4.control-label= f.label :name_text, "Name Field"
+      .col-md-8
+        = f.text_field :name_text, :class => "form-control"
+    .form-group
+      %label.col-md-4.control-label= f.label :email_text, "Email Field"
+      .col-md-8
+        = f.text_field :email_text, :class => "form-control"
+        .help-text{:style => "font-size: 10px;"}
+          %label
+            = f.check_box :email_enabled, :style => "position: relative; top: 1px;"
+            Display Email Field
+    .form-group
+      %label.col-md-4.control-label= f.label :department_text, "Department Field"
+      .col-md-8
+        = f.text_field :department_text, :class => "form-control"
+        .help-text{:style => "font-size: 10px;"}
+          %label
+            = f.check_box :department_enabled, :style => "position: relative; top: 1px;"
+            Display Department Field
+    .form-group
+      %label.col-md-4.control-label= f.label :message_text, "Your Question Field"
+      .col-md-8
+        = f.text_field :message_text, :class => "form-control"
+    .form-group
+      %label.col-md-4.control-label= f.label :button_text, "Send Message Button"
+      .col-md-8
+        = f.text_field :button_text, :class => "form-control"
+  %hr
+  %footer
+    = f.submit "Apply Changes", :class => "btn btn-primary", :name => "save_changes"
+    = f.submit "Cancel", :class => "btn btn-default", :name => "cancel_changes", data: { confirm: 'Are you sure you want to cancel your current changes?' }
+    = f.submit "Reset Defaults", :class => "btn btn-danger", :name => "restore_defaults", data: { confirm: 'Are you sure you want to reset the offline form to default settings?' }
+  %hr
