@@ -1,0 +1,49 @@
+= form_for(@prechat_form, :html => {class: 'form-horizontal'}) do |f|
+  = render "layouts/error_messages", :f => @prechat_form
+  %header
+  %fieldset
+    .form-group
+      %label.col-md-4.control-label= f.label :intro_text, "Introduction"
+      .col-md-8
+        = f.text_area :intro_text, :class => "form-control", :rows => 4
+
+    .form-group
+      %label.col-md-4.control-label= f.label :name_text, "Name Field"
+      .col-md-8
+        = f.text_field :name_text, :class => "form-control"
+
+    .form-group
+      %label.col-md-4.control-label= f.label :email_text, "Email Field"
+      .col-md-8
+        = f.text_field :email_text, :class => "form-control"
+        .help-text{:style => "font-size: 10px;"}
+          %label.checkbox-label
+            = f.check_box :email_enabled, :class => "aligned-checkbox"
+            Display Email Field
+            
+    .form-group
+      %label.col-md-4.control-label= f.label :department_text, "Department Field"
+      .col-md-8
+        = f.text_field :department_text, :class => "form-control"
+        .help-text{:style => "font-size: 10px;"}
+          %label.checkbox-label
+            = f.check_box :department_enabled, :class => "aligned-checkbox"
+            Display Department Field
+
+    .form-group
+      %label.col-md-4.control-label= f.label :message_text, "Initial Question Field"
+      .col-md-8
+        = f.text_field :message_text, :class => "form-control"
+
+    .form-group
+      %label.col-md-4.control-label= f.label :button_text, "Start Chat Button"
+      .col-md-8
+        = f.text_field :button_text, :class => "form-control"
+
+  %hr
+
+  %footer
+    = f.submit "Apply Changes", :class => "btn btn-primary", :name => "save_changes"
+    = f.submit "Cancel", :class => "btn btn-default", :name => "cancel_changes", data: { confirm: 'Are you sure you want to cancel your current changes?' }
+    = f.submit "Reset Defaults", :class => "btn btn-danger", :name => "restore_defaults", data: { confirm: 'Are you sure you want to reset the prechat form to default settings?' }
+  %hr
