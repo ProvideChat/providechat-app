@@ -1,6 +1,6 @@
-%h2 Chat Log
-
 %h4 Chat Overview
+
+%p
 
 %p
   %strong Website:
@@ -9,10 +9,6 @@
 %p
   %strong Agent:
   = @chat.agent.display_name
-
-%p
-  %strong Chat Status:
-  = @chat.status
 
 %p
   %strong Time Visitor Requested to Chat:
@@ -51,6 +47,6 @@
     %strong #{chat_message.user_name}:
     = chat_message.message
 
+%hr
 
-%p
-  = link_to 'Back', chats_path
+= link_to "Back", chats_url, class: "btn btn-default"

@@ -1,11 +1,7 @@
 %tr
-  %td= chat.id
+  %td= link_to "Chat #{chat.id}", chat
   %td= chat.agent ? chat.agent.name : 'None'
   %td= chat.website.url
   %td= chat.visitor ? chat.visitor.name : 'Not specified'
   %td= local_time(chat.chat_accepted, '%B %e, %Y %l:%M%P')
   %td= chat.department ? chat.department.name : 'Any Department'
-  %td
-    = link_to chat, class: 'btn btn-default' do
-      %i.fa.fa-bars
-      &nbsp; View Transcript

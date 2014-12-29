@@ -21,7 +21,7 @@
 
 .row
   .col-sm-12.col-md-12.col-lg-12
-    %table.table.table-bordered
+    %table.table.table-striped.table-hover
       %thead
         %tr
           %th Ticket ID
@@ -30,6 +30,10 @@
           %th Visitor Name
           %th Date
           %th Department
-          %th
       %tbody
         = render(@chats) || render('no_chats')
+
+:javascript
+  $('tr').click( function() {
+    window.location = $(this).find('a').attr('href');
+  });
