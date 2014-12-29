@@ -104,7 +104,7 @@ module Api
           when "get_current_chats"
             agent_id = params[:agent_id]
 
-            current_chats = Chat.where(agent_id: agent_id)
+            current_chats = Chat.where(agent_id: agent_id, status: 'in_progress')
 
             response = {
               'current_chats' => current_chats || Array.new
@@ -139,6 +139,10 @@ module Api
             chat.status = 'agent_ended'
             chat.chat_ended = DateTime.now
             chat.save
+            
+            visitor = Visitor.find(chat.visitor_id)
+            visitor.status = 'chat_ended'
+            visitor.save
 
             response = { 'success' => 'true' }
           else
