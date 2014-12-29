@@ -114,6 +114,7 @@
   ProvideChat.agent_id = 0;
   ProvideChat.agent_name = '';
   ProvideChat.organization_id = 0;
+  ProvideChat.initialized = false;
 
   ProvideChat.activeChatId = 0;	// the chat id of the currently active tab
   ProvideChat.activeChats = [];	// associate array linking tab# to chatId - activeChats[tab#] = chatId
@@ -131,14 +132,17 @@
   ProvideChat.numChats = 0;
 
   ProvideChat.init = function (agent_id, agent_name, organization_id) {
-    ProvideChat.agent_id = agent_id;
-    ProvideChat.agent_name = agent_name;
-    ProvideChat.organization_id = organization_id;
+    if (ProvideChat.initialized === false) {
+      ProvideChat.agent_id = agent_id;
+      ProvideChat.agent_name = agent_name;
+      ProvideChat.organization_id = organization_id;
 
-    loadCurrentChats();
-    updateVisitors();
+      loadCurrentChats();
+      updateVisitors();
 
-    ProvideChat.visitorTimer = setInterval(function(){updateVisitors();}, 2000);
+      ProvideChat.visitorTimer = setInterval(function(){updateVisitors();}, 2000);
+      ProvideChat.initialized = true;
+    }
   };
 
   function loadCurrentChats () {
@@ -146,11 +150,9 @@
     var json_data = { "method": 'get_current_chats', "agent_id": ProvideChat.agent_id };
 
     $.getJSON("/api/chat_monitor.json", json_data, function (response) {
-
+      
       $.each(response.current_chats, function(i, current_chat) {
         //accept_chat( current_chat.visitor_id );
-        console.log("CURRENT CHAT...");
-        console.log(current_chat);
         add_new_tab (current_chat.id, current_chat.visitor_id, current_chat.visitor_name, current_chat.status);
       });
     });
@@ -227,7 +229,7 @@
         $('#current-chat-container').html("<p>No current chats</p>");
       }
       if (waiting_to_chat === 0) {
-        $('#waiting-to-chat-container').html("<p>No one waiting</p>");
+        $('#waiting-to-chat-container').html("<p>No one waiting to chat</p>");
       }
 
       if (visitors === 0) {
