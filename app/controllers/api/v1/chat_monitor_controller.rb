@@ -96,7 +96,9 @@ module Api
             response = {
               'status' => chat.status,
               'visitor_name' => chat.visitor_name,
-              'messages' => chat_messages || Array.new
+              'messages' => chat_messages || Array.new,
+              'started' => chat.chat_accepted,
+              'ended' => chat.chat_ended
             }
 
           when "get_current_chats"
@@ -135,6 +137,7 @@ module Api
 
             chat = Chat.find(chat_id)
             chat.status = 'agent_ended'
+            chat.chat_ended = DateTime.now
             chat.save
 
             response = { 'success' => 'true' }

@@ -176,7 +176,7 @@
           $('#current-chat-container').append('<%= image_tag "monitor/current-chat.png", class: "visitor-image" %>');
           $('#current-chat-container').append(visitor.name + '&nbsp;');
           $('#current-chat-container').append('<a href="javascript:void(0);" id="view_visitor_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs"><i class="fa fa-user"></i> View</a>');
-          $('#current-chat-container').append('<br /><span class="visitor-detail">Chatting for ' + visitor.time_in_chat + '</span>');
+          $('#current-chat-container').append('<br><span class="visitor-detail">Chatting for ' + visitor.time_in_chat + '</span>');
           $('#current-chat-container').append("</div>");
           in_chat++;
 
@@ -192,7 +192,7 @@
           $('#waiting-to-chat-container').append('<%= image_tag "monitor/waiting-to-chat.png", class: "visitor-image" %>');
           $('#waiting-to-chat-container').append(visitor.name + '&nbsp;');
           $('#waiting-to-chat-container').append('<a href="javascript:void(0);" id="accept_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs"><i class="fa fa-comments-o"></i> Accept</a>')
-          $('#waiting-to-chat-container').append('<br /><span class="visitor-detail">Waiting for ' + visitor.time_waiting_to_chat + '</span>');
+          $('#waiting-to-chat-container').append('<br><span class="visitor-detail">Waiting for ' + visitor.time_waiting_to_chat + '</span>');
           $('#waiting-to-chat-container').append("</div>");
 
           $('#accept_chat_' + visitor.id).click(function() {
@@ -209,7 +209,7 @@
           $('#visitor-container').append('<%= image_tag "monitor/visitor-browsing.png", class: "visitor-image" %>');
           $('#visitor-container').append(visitor.region_name + ', ' + visitor.country_name + '&nbsp;');
           $('#visitor-container').append('<a href="javascript:void(0);" id="invite_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs"><i class="fa fa-external-link"></i> Invite</a>');
-          $('#visitor-container').append('<br /><span class="visitor-detail">' + visitor.current_page + '</span>');
+          $('#visitor-container').append('<br><span class="visitor-detail">' + visitor.current_page + '</span>');
           $('#visitor-container').append("</div>");
           visitors++;
         }
@@ -403,13 +403,18 @@
         sendChatText(response.chat_id);
       });
 
+      $('#end-chat-' + response.chat_id).click(function() {
+        endChat(response.chat_id);
+      });
+
       viewVisitor(visitor_id);
 
       ProvideChat.chatTimer[response.chat_id] = setInterval(function(){ getChatText(response.chat_id, false); }, 2000);
+      console.log("ChatID: " + response.chat_id + ", Interval ID: " + ProvideChat.chatTimer[response.chat_id]);
       ProvideChat.keypressStatusTimer[response.chat_id] = setInterval(function () { getKeypressStatus(response.chat_id); }, 1500);
     });
   }
-  
+
   function setup_chat(chat_id) {
     if (ProvideChat.activeChatId == chat_id) {
       // Set the focus to the Message Box.
@@ -480,7 +485,7 @@
 
           console.log("MESSAGE: ");
           console.log(message);
-          
+
           var message_timestamp = new Date(message.sent);
 
           if (message.sender === 'agent')
@@ -495,7 +500,7 @@
             chatText += '<time>' + message_timestamp.getHours() + ':' + message_timestamp.getMinutes() + '</time>';
             chatText += '<a href="javascript:void(0);" class="username">' + message.user_name  + '</a> ' + message.message + '</li>';
 
-            $('#typingNotification' + chat_id).html ('');
+            $('#typing-notification-' + chat_id).html ('');
 
             newMessageAlert = true;
           }
@@ -503,31 +508,32 @@
       } else if ((response.status === 'agent_ended') || (response.status === 'visitor_ended') ||
                    (response.status === 'visitor_timeout'))
       {
+        if (response.status === 'agent_ended') {
+          chatText = 'The chat has now ended';
+        } else if (response.status === 'visitor_ended') {
+          chatText = 'The visitor has now ended the chat.';
+        } else if (response.status === 'visitor_timeout') {
+          chatText = 'The visitor has left your website, ending the chat.';
+        }
         chatText = '<li class="message"><div class="message-text">';
-        chatText += '<time>2014-01-13</time>';
-        chatText += message.message +  '<br /><br /><b>Chat Statistics:</b><br />';
-        chatText += 'Chat session started: ' + response.started + '<br />';
-        chatText += 'Chat Session ended: ' + response.ended + '<br />';
-        chatText += 'Total chat session duration: ' + response.duration + '</li>';
+        chatText += chatText +  '<br><br><b>Chat Statistics:</b><br>';
+        chatText += 'Chat session started: ' + response.started + '<br>';
+        chatText += 'Chat Session ended: ' + response.ended + '<br>';
+        chatText += 'Total chat session duration: ' + (response.ended - response.started) + '</li>';
 
         endChat = true;
 
-        //endChatOff();
+        console.log("ChatID: " + chat_id + ", Clearing Interval ID: " + ProvideChat.chatTimer[chat_id]);
+        clearInterval(ProvideChat.chatTimer[chat_id]);
+        //ProvideChat.chatTimer[chat_id] = null;
+        clearInterval(ProvideChat.keypressStatusTimer[chat_id]);
+        //ProvideChat.keypressStatusTimer[chat_id] = null;
+        $('#typing-notification-' + chat_id).html ('');
       }
 
       $("#chat-messages-"+chat_id).append(chatText);
       $('#chat-messages-'+chat_id).scrollTop($('#chat-messages-'+chat_id).height());
 
-
-      if (endChat === true) {
-			  // Refresh chat in 2 seconds
-        //chatTimer[chatId] = setTimeout(function(){ getChatText(chatId, false); }, 2000);
-        clearInterval(ProvideChat.chatTimer[chat_id]);
-        ProvideChat.chatTimer[chat_id] = null;
-        clearTimeout(ProvideChat.keypressStatusTimer[chat_id]);
-        ProvideChat.keypressStatusTimer[chat_id] = null;
-        $('#typingNotification' + chat_id).html ('');
-      }
 
       /*
       if ((newMessageAlert === true) && (chatStatus[chat_id] === 'inProgress')) {
@@ -560,9 +566,9 @@
       var chat_id = response.chat_id;
 
       if (response.visitor_typing == 'yes' ) {
-        $('#typingNotification' + chat_id).html ('<i>' + response.visitor_name + ' is typing...</i>');
+        $('#typing-notification-' + chat_id).html ('<i>' + response.visitor_name + ' is typing...</i>');
       } else {
-        $('#typingNotification' + chat_id).html ('');
+        $('#typing-notification-' + chat_id).html ('');
       }
     });
   }
@@ -648,7 +654,7 @@
   }
 
 
-  function end_chat(chat_id) {
+  function endChat(chat_id) {
 
     var json_data = { "method": 'end_chat', "chat_id": chat_id };
 

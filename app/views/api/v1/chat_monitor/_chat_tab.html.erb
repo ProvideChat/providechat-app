@@ -4,7 +4,7 @@
     <span class="widget-icon"> <i class="fa fa-comments"></i> </span>
     <h2><%= visitor_name %> </h2>
     <div class="widget-toolbar">
-      <a href="javascript:end_chat(<%= chat_id %>)" class="btn btn-danger">End Chat</a>
+      <a id="end-chat-<%= chat_id %>" class="btn btn-danger" data-chat-id="<%= chat_id %>">End Chat</a>
     </div>
   </header>
 
@@ -29,8 +29,7 @@
               Send Message
             </button>
             <span class="pull-right smart-form" style="margin-top: 3px; margin-right: 10px;">
-              <label class="checkbox pull-right"> <input type="checkbox" name="subscription" id="subscription">
-              <i></i>Press <strong> ENTER </strong> to send </label>
+              <div id="typing-notification-<%= chat_id %>" data-chat-id="<%= chat_id %>"></div>
             </span>
             <a href="javascript:void(0);" class="pull-left"></a>
           </span>

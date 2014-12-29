@@ -1,9 +1,9 @@
 class ChatWidget < ActiveRecord::Base
   belongs_to :organization
   belongs_to :website
-  
+
   before_create :set_defaults
-  before_validation :smart_color_update
+  before_update :smart_color_update
 
   mount_uploader :logo, LogoUploader
 
