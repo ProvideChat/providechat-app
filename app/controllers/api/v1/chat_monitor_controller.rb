@@ -104,7 +104,7 @@ module Api
           when "get_current_chats"
             agent_id = params[:agent_id]
 
-            current_chats = Chat.where(agent_id: agent_id, status: 'in_progress')
+            current_chats = Chat.where(agent_id: agent_id, status: '1')
 
             response = {
               'current_chats' => current_chats || Array.new

@@ -149,7 +149,9 @@
 
       $.each(response.current_chats, function(i, current_chat) {
         //accept_chat( current_chat.visitor_id );
-        add_new_tab (current_chat.chat_id, current_chat.visitor_id, current_chat.visitor_name, current_chat.status);
+        console.log("CURRENT CHAT...");
+        console.log(current_chat);
+        add_new_tab (current_chat.id, current_chat.visitor_id, current_chat.visitor_name, current_chat.status);
       });
     });
   }
@@ -336,7 +338,7 @@
       visitorInfo += '<p><b>Browser Version: </b>' + visitor.browser_version + '</p>';
       visitorInfo += '<p><b>Operating System: </b>' + visitor.operating_system + '<img src="' + visitor.osImg + '" height="16px" width="16px" hspace="3px"></p>';
 
-      $('#visitor-info-' + visitor_id).html(visitorInfo);
+      $('#visitor-info-' + visitor.id).html(visitorInfo);
     });
   }
 
@@ -360,68 +362,73 @@
     $.getJSON("/api/chat_monitor.json", json_data, function (response) {
       if (response.chat_id > 0) {
         ProvideChat.activeChatId = response.chat_id;
-        if ($("#chat_tab_" + response.chat_id).length === 0) {
-          add_new_tab (response.chat_id, response.visitor_id, response.visitor_name, 'in_progress');
-        } else {
-          $("#chat_tab_" + response.chat_id).tab('show');
-        }
+        add_new_tab (response.chat_id, response.visitor_id, response.visitor_name, 'in_progress');
       }
     });
   }
 
   function add_new_tab(chat_id, visitor_id, visitor_name, chat_status) {
 
-    var json_data = { "method": 'get_chat_tab', "chat_id": chat_id, "visitor_id": visitor_id, "visitor_name": visitor_name, "chat_status": chat_status };
+    if ($("#chat_tab_" + chat_id).length === 0) {
+      
+      var json_data = { "method": 'get_chat_tab', "chat_id": chat_id, "visitor_id": visitor_id, "visitor_name": visitor_name, "chat_status": chat_status };
 
-    $.getJSON("/api/chat_monitor.json", json_data, function (response) {
+      $.getJSON("/api/chat_monitor.json", json_data, function (response) {
 
-      var tabNum = ProvideChat.numChats;
-      ProvideChat.numChats++;	// increment the number of chats
+        var tabNum = ProvideChat.numChats;
+        ProvideChat.numChats++;	// increment the number of chats
 
-      var id = $(".nav-tabs").children().length; //think about it ;)
-      var tabId = 'chat_' + id;
-      console.log(tabId);
-      console.log(response.visitor_name);
-      $('.tab-content').append('<div class="tab-pane" id="' + tabId + '">' + response.html + '</div>');
-      $('.nav-tabs').append('<li><a data-toggle="tab" id="chat_tab_' + chat_id + '" href="#chat_' + id + '">' + response.visitor_name + '</a></li>');
+        var id = $(".nav-tabs").children().length; //think about it ;)
+        var tabId = 'chat_' + id;
+        console.log(tabId);
+        console.log(response.visitor_name);
+        $('.tab-content').append('<div class="tab-pane" id="' + tabId + '">' + response.html + '</div>');
+        $('.nav-tabs').append('<li><a data-toggle="tab" id="chat_tab_' + response.chat_id + '" href="#chat_' + id + '">' + response.visitor_name + '</a></li>');
 
-      // add this
-      $('.nav-tabs li:nth-child(' + id + ') a').click();
+        // add this
+        $('.nav-tabs li:nth-child(' + id + ') a').click();
 
-      if (ProvideChat.numChats == 1) {
-        $("#no-active-chat").slideUp();
-        $('#active-chat-tabs').show();
-        $('#tabs').tab('show');
-      }
-      $('#tabs a:last').tab('show');
+        if (ProvideChat.numChats == 1) {
+          $("#no-active-chat").slideUp();
+          $('#active-chat-tabs').show();
+          $('#tabs').tab('show');
+        }
+        $('#tabs a:last').tab('show');
 
-      ProvideChat.activeChats[tabNum] = response.chat_id;
-      ProvideChat.tabVisitorIds[tabNum] = response.visitor_id;
+        ProvideChat.activeChats[tabNum] = response.chat_id;
+        ProvideChat.tabVisitorIds[tabNum] = response.visitor_id;
 
-      ProvideChat.tabChatIds[response.chat_id] = tabNum;
-      ProvideChat.chatStatus[response.chat_id] = response.chat_status;
+        ProvideChat.tabChatIds[response.chat_id] = tabNum;
+        ProvideChat.chatStatus[response.chat_id] = response.chat_status;
 
-      getChatText( response.chat_id, true );
+        ProvideChat.activeChatId = response.chat_id;
 
-      ProvideChat.activeChatId = response.chat_id;
+        viewVisitor(response.visitor_id);
 
-      $('#send-message-' + response.chat_id).click(function() {
-        sendChatText(response.chat_id);
+        if (response.chat_status == 'in_progress') {
+          
+          $('#send-message-' + response.chat_id).click(function() {
+            sendChatText(response.chat_id);
+          });
+
+          $('#end-chat-' + response.chat_id).click(function() {
+            endChat(response.chat_id);
+          });
+          
+          getChatText( response.chat_id, true );
+          
+          ProvideChat.chatTimer[response.chat_id] = setInterval(function(){ getChatText(response.chat_id, false); }, 2000);
+          ProvideChat.keypressStatusTimer[response.chat_id] = setInterval(function () { getKeypressStatus(response.chat_id); }, 1500);
+        } else if ((response.chat_status == 'agent_ended') || (response.chat_status == 'visitor_ended') || (response.chat_status == 'agent_timeout')) {
+          load_finished_chat(response.chat_id);
+        }
       });
+      
+    } else {
 
-      $('#end-chat-' + response.chat_id).click(function() {
-        endChat(response.chat_id);
-      });
+      $("#chat_tab_" + response.chat_id).tab('show');
 
-      viewVisitor(visitor_id);
-
-      if (chat_status == 'in_progress') {
-        ProvideChat.chatTimer[response.chat_id] = setInterval(function(){ getChatText(response.chat_id, false); }, 2000);
-        ProvideChat.keypressStatusTimer[response.chat_id] = setInterval(function () { getKeypressStatus(response.chat_id); }, 1500);
-      } else if ((chat_status == 'agent_ended') || (chat_status == 'visitor_ended') || (chat_status == 'agent_timeout')) {
-        load_finished_chat(response.chat_id);
-      }
-    });
+    }
   }
 
   function setup_chat(chat_id) {
