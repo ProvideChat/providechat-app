@@ -93,7 +93,7 @@ class Visitor < ActiveRecord::Base
     if website
       visitor = Visitor.find_by(:website_id => website.id, :browser_name => browser_name) || Visitor.new
 
-      if visitor.status == 'chat_ended' or visitor.status ==  'offsite'
+      if visitor.status == 'chat_ended' || visitor.status ==  'offsite'
         visitor = Visitor.new
       end
 
