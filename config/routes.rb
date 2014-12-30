@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   devise_for :admins
   devise_for :agents, :path => 'auth', :controllers => {:registrations => "registrations"}
 
+  resources :contact_forms, only: [:new, :create]
+
   resources :visitors
   resources :departments, only: [:index, :new, :edit, :create, :update, :destroy]
   resources :chats, only: [:index, :show]
@@ -25,7 +27,6 @@ Rails.application.routes.draw do
   get '/monitor', to: 'home#monitor', as: 'monitor'
   get '/dashboard', to: 'home#dashboard', as: 'dashboard'
   get '/code', to: 'home#code', as: 'code'
-  get '/contact', to: 'home#contact', as: 'contact'
 
   get 'documentation/start', to: 'documentation#start', as: 'doc_start'
   get 'documentation/general', to: 'documentation#general', as: 'doc_general'

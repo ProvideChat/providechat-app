@@ -1,0 +1,36 @@
+= form_for(@contact_form, :html => {class: 'form-horizontal'}) do |f|
+  - if @contact_form.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@contact_form.errors.count, "error")
+        prohibited this agent from being saved:
+      %ul
+        - @contact_form.errors.full_messages.each do |message|
+          %li= message
+  %fieldset
+    .form-group
+      %label.col-md-4.control-label= f.label :name
+      .col-md-8
+        .input-group
+          = f.text_field :name, :class => "form-control"
+    .form-group
+      %label.col-md-4.control-label Your Email
+      .col-md-8
+        .input-group
+          = f.text_field :email, :class => "form-control"
+
+    .form-group
+      %label.col-md-4.control-label Issue subject
+      .col-md-8
+        = f.select :subject, options_for_select([['Bug Report'], ['Question']])
+        .help-text{style: "font-size: 10px;"}
+          This department will be available on these websites
+          
+    .form-group
+      %label.col-md-4.control-label Please tell us the details of your issue
+      .col-md-8
+        .input-group
+          = f.text_area :message, :class => "form-control"
+
+  .widget-footer
+    = f.submit "Send Message", :class => "btn btn-primary"
