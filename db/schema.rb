@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141016034409) do
+ActiveRecord::Schema.define(version: 20141230003719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,13 @@ ActiveRecord::Schema.define(version: 20141016034409) do
   add_index "agents", ["email"], name: "index_agents_on_email", unique: true, using: :btree
   add_index "agents", ["organization_id"], name: "index_agents_on_organization_id", using: :btree
   add_index "agents", ["reset_password_token"], name: "index_agents_on_reset_password_token", unique: true, using: :btree
+
+  create_table "agents_departments", id: false, force: true do |t|
+    t.integer "agent_id",      null: false
+    t.integer "department_id", null: false
+  end
+
+  add_index "agents_departments", ["agent_id", "department_id"], name: "index_agents_departments_on_agent_id_and_department_id", using: :btree
 
   create_table "agents_websites", id: false, force: true do |t|
     t.integer "agent_id",   null: false
