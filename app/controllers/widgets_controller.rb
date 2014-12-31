@@ -90,18 +90,28 @@ class WidgetsController < ApplicationController
         chat = Chat.find(chat_id)
 
         display_name = ''
+        photo_url = 'http://widget.providechat.com/images/silhouette.png'
         if chat.agent
           display_name = chat.agent.display_name
+          photo_url = chat.agent.avatar_url
         end
 
         response = {
           'chat_status' => chat.status,
-          'display_name' => display_name
+          'display_name' => display_name,
+          'photo_url' => photo_url
         }
 
       when "process_offline"
         @organization.process_offline_msg(website_id, params[:name], params[:email], params[:department], params[:message])
 
+      when "end_chat"
+        chat_id = params[:chat_id]
+
+        chat = Chat.find(chat_id)
+        chat.end_chat('visitor_ended')
+
+        response = { 'success' => 'true' }
       when "get_pre_chat"
         pre_chat_form = PrechatForm.find_by(:website_id => website_id)
         response = {
