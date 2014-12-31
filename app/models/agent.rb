@@ -1,6 +1,7 @@
 class Agent < ActiveRecord::Base
   belongs_to :organization
   has_and_belongs_to_many :websites
+  has_and_belongs_to_many :departments
   has_many :chats
 
   enum access_level: [:agent, :admin, :superadmin]

@@ -72,16 +72,55 @@
     .form-group
       %label.col-md-4.control-label Assigned Websites
       .col-md-8.websites-field
-        = f.select :website_ids, @websites.collect {|x| [x.name, x.id]}, {}, {:multiple => true, :style => "width:100%", :class  => "select2" }
+        = f.select :website_ids, @websites.collect {|x| [x.name, x.id]}, {}, {:multiple => true, :style => "width:100%", :class  => "select2", :id => "websites-select" }
         .help-text{style: "font-size: 10px;"}
           You will be able to chat with visitors on these websites
+    .form-group
+      %label.col-md-4.control-label Assigned Departments
+      .col-md-8.departments-field
+        = f.text_field :department_ids, :style => "width: 100%;", :id => "department-select"
+        .help-text{style: "font-size: 10px;"}
+          You will be able to chat with visitors who request these departments
+
 
   .widget-footer
     = link_to "Cancel", agents_path, :class => "btn btn-default"
     = f.submit @agent.new_record? ? "Add Agent" : "Update Agent", :class => "btn btn-primary"
 
 :javascript
-  function initialize_qtip() {
+
+  function initialize() {
+    
+    $("#department-select").select2({
+        placeholder: "Departments",
+        multiple: true,
+        ajax: {
+          url: "/departments/",
+          dataType: 'json',
+          quietMillis: 50,
+          data: function (term) {
+            var websites = []; 
+            $('#websites-select :selected').each(function(i, selected){ 
+              websites[i] = $(selected).val(); 
+            });
+            return {
+              websites: websites
+            };
+          },
+          results: function (data) {
+            //console.log(data);
+            return {
+              results: $.map(data, function (item) {
+                return {
+                  id: item.id,
+                  text: item.name
+                }
+              })
+            };
+          }
+        }
+    });
+    
     $('.name-field').qtip(
       default_style('This is your full name, it will not be displayed to visitors (e.g. Adams Jones)', '.name-field')
     );
@@ -108,9 +147,9 @@
   }
     
   $( document ).ready(function() {
-    initialize_qtip();
+    initialize();
   });
   
   $(window).bind('page:change', function() {
-    initialize_qtip();
+    initialize();
   });
