@@ -8,4 +8,14 @@ class Chat < ActiveRecord::Base
   has_many :chat_messages
 
   enum status: [:not_started , :in_progress, :agent_ended, :visitor_ended, :agent_timeout, :visitor_timeout]
+  
+  def end_chat(reason)
+    self.status = reason
+    self.chat_ended = DateTime.now
+    self.save
+
+    visitor = Visitor.find(self.visitor_id)
+    visitor.status = 'chat_ended'
+    visitor.save
+  end
 end

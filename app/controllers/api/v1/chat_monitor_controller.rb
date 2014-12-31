@@ -136,13 +136,7 @@ module Api
             chat_id = params[:chat_id]
 
             chat = Chat.find(chat_id)
-            chat.status = 'agent_ended'
-            chat.chat_ended = DateTime.now
-            chat.save
-            
-            visitor = Visitor.find(chat.visitor_id)
-            visitor.status = 'chat_ended'
-            visitor.save
+            chat.end_chat('agent_ended')
 
             response = { 'success' => 'true' }
           else
