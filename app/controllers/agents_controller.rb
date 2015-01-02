@@ -54,7 +54,24 @@ class AgentsController < ApplicationController
       @websites = Website.where(organization_id: current_agent.organization_id)
     end
 
+    def process_department_ids(department_ids)
+      if department_ids.size > 0
+        department_ids = department_ids.slice(department_ids.index("]")+1..department_ids.size)
+      end
+
+      if department_ids.include?(",")
+        department_ids = department_ids.split(",")
+      else
+        department_ids = ["#{department_ids}"]
+      end
+    end
+
     def agent_params
+
+      params[:agent][:department_ids] = process_department_ids(params[:agent][:department_ids]) if params[:agent][:department_ids]
+
+      #logger.info "Department IDs (after): #{params[:agent][:department_ids]}";
+
       params.require(:agent).permit(:name, :display_name, :email, :password, :password_confirmation, :access_level, :availability, :active_chat_sound, :background_chat_sound, :visitor_arrived_sound, :avatar, :remove_avatar, :avatar_cache, website_ids: [], department_ids: [])
     end
 end
