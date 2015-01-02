@@ -412,7 +412,7 @@ DEPENDENCIES
   lograge
   mail_form
   mailcatcher
-  mini_magick
+  mini_magick (~> 4.0.0.rc)
   newrelic_rpm
   nprogress-rails
   pg
