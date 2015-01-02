@@ -7,8 +7,8 @@ class Website < ActiveRecord::Base
   has_many :chats
   has_many :rapid_responses
   has_many :visitors
+  has_many :departments
   has_and_belongs_to_many :agents
-  has_and_belongs_to_many :departments
 
   after_create :create_widget_support
   before_validation :smart_url_update
