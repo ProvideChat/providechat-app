@@ -4,6 +4,7 @@ class CreateDepartments < ActiveRecord::Migration
       t.integer :organization_id
       t.string :name
       t.string :email
+      t.integer :website_id
 
       t.timestamps
     end

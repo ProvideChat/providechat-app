@@ -134,18 +134,12 @@ ActiveRecord::Schema.define(version: 20141230003719) do
     t.integer  "organization_id"
     t.string   "name"
     t.string   "email"
+    t.integer  "website_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "departments", ["organization_id"], name: "index_departments_on_organization_id", using: :btree
-
-  create_table "departments_websites", id: false, force: true do |t|
-    t.integer "department_id", null: false
-    t.integer "website_id",    null: false
-  end
-
-  add_index "departments_websites", ["department_id", "website_id"], name: "index_departments_websites_on_department_id_and_website_id", using: :btree
 
   create_table "invitations", force: true do |t|
     t.integer  "organization_id"
@@ -187,9 +181,9 @@ ActiveRecord::Schema.define(version: 20141230003719) do
   end
 
   create_table "organizations", force: true do |t|
-    t.integer  "account_type"
-    t.integer  "max_agents"
-    t.integer  "payment_system"
+    t.integer  "account_type",           default: 0,  null: false
+    t.integer  "max_agents",             default: 1
+    t.integer  "payment_system",         default: 0
     t.integer  "agent_session_timeout",  default: 30
     t.integer  "agent_response_timeout", default: 2
     t.boolean  "completed_setup"

@@ -1,10 +1,9 @@
 class Department < ActiveRecord::Base
   belongs_to :organization
-  has_and_belongs_to_many :websites
+  belongs_to :website
 
-  validates :name, presence: true
+  validates :name, :website, presence: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
   validates :email, format: { with: VALID_EMAIL_REGEX },
                       uniqueness: { case_sensitive: false }
-
 end

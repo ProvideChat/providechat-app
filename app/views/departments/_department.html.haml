@@ -1,5 +1,5 @@
 %tr
-  %td= department.name
+  %td #{department.name} (for #{department.website.name} website)
   %td= department.email
   %td
     = link_to edit_department_path(department), :class => "btn btn-default btn-sm" do

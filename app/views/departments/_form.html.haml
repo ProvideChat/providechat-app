@@ -1,12 +1,5 @@
 = form_for(@department, :html => {class: 'form-horizontal'}) do |f|
-  - if @department.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@department.errors.count, "error")
-        prohibited this agent from being saved:
-      %ul
-        - @department.errors.full_messages.each do |message|
-          %li= message
+  = render "layouts/error_messages", :f => @department
   %fieldset
     .form-group
       %label.col-md-4.control-label= f.label :name
@@ -24,11 +17,11 @@
             %i{class:"icon-append fa fa-question-circle"}
 
     .form-group
-      %label.col-md-4.control-label Websites
+      %label.col-md-4.control-label Website
       .col-md-8
-        = f.select :website_ids, @websites.collect {|x| [x.name, x.id]}, {}, {:multiple => true, :style => "width:100%", :class  => "select2" }
+        = f.select :website_id, @websites.collect {|x| [x.name, x.id]}, {}, {:style => "width:100%", :class  => "select2" }
         .help-text{style: "font-size: 10px;"}
-          This department will be available on these websites
+          This department will be available on this website
 
   .widget-footer
     = link_to "Cancel", departments_path, :class => "btn btn-default"
@@ -44,8 +37,8 @@
       default_style('When all agents are offline, visitors can still send you a message through email. If they select this department, it gets sent to this email address.', '.email-field')
     );
 
-    $('.websites-field').qtip(
-      default_style('You will be able to chat with visitors on these websites', '.websites-field')
+    $('.website-field').qtip(
+      default_style('You will be able to chat with visitors on this website', '.website-field')
     );
   }
 
