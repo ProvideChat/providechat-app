@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.4'
+ruby '2.2.0'
 
 gem 'rails', '4.1.8'
 
@@ -21,7 +21,7 @@ gem 'local_time'
 gem 'lograge'
 gem 'pg'
 gem 'mail_form'
-gem 'mini_magick', '~> 4.0.0.rc'
+gem 'mini_magick'
 gem 'newrelic_rpm'
 gem 'nprogress-rails'
 gem 'sass-rails'
