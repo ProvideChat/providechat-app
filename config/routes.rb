@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :contact_forms, only: [:new, :create]
 
   resources :visitors
-  resources :departments, only: [:index, :new, :edit, :create, :update, :destroy]
+  resources :departments
   resources :chats, only: [:index, :show]
   resources :websites, only: [:index, :new, :edit, :create, :update, :destroy]
   resources :agents, only: [:index, :new, :edit, :create, :update, :destroy]

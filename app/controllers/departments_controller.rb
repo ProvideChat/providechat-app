@@ -1,20 +1,13 @@
 class DepartmentsController < ApplicationController
   before_action :authenticate_agent!
-  before_action :set_department, only: [:edit, :update, :destroy]
-  before_action :set_websites, only: [:edit, :new]
+  before_action :set_department, only: [:edit, :update, :destroy, :show]
+  before_action :set_websites, only: [:edit, :new, :create]
 
   def index
     if params.has_key?(:websites)
-      @websites = Website.where("id" => params[:websites])
-      @departments = Department.includes(:websites).where(organization_id: current_agent.organization_id).where("departments_websites.website_id" => params[:websites])
+      @departments = Department.where(organization_id: current_agent.organization_id).where("website_id" => params[:websites])
     else
       @departments = Department.where(organization_id: current_agent.organization_id)
-    end
-    #logger.info @websites
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @departments }
     end
   end
 
@@ -34,6 +27,9 @@ class DepartmentsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def show
   end
 
   def update
@@ -59,6 +55,6 @@ class DepartmentsController < ApplicationController
     end
 
     def department_params
-      params.require(:department).permit(:name, :email, website_ids: [])
+      params.require(:department).permit(:name, :email, :website_id)
     end
 end
