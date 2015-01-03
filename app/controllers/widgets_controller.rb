@@ -159,7 +159,8 @@ class WidgetsController < ApplicationController
           response = { 'success' => 'true', 'visitor_id' => visitor.id, 'website_id' => visitor.website_id,
                        'agent_status' => @organization.agent_status, 'agent_response_timeout' => @organization.agent_response_timeout,
                        'chat_id' => chat_id, 'chat_status' => chat_status, 'visitor_name' => visitor.name, 'online_message' => chat_widget.online_message,
-                       'offline_message' => chat_widget.offline_message, 'title_message' => chat_widget.title_message }
+                       'offline_message' => chat_widget.offline_message, 'title_message' => chat_widget.title_message,
+                       'widget_color' => "\##{chat_widget.color}" }
         else
           response = { 'success' => 'false' }
         end
