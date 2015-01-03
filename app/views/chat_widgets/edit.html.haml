@@ -6,9 +6,11 @@
       Customization for
       = form_tag(chat_widgets_path, method: 'get', class: 'form-inline', id: 'edit_chat_widget', style: 'display: inline;') do
         = select_tag "website_id", options_from_collection_for_select(@websites, "id", "url", @chat_widget.website_id), :class => "select2", :id => "website_id", :style => "max-width: 300px; margin-top: -5px;"
+
 = render partial: 'layouts/flash_messages', flash: flash
-.row
-  - if @chat_widget
+
+- if @chat_widget
+  .row
     .col-sm-12.col-md-12.col-lg-12
       #customize-chat-widget.jarviswidget.jarviswidget.jarviswidget-color-darken
         %header
@@ -27,12 +29,6 @@
                 = render 'form'
               .col-sm-12.col-md-7.col-lg-6
                 = render 'widget'
-  - else
-    .col-sm-12.col-md-8.col-lg-8
-      .alert.alert-warning.alert-block
-        %h4.alert-heading No websites configured yet!
-        You have no yet added any websites, please #{link_to "add a website", new_website_path}
-        to customize the chat widget for that website.
 
 :javascript
   function initialize_website_dropdown() {

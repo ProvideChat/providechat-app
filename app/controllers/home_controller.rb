@@ -12,7 +12,7 @@ class HomeController < ApplicationController
   end
   
   def code
-    
+    @websites = Website.where(organization_id: current_agent.organization_id)
   end
   
   def contact
