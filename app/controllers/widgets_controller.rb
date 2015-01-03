@@ -93,7 +93,7 @@ class WidgetsController < ApplicationController
         photo_url = 'http://widget.providechat.com/images/silhouette.png'
         if chat.agent
           display_name = chat.agent.display_name
-          photo_url = chat.agent.avatar_url
+          photo_url = chat.agent.avatar_url if chat.agent.avatar?
         end
 
         response = {
