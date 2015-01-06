@@ -319,18 +319,19 @@
 
       var visitorInfo = '';
 
+      visitorInfo += "<h5>" + visitor.name + "'s Information</h5>";
       visitorInfo += '<p><b>Email: </b>' + visitor.email + '</p>';
       visitorInfo += '<p><b>Department: </b>' + visitor.department + '</p>';
       visitorInfo += '<p><b>Initial Question: </b>' + visitor.question + '</p>';
+      visitorInfo += "<h5>Viewing Habits</h5>";
       visitorInfo += '<p><b>Pages Viewed: </b>' + visitor.page_views + '</p>';
-      visitorInfo += '<p><b>Time on Site: </b>' + visitor.timeDiff + '</p>';
-      visitorInfo += '<p><b>Country: </b>' + visitor.country_name + '&nbsp;&nbsp;<img width="32" height="32" src="/images/flags/' + visitor.country_code + '.png"></p>';
+      visitorInfo += '<p><b>Time on Site: </b>' + visitor.time_since_created + '</p>';
       visitorInfo += '<p><b>Current Page: </b><a href="' + visitor.current_page + '" target="_blank" style="color: #0066CC;">' + visitor.current_page + '</a></p>';
-      visitorInfo += '<p<b>City: </b>' + visitor.city + '</p>';
-      visitorInfo += '<p><b>Region: </b>' + visitor.region_name + ' (' + visitor.region_code + ')</p>';
-      visitorInfo += '<p><b>Metro Code: </b>' + visitor.metro_code + '</p>';
+      visitorInfo += "<h5>Regional Information</h5>";
+      visitorInfo += '<p><b>Location: </b>' + visitor.city + ', ' + visitor.region_name + '</p>';
+      visitorInfo += '<p><b>Country: </b>' + visitor.country_name + '&nbsp;&nbsp;<img width="20" height="20" src="/images/flags/' + visitor.country_code + '.png" style="vertical-align: top;"></p>';
 
-      visitorInfo += '<h6>System Information</h6>';
+      visitorInfo += '<h5>System Information</h5>';
       visitorInfo += '<p><b>Screen Resolution: </b>' + visitor.screen_resolution + '</p>';
       visitorInfo += '<p><b>Browser: </b>' + visitor.browser_name + '<img src="' + visitor.browserImg + '" height="16px" width="16px" hspace="3px">, ';
       visitorInfo += 'Version ' + visitor.browser_version + '</p>';
