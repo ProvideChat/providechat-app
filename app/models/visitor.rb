@@ -47,6 +47,7 @@ class Visitor < ActiveRecord::Base
     #total_visits = session['original_session']['visits']
     #remote_host = session['current_session']['referrer_info']['host']
     current_page = session['current_session']['url']
+    website_url = URI.parse(current_page).host
     #country = session['locale']['country']
     language = session['locale']['lang']
     referrer_host = session['current_session']['referrer_info']['host']
@@ -88,7 +89,7 @@ class Visitor < ActiveRecord::Base
     screen_resolution = "#{session['device']['screen']['width']}x#{session['device']['screen']['height']}"
 
     Rails.logger.debug "referrer_host: #{referrer_host}"
-    website = Website.find_by(:organization_id => org_id, :url => referrer_host)
+    website = Website.find_by(:organization_id => org_id, :url => website_url)
 
     if website
       visitor = Visitor.find_by(:website_id => website.id, :browser_name => browser_name) || Visitor.new
