@@ -19,16 +19,20 @@ class Website < ActiveRecord::Base
   validates_uniqueness_of :name, scope: :organization_id
   validates_uniqueness_of :url, scope: :organization_id
 
+  def update_ping
+    self.last_ping = DateTime.now
+  end
+
   def widget_status
-    if last_ping.nil?
+    if self.last_ping.nil?
       "Not Installed"
-    elsif last_ping > 10.minutes.ago
+    elsif self.last_ping > 10.minutes.ago
       "Online"
     else
       "Offline"
     end
   end
-  
+
   protected
 
   def smart_url_update

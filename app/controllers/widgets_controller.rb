@@ -140,6 +140,11 @@ class WidgetsController < ApplicationController
                     )
         }
       when "update_status"
+        if website = Website.find(website_id)
+          website.update_ping
+          website.save
+        end
+
         response = { 'agent_status' => @organization.agent_status }
       when "initialize"
         session = JSON.parse(params[:session])

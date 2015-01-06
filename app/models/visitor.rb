@@ -92,6 +92,9 @@ class Visitor < ActiveRecord::Base
     website = Website.find_by(:organization_id => org_id, :url => website_url)
 
     if website
+      website.update_ping
+      website.save
+
       visitor = Visitor.find_by(:website_id => website.id, :browser_name => browser_name) || Visitor.new
 
       if visitor.status == 'chat_ended' || visitor.status ==  'offsite'
