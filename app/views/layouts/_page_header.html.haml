@@ -1,0 +1,10 @@
+.row
+  .col-xs-12.col-sm-10.col-md-8.col-lg-8
+    %h1.page-title.txt-color-blueDark
+      = title
+      - if defined? subpage
+        %i.fa.fa-angle-double-right= subpage
+
+= render partial: 'layouts/flash_messages', flash: flash
+
+

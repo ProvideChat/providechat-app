@@ -322,22 +322,18 @@
       visitorInfo += '<p><b>Email: </b>' + visitor.email + '</p>';
       visitorInfo += '<p><b>Department: </b>' + visitor.department + '</p>';
       visitorInfo += '<p><b>Initial Question: </b>' + visitor.question + '</p>';
-      visitorInfo += '<p><b>IP Address: </b>' + visitor.ip_address + '</p>';
       visitorInfo += '<p><b>Pages Viewed: </b>' + visitor.page_views + '</p>';
       visitorInfo += '<p><b>Time on Site: </b>' + visitor.timeDiff + '</p>';
       visitorInfo += '<p><b>Country: </b>' + visitor.country_name + '&nbsp;&nbsp;<img width="32" height="32" src="/images/flags/' + visitor.country_code + '.png"></p>';
       visitorInfo += '<p><b>Current Page: </b><a href="' + visitor.current_page + '" target="_blank" style="color: #0066CC;">' + visitor.current_page + '</a></p>';
-      visitorInfo += '<p><b>Location: </b>Latitude ' + visitor.latitude + ', Longitude ' + visitor.longitude + '</p>';
       visitorInfo += '<p<b>City: </b>' + visitor.city + '</p>';
       visitorInfo += '<p><b>Region: </b>' + visitor.region_name + ' (' + visitor.region_code + ')</p>';
-      visitorInfo += '<p><b>Area Code: </b>' + visitor.area_code + '</p>';
       visitorInfo += '<p><b>Metro Code: </b>' + visitor.metro_code + '</p>';
-      visitorInfo += '<p><b>ZipCode: </b>' + visitor.zipcode + '</p>';
 
       visitorInfo += '<h6>System Information</h6>';
       visitorInfo += '<p><b>Screen Resolution: </b>' + visitor.screen_resolution + '</p>';
-      visitorInfo += '<p><b>Browser: </b>' + visitor.browser_name + '<img src="' + visitor.browserImg + '" height="16px" width="16px" hspace="3px"></p';
-      visitorInfo += '<p><b>Browser Version: </b>' + visitor.browser_version + '</p>';
+      visitorInfo += '<p><b>Browser: </b>' + visitor.browser_name + '<img src="' + visitor.browserImg + '" height="16px" width="16px" hspace="3px">, ';
+      visitorInfo += 'Version ' + visitor.browser_version + '</p>';
       visitorInfo += '<p><b>Operating System: </b>' + visitor.operating_system + '<img src="' + visitor.osImg + '" height="16px" width="16px" hspace="3px"></p>';
 
       $('#visitor-info-' + visitor.id).html(visitorInfo);

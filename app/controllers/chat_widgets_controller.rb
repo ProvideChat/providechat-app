@@ -8,8 +8,6 @@ class ChatWidgetsController < ApplicationController
     if website_id
       @chat_widget = ChatWidget.find_by(:website_id => website_id)
       redirect_to edit_chat_widget_path(@chat_widget)
-    else
-      redirect_to websites_path, :flash => { :warning => "You need to add a website before you can modify the Chat Widget" }
     end
   end
 

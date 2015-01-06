@@ -7,24 +7,31 @@
       %h2 Website Code
     %div
       .widget-body.no-padding
-        .alert.alert-info.no-margin.fade.in
-          %div{style: "float: left;"}
-            %i.fa-fw.fa.fa-info
-          %div{style: "margin-left: 24px;"}
-            To install the Provide Chat Widget, paste this code (unaltered, in it’s entirety) on every page of your website just before the closing &lt;/body&gt; tag.
+        - if @websites.count > 0
+          .alert.alert-info.no-margin.fade.in
+            %div{style: "float: left;"}
+              %i.fa-fw.fa.fa-info
+            %div{style: "margin-left: 24px;"}
+              To install the Provide Chat Widget, paste this code (unaltered, in it’s entirety) on every page of your website just before the closing &lt;/body&gt; tag.
 
-        .code-container
-          .row
-            .col-md-12
-              .pull-right
-                %a{:href => "#", :id => "select-code"}> (select all)
+          .code-container
+            .row
+              .col-md-12
+                .pull-right
+                  %a{:href => "#", :id => "select-code"}> (select all)
 
-              %textarea#widget-code.codetext= render :partial => "home/widget_include_code"
+                %textarea#widget-code.codetext= render :partial => "home/widget_include_code"
 
-          %hr
-          .row
-            .col-md-12
-              %a{:href => "#", :id => "email-code"}Or you can send these instructions to your webmaster
+            %hr
+            .row
+              .col-md-12
+                %a{:href => "#", :id => "email-code"}Or you can send these instructions to your webmaster
+        - else
+          .alert.alert-warning.no-margin.fade.in
+            %h4.alert-heading No websites configured yet!
+            %br
+            You have not yet added any websites, please #{link_to "add a website", new_website_path}.
+              
 
 :javascript
   $(document).ready(function () {

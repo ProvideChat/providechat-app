@@ -7,8 +7,6 @@ class PrechatFormsController < ApplicationController
     if website_id
       @prechat_form = PrechatForm.find_by(:website_id => website_id)
       redirect_to edit_prechat_form_path(@prechat_form)
-    else
-      redirect_to websites_path, :flash => { :warning => "You need to add a website before you can modify the Pre-chat Form" }
     end
   end
 

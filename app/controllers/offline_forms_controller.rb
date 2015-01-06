@@ -7,8 +7,6 @@ class OfflineFormsController < ApplicationController
     if website_id
       @offline_form = OfflineForm.find_by(:website_id => website_id)
       redirect_to edit_offline_form_path(@offline_form)
-    else
-      redirect_to websites_path, :flash => { :warning => "You need to add a website before you can modify the Chat Widget" }
     end
   end
 

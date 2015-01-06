@@ -8,8 +8,6 @@ class InvitationsController < ApplicationController
     if website_id
       @invitation = Invitation.find_by(:website_id => website_id)
       redirect_to edit_invitation_path(@invitation.id)
-    else
-      redirect_to websites_path, :flash => { :warning => 'You need to add a website before you can modify the Chat Widget' }
     end
   end
 
