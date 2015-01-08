@@ -4,7 +4,7 @@ set :branch, "master"
 set :full_app_name, "#{fetch(:application)}_#{fetch(:stage)}"
 #set :server_name, "app.providechat.com"
 
-server '107.170.65.78', user: 'deploy', roles: %w{web app db}, my_property: :my_value
+server '104.131.79.154', user: 'deploy', roles: %w{web app db}, my_property: :my_value
 
 set :deploy_to, "/home/#{fetch(:deploy_user)}/#{fetch(:full_app_name)}"
 
@@ -16,9 +16,9 @@ set :rails_env, :production
 # server in each group is considered to be the first
 # unless any hosts have the primary property set.
 # Don't declare `role :all`, it's a meta role
-role :app, %w{deploy@107.170.65.78}
-role :web, %w{deploy@107.170.65.78}
-role :db,  %w{deploy@107.170.65.78}
+role :app, %w{deploy@104.131.79.154}
+role :web, %w{deploy@104.131.79.154}
+role :db,  %w{deploy@104.131.79.154}
 
 
 
