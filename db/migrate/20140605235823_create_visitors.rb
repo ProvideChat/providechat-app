@@ -39,9 +39,8 @@ class CreateVisitors < ActiveRecord::Migration
 
       t.timestamps
     end
-    
+
     add_index :visitors, :organization_id
     add_index :visitors, :website_id
-    add_index :visitors, :chat_id
   end
 end
