@@ -7,6 +7,11 @@ class Visitor < ActiveRecord::Base
 
   before_save :titleize_name
 
+  def self.current_visitors(current_agent)
+    statuses = [ Visitor.statuses[:no_chat], Visitor.statuses[:waiting_to_chat], Visitor.statuses[:in_chat]]
+    Visitor.where("organization_id = ? AND status IN (?) AND last_ping < ?", current_agent.organization_id, statuses, 2.minutes.ago)
+  end
+
 #  t.integer  "organization_id"
 #  t.integer  "website_id"
 #  t.string   "name"

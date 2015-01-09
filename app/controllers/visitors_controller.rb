@@ -3,7 +3,11 @@ class VisitorsController < ApplicationController
   before_action :set_visitor, only: [:show, :edit, :update, :destroy]
 
   def index
-    @visitors = Visitor.where(organization_id: current_agent.organization_id)
+    if params.has_key?(:current)
+      @visitors = Visitor.current_visitors(current_agent)
+    else
+      @visitors = Visitor.where(organization_id: current_agent.organization_id)
+    end
   end
 
   def show

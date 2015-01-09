@@ -160,7 +160,7 @@
 
   function updateVisitors () {
 
-    $.getJSON("/visitors.json", function (results) {
+    $.getJSON("/visitors.json", { "current": "true" }, function (results) {
 
       var in_chat = 0;
       var waiting_to_chat = 0;
