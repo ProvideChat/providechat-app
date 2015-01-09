@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141230003719) do
+ActiveRecord::Schema.define(version: 20150108232513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -221,6 +221,48 @@ ActiveRecord::Schema.define(version: 20141230003719) do
   add_index "rapid_responses", ["ancestry"], name: "index_rapid_responses_on_ancestry", using: :btree
   add_index "rapid_responses", ["organization_id"], name: "index_rapid_responses_on_organization_id", using: :btree
   add_index "rapid_responses", ["website_id"], name: "index_rapid_responses_on_website_id", using: :btree
+
+  create_table "visitor_archives", force: true do |t|
+    t.integer  "organization_id"
+    t.integer  "website_id",          default: 0
+    t.integer  "chat_id",             default: 0
+    t.string   "name",                default: ""
+    t.string   "email",               default: ""
+    t.string   "department",          default: ""
+    t.string   "question",            default: ""
+    t.datetime "last_ping"
+    t.integer  "page_views",          default: 0
+    t.string   "current_page",        default: ""
+    t.string   "language",            default: ""
+    t.string   "referrer_host",       default: ""
+    t.string   "referrer_path",       default: ""
+    t.string   "referrer_search",     default: ""
+    t.string   "referrer_query",      default: ""
+    t.string   "search_engine",       default: ""
+    t.string   "search_query",        default: ""
+    t.string   "browser_name",        default: ""
+    t.string   "browser_version",     default: ""
+    t.string   "operating_system",    default: ""
+    t.string   "screen_resolution",   default: ""
+    t.string   "smart_invite_status", default: ""
+    t.string   "operator_invite",     default: ""
+    t.string   "ip_address",          default: ""
+    t.string   "latitude",            default: ""
+    t.string   "longitude",           default: ""
+    t.string   "country_code",        default: ""
+    t.string   "country_name",        default: ""
+    t.string   "city",                default: ""
+    t.string   "region_code",         default: ""
+    t.string   "region_name",         default: ""
+    t.string   "area_code",           default: ""
+    t.string   "metro_code",          default: ""
+    t.string   "zipcode",             default: ""
+    t.integer  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "visitor_archives", ["organization_id"], name: "index_visitor_archives_on_organization_id", using: :btree
 
   create_table "visitors", force: true do |t|
     t.integer  "organization_id"
