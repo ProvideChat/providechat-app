@@ -9,7 +9,7 @@
           %span{class:"input-group-addon"}
             %i{class:"icon-append fa fa-question-circle"}
     .form-group
-      %label.col-md-4.control-label= f.label :url
+      %label.col-md-4.control-label= f.label :url, "Web Address (URL)"
       .col-md-8
         .input-group
           = f.text_field :url, :class => "form-control url-field"
@@ -35,7 +35,7 @@
     );
 
     $('.url-field').qtip(
-      default_style("This is your website's URL or website address (e.g. www.providechat.com).", '.url-field')
+      default_style("This is your website's address or URL (e.g. www.providechat.com).", '.url-field')
     );
 
     $('.email-field').qtip(
