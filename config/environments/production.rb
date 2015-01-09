@@ -92,4 +92,11 @@ Rails.application.configure do
     :authentication => :plain
   }
   ActionMailer::Base.delivery_method = :smtp
+
+  config.middleware.use ExceptionNotification::Rack,
+    :email => {
+      :email_prefix => "[Provide Chat Exception] ",
+      :sender_address => %{"notifier" <derek@providechat.com>},
+      :exception_recipients => %w{derek@providechat.com}
+    }
 end
