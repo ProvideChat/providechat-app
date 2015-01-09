@@ -7,6 +7,7 @@ class Website < ActiveRecord::Base
   has_many :chats
   has_many :rapid_responses
   has_many :visitors
+  has_many :visitor_archives
   has_many :departments
   has_and_belongs_to_many :agents
 
