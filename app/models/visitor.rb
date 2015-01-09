@@ -9,7 +9,7 @@ class Visitor < ActiveRecord::Base
 
   def self.current_visitors(current_agent)
     statuses = [ Visitor.statuses[:no_chat], Visitor.statuses[:waiting_to_chat], Visitor.statuses[:in_chat]]
-    Visitor.where("organization_id = ? AND status IN (?) AND last_ping < ?", current_agent.organization_id, statuses, 2.minutes.ago)
+    Visitor.where("organization_id = ? AND status IN (?) AND last_ping > ?", current_agent.organization_id, statuses, 3.minutes.ago)
   end
 
 #  t.integer  "organization_id"
@@ -163,6 +163,7 @@ class Visitor < ActiveRecord::Base
         visitor.status = 'no_chat'
       end
 
+      visitor.last_ping = DateTime.now
       visitor.save
 
       visitor
