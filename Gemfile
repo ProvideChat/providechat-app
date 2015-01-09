@@ -23,7 +23,6 @@ gem 'pg'
 gem 'mail_form'
 gem 'mandrill-api'
 gem 'mini_magick', '~> 4.0.0.rc'
-gem 'newrelic_rpm'
 gem 'nprogress-rails'
 gem 'sass-rails'
 gem 'sdoc', '~> 0.4.0',          group: :doc
