@@ -1,52 +1,51 @@
-%h4 Chat Overview
+= render 'layouts/page_header', :title => 'Chat Transcripts', :icon => 'fa-file-text-o', :subpage => 'View Transcript'
+.row
+  %article.col-sm-10.col-md-10.col-lg-8
+    #wid-id-0.jarviswidget.jarviswidget-color-blueDark
+      %header
+        %span.widget-icon
+          %i.fa.fa-comments-o
+        %h2 View Chat Transcript
+      %div
+        .widget-body
+          .well.well-sm
+            %h5 Chat Overview
 
-%p
+            %p
+              %strong Website:
+              = @chat.website.name
 
-%p
-  %strong Website:
-  = @chat.website.name
+            %p
+              %strong Agent:
+              = @chat.agent.display_name
 
-%p
-  %strong Agent:
-  = @chat.agent.display_name
+            %p
+              %strong Visitor name:
+              = @chat.visitor_name
 
-%p
-  %strong Time Visitor Requested to Chat:
-  = @chat.chat_requested
+            %p
+              %strong Visitor email:
+              = @chat.visitor_email
 
-%p
-  %strong Time Agent Accepted Chat:
-  = @chat.chat_accepted
+            %p
+              %strong Visitor department:
+              = @chat.visitor_department
 
-%p
-  %strong Chat Ended:
-  = @chat.chat_ended
+            %p
+              %strong Visitor question:
+              = @chat.visitor_question
 
-%p
-  %strong Visitor name:
-  = @chat.visitor_name
+          %p &nbsp;
 
-%p
-  %strong Visitor email:
-  = @chat.visitor_email
+          %h3 Chat Transcript
 
-%p
-  %strong Visitor department:
-  = @chat.visitor_department
+          %ul
+          - @chat.chat_messages.each do |chat_message|
+            %li 
+              %strong #{chat_message.user_name}:
+              = chat_message.message
 
-%p
-  %strong Visitor question:
-  = @chat.visitor_question
-
-%hr
-
-%h4 Chat Transcript
-%ul
-- @chat.chat_messages.each do |chat_message|
-  %li 
-    %strong #{chat_message.user_name}:
-    = chat_message.message
-
-%hr
-
-= link_to "Back", chats_url, class: "btn btn-default"
+          .widget-footer
+            = link_to chats_url, class: "btn btn-default" do
+              %i.fa.fa-chevron-left
+              &nbsp;Back to search
