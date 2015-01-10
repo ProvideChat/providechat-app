@@ -52,6 +52,10 @@ module Api
             chat.chat_accepted = DateTime.now
             chat.save
 
+            ChatMessage.create(chat_id: chat_id, user_name: visitor.name, sender: "visitor",
+                          seen_by_visitor: false, seen_by_agent: false, sent: DateTime.now, 
+                          message: visitor.question)
+
             response = {
               'chat_id' => chat.id,
               'visitor_id' => visitor_id,
