@@ -23,6 +23,8 @@ if pre_chat_form.department_enabled && departments && departments.count > 0
       <% end %>
     </select>
   </p>
+<% else %>
+  <input type="hidden" id="pre-chat-department" value="Any Department">
 <% end %>
 
 <textarea rows="4" id="pre-chat-message" placeholder="<%= pre_chat_form.message_text %>"></textarea></p>
