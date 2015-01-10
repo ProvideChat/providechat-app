@@ -17,7 +17,7 @@ if pre_chat_form.department_enabled && departments && departments.count > 0
 %>
   <p>
     <select id="pre-chat-department">
-      <option value="0">Any Department</option>
+      <option value="Any Department">Any Department</option>
       <% departments.each do |department| %>
         <option value="<%= department.name %>"><%= department.name %></option>
       <% end %>
