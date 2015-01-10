@@ -63,9 +63,14 @@ class WidgetsController < ApplicationController
         end
         #ChatMessage.where(chat_id: chat_id, seen_by_visitor: false).update_all(seen_by_visitor: true)
 
+        agent_name = "None"
+        if chat.agent && chat.agent.display_name
+          agent_name = chat.agent.display_name
+        end
+
         response = {
           'status' => chat.status,
-          'agent_name' => chat.agent.display_name,
+          'agent_name' => agent_name,
           'messages' => chat_messages || Array.new
         }
 
