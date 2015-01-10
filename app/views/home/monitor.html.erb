@@ -386,7 +386,7 @@
         $('.nav-tabs li:nth-child(' + id + ') a').click();
 
         if (ProvideChat.numChats == 1) {
-          $("#no-active-chat").slideUp();
+          $("#no-active-chat").hide();
           $('#active-chat-tabs').show();
           $('#tabs').tab('show');
         }
