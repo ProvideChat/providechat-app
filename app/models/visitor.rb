@@ -109,20 +109,17 @@ class Visitor < ActiveRecord::Base
     operating_system = session['browser']['os']
     screen_resolution = "#{session['device']['screen']['width']}x#{session['device']['screen']['height']}"
 
-    Rails.logger.debug "referrer_host: #{referrer_host}"
+    Rails.logger.info "referrer_host: #{referrer_host}"
     website = Website.find_by(:organization_id => org_id, :url => website_url)
 
     if website
       website.update_ping
       website.save
 
+      statuses = [ Visitor.statuses[:no_chat], Visitor.statuses[:waiting_to_chat], Visitor.statuses[:in_chat]]
       visitor = Visitor.find_by(:website_id => website.id, :browser_name => browser_name,
                                 :browser_version => browser_version.to_s, :operating_system => operating_system,
-                                :ip_address => ip_address) || Visitor.new
-
-      if visitor.status == 'chat_ended' || visitor.status ==  'offsite'
-        visitor = Visitor.new
-      end
+                                :ip_address => ip_address, status: statuses) || Visitor.new
 
       visitor.organization_id = org_id
       visitor.website_id = website.id
@@ -141,7 +138,7 @@ class Visitor < ActiveRecord::Base
       visitor.search_query = search_query
 
       visitor.browser_name = browser_name
-      visitor.browser_version = browser_version
+      visitor.browser_version = browser_version.to_s
       visitor.operating_system = operating_system
       visitor.screen_resolution = screen_resolution
 
