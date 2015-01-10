@@ -3,5 +3,5 @@
   %td= chat.agent ? chat.agent.name : 'None'
   %td= chat.website.url
   %td= chat.visitor ? chat.visitor.name : 'Not specified'
-  %td= local_time(chat.chat_accepted, '%B %e, %Y %l:%M%P')
+  %td= chat.chat_accepted ? local_time(chat.chat_accepted, '%B %e, %Y %l:%M%P') : "Not accepted"
   %td= chat.department ? chat.department.name : 'Any Department'
