@@ -33,7 +33,7 @@ module Api
 
         if @organization = Organization.find_by_id(org_id)
 
-          logger.debug "METHOD: #{method}"
+          logger.info "METHOD: #{method}"
 
           case method
           when "accept_chat"
@@ -42,17 +42,16 @@ module Api
             visitor_id = params[:visitor_id]
 
             visitor = Visitor.find(visitor_id)
-            chat_id = visitor.chat.id
             visitor.status = 'in_chat'
             visitor.save
-
-            chat = Chat.find(chat_id)
+            
+            chat = Chat.find(visitor.chat.id)
             chat.agent_id = agent_id
             chat.status = 'in_progress'
             chat.chat_accepted = DateTime.now
             chat.save
 
-            ChatMessage.create(chat_id: chat_id, user_name: visitor.name, sender: "visitor",
+            ChatMessage.create(chat_id: chat.id, user_name: visitor.name, sender: "visitor",
                           seen_by_visitor: false, seen_by_agent: false, sent: DateTime.now, 
                           message: visitor.question)
 
