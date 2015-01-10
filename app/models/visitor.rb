@@ -116,7 +116,9 @@ class Visitor < ActiveRecord::Base
       website.update_ping
       website.save
 
-      visitor = Visitor.find_by(:website_id => website.id, :browser_name => browser_name) || Visitor.new
+      visitor = Visitor.find_by(:website_id => website.id, :browser_name => browser_name,
+                                :browser_version => browser_version.to_s, :operating_system => operating_system,
+                                :ip_address => ip_address) || Visitor.new
 
       if visitor.status == 'chat_ended' || visitor.status ==  'offsite'
         visitor = Visitor.new
