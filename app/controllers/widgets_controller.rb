@@ -150,6 +150,11 @@ class WidgetsController < ApplicationController
           website.save
         end
 
+        visitor_id = params[:visitor_id]
+        visitor = Visitor.find(visitor_id)
+        visitor.last_ping = DateTime.now
+        visitor.save
+
         response = { 'agent_status' => @organization.agent_status }
       when "initialize"
         session = JSON.parse(params[:session])
