@@ -15,18 +15,17 @@ class WidgetsController < ApplicationController
 
       case method
       when "process_pre_chat"
+        chat = Chat.create(organization_id: @organization.id, website_id: website_id, visitor_id: params[:visitor_id],
+                            chat_requested: DateTime.now, visitor_name: params[:name],
+                            visitor_email: params[:email], visitor_department: params[:department],
+                            visitor_question: params[:message], status: "not_started")
+                            
         visitor = Visitor.find(params[:visitor_id])
         visitor.name = params[:name]
         visitor.email = params[:email]
         visitor.department = params[:department]
         visitor.question = params[:message]
         visitor.status = 'waiting_to_chat';
-
-        chat = Chat.create(organization_id: @organization.id, website_id: website_id, visitor_id: params[:visitor_id],
-                            chat_requested: DateTime.now, visitor_name: params[:name],
-                            visitor_email: params[:email], visitor_department: params[:department],
-                            visitor_question: params[:message], status: "not_started")
-
         visitor.chat_id = chat.id
         visitor.save
 
