@@ -45,15 +45,15 @@ class Visitor < ActiveRecord::Base
     #  "locale":{"country":"us","lang":"en"},
     # "current_session":
     #  SESSION DETAILS: {"api_version"=>0.4, "locale"=>{"country"=>"us", "lang"=>"en"}, "current_session"=>{"visits"=>1, "start"=>1411186442747, "last_visit"=>1411186442747, "url"=>"http://new.providechat.dev/", "path"=>"/", "referrer"=>"", "referrer_info"=>{"host"=>"new.providechat.dev", "path"=>"/", "protocol"=>"http:", "port"=>80, "search"=>"", "query"=>{}}, "search"=>{"engine"=>nil, "query"=>nil}}, "original_session"=>{"visits"=>16, "start"=>1411184787036, "last_visit"=>1411186442748, "url"=>"http://new.providechat.dev/", "path"=>"/", "referrer"=>"", "referrer_info"=>{"host"=>"new.providechat.dev", "path"=>"/", "protocol"=>"http:", "port"=>80, "search"=>"", "query"=>{}}, "search"=>{"engine"=>nil, "query"=>nil}, "prev_visit"=>1411186343610, "time_since_last_visit"=>99138}, "browser"=>{"browser"=>"Chrome", "version"=>37, "os"=>"Mac"}, "plugins"=>{"flash"=>true, "silverlight"=>true, "java"=>false, "quicktime"=>true}, "time"=>{"tz_offset"=>-7, "observes_dst"=>true}, "device"=>{"screen"=>{"width"=>1366, "height"=>768}, "viewport"=>{"width"=>1175, "height"=>669}, "is_tablet"=>false, "is_phone"=>false, "is_mobile"=>false}, "location"=>{"error"=>true, "source"=>"google"}}
-    
-    # {"api_version"=>0.4, 
-    #  "locale"=>{"country"=>"us", "lang"=>"en"}, 
-    #  "current_session"=>{"visits"=>1, "start"=>1420524239616, "last_visit"=>1420524239616, "url"=>"http://new.providechat.dev/", "path"=>"/", "referrer"=>"", "referrer_info"=>{"host"=>"new.providechat.dev", "path"=>"/", "protocol"=>"http:", "port"=>80, "search"=>"", "query"=>{}}, "search"=>{"engine"=>nil, "query"=>nil}}, 
+
+    # {"api_version"=>0.4,
+    #  "locale"=>{"country"=>"us", "lang"=>"en"},
+    #  "current_session"=>{"visits"=>1, "start"=>1420524239616, "last_visit"=>1420524239616, "url"=>"http://new.providechat.dev/", "path"=>"/", "referrer"=>"", "referrer_info"=>{"host"=>"new.providechat.dev", "path"=>"/", "protocol"=>"http:", "port"=>80, "search"=>"", "query"=>{}}, "search"=>{"engine"=>nil, "query"=>nil}},
     #  "original_session"=>{"visits"=>8, "start"=>1419659348660, "last_visit"=>1420524239617, "url"=>"http://new.providechat.dev/", "path"=>"/", "referrer"=>"", "referrer_info"=>{"host"=>"new.providechat.dev", "path"=>"/", "protocol"=>"http:", "port"=>80, "search"=>"", "query"=>{}}, "search"=>{"engine"=>nil, "query"=>nil}, "prev_visit"=>1420524215699, "time_since_last_visit"=>23918},
-    #  "browser"=>{"browser"=>"Chrome", "version"=>39, "os"=>"Mac"}, 
-    #  "plugins"=>{"flash"=>true, "silverlight"=>false, "java"=>true, "quicktime"=>false}, 
-    #  "time"=>{"tz_offset"=>-8, "observes_dst"=>true}, 
-    #  "device"=>{"screen"=>{"width"=>1920, "height"=>1080}, "viewport"=>{"width"=>1474, "height"=>941}, "is_tablet"=>false, "is_phone"=>false, "is_mobile"=>false}, 
+    #  "browser"=>{"browser"=>"Chrome", "version"=>39, "os"=>"Mac"},
+    #  "plugins"=>{"flash"=>true, "silverlight"=>false, "java"=>true, "quicktime"=>false},
+    #  "time"=>{"tz_offset"=>-8, "observes_dst"=>true},
+    #  "device"=>{"screen"=>{"width"=>1920, "height"=>1080}, "viewport"=>{"width"=>1474, "height"=>941}, "is_tablet"=>false, "is_phone"=>false, "is_mobile"=>false},
     # "location"=>{"longitude"=>-123.1333, "latitude"=>49.25, "asn"=>"AS852", "offset"=>"-7", "ip"=>"154.20.236.47", "area_code"=>"0", "continent_code"=>"NA", "dma_code"=>"0", "city"=>"Vancouver", "timezone"=>"America/Vancouver", "region"=>"British Columbia", "country_code"=>"CA", "isp"=>"TELUS Communications Inc.", "country"=>"Canada", "country_code3"=>"CAN", "region_code"=>"BC"}, "location_provider"=>"Telize"}
 
     #Rails.logger.debug "current_session.visits: #{session['current_session']['visits']}"
@@ -168,6 +168,40 @@ class Visitor < ActiveRecord::Base
       visitor
     else
       false
+    end
+  end
+
+  def browser_image
+    case self.browser_name
+    when "Chrome"
+      "/images/browsers/chrome.png"
+    when "Safari"
+      "/images/browsers/safari.png"
+    when "Konqueror"
+      "/images/browsers/konqueror.png"
+    when "Firefox", "Netscape", "Mozilla"
+      "/images/browsers/firefox.png"
+    when "Explorer", "MSIE"
+      "/images/browsers/internet-explorer.png"
+    else
+      "/images/browsers/web.png"
+    end
+  end
+
+  def os_image
+    case self.operating_system
+    when "Windows"
+      "/images/os/windows.png"
+    when "Mac"
+      "/images/os/apple.png"
+    when "iPhone/iPod", "iPad"
+      "/images/os/ios.png"
+    when "Android"
+      "/images/os/android.png"
+    when "Linux"
+      "/images/os/linux.png"
+    else
+      ""
     end
   end
 
