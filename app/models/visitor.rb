@@ -1,4 +1,6 @@
 class Visitor < ActiveRecord::Base
+  include ActionView::Helpers::DateHelper
+
   has_one :chat
   belongs_to :organization
   belongs_to :website
@@ -8,8 +10,8 @@ class Visitor < ActiveRecord::Base
   before_save :titleize_name
 
   def self.current_visitors(current_agent)
-    statuses = [ Visitor.statuses[:no_chat], Visitor.statuses[:waiting_to_chat], Visitor.statuses[:in_chat]]
-    Visitor.where("organization_id = ? AND status IN (?) AND last_ping > ?", current_agent.organization_id, statuses, 3.minutes.ago)
+    active = [ Visitor.statuses[:no_chat], Visitor.statuses[:waiting_to_chat], Visitor.statuses[:in_chat]]
+    Visitor.where("organization_id = ? AND status IN (?) AND last_ping > ?", current_agent.organization_id, active, 2.minutes.ago)
   end
 
 #  t.integer  "organization_id"
@@ -202,6 +204,21 @@ class Visitor < ActiveRecord::Base
       "/images/os/linux.png"
     else
       ""
+    end
+  end
+
+  def status_extended
+    case self.status
+    when "no_chat"
+      "Browsing the site"
+    when "waiting_to_chat"
+      "Waiting for #{time_ago_in_words(self.chat.chat_requested, include_seconds: true)}"
+    when "in_chat"
+      "Chatting for #{time_ago_in_words(self.chat.chat_accepted, include_seconds: true)}"
+    when "chat_ended"
+      "Chat ended"
+    when "offsite"
+      "Visitor has left site"
     end
   end
 
