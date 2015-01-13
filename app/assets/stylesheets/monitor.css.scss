@@ -9,7 +9,7 @@
 }
 
 .people-header {
-  padding: 6px 0px 0px 6px;
+  padding: 6px 0px 6px 6px;
   font-weight: bold;
   font-size: 1.1em;
 }
@@ -29,16 +29,15 @@
 }
 
 #visitor-container {
-  height: 114px;
+  height: 116px;
   overflow: auto;
-  border-bottom: 1px #dddddd solid;
   padding: 0px 6px;
 }
 
 .chat-container-status {
   font-color: #555555;
-  font-weight: bold;
-  padding-left: 10px;
+  font-style: oblique;
+  padding-left: 8px;
   display: none;
 }
 
@@ -95,7 +94,7 @@ ul.nav-tabs {
 .chat-box {
   background: #FAFAFA;
   display: block;
-  height: 270px;
+  height: 298px;
   overflow-y: scroll;
   overflow-x: hidden;
   padding: 0px;
@@ -103,16 +102,27 @@ ul.nav-tabs {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   border: 1px solid #eee;
+  border-bottom: none;
 }
 .chat-box ul {
-  height: 270px;
+  position: relative;
+  height: 280px;
   margin: 0;
-  padding: 0;
+  padding: 0px;
+}
+.chat-box li.announcement {
+  display: block;
+  position: relative;
+  padding: 0px 12px 10px 12px;
+  font-size: 1.1em;
+  font-weight: bold;
+  border-bottom: 1px dotted #ccc;
 }
 .chat-box li.message {
   display: block;
   position: relative;
-  margin: 20px 20px 0;
+  margin: 14px 20px 0px;
+  padding-bottom: 8px;
 }
 .chat-box li:first-child {
   margin-top: 10px;
@@ -149,12 +159,44 @@ ul.nav-tabs {
   text-decoration: none !important;
 }
 
+.textarea-div {
+  margin: 0px;
+  border: 1px solid #dedede;
+}
+
+.typearea {
+  border-bottom: none;
+  padding: 5px;
+}
+
+.typearea textarea {
+  width: 100%;
+}
+.textarea-controls {
+  //background-color: rgba(248, 248, 248, 0.9);
+  border: none;
+  height: 40px;
+  padding: 4px;
+}
+
 .chat-box-footer {
-  //border-top: 1px solid rgba(0, 0, 0, 0.1);
-  background: rgba(248, 248, 248, 0.9);
-  padding: 0 10px 10px;
+  //background: rgba(248, 248, 248, 0.9);
+  border: 1px solid #eee;
+  border-top: none;
+  padding: 0px 0px 0px 0px;
   position: relative;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+}
+
+/* Visitor Detail */
+
+.visitor-info-container {
+  height: 410px;
+  overflow: auto;
+}
+
+.visitor-info-box {
+  padding-left: 10px;
 }
