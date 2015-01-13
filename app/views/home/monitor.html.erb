@@ -16,17 +16,20 @@
           <div class="people-container">
             <p class="people-header">Current Chats</p>
             <div id="current-chat-container">
-              <%= image_tag "select2-spinner.gif" %>
+              <%= image_tag "select2-spinner.gif", :id => "current-chat-loading" %>
+              <div id="no-current-chats-msg" class="chat-container-status">No current chats</div>
             </div>
 
             <p class="people-header">Waiting to Chat</p>
             <div id="waiting-to-chat-container">
-              <%= image_tag "select2-spinner.gif" %>
+              <%= image_tag "select2-spinner.gif", :id => "waiting-to-chat-loading" %>
+              <div id="no-waiting-chats-msg" class="chat-container-status">No one is currently waiting to chat</div>
             </div>
 
             <p class="people-header">Visitors</p>
             <div id="visitor-container">
-              <%= image_tag "select2-spinner.gif" %>
+              <%= image_tag "select2-spinner.gif", :id => "no-chat-loading" %>
+              <div id="no-visitor-msg" class="chat-container-status">No current visitors</div>
             </div>
           </div>
         </div>
@@ -150,12 +153,75 @@
     var json_data = { "method": 'get_current_chats', "agent_id": ProvideChat.agent_id };
 
     $.getJSON("/api/chat_monitor.json", json_data, function (response) {
-      
+
       $.each(response.current_chats, function(i, current_chat) {
-        //accept_chat( current_chat.visitor_id );
         add_new_tab (current_chat.id, current_chat.visitor_id, current_chat.visitor_name, current_chat.status);
       });
     });
+  }
+
+  function updateInChat(visitor) {
+
+    if ($("#waiting-to-chat-visitor-" + visitor.id).length > 0) {
+      $("#waiting-to-chat-visitor-" + visitor.id).remove();
+    }
+
+    if ($("#in-chat-visitor-" + visitor.id).length > 0) {
+      $("#visitor-detail-" + visitor.id).html(visitor.status_extended);
+    } else {
+      var visitor_content = '<%= image_tag "monitor/current-chat.png", class: "visitor-image" %>';
+      visitor_content += '<span class="visitor-name">' + visitor.name + '</span>&nbsp;&nbsp;';
+      visitor_content += '<span class="visitor-detail" id="visitor-detail-' + visitor.id + '">' + visitor.status_extended + '</span>&nbsp;&nbsp;';
+      visitor_content += '<a href="javascript:void(0);" id="view_visitor_' + visitor.id + '" data-visitor-id="' + visitor.id + '" data-chat-id="' + visitor.chat_id + '" data-visitor-name="' + visitor.name + '" data-chat-status="' + visitor.chat.status + '" class="btn btn-default btn-xs" style="float: right;"><i class="fa fa-user"></i> View</a>';
+
+      $('#current-chat-container').append("<div id='in-chat-visitor-" + visitor.id + "' class='visitor-snapshot'></div>");
+      $("#in-chat-visitor-" + visitor.id).html(visitor_content);
+
+      $('#view_visitor_' + visitor.id).click(function() {
+        add_new_tab ($(this).data("chat-id"), $(this).data("visitor-id"), $(this).data("visitor-name"), $(this).data("chat-status"));
+      });
+    }
+  }
+
+  function updateWaitingToChat(visitor) {
+
+    if ($("#no-chat-visitor-" + visitor.id).length > 0) {
+      $("#no-chat-visitor-" + visitor.id).remove();
+    }
+
+    if ($("#waiting-to-chat-visitor-" + visitor.id).length > 0) {
+      $("#visitor-detail-" + visitor.id).html(visitor.status_extended);
+    } else {
+      var visitor_content = '<%= image_tag "monitor/waiting-to-chat.png", class: "visitor-image" %>';
+      visitor_content += '<span class="visitor-name">' + visitor.name + '</span>&nbsp;&nbsp;';
+      visitor_content += '<span class="visitor-detail" id="visitor-detail-' + visitor.id + '">' + visitor.status_extended + '</span>&nbsp;&nbsp;';
+      visitor_content += '<a href="javascript:void(0);" id="accept_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs" style="float: right;"><i class="fa fa-comments-o"></i> Accept</a>';
+
+      $('#waiting-to-chat-container').append("<div id='waiting-to-chat-visitor-" + visitor.id + "' class='visitor-snapshot'></div>");
+      $("#waiting-to-chat-visitor-" + visitor.id).html(visitor_content);
+
+      $('#accept_chat_' + visitor.id).click(function() {
+        $(this).hide();
+        accept_chat($(this).data("visitor-id"));
+      });
+    }
+  }
+
+  function updateNoChat(visitor) {
+
+    if ($("#no-chat-visitor-" + visitor.id).length > 0) {
+      $("#visitor-detail-" + visitor.id).html(visitor.current_page);
+    } else {
+
+      var visitor_content = '<%= image_tag "monitor/visitor-browsing.png", class: "visitor-image" %>';
+      visitor_content += '<span class="visitor-location">' + visitor.city + ',' + visitor.country_name + '&nbsp;<img width="20px" height="20px" src="/images/flags/' + visitor.country_code + '.png" style="vertical-align: top;"></span>&nbsp;&nbsp;';
+      //visitor_content += '<span class="visitor-detail" id="visitor-detail-' + visitor.id + '">' + visitor.current_page + '</span>&nbsp;&nbsp;';
+      visitor_content += '<a href="javascript:void(0);" id="invite_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs" style="float: right;"><i class="fa fa-external-link"></i> Invite</a>';
+
+      $('#visitor-container').append("<div id='no-chat-visitor-" + visitor.id + "' class='visitor-snapshot'></div>");
+      $("#no-chat-visitor-" + visitor.id).html(visitor_content);
+
+    }
   }
 
   function updateVisitors () {
@@ -166,74 +232,56 @@
       var waiting_to_chat = 0;
       var visitors = 0;
 
+      $('#current-chat-loading').hide();
+      $('#waiting-to-chat-loading').hide();
+      $('#no-chat-loading').hide();
+
+      if (results.length == 0) {
+        $('#no-current-chats-msg').show();
+        $('#no-waiting-chats-msg').show();
+        $('#no-visitor-msg').show();
+
+        $('#current-chat-container').find(".visitor-snapshot").remove();
+        $('#waiting-to-chat-container').find(".visitor-snapshot").remove();
+        $('#visitor-container').find(".visitor-snapshot").remove();
+      }
+
       $.each(results, function(i, visitor) {
         console.log(visitor);
 
-        if ($("#visitor-" + visitor.id).length === 0) {
-          $("#visitor-" + visitor.id).remove();
-        }
+        $('#no-current-chats-msg').hide();
+        $('#no-waiting-chats-msg').hide();
+        $('#no-visitor-msg').hide();
 
-        if ((visitor.status == 'in_chat') || (visitor.status == 'chat_ended')) {
-          if (in_chat === 0) {
-            $('#current-chat-container').html('');
-          }
-          $('#current-chat-container').append("<div id='visitor-" + visitor.id + "'>");
-          $('#current-chat-container').append('<%= image_tag "monitor/current-chat.png", class: "visitor-image" %>');
-          $('#current-chat-container').append(visitor.name + '&nbsp;');
-          $('#current-chat-container').append('<a href="javascript:void(0);" id="view_visitor_' + visitor.id + '" data-visitor-id="' + visitor.id + '" data-chat-id="' + visitor.chat_id + '" data-visitor-name="' + visitor.name + '" data-chat-status="' + visitor.chat.status + '" class="btn btn-default btn-xs"><i class="fa fa-user"></i> View</a>');
-          if (visitor.status == 'in_chat') {
-            $('#current-chat-container').append('<br><span class="visitor-detail">Chatting for ' + visitor.time_in_chat + '</span>');
-          } else if (visitor.status == 'chat_ended') {
-            $('#current-chat-container').append('<br><span class="visitor-detail">Chat ended</span>');
-          }
-          $('#current-chat-container').append("</div>");
+        if ((visitor.status === "in_chat") || (visitor.status === "chat_ended")) {
+
+          updateInChat(visitor);
           in_chat++;
 
-          $('#view_visitor_' + visitor.id).click(function() {
-            add_new_tab ($(this).data("chat-id"), $(this).data("visitor-id"), $(this).data("visitor-name"), $(this).data("chat-status"));  
-            //accept_chat($(this).data("visitor-id"));
-          });
         }
-        else if (visitor.status == 'waiting_to_chat') {
-          if (waiting_to_chat === 0) {
-            $('#waiting-to-chat-container').html('');
-          }
-          $('#waiting-to-chat-container').append("<div id='visitor-" + visitor.id + "'>");
-          $('#waiting-to-chat-container').append('<%= image_tag "monitor/waiting-to-chat.png", class: "visitor-image" %>');
-          $('#waiting-to-chat-container').append(visitor.name + '&nbsp;');
-          $('#waiting-to-chat-container').append('<a href="javascript:void(0);" id="accept_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs"><i class="fa fa-comments-o"></i> Accept</a>')
-          $('#waiting-to-chat-container').append('<br><span class="visitor-detail">Waiting for ' + visitor.time_waiting_to_chat + '</span>');
-          $('#waiting-to-chat-container').append("</div>");
+        else if (visitor.status === "waiting_to_chat") {
 
-          $('#accept_chat_' + visitor.id).click(function() {
-            accept_chat($(this).data("visitor-id"));
-          });
-
+          updateWaitingToChat(visitor);
           waiting_to_chat++;
         }
-        else if (visitor.status == 'no_chat') {
-          if (visitors === 0) {
-            $('#visitor-container').html('');
-          }
-          $('#visitor-container').append("<div id='visitor-" + visitor.id + "'>");
-          $('#visitor-container').append('<%= image_tag "monitor/visitor-browsing.png", class: "visitor-image" %>');
-          $('#visitor-container').append(visitor.region_name + ', ' + visitor.country_name + '&nbsp;');
-          $('#visitor-container').append('<a href="javascript:void(0);" id="invite_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs"><i class="fa fa-external-link"></i> Invite</a>');
-          $('#visitor-container').append('<br><span class="visitor-detail">' + visitor.current_page + '</span>');
-          $('#visitor-container').append("</div>");
+        else if (visitor.status === "no_chat") {
+
+          updateNoChat(visitor);
           visitors++;
         }
       });
 
       if (in_chat === 0) {
-        $('#current-chat-container').html("<p>No current chats</p>");
+        $('#no-current-chats-msg').show();
+        $('#current-chat-container').find(".visitor-snapshot").remove();
       }
       if (waiting_to_chat === 0) {
-        $('#waiting-to-chat-container').html("<p>No one waiting to chat</p>");
+        $('#no-waiting-chats-msg').show();
+        $('#waiting-to-chat-container').find(".visitor-snapshot").remove();
       }
-
       if (visitors === 0) {
-        $('#visitor-container').html("<p>No visitors</p>");
+        $('#no-visitor-msg').show();
+        $('#visitor-container').find(".visitor-snapshot").remove();
       }
     });
   }
@@ -252,43 +300,6 @@
     }
 
     return visitor_name;
-  }
-
-  function processVisitorLocation(visitor) {
-    var visitor_location = '';
-
-    if (visitor.chat.status == 'visitorTimeout') {
-      visitor_location =  "Visitor timed out, no longer on site";
-    } else if (visitor.chat.status == 'operatorTimeout') {
-      visitor_location =  "Chat not accepted, visitor sent to unavailable window";
-    } else {
-      if (visitor.current_page.length > 0) {
-        visitor_location =  visitor.current_page;
-      }
-      else {
-        visitor_location =  "Unknown";
-      }
-    }
-    return visitor_location;
-  }
-
-  function processVisitorStatus(visitor) {
-
-    var chat_status = '';
-
-    if (visitor.status == 'offsite') {
-      chat_status = "Left the site";
-    } else if (visitor.status == 'no_chat') {
-      chat_status = "Browsing for " + visitor.time_since_created;
-    } else if (visitor.status == 'waiting_to_chat') {
-      chat_status = "Waiting for " + visitor.time_waiting_to_chat;
-    } else if (visitor.status == 'in_chat') {
-      chat_status = "Chatting for " + visitor.time_in_chat;
-    } else if (visitor.status == 'chat_ended') {
-      chat_status = "Chat ended " + visitor.time_since_chat + " ago";
-    }
-
-    return chat_status;
   }
 
   function processAgent(visitor) {
@@ -366,7 +377,7 @@
   function add_new_tab(chat_id, visitor_id, visitor_name, chat_status) {
 
     if ($("#chat_tab_" + chat_id).length === 0) {
-      
+
       var json_data = { "method": 'get_chat_tab', "chat_id": chat_id, "visitor_id": visitor_id, "visitor_name": visitor_name, "chat_status": chat_status };
 
       $.getJSON("/api/chat_monitor.json", json_data, function (response) {
@@ -402,7 +413,7 @@
         viewVisitor(response.visitor_id);
 
         if (response.chat_status == 'in_progress') {
-          
+
           $('#send-message-' + response.chat_id).click(function() {
             sendChatText(response.chat_id);
           });
@@ -410,19 +421,19 @@
           $('#end-chat-' + response.chat_id).click(function() {
             endChat(response.chat_id);
           });
-          
+
           getChatText( response.chat_id, true );
-          
+
           ProvideChat.chatTimer[response.chat_id] = setInterval(function(){ getChatText(response.chat_id, false); }, 2000);
           ProvideChat.keypressStatusTimer[response.chat_id] = setInterval(function () { getKeypressStatus(response.chat_id); }, 1500);
         } else if ((response.chat_status == 'agent_ended') || (response.chat_status == 'visitor_ended') || (response.chat_status == 'agent_timeout')) {
           load_finished_chat(response.chat_id);
         }
       });
-      
+
     } else {
 
-      $("#chat_tab_" + response.chat_id).tab('show');
+      $("#chat_tab_" + chat_id).tab('show');
 
     }
   }
@@ -466,10 +477,10 @@
   }
 
   function load_finished_chat( chat_id) {
-    
+
     var json_data = { "method": 'get_chat_messages', "chat_id": chat_id, "agent_id": ProvideChat.agent_id, "context" : "all" };
     var chatText = '';
-    
+
     $('#end-chat-' + chat_id).attr("disabled", "disabled");
 
     $.getJSON("/api/chat_monitor.json", json_data, function (response) {
@@ -515,9 +526,9 @@
       chatText += 'Total chat session duration: ' + (response.ended - response.started) + '</li>';
 
       $("#chat-messages-"+chat_id).append(chatText);
-      $('#chat-messages-'+chat_id).scrollTop($('#chat-messages-'+chat_id).height());
+      $('#chat-box-'+chat_id).scrollTop($('#chat-box-'+chat_id).height());
 
-    });    
+    });
   }
 
   //Gets the current messages from the server
@@ -596,12 +607,12 @@
         clearInterval(ProvideChat.keypressStatusTimer[chat_id]);
         //ProvideChat.keypressStatusTimer[chat_id] = null;
         $('#typing-notification-' + chat_id).html ('');
-        
+
         $('#end-chat-' + chat_id).attr("disabled", "disabled");
       }
 
       $("#chat-messages-"+chat_id).append(chatText);
-      $('#chat-messages-'+chat_id).scrollTop($('#chat-messages-'+chat_id).height());
+      $('#chat-box-'+chat_id).scrollTop($('#chat-box-'+chat_id).height());
 
 
       /*
@@ -663,7 +674,7 @@
         chatText += '<a href="javascript:void(0);" class="username">' + ProvideChat.agent_name  + '</a> ' + msg_text + '</li>';
 
         $("#chat-messages-"+chat_id).append(chatText);
-        $('#chat-messages-'+chat_id).scrollTop($('#chat-messages-'+chat_id).height());
+        $('#chat-box-'+chat_id).scrollTop($('#chat-box-'+chat_id).height());
 
         $('#chat-message-content-' + chat_id).val('');
         $('#chat-message-content-' + chat_id).focus();
@@ -742,7 +753,7 @@
         clearTimeout(keypressMsgTimer[chat_id]);
         keypressMsgTimer[chat_id] = null;
       }
-      keypressMsgTimer[chat_id] = setTimeout(function () { updateKeypress(chat_id, 'no'); }, 3000); 
+      keypressMsgTimer[chat_id] = setTimeout(function () { updateKeypress(chat_id, 'no'); }, 3000);
 
     } else {
 
