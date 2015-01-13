@@ -1,4 +1,6 @@
 class WidgetsController < ApplicationController
+  include ActionView::Helpers::DateHelper
+
   skip_before_action :verify_authenticity_token
 
   respond_to :json
@@ -19,7 +21,7 @@ class WidgetsController < ApplicationController
                             chat_requested: DateTime.now, visitor_name: params[:name],
                             visitor_email: params[:email], visitor_department: params[:department],
                             visitor_question: params[:message], status: "not_started")
-                            
+
         visitor = Visitor.find(params[:visitor_id])
         visitor.name = params[:name]
         visitor.email = params[:email]
@@ -70,7 +72,9 @@ class WidgetsController < ApplicationController
         response = {
           'status' => chat.status,
           'agent_name' => agent_name,
-          'messages' => chat_messages || Array.new
+          'messages' => chat_messages || Array.new,
+          'started' => chat.chat_accepted,
+          'duration' => chat.chat_ended ? distance_of_time_in_words(chat.chat_accepted, chat.chat_ended) : ''
         }
 
       when "visitor_message"

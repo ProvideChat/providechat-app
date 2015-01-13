@@ -1,6 +1,8 @@
 module Api
   module V1
     class ChatMonitorController < ApplicationController
+      include ActionView::Helpers::DateHelper
+
       skip_before_action :verify_authenticity_token
       before_action :authenticate_agent!
 
@@ -44,7 +46,7 @@ module Api
             visitor = Visitor.find(visitor_id)
             visitor.status = 'in_chat'
             visitor.save
-            
+
             chat = Chat.find(visitor.chat.id)
             chat.agent_id = agent_id
             chat.status = 'in_progress'
@@ -101,7 +103,7 @@ module Api
               'visitor_name' => chat.visitor_name,
               'messages' => chat_messages || Array.new,
               'started' => chat.chat_accepted,
-              'ended' => chat.chat_ended
+              'duration' => chat.chat_ended ? distance_of_time_in_words(chat.chat_accepted, chat.chat_ended) : ''
             }
 
           when "get_current_chats"
