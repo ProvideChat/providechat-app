@@ -517,19 +517,20 @@
         }
       });
 
-      var chat_message = '';
+      var end_message = '';
       if (response.status === 'agent_ended') {
-        chat_message = 'The chat has now ended';
+        end_message = 'The chat has now ended';
       } else if (response.status === 'visitor_ended') {
-        chat_message = 'The visitor has now ended the chat.';
+        end_message = 'The visitor has now ended the chat.';
       } else if (response.status === 'visitor_timeout') {
-        chat_message = 'The visitor has left your website, ending the chat.';
+        end_message = 'The visitor has left your website, ending the chat.';
       }
-      chatText += '<li class="message"><div class="message-text">';
-      chatText += chat_message +  '<br><br><b>Chat Statistics:</b><br>';
-      chatText += 'Chat session started: ' + response.started + '<br>';
-      chatText += 'Chat Session ended: ' + response.ended + '<br>';
-      chatText += 'Total chat session duration: ' + (response.ended - response.started) + '</li>';
+      var started_timestamp = new Date(response.started);
+
+      chatText = '<li class="message"><div class="message-text">';
+      chatText += '<h5>' + end_message +  '</h5><br><b>Chat Statistics:</b><br>';
+      chatText += 'Chat started at ' + '<time>' +  started_timestamp.getHours() + ':' + started_timestamp.getMinutes() + '</time><br>';
+      chatText += 'Chat lasted for ' + response.duration + '</li>';
 
       $("#chat-messages-"+chat_id).append(chatText);
       $('#chat-box-'+chat_id).scrollTop($('#chat-box-'+chat_id).height());
@@ -592,18 +593,21 @@
       } else if ((response.status === 'agent_ended') || (response.status === 'visitor_ended') ||
                    (response.status === 'visitor_timeout'))
       {
+        var end_message = '';
         if (response.status === 'agent_ended') {
-          chatText = 'The chat has now ended';
+          end_message = 'The chat has now ended.';
         } else if (response.status === 'visitor_ended') {
-          chatText = 'The visitor has now ended the chat.';
+          end_message = 'The visitor has now ended the chat.';
         } else if (response.status === 'visitor_timeout') {
-          chatText = 'The visitor has left your website, ending the chat.';
+          end_message = 'The visitor has left your website, ending the chat.';
         }
+        var started_timestamp = new Date(response.started);
+        console.log(started_timestamp);
+
         chatText = '<li class="message"><div class="message-text">';
-        chatText += chatText +  '<br><br><b>Chat Statistics:</b><br>';
-        chatText += 'Chat session started: ' + response.started + '<br>';
-        chatText += 'Chat Session ended: ' + response.ended + '<br>';
-        chatText += 'Total chat session duration: ' + (response.ended - response.started) + '</li>';
+        chatText += '<h5>' + end_message +  '</h5><br><b>Chat Statistics:</b><br>';
+        chatText += 'Chat started at <time>' +  started_timestamp.getHours() + ':' + started_timestamp.getMinutes() + '</time><br>';
+        chatText += 'Chat lasted for ' + response.duration + '</li>';
 
         endChat = true;
 
@@ -675,8 +679,10 @@
 
         msg_text = msg_text.replace(/\r?\n|\r/g, "<br>");
 
+        var message_timestamp = new Date();
+
         var chatText = '<li class="message"><div class="message-text">';
-        chatText += '<time>2014-01-13</time>';
+        chatText += '<time>' +  message_timestamp.getHours() + ':' + message_timestamp.getMinutes() + '</time>';
         chatText += '<a href="javascript:void(0);" class="username">' + ProvideChat.agent_name  + '</a> ' + msg_text + '</li>';
 
         $("#chat-messages-"+chat_id).append(chatText);
