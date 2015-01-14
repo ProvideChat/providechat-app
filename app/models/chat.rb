@@ -7,8 +7,10 @@ class Chat < ActiveRecord::Base
 
   has_many :chat_messages
 
+  before_save :titleize_visitor_name
+
   enum status: [:not_started , :in_progress, :agent_ended, :visitor_ended, :agent_timeout, :visitor_timeout]
-  
+
   def end_chat(reason)
     self.status = reason
     self.chat_ended = DateTime.now
@@ -17,5 +19,11 @@ class Chat < ActiveRecord::Base
     visitor = Visitor.find(self.visitor_id)
     visitor.status = 'chat_ended'
     visitor.save
+  end
+
+  protected
+
+  def titleize_visitor_name
+    self.visitor_name = self.visitor_name.titleize
   end
 end
