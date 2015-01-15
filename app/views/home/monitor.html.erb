@@ -125,10 +125,7 @@
   ProvideChat.initialized = false;
 
   ProvideChat.activeChatId = 0;	// the chat id of the currently active tab
-  ProvideChat.activeChats = [];	// associate array linking tab# to chatId - activeChats[tab#] = chatId
 
-  ProvideChat.tabChatIds = [];	// associate array linking chatId to tab# - tabChatIds[chatId] = tab#
-  ProvideChat.tabVisitorIds = [];	// associate array linking visitorId to tab# - tabVisitorIds[tab#] = visitorId
   ProvideChat.chatStatus = [];	// associate array holding the status of all active chats - chatStatus[chatId] = status
 
   ProvideChat.chatTimer = [];	// array of timers for each active chat - chatTimer[chatId]
@@ -413,10 +410,6 @@
         }
         $('#tabs a:last').tab('show');
 
-        ProvideChat.activeChats[tabNum] = response.chat_id;
-        ProvideChat.tabVisitorIds[tabNum] = response.visitor_id;
-
-        ProvideChat.tabChatIds[response.chat_id] = tabNum;
         ProvideChat.chatStatus[response.chat_id] = response.chat_status;
 
         ProvideChat.activeChatId = response.chat_id;
@@ -761,8 +754,6 @@
         enable_close_chat_tab(chat_id)
       }
     });
-
-    //endChatOff();
   }
 
   function enable_close_chat_tab(chat_id) {
