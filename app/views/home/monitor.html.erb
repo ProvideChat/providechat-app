@@ -529,7 +529,7 @@
 
       chatText = '<li class="message"><div class="message-text">';
       chatText += '<h5>' + end_message +  '</h5><br><b>Chat Statistics:</b><br>';
-      chatText += 'Chat started at ' + '<time>' +  formatAMPM(message_timestamp) + '</time><br>';
+      chatText += 'Chat started at ' + '<time>' +  formatAMPM(started_timestamp) + '</time><br>';
       chatText += 'Chat lasted for ' + response.duration + '</li>';
 
       $("#chat-messages-"+chat_id).append(chatText);
