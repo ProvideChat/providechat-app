@@ -397,11 +397,11 @@
         ProvideChat.numChats++;	// increment the number of chats
 
         var id = $(".nav-tabs").children().length; //think about it ;)
-        var tabId = 'chat_' + id;
+        var tabId = 'chat-container-' + id;
         console.log(tabId);
         console.log(response.visitor_name);
         $('.tab-content').append('<div class="tab-pane" id="' + tabId + '">' + response.html + '</div>');
-        $('.nav-tabs').append('<li><a data-toggle="tab" id="chat_tab_' + response.chat_id + '" href="#chat_' + id + '">' + response.visitor_name + '</a></li>');
+        $('.nav-tabs').append('<li id="chat-tab-container-' + response.chat_id  + '"><a data-toggle="tab" id="chat_tab_' + response.chat_id + '" href="#chat-container-' + id + '">' + response.visitor_name + '</a></li>');
 
         // add this
         $('.nav-tabs li:nth-child(' + id + ') a').click();
@@ -492,7 +492,7 @@
     var json_data = { "method": 'get_chat_messages', "chat_id": chat_id, "agent_id": ProvideChat.agent_id, "context" : "all" };
     var chatText = '';
 
-    $('#end-chat-' + chat_id).attr("disabled", "disabled");
+    enable_close_chat_tab(chat_id);
 
     $.getJSON("/api/chat_monitor.json", json_data, function (response) {
 
@@ -622,7 +622,7 @@
         //ProvideChat.keypressStatusTimer[chat_id] = null;
         $('#typing-notification-' + chat_id).html ('');
 
-        $('#end-chat-' + chat_id).attr("disabled", "disabled");
+        enable_close_chat_tab(chat_id);
       }
 
       if (chatText.length > 0) {
@@ -756,9 +756,40 @@
     var json_data = { "method": 'end_chat', "chat_id": chat_id };
 
     $.getJSON("/api/chat_monitor.json", json_data, function (response) {
+      console.log(response);
+      if (response.success == 'true') {
+        enable_close_chat_tab(chat_id)
+      }
     });
 
     //endChatOff();
+  }
+
+  function enable_close_chat_tab(chat_id) {
+    $('#close-tab-' + chat_id).removeClass('disabled');
+    $('#close-tab-' + chat_id).prop('disabled', false);
+
+    $('#end-chat-' + chat_id).addClass('disabled');
+    $('#end-chat-' + chat_id).attr("disabled", "disabled");
+
+    $('#close-tab-' + chat_id).click(function() {
+      close_chat_tab(chat_id);
+    });
+  }
+
+  function close_chat_tab(chat_id) {
+
+    $('#chat-container-' + chat_id).remove();
+    $('#chat-tab-container-' + chat_id).remove();
+
+    if (ProvideChat.numChats > 0) {
+      ProvideChat.numChats--;
+    }
+
+    if (ProvideChat.numChats == 0) {
+      $('#active-chat-tabs').hide();
+      $("#no-active-chat").show();
+    }
   }
 
 

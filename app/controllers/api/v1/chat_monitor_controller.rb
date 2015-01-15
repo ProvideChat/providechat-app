@@ -143,7 +143,10 @@ module Api
             chat = Chat.find(chat_id)
             chat.end_chat('agent_ended')
 
-            response = { 'success' => 'true' }
+            response = { 
+              'chat_id' => chat_id,
+              'success' => 'true' 
+            }
           else
             response = { 'success' => 'false' }
           end
