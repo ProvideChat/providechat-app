@@ -498,7 +498,7 @@
 
       console.log(response);
 
-      $("#chat-messages-"+chat_id).html('<li class="announcement">You are now chatting with ' + response.visitor_name + '</li>');
+      $("#chat-messages-"+chat_id).html('<div class="announcement">You are now chatting with ' + response.visitor_name + '</div>');
 
       $.each(response.messages, function(count, message) {
 
@@ -508,15 +508,15 @@
 
         if (message.sender === 'agent')
         {
-          chatText += '<li class="message"><div class="message-text">';
+          chatText += '<div class="message"><div class="message-text">';
           chatText += '<time>' +  formatAMPM(message_timestamp) + '</time>';
-          chatText += '<a href="javascript:void(0);" class="username">' + message.user_name  + '</a> ' + message.message + '</li>';
+          chatText += '<a href="javascript:void(0);" class="username">' + message.user_name  + '</a> ' + message.message + '</div></div>';
         }
         else if (message.sender === "visitor")
         {
-          chatText += '<li class="message"><div class="message-text">';
+          chatText += '<div class="message"><div class="message-text">';
           chatText += '<time>' + formatAMPM(message_timestamp) + '</time>';
-          chatText += '<a href="javascript:void(0);" class="username">' + message.user_name  + '</a> ' + message.message + '</li>';
+          chatText += '<a href="javascript:void(0);" class="username">' + message.user_name  + '</a> ' + message.message + '</div></div>';
 
           $('#typing-notification-' + chat_id).html ('');
         }
@@ -532,13 +532,13 @@
       }
       var started_timestamp = new Date(response.started);
 
-      chatText = '<li class="message"><div class="message-text">';
+      chatText = '<div class="message"><div class="message-text">';
       chatText += '<h5>' + end_message +  '</h5><br><b>Chat Statistics:</b><br>';
       chatText += 'Chat started at ' + '<time>' +  formatAMPM(started_timestamp) + '</time><br>';
-      chatText += 'Chat lasted for ' + response.duration + '</li>';
+      chatText += 'Chat lasted for ' + response.duration + '</div></div>';
 
       $("#chat-messages-"+chat_id).append(chatText);
-      $('#chat-box-'+chat_id).scrollTop($('#chat-box-'+chat_id).height());
+      $('#chat-messages-'+chat_id).animate({scrollTop: jQuery('#chat-messages-'+chat_id)[0].scrollHeight}, 0);
 
     });
   }
@@ -561,7 +561,7 @@
       var newMessageAlert = false;
 
       if ((get_all_messages === true) || ($("#chat-messages-"+chat_id).length === 0)) {
-        $("#chat-messages-"+chat_id).html('<li class="announcement">You are now chatting with ' + response.visitor_name + '</li>');
+        $("#chat-messages-"+chat_id).html('<div class="announcement">You are now chatting with ' + response.visitor_name + '</div>');
       }
 
 			// if we get some JSON messages returned then process and display them, otherwise
@@ -580,15 +580,15 @@
 
           if (message.sender === 'agent')
           {
-            chatText += '<li class="message"><div class="message-text">';
+            chatText += '<div class="message"><div class="message-text">';
             chatText += '<time>' +  formatAMPM(message_timestamp) + '</time>';
-            chatText += '<a href="javascript:void(0);" class="username">' + message.user_name  + '</a> ' + message.message + '</li>';
+            chatText += '<a href="javascript:void(0);" class="username">' + message.user_name  + '</a> ' + message.message + '</div></div>';
           }
           else if (message.sender === "visitor")
           {
-            chatText += '<li class="message"><div class="message-text">';
+            chatText += '<div class="message"><div class="message-text">';
             chatText += '<time>' + formatAMPM(message_timestamp) + '</time>';
-            chatText += '<a href="javascript:void(0);" class="username">' + message.user_name  + '</a> ' + message.message + '</li>';
+            chatText += '<a href="javascript:void(0);" class="username">' + message.user_name  + '</a> ' + message.message + '</div></div>';
 
             $('#typing-notification-' + chat_id).html ('');
 
@@ -608,10 +608,10 @@
         }
         var started_timestamp = new Date(response.started);
 
-        chatText = '<li class="message"><div class="message-text">';
+        chatText = '<div class="message"><div class="message-text">';
         chatText += '<h5>' + end_message +  '</h5><br><b>Chat Statistics:</b><br>';
         chatText += 'Chat started at <time>' +  formatAMPM(started_timestamp) + '</time><br>';
-        chatText += 'Chat lasted for ' + response.duration + '</li>';
+        chatText += 'Chat lasted for ' + response.duration + '</div></div>';
 
         endChat = true;
 
@@ -625,9 +625,10 @@
         $('#end-chat-' + chat_id).attr("disabled", "disabled");
       }
 
-      $("#chat-messages-"+chat_id).append(chatText);
-      $('#chat-box-'+chat_id).scrollTop($('#chat-box-'+chat_id).height());
-
+      if (chatText.length > 0) {
+        $("#chat-messages-"+chat_id).append(chatText);
+        $('#chat-messages-'+chat_id).animate({scrollTop: jQuery('#chat-messages-'+chat_id)[0].scrollHeight}, 0);
+      }
 
       /*
       if ((newMessageAlert === true) && (chatStatus[chat_id] === 'inProgress')) {
@@ -685,12 +686,12 @@
 
         var message_timestamp = new Date();
 
-        var chatText = '<li class="message"><div class="message-text">';
-        chatText += '<time>' +  message_timestamp.getHours() + ':' + message_timestamp.getMinutes() + '</time>';
-        chatText += '<a href="javascript:void(0);" class="username">' + ProvideChat.agent_name  + '</a> ' + msg_text + '</li>';
+        var chatText = '<div class="message"><div class="message-text">';
+        chatText += '<time>' +  formatAMPM(message_timestamp) + '</time>';
+        chatText += '<a href="javascript:void(0);" class="username">' + ProvideChat.agent_name  + '</a> ' + msg_text + '</div></div>';
 
         $("#chat-messages-"+chat_id).append(chatText);
-        $('#chat-box-'+chat_id).scrollTop($('#chat-box-'+chat_id).height());
+        $('#chat-messages-'+chat_id).animate({scrollTop: jQuery('#chat-messages-'+chat_id)[0].scrollHeight}, 0);
 
         $('#chat-message-content-' + chat_id).val('');
         $('#chat-message-content-' + chat_id).focus();

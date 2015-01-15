@@ -93,46 +93,49 @@ ul.nav-tabs {
   height: 414px;
 }
 
-/* Chat Box */
+/* Chat Messages */
 
-.chat-box {
+.chat-messages {
   background: #FAFAFA;
   display: block;
   height: 298px;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  width: 100%;
+  overflow-y: auto;
+  //overflow-x: hidden;
   padding: 0px;
+  /*
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  */
   border: 1px solid #eee;
   border-bottom: none;
 }
-.chat-box ul {
-  position: relative;
-  height: 280px;
-  margin: 0;
-  padding: 0px;
-}
-.chat-box li.announcement {
+.chat-messages .announcement {
   display: block;
   position: relative;
   color: #555555;
-  padding: 0px 12px 10px 12px;
+  padding: 12px;
   font-size: 1.1em;
+  width: 100%;
   border-bottom: 1px dotted #ccc;
+  margin: 0px;
 }
-.chat-box li.message {
+.chat-messages .message {
   display: block;
   position: relative;
   margin: 14px 20px 0px;
   padding-bottom: 8px;
 }
-.chat-box li:first-child {
+/*
+.chat-messages li:first-child {
   margin-top: 10px;
 }
-.chat-box li.message .message-text {
-  display: inline-block;
+*/
+.chat-messages .message .message-text {
+  display: block;
+  position: relative;
+  width: 100%;
   vertical-align: top;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -141,7 +144,7 @@ ul.nav-tabs {
   //margin-left: 65px;
   line-height: normal;
 }
-.chat-box li.message .message-text time {
+.chat-messages .message .message-text time {
   position: absolute;
   top: 1px;
   right: 0px;
@@ -149,10 +152,8 @@ ul.nav-tabs {
   line-height: 10px;
   color: #AFAFAF;
 }
-.chat-box li.message .message-text .chat-file:nth-child(3) {
-  margin-top: 15px;
-}
-.chat-box li.message .message-text a.username {
+
+.chat-messages .message .message-text a.username {
   display: block;
   font-weight: bold;
   margin-bottom: 4px;
@@ -180,14 +181,13 @@ ul.nav-tabs {
   //background-color: rgba(248, 248, 248, 0.9);
   border: none;
   height: 40px;
-  padding: 4px;
+  padding: 6px 0px 0px 0px;
 }
 
-.chat-box-footer {
+.chat-messages-footer {
   //background: rgba(248, 248, 248, 0.9);
   border: 1px solid #eee;
-  border-top: none;
-  padding: 0px 0px 0px 0px;
+  padding: 6px;
   position: relative;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
