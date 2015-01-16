@@ -744,7 +744,7 @@
     $.getJSON("/api/chat_monitor.json", json_data, function (response) {
       console.log(response);
       if (response.success == 'true') {
-        enable_close_chat_tab(chat_id)
+        enable_close_chat_tab(response.chat_id)
       }
     });
   }
