@@ -2,6 +2,7 @@ module Api
   module V1
     class ChatMonitorController < ApplicationController
       include ActionView::Helpers::DateHelper
+      include ActionView::Helpers::SanitizeHelper
 
       skip_before_action :verify_authenticity_token
       before_action :authenticate_agent!
@@ -132,10 +133,13 @@ module Api
             message = params[:message]
             agent_name = params[:agent_name]
 
-            ChatMessage.create(chat_id: chat_id, user_name: agent_name, sender: "agent", seen_by_agent: true,
-                               seen_by_visitor: false, sent: DateTime.now, message: message)
+            ChatMessage.create(chat_id: chat_id, user_name: agent_name, sender: "agent", seen_by_agent: false,
+                               seen_by_visitor: false, sent: DateTime.now, message: strip_tags(message))
 
-            response = { 'success' => 'true' }
+            response = {
+              'chat_id' => chat_id,
+              'success' => 'true'
+            }
 
           when "end_chat"
             chat_id = params[:chat_id]

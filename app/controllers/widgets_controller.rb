@@ -1,5 +1,6 @@
 class WidgetsController < ApplicationController
   include ActionView::Helpers::DateHelper
+  include ActionView::Helpers::SanitizeHelper
 
   skip_before_action :verify_authenticity_token
 
@@ -84,7 +85,7 @@ class WidgetsController < ApplicationController
         visitor_name = params[:visitor_name]
 
         ChatMessage.create(chat_id: chat_id, user_name: visitor_name, sender: "visitor",
-                           seen_by_visitor: true, seen_by_agent: false, sent: DateTime.now, message: message)
+                           seen_by_visitor: false, seen_by_agent: false, sent: DateTime.now, message: strip_tags(message))
 
         response = { 'success' => 'true' }
 

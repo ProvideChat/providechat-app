@@ -677,15 +677,6 @@
 
         msg_text = msg_text.replace(/\r?\n|\r/g, "<br>");
 
-        var message_timestamp = new Date();
-
-        var chatText = '<div class="message"><div class="message-text">';
-        chatText += '<time>' +  formatAMPM(message_timestamp) + '</time>';
-        chatText += '<a href="javascript:void(0);" class="username">' + ProvideChat.agent_name  + '</a> ' + msg_text + '</div></div>';
-
-        $("#chat-messages-"+chat_id).append(chatText);
-        $('#chat-messages-'+chat_id).animate({scrollTop: jQuery('#chat-messages-'+chat_id)[0].scrollHeight}, 0);
-
         $('#chat-message-content-' + chat_id).val('');
         $('#chat-message-content-' + chat_id).focus();
 
@@ -694,6 +685,8 @@
 
         $.getJSON("/api/chat_monitor.json", json_data, function (response) {
           console.log(response);
+
+          getChatText(response.chat_id, false);
         });
 
       }
