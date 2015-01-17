@@ -375,15 +375,6 @@
 
   function accept_chat( visitor_id ) {
 
-    //console.log("START CHAT: " + visitor);
-    //soundManager.stop('ringing');
-
-    //clearInterval(soundTimer);
-    //soundTimer = null;
-
-    //acceptChatOff();
-    //endChatOn(visitor.chat_id);
-
     var msg = 'Chat has begun, click end chat button when done';
     var title = 'Chat Initiated';
     //displayMessage(title, msg);
@@ -466,10 +457,10 @@
 
     $("#chat-message-content-"+chat_id).keyup(function (e) {
 
-      if ((e.which === 13) && (e.ctrlkey === true)) {
+      if ((e.keyCode === 13) && (e.ctrlKey === true)) {
         $("#chat-message-content-"+chat_id).value += "\r\n";
       }
-      else if (e.which === 13) {
+      else if (e.keyCode === 13) {
         sendChatText( chat_id );
         clearAgentKeypress(chat_id);
       } else {
@@ -654,8 +645,6 @@
     });
   }
 
-
-  //Add a message to the chat server.
   function sendChatText(chat_id) {
 
     if (ProvideChat.chatStatus[chat_id] === 'in_progress') {
