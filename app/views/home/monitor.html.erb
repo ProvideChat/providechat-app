@@ -131,7 +131,9 @@
   ProvideChat.chatTimer = [];	// array of timers for each active chat - chatTimer[chatId]
   ProvideChat.keypressStatusTimer = [];	// array of timers for getting the keypress status of each active chat: keypressStatusTimer[chatId]
   ProvideChat.clearKeypressTimer = [];		// array of timers for clearing an agent keypress state
+  ProvideChat.visitorWaitingTimer;
   ProvideChat.visitorTimer;	// timer that controls the visitor info updates
+
 
   ProvideChat.numChats = 0;
 
@@ -183,6 +185,17 @@
       });
     }
   }
+  
+  function waitingToChatAlert() {
+
+    console.log("waiting to chat alert");
+    $.bigBox({
+      title : "A visitor is waiting to chat",
+      color : "#296191",
+    	timeout: 8000,
+    	icon : "fa fa-bell swing animated"
+    });
+  }
 
   function updateWaitingToChat(visitor) {
 
@@ -193,6 +206,9 @@
     if ($("#waiting-to-chat-visitor-" + visitor.id).length > 0) {
       $("#visitor-detail-" + visitor.id).html(visitor.status_extended);
     } else {
+      waitingToChatAlert();
+      ProvideChat.visitorWaitingTimer = setInterval(function(){waitingToChatAlert();}, 9000);
+
       var visitor_content = '<%= image_tag "monitor/waiting-to-chat.png", class: "visitor-image" %>';
       visitor_content += '<span class="visitor-name">' + visitor.name + '</span>&nbsp;&nbsp;';
       visitor_content += '<span class="visitor-detail" id="visitor-detail-' + visitor.id + '">' + visitor.status_extended + '</span>&nbsp;&nbsp;';
@@ -277,6 +293,7 @@
         $('#current-chat-container').find(".visitor-snapshot").remove();
       }
       if (waiting_to_chat === 0) {
+        clearInterval(ProvideChat.visitorWaitingTimer);
         $('#no-waiting-chats-msg').show();
         $('#waiting-to-chat-container').find(".visitor-snapshot").remove();
       }
