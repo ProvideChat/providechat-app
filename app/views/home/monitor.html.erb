@@ -130,8 +130,7 @@
 
   ProvideChat.chatTimer = [];	// array of timers for each active chat - chatTimer[chatId]
   ProvideChat.keypressStatusTimer = [];	// array of timers for getting the keypress status of each active chat: keypressStatusTimer[chatId]
-  ProvideChat.keypressMsgTimer = [];		// array of timers for monitoring the keypress state for the operator: keypressMsgTimer[chatId]
-  ProvideChat.keypressStatus = [];		// array of keypress statuses for each active chat: keypressStatus[chatId]
+  ProvideChat.clearKeypressTimer = [];		// array of timers for clearing an agent keypress state
   ProvideChat.visitorTimer;	// timer that controls the visitor info updates
 
   ProvideChat.numChats = 0;
@@ -427,6 +426,7 @@
           });
 
           getChatText( response.chat_id, true );
+          setup_chat_keypress(chat_id)
 
           ProvideChat.chatTimer[response.chat_id] = setInterval(function(){ getChatText(response.chat_id, false); }, 2000);
           ProvideChat.keypressStatusTimer[response.chat_id] = setInterval(function () { getKeypressStatus(response.chat_id); }, 1500);
@@ -442,40 +442,21 @@
     }
   }
 
-  function setup_chat(chat_id) {
+  function setup_chat_keypress(chat_id) {
     if (ProvideChat.activeChatId == chat_id) {
-      // Set the focus to the Message Box.
-      $('#txt_message'+ProvideChat.activeChatId).focus();
+      $('#chat-message-content-'+chat_id).focus();
     }
 
-    $.shiftdown = false;
-    $.ctrldown = false;
+    $("#chat-message-content-"+chat_id).keyup(function (e) {
 
-    $("#txt_message"+chat_id).keydown(function (e) {
-      if (e.which === 16) {
-        $.shiftdown = true;
-      }
-      if ((e.which === 17)) {
-        $.ctrldown = true;
-      }
-    });
-
-    $("#txt_message"+chat_id).keyup(function (e) {
-      if (e.which === 16) {
-        $.shiftdown = false;
-      }
-      if ((e.which === 17)) {
-        $.ctrldown = false;
-      }
-
-      if ((e.which === 13) && (($.shiftdown === true) || ($.ctrldown === true))) {
-        $("#txt_message"+chat_id).value += "\n";
+      if ((e.which === 13) && (e.ctrlkey === true)) {
+        $("#chat-message-content-"+chat_id).value += "\r\n";
       }
       else if (e.which === 13) {
         sendChatText( chat_id );
-        updateKeypress(chat_id, 'no');
+        clearAgentKeypress(chat_id);
       } else {
-        updateKeypress(chat_id, 'yes');
+        updateAgentKeypress(chat_id);
       }
     });
   }
@@ -550,7 +531,6 @@
       console.log(response);
 
       var chatText = '';
-      var endChat = false;
       var newMessageAlert = false;
 
       if ((get_all_messages === true) || ($("#chat-messages-"+chat_id).length === 0)) {
@@ -606,13 +586,9 @@
         chatText += 'Chat started at <time>' +  formatAMPM(started_timestamp) + '</time><br>';
         chatText += 'Chat lasted for ' + response.duration + '</div></div>';
 
-        endChat = true;
-
         console.log("ChatID: " + chat_id + ", Clearing Interval ID: " + ProvideChat.chatTimer[chat_id]);
         clearInterval(ProvideChat.chatTimer[chat_id]);
-        //ProvideChat.chatTimer[chat_id] = null;
         clearInterval(ProvideChat.keypressStatusTimer[chat_id]);
-        //ProvideChat.keypressStatusTimer[chat_id] = null;
         $('#typing-notification-' + chat_id).html ('');
 
         enable_close_chat_tab(chat_id);
@@ -744,7 +720,7 @@
     $.getJSON("/api/chat_monitor.json", json_data, function (response) {
       console.log(response);
       if (response.success == 'true') {
-        enable_close_chat_tab(response.chat_id)
+        enable_close_chat_tab(response.chat_id);
       }
     });
   }
@@ -777,68 +753,25 @@
   }
 
 
-  function updateKeypress(chat_id, keypressActive) {
+  function clearAgentKeypress(chat_id) {
+    var json_data = { "method": 'update_agent_keypress', "chat_id": chat_id, "typing" : "no" };
 
-    if (keypressStatus[chat_id] === keypressActive) {
+    $.getJSON("/api/chat_monitor.json", json_data, function (response) {
 
-      if (typeof keypressMsgTimer[chat_id] != 'undefined') {
-        clearTimeout(keypressMsgTimer[chat_id]);
-        keypressMsgTimer[chat_id] = null;
-      }
-      keypressMsgTimer[chat_id] = setTimeout(function () { updateKeypress(chat_id, 'no'); }, 3000);
-
-    } else {
-
-      keypressStatus[chat_id] = keypressActive;
-
-      $.ajax({
-        type: "POST",
-        dataType: "json",
-        url: "process-chat.php",
-        data: "action=update_keypress&user=operator&chatId=" + chat_id + "&keypressActive=" + keypressActive,
-        success: function (json) {
-          clearTimeout(keypressMsgTimer[chat_id]);
-          keypressMsgTimer[chat_id] = null;
-          keypressMsgTimer[chat_id] = setTimeout(function () { updateKeypress(chat_id, 'no'); }, 3000);
-
-          result = null;
-        }
-      });
-    }
+    });
   }
 
-  function make_keyDown(e) {
-    return function (e) {
-      if (e.which === 16) {
-        $.shiftdown = true;
-      }
-      if ((e.which === 17)) {
-        $.ctrldown = true;
-      }
-    };
-  }
+  function updateAgentKeypress(chat_id) {
 
-  function make_keyUp (e, chatId) {
-    return function (e) {
-      if (e.which == 16) {
-        $.shiftdown = false;
-      }
-      if ((e.which == 17)) {
-        $.ctrldown = false;
-      }
+    var json_data = { "method": 'update_agent_keypress', "chat_id": chat_id, "typing" : "yes" };
 
-      if ((e.which === 13) && (($.shiftdown === true) || ($.ctrldown === true))) {
-        $("#txt_message"+chatId).value += "\n";
-      }
-      else if (e.which == 13) {
-        sendChatText( chatId );
-        updateKeypress(chatId, 'no');
-      } else {
-        updateKeypress(chatId, 'yes');
-      }
+    $.getJSON("/api/chat_monitor.json", json_data, function (response) {
 
-      e = null;
-    };
+      if (typeof ProvideChat.clearKeypressTimer[response.chat_id] != 'undefined') {
+        clearTimeout(ProvideChat.clearKeypressTimer[response.chat_id]); 
+      }
+      ProvideChat.clearKeypressTimer[response.chat_id] = setTimeout(function () { clearAgentKeypress(response.chat_id); }, 2000);
+    });
   }
 
   function formatAMPM(date) {

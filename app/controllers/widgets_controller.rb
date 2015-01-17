@@ -89,10 +89,31 @@ class WidgetsController < ApplicationController
 
         response = { 'success' => 'true' }
 
-      when "get_key_press_status"
+
+      when "update_visitor_keypress"
+
+        chat_id = params[:chat_id]
+        typing = params[:typing]
+
+        chat = Chat.find(chat_id)
+        chat.visitor_typing = typing
+        chat.save
+
+        response = {
+          'chat_id' => chat_id,
+          'success' => 'true'
+        }
+
+      when "get_agent_typing"
+
         chat_id = params[:chat_id]
 
-        response = { 'success' => 'true' }
+        chat = Chat.find(chat_id)
+
+        response = {
+          'chat_id' => chat_id,
+          'agent_typing' => chat.agent_typing
+        }
 
       when "update_agent"
         chat_id = params[:chat_id]

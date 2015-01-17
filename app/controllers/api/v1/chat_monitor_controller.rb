@@ -116,6 +116,20 @@ module Api
               'current_chats' => current_chats || Array.new
             }
 
+          when "update_agent_keypress"
+
+            chat_id = params[:chat_id]
+            typing = params[:typing]
+
+            chat = Chat.find(chat_id)
+            chat.agent_typing = typing
+            chat.save
+
+            response = {
+              'chat_id' => chat_id,
+              'success' => 'true'
+            }
+
           when "get_visitor_typing"
 
             chat_id = params[:chat_id]
@@ -124,6 +138,7 @@ module Api
 
             response = {
               'chat_id' => chat_id,
+              'visitor_name' => chat.visitor_name,
               'visitor_typing' => chat.visitor_typing
             }
 
