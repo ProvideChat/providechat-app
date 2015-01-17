@@ -192,8 +192,7 @@
     $.bigBox({
       title : "A visitor is waiting to chat",
       color : "#296191",
-    	timeout: 8000,
-    	icon : "fa fa-bell swing animated"
+    	timeout: 8000
     });
   }
 
@@ -207,6 +206,7 @@
       $("#visitor-detail-" + visitor.id).html(visitor.status_extended);
     } else {
       waitingToChatAlert();
+      clearInterval(ProvideChat.visitorWaitingTimer);
       ProvideChat.visitorWaitingTimer = setInterval(function(){waitingToChatAlert();}, 9000);
 
       var visitor_content = '<%= image_tag "monitor/waiting-to-chat.png", class: "visitor-image" %>';
