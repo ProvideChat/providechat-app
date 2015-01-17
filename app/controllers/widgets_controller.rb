@@ -89,6 +89,20 @@ class WidgetsController < ApplicationController
 
         response = { 'success' => 'true' }
 
+      when "agent_timeout"
+        visitor_id = params[:visitor_id]
+        chat_id = params[:chat_id]
+
+        chat = Chat.find(chat_id)
+        chat.status = 'agent_timeout'
+        chat.chat_ended = DateTime.now
+        chat.save
+
+        visitor = Visitor.find(visitor_id)
+        visitor.status = 'chat_ended'
+        visitor.save
+
+        response = { 'success' => 'true' }
 
       when "update_visitor_keypress"
 
