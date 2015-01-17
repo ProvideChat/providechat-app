@@ -81,11 +81,17 @@
 
 ul.nav-tabs {
   margin-left: 10px;
+  border-left: #cccccc 1px solid;
 }
 
+ul.nav-tabs li:not(.active) {
+  border-right: #cccccc 1px solid;
+  border-bottom: #dddddd 2px solid;
+}
 .nav-tabs li.active {
   border-top: #ffffff 1px solid;
   margin-top: -3px;
+  margin-right: 0px;
   z-index: 100;
 }
 
