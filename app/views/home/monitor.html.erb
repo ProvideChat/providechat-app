@@ -59,7 +59,8 @@
       </div>
     </div>
 
-    <div class="tab-content" id="active-chat-tabs" style="display: none;">
+    <div id="active-chat-tabs" style="display: none;">
+
       <div class="tab-pane active" id="hr1">
 
         <div class="tabbable tabs-below" id="tabs">
@@ -134,7 +135,6 @@
   ProvideChat.visitorWaitingTimer;
   ProvideChat.visitorTimer;	// timer that controls the visitor info updates
 
-
   ProvideChat.numChats = 0;
 
   ProvideChat.init = function (agent_id, agent_name, organization_id) {
@@ -185,14 +185,14 @@
       });
     }
   }
-  
+
   function waitingToChatAlert() {
 
     console.log("waiting to chat alert");
     $.bigBox({
       title : "A visitor is waiting to chat",
       color : "#296191",
-    	timeout: 8000
+      timeout: 4000
     });
   }
 
@@ -207,7 +207,7 @@
     } else {
       waitingToChatAlert();
       clearInterval(ProvideChat.visitorWaitingTimer);
-      ProvideChat.visitorWaitingTimer = setInterval(function(){waitingToChatAlert();}, 9000);
+      ProvideChat.visitorWaitingTimer = setInterval(function(){waitingToChatAlert();}, 12000);
 
       var visitor_content = '<%= image_tag "monitor/waiting-to-chat.png", class: "visitor-image" %>';
       visitor_content += '<span class="visitor-name">' + visitor.name + '</span>&nbsp;&nbsp;';
@@ -237,7 +237,6 @@
 
       $('#visitor-container').append("<div id='no-chat-visitor-" + visitor.id + "' class='visitor-snapshot'></div>");
       $("#no-chat-visitor-" + visitor.id).html(visitor_content);
-
     }
   }
 
@@ -397,40 +396,33 @@
 
       $.getJSON("/api/chat_monitor.json", json_data, function (response) {
 
-        var tabNum = ProvideChat.numChats;
-        ProvideChat.numChats++;	// increment the number of chats
-
         var id = $(".nav-tabs").children().length; //think about it ;)
-        var tabId = 'chat-container-' + id;
+        var tabId = 'chat-container-' + response.chat_id;
         console.log(tabId);
         console.log(response.visitor_name);
         $('.tab-content').append('<div class="tab-pane" id="' + tabId + '">' + response.html + '</div>');
-        $('.nav-tabs').append('<li id="chat-tab-container-' + response.chat_id  + '"><a data-toggle="tab" id="chat_tab_' + response.chat_id + '" href="#chat-container-' + id + '">' + response.visitor_name + '</a></li>');
+        $('.nav-tabs').append('<li id="chat-tab-container-' + response.chat_id  + '"><a data-toggle="tab" id="chat_tab_' + response.chat_id + '" href="#chat-container-' + response.chat_id + '">' + response.visitor_name + '</a></li>');
 
         // add this
-        $('.nav-tabs li:nth-child(' + id + ') a').click();
+        $('#chat_tab_' + response.chat_id).click();
 
-        if (ProvideChat.numChats == 1) {
-          $("#no-active-chat").hide();
-          $('#active-chat-tabs').show();
-          $('#tabs').tab('show');
-        }
         $('#tabs a:last').tab('show');
 
         ProvideChat.chatStatus[response.chat_id] = response.chat_status;
 
         ProvideChat.activeChatId = response.chat_id;
+        ProvideChat.numChats++;
 
         viewVisitor(response.visitor_id);
 
         if (response.chat_status == 'in_progress') {
 
           $('#send-message-' + response.chat_id).click(function() {
-            sendChatText(response.chat_id);
+            sendChatText($(this).data("chat-id"));
           });
 
           $('#end-chat-' + response.chat_id).click(function() {
-            endChat(response.chat_id);
+            endChat($(this).data("chat-id"));
           });
 
           getChatText( response.chat_id, true );
@@ -441,11 +433,25 @@
         } else if ((response.chat_status == 'agent_ended') || (response.chat_status == 'visitor_ended') || (response.chat_status == 'agent_timeout')) {
           load_finished_chat(response.chat_id);
         }
+
+        if (ProvideChat.numChats == 1) {
+          $("#no-active-chat").hide();
+          $('#active-chat-tabs').show();
+          $('#tabs').tab('show');
+        }
+
       });
 
     } else {
 
       $("#chat_tab_" + chat_id).tab('show');
+      ProvideChat.activeChatId = chat_id;
+
+      if (ProvideChat.numChats == 1) {
+        $("#no-active-chat").hide();
+        $('#active-chat-tabs').show();
+        $('#tabs').tab('show');
+      }
 
     }
   }
@@ -512,11 +518,10 @@
       } else if (response.status === 'visitor_timeout') {
         end_message = 'The visitor has left your website, ending the chat.';
       }
-      var started_timestamp = new Date(response.started);
 
       chatText = '<div class="message"><div class="message-text">';
       chatText += '<h5>' + end_message +  '</h5><br><b>Chat Statistics:</b><br>';
-      chatText += 'Chat started at ' + '<time>' +  formatAMPM(started_timestamp) + '</time><br>';
+      chatText += 'Chat started at ' + '<em>' +  formatAMPM(new Date(response.started)) + '</em><br>';
       chatText += 'Chat lasted for ' + response.duration + '</div></div>';
 
       $("#chat-messages-"+chat_id).append(chatText);
@@ -587,11 +592,10 @@
         } else if (response.status === 'visitor_timeout') {
           end_message = 'The visitor has left your website, ending the chat.';
         }
-        var started_timestamp = new Date(response.started);
 
         chatText = '<div class="message"><div class="message-text">';
         chatText += '<h5>' + end_message +  '</h5><br><b>Chat Statistics:</b><br>';
-        chatText += 'Chat started at <time>' +  formatAMPM(started_timestamp) + '</time><br>';
+        chatText += 'Chat started at <em>' +  formatAMPM(new Date(response.started)) + '</em><br>';
         chatText += 'Chat lasted for ' + response.duration + '</div></div>';
 
         console.log("ChatID: " + chat_id + ", Clearing Interval ID: " + ProvideChat.chatTimer[chat_id]);
@@ -727,6 +731,10 @@
       console.log(response);
       if (response.success == 'true') {
         enable_close_chat_tab(response.chat_id);
+
+        if (ProvideChat.numChats > 0) {
+          ProvideChat.numChats--;
+        }
       }
     });
   }
@@ -739,22 +747,22 @@
     $('#end-chat-' + chat_id).attr("disabled", "disabled");
 
     $('#close-tab-' + chat_id).click(function() {
-      close_chat_tab(chat_id);
+      close_chat_tab( $(this).data("chat-id") );
     });
   }
 
   function close_chat_tab(chat_id) {
 
+    console.log("Close Chat Tab, ID: " + chat_id);
+
     $('#chat-container-' + chat_id).remove();
     $('#chat-tab-container-' + chat_id).remove();
 
-    if (ProvideChat.numChats > 0) {
-      ProvideChat.numChats--;
-    }
-
-    if (ProvideChat.numChats == 0) {
+    if (ProvideChat.numChats === 0) {
       $('#active-chat-tabs').hide();
       $("#no-active-chat").show();
+    } else {
+      $('#tabs a:last').tab('show');
     }
   }
 
@@ -774,7 +782,7 @@
     $.getJSON("/api/chat_monitor.json", json_data, function (response) {
 
       if (typeof ProvideChat.clearKeypressTimer[response.chat_id] != 'undefined') {
-        clearTimeout(ProvideChat.clearKeypressTimer[response.chat_id]); 
+        clearTimeout(ProvideChat.clearKeypressTimer[response.chat_id]);
       }
       ProvideChat.clearKeypressTimer[response.chat_id] = setTimeout(function () { clearAgentKeypress(response.chat_id); }, 2000);
     });

@@ -55,7 +55,7 @@ module Api
             chat.save
 
             ChatMessage.create(chat_id: chat.id, user_name: visitor.name, sender: "visitor",
-                          seen_by_visitor: false, seen_by_agent: false, sent: DateTime.now, 
+                          seen_by_visitor: false, seen_by_agent: false, sent: DateTime.now,
                           message: visitor.question)
 
             response = {
@@ -162,9 +162,9 @@ module Api
             chat = Chat.find(chat_id)
             chat.end_chat('agent_ended')
 
-            response = { 
+            response = {
               'chat_id' => chat_id,
-              'success' => 'true' 
+              'success' => 'true'
             }
           else
             response = { 'success' => 'false' }
