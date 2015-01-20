@@ -188,7 +188,6 @@
 
   function waitingToChatAlert() {
 
-    console.log("waiting to chat alert");
     $.bigBox({
       title : "A visitor is waiting to chat",
       color : "#296191",
@@ -401,10 +400,16 @@
         console.log(tabId);
         console.log(response.visitor_name);
         $('.tab-content').append('<div class="tab-pane" id="' + tabId + '">' + response.html + '</div>');
-        $('.nav-tabs').append('<li id="chat-tab-container-' + response.chat_id  + '"><a data-toggle="tab" id="chat_tab_' + response.chat_id + '" href="#chat-container-' + response.chat_id + '">' + response.visitor_name + '</a></li>');
+        $('.nav-tabs').append('<li id="chat-tab-container-' + response.chat_id  + '"><a data-toggle="tab" id="chat_tab_' + response.chat_id + '" href="#chat-container-' + response.chat_id + '" data-chat-id="' + response.chat_id + '">' + response.visitor_name + '</a></li>');
 
-        // add this
-        $('#chat_tab_' + response.chat_id).click();
+        // Method to execute when tab is clicked
+        $('#chat_tab_' + response.chat_id).click(function (e) {
+          e.preventDefault()
+          $(this).tab('show');
+
+          var chat_id = $(this).data('chat-id');
+          $('#chat-messages-'+chat_id).animate({scrollTop: $('#chat-messages-'+chat_id)[0].scrollHeight}, 0);
+        });
 
         $('#tabs a:last').tab('show');
 
@@ -525,8 +530,9 @@
       chatText += 'Chat lasted for ' + response.duration + '</div></div>';
 
       $("#chat-messages-"+chat_id).append(chatText);
-      $('#chat-messages-'+chat_id).animate({scrollTop: jQuery('#chat-messages-'+chat_id)[0].scrollHeight}, 0);
-
+      if (typeof $('#chat-messages-'+chat_id)[0] !== 'undefined') {
+        $('#chat-messages-'+chat_id).animate({scrollTop: $('#chat-messages-'+chat_id)[0].scrollHeight}, 0);
+      }
     });
   }
 
@@ -608,29 +614,23 @@
 
       if (chatText.length > 0) {
         $("#chat-messages-"+chat_id).append(chatText);
-        $('#chat-messages-'+chat_id).animate({scrollTop: jQuery('#chat-messages-'+chat_id)[0].scrollHeight}, 0);
+        if (typeof $('#chat-messages-'+chat_id)[0] !== 'undefined') {
+          $('#chat-messages-'+chat_id).animate({scrollTop: $('#chat-messages-'+chat_id)[0].scrollHeight}, 0);
+        }
       }
 
-      /*
-      if ((newMessageAlert === true) && (chatStatus[chat_id] === 'inProgress')) {
-				if (activeChatId != chatId)  {
-					var msg = 'New Message from ' + msg_user;
-					var title = 'New Message';
-					displayMessage(title, msg);
+      if ((get_all_messages === false) && (newMessageAlert === true)) {
+        if (!$('#chat-tab-container-' + chat_id).hasClass('active')) {
 
-					// Play new message sound for background chat
-					if ($("#background_chat_sound").attr("checked") === true) {
-						soundManager.play('new_message2');
-					}
-				} else {
-
-					// Play new message sound for background chat
-					if ($("#active_chat_sound").attr("checked") === true) {
-						soundManager.play('new_message1');
-					}
+          $.bigBox({
+            title : "New message received from " + response.visitor_name,
+            color : "#C79121",
+            timeout: 4000,
+            sound_file: 'smallbox'
+          });
 				}
       }
-      */
+
     });
   }
 
