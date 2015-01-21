@@ -151,9 +151,15 @@ class WidgetsController < ApplicationController
 
       when "end_chat"
         chat_id = params[:chat_id]
+        enable_email_transcript = params[:enable_email_transcript]
+        transcript_email = params[:transcript_email]
 
         chat = Chat.find(chat_id)
         chat.end_chat('visitor_ended')
+
+        if enable_email_transcript == 'true'
+          chat.email_transcript(transcript_email)
+        end
 
         response = { 'success' => 'true' }
       when "get_pre_chat"
