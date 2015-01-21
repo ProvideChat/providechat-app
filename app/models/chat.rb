@@ -24,14 +24,13 @@ class Chat < ActiveRecord::Base
   def email_transcript(transcript_email)
     require 'mandrill'
 
-    text_msg = %q{Hello #{self.visitor_name},\n\n
-      Here if your requested chat transcript\n\n
-    }
+    text_msg = "Hello #{self.visitor_name},\n\n"
+    text_msg = text_msg + "Here if your requested chat transcript\n\n"
     self.chat_messages.each do |chat_message|
       text_msg = text_msg + " - #{chat_message.user_name}: #{chat_message.message}\n\n"
     end
 
-    html_msg = %q{<html><h3>Hello #{self.visitor_name}</h3><p>Here is your requested chat transcript</p><ul>}
+    html_msg = "<html><h3>Hello #{self.visitor_name}</h3><p>Here is your requested chat transcript</p><ul>"
     self.chat_messages.each do |chat_message|
       html_msg = html_msg + "<li><strong>#{chat_message.user_name}:</strong> #{chat_message.message}"
     end
