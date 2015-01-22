@@ -2,11 +2,11 @@ source 'https://rubygems.org'
 
 ruby '2.2.0'
 
-gem 'rails', '4.1.8'
+gem 'rails', '4.2.0'
 
 gem 'ancestry'
 gem 'carrierwave'
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.1.0'
 gem 'devise'
 gem 'draper', '~> 1.3'
 gem 'exception_notification'
@@ -25,7 +25,7 @@ gem 'mail_form'
 gem 'mandrill-api'
 gem 'mini_magick', '~> 4.0.0.rc'
 gem 'nprogress-rails'
-gem 'sass-rails'
+gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'sidekiq'
 gem "skylight"
@@ -40,7 +40,6 @@ gem 'capistrano-rails', '~> 1.1.1'
 gem 'capistrano-rbenv', github: "capistrano/rbenv"
 
 group :development do
-  gem 'better_errors'
   gem 'spring'
   gem 'binding_of_caller'
   gem 'quiet_assets'
@@ -48,6 +47,7 @@ end
 
 group :test, :development do 
   gem 'annotate'
+  gem 'web-console', '~> 2.0'
   gem 'brakeman', :require => false
   gem 'byebug'
   gem 'dotenv-rails'
@@ -68,13 +68,6 @@ group :test do
   gem "timecop"
   gem "webmock"
 end
-
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use unicorn as the app server
-# gem 'unicorn'
 
 
 
