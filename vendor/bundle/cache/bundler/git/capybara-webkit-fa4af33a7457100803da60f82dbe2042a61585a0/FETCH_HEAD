@@ -1,30 +1,9 @@
-d882dc18a02613d56c5a603748aa45430566628f		branch '0.13.x' of https://github.com/thoughtbot/capybara-webkit
-b6a09ee0bf3ff490cd307724f630a874d9566025		branch '1.0' of https://github.com/thoughtbot/capybara-webkit
-046eeb8dc9a3238aa23fc65fe93bf09e385c4640		branch 'anchors' of https://github.com/thoughtbot/capybara-webkit
 c9cf3cfcc2e50f11c1e60e18028412c2c8ba0786		branch 'benchmarks' of https://github.com/thoughtbot/capybara-webkit
-469b6da792b25c1c3875fcaae91b56e0f7fb8f79		branch 'debug-slow-boot' of https://github.com/thoughtbot/capybara-webkit
-b9cbd4aa3a727bdd2af8c9bff310e7cceabfcd75		branch 'gb-mouse-event-coordinates' of https://github.com/thoughtbot/capybara-webkit
-a43244037112bcc48f39e616a2428c4cb7548f2e		branch 'gbw-code-climate-badge' of https://github.com/thoughtbot/capybara-webkit
-bec3bfc73ab8bc16c49bb4a3bd8faed6cd70f62f		branch 'jf-4-8' of https://github.com/thoughtbot/capybara-webkit
-f3fd2e9e7562be7003e69aadc6d6ab73663e49c2		branch 'jf-faster-attach-check' of https://github.com/thoughtbot/capybara-webkit
-fa8e377784ef1a44ae2c59b436625ccb750ba9f8		branch 'jf-release-1.1.0' of https://github.com/thoughtbot/capybara-webkit
-129aabb479a5a52b5583f33cbaa18ff356d17244		branch 'jf-update-capybara' of https://github.com/thoughtbot/capybara-webkit
-ef3122a26d29ff5a721657fac2f5f1aef6c26585		branch 'jm-crash' of https://github.com/thoughtbot/capybara-webkit
-c1b501ca525532d261ded8d3c0c6408716a1f8ef		branch 'master' of https://github.com/thoughtbot/capybara-webkit
-b7b728aceb02f6073e4b98301e4d4aa0bf0fd16b		branch 'mf-document-setting-headers' of https://github.com/thoughtbot/capybara-webkit
-eee6437a0db5292fc6a9566ea18d6c9f415c3418		branch 'mm-authentication' of https://github.com/thoughtbot/capybara-webkit
-1a28da89addbf9fe111538e768e4b8a7e80b005e		branch 'mm-dates' of https://github.com/thoughtbot/capybara-webkit
-250e4313ff1a576524e46d6cc09358adc9eee66a		branch 'mm-make' of https://github.com/thoughtbot/capybara-webkit
-5c8e518559f15e514d46de00c8a532add5d1c315		branch 'mm-makefile-clean' of https://github.com/thoughtbot/capybara-webkit
-51c4dfe1414a9b1620dfb61db456646f51a782dd		branch 'mm-mouse-events' of https://github.com/thoughtbot/capybara-webkit
-81ad8fd130437149d843191893550160cd6ec6c3		branch 'mm-session-spec-with-javascript' of https://github.com/thoughtbot/capybara-webkit
-a4107f231dff1ee7703c90548c62695e60615cde		branch 'mm-strip-and-normalize-spaces' of https://github.com/thoughtbot/capybara-webkit
+798268f0db384e72a044118ada57566310db79da		branch 'jf-support-fewer-capybara-versions' of https://github.com/thoughtbot/capybara-webkit
+4d898b453634d323058b2a66a09d8ee4f2a2e32c		branch 'master' of https://github.com/thoughtbot/capybara-webkit
 fc201479bcaafbeb9e7bebe72864e07e17c9e487		branch 'no-server' of https://github.com/thoughtbot/capybara-webkit
 226f34566a76e63f1e443e7535fb493d803a9b33		branch 'pause_and_show' of https://github.com/thoughtbot/capybara-webkit
-6000c99d417e60aef712f20f933d048ef2821f25		branch 'ps-use-multi-json' of https://github.com/thoughtbot/capybara-webkit
-e3248b7946e38fd291c9c3cce0c481beede37f02		branch 'reraise_exceptions' of https://github.com/thoughtbot/capybara-webkit
-02f2a8ab73a2e69eb023ba1d48ee4000360cd213		branch 'revert_visibility_changes' of https://github.com/thoughtbot/capybara-webkit
-a7eb033780b419215184585d43a6e4f1943fa4ca		branch 'v0.14.x' of https://github.com/thoughtbot/capybara-webkit
+5ad7a5b92751458b8afb597252e557a101444a2a		branch 'split-large-classes' of https://github.com/thoughtbot/capybara-webkit
 0d2347eac351984db4a297f161837a6a4a61a469	not-for-merge	tag '0.11.0.4' of https://github.com/thoughtbot/capybara-webkit
 01b50b717816f3a61d4685e240515a825c18328d	not-for-merge	tag '0.11.0.5' of https://github.com/thoughtbot/capybara-webkit
 a37c8e051e4a7d55bb1d456156e8b66139deae8a	not-for-merge	tag '0.11.0.7' of https://github.com/thoughtbot/capybara-webkit
@@ -65,3 +44,5 @@ bf27d10ea85dcf4790a460c513be467cf2822c52	not-for-merge	tag 'v1.1.0' of https://g
 743fd31a380f75ab4b3568fae6aa3030361a4049	not-for-merge	tag 'v1.1.1' of https://github.com/thoughtbot/capybara-webkit
 3e298fe501e54078bbd410ecca77fecc0e533027	not-for-merge	tag 'v1.2.0' of https://github.com/thoughtbot/capybara-webkit
 3099d859a3b16e98715360ea1317204b96ee7454	not-for-merge	tag 'v1.3.0' of https://github.com/thoughtbot/capybara-webkit
+e9575d815dbd6efd8aa62403e8a8987111e60673	not-for-merge	tag 'v1.3.1' of https://github.com/thoughtbot/capybara-webkit
+2d857588ce932183561967d06612490589ab9f24	not-for-merge	tag 'v1.4.0' of https://github.com/thoughtbot/capybara-webkit
