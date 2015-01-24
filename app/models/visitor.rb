@@ -5,6 +5,9 @@ class Visitor < ActiveRecord::Base
   belongs_to :organization
   belongs_to :website
 
+  enum smart_invite_status: [:not_seen, :seen_popup]
+  enum agent_invite_status: [:not_sent, :agent_sent, :visitor_seen]
+
   enum status: [:no_chat, :waiting_to_chat, :in_chat, :chat_ended, :offsite]
 
   before_save :titleize_name
