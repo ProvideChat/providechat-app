@@ -274,6 +274,8 @@ ActiveRecord::Schema.define(version: 20150108232513) do
     t.string   "email",               default: ""
     t.string   "department",          default: ""
     t.string   "question",            default: ""
+    t.string   "smart_invite_status", default: ""
+    t.integer  "agent_invite_status", default: 0
     t.datetime "last_ping"
     t.integer  "page_views",          default: 0
     t.string   "current_page",        default: ""
@@ -288,7 +290,6 @@ ActiveRecord::Schema.define(version: 20150108232513) do
     t.string   "browser_version",     default: ""
     t.string   "operating_system",    default: ""
     t.string   "screen_resolution",   default: ""
-    t.string   "smart_invite_status", default: ""
     t.string   "operator_invite",     default: ""
     t.string   "ip_address",          default: ""
     t.string   "latitude",            default: ""

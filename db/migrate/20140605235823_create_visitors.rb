@@ -8,6 +8,8 @@ class CreateVisitors < ActiveRecord::Migration
       t.string :email, :default => ''
       t.string :department, :default => ''
       t.string :question, :default => ''
+      t.integer :smart_invite_status, :default => 0
+      t.integer :agent_invite_status, :default => 0
       t.timestamp :last_ping
       t.integer :page_views, :default => 0
       t.string :current_page, :default => ''
