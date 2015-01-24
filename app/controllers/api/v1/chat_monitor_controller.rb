@@ -130,16 +130,31 @@ module Api
               'success' => 'true'
             }
 
-          when "get_visitor_typing"
+          when "update_agent_keypress"
 
             chat_id = params[:chat_id]
+            typing = params[:typing]
 
             chat = Chat.find(chat_id)
+            chat.agent_typing = typing
+            chat.save
 
             response = {
               'chat_id' => chat_id,
-              'visitor_name' => chat.visitor_name,
-              'visitor_typing' => chat.visitor_typing
+              'success' => 'true'
+            }
+
+          when "send_chat_invite"
+
+            visitor_id = params[:visitor_id]
+
+            visitor = Visitor.find(visitor_id)
+            visitor.agent_invite_status = 'agent_sent'
+            visitor.save
+
+            response = {
+              'visitor_id' => visitor_id,
+              'visitor_name' => chat.visitor_name
             }
 
           when "agent_message"
