@@ -9,6 +9,11 @@
       <div style="float: left; margin-left: 10px;">
         <p style="font-weight: bold; font-size: 16px; margin-top: 0px;">Connecting...</p>
       </div>
+      <% if @chat_widget.logo? && @chat_widget.display_logo? %>
+        <div id="logo-image-container">
+          <img src="http://widget.providechat.com/images/silhouette.png">
+        </div>
+      <% end %>      
     </div>
 
     <div style="text-align: center; margin-top: 80px;">
@@ -20,7 +25,7 @@
 
 <div id="in-chat" style="display: none;">
 
-  <div class="chat-widget-container" style="height: 325px;">
+  <div class="chat-widget-container" style="height: 330px;">
 
     <div class="agent-area">
       <div style="float: left;">
@@ -30,6 +35,11 @@
         <div id="agent-name"></div>
         <div id="typing-notification"></div>
       </div>
+      <% if @chat_widget.logo? && @chat_widget.display_logo? %>
+        <div id="logo-image-container">
+          <img src="http://widget.providechat.com/images/silhouette.png">
+        </div>
+      <% end %>
     </div>
 
     <div style="background-color: #3B3B3B; width: 392px; height: 30px; position: absolute; right: 4px; border-top: 1px solid #000000; border-bottom: 1px solid #000000; display:none;">
