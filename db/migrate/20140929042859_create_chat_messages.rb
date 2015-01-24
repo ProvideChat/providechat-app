@@ -9,7 +9,7 @@ class CreateChatMessages < ActiveRecord::Migration
       t.boolean :seen_by_visitor, :default => false
       t.text :message
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

@@ -16,7 +16,7 @@ class CreateChats < ActiveRecord::Migration
       t.string :visitor_question, :default => ''
       t.integer :status
 
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_index :chats, :organization_id

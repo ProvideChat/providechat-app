@@ -6,7 +6,7 @@ class CreateDepartments < ActiveRecord::Migration
       t.string :email
       t.integer :website_id
 
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_index :departments, :organization_id

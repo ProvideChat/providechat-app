@@ -9,7 +9,7 @@ class CreateOfflineMessages < ActiveRecord::Migration
       t.string :department
       t.text :message
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

@@ -13,7 +13,7 @@ class CreateChatWidgets < ActiveRecord::Migration
       t.boolean :display_agent_avatar
       t.boolean :display_mobile_icon
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

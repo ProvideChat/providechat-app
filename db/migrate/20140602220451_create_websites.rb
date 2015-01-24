@@ -9,7 +9,7 @@ class CreateWebsites < ActiveRecord::Migration
       t.boolean :smart_invites
       t.string :smart_invite_mode
 
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_index :websites, :organization_id

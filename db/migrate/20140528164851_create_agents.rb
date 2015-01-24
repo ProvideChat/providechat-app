@@ -39,7 +39,7 @@ class CreateAgents < ActiveRecord::Migration
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
 
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_index :agents, :organization_id

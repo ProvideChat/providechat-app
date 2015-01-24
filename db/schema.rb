@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20150108232513) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "admins", force: true do |t|
+  create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -30,14 +30,14 @@ ActiveRecord::Schema.define(version: 20150108232513) do
     t.integer  "failed_attempts",        default: 0,  null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
 
-  create_table "agents", force: true do |t|
+  create_table "agents", force: :cascade do |t|
     t.integer  "organization_id"
     t.string   "name",                   default: "", null: false
     t.string   "display_name",           default: "", null: false
@@ -58,29 +58,29 @@ ActiveRecord::Schema.define(version: 20150108232513) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   add_index "agents", ["email"], name: "index_agents_on_email", unique: true, using: :btree
   add_index "agents", ["organization_id"], name: "index_agents_on_organization_id", using: :btree
   add_index "agents", ["reset_password_token"], name: "index_agents_on_reset_password_token", unique: true, using: :btree
 
-  create_table "agents_departments", id: false, force: true do |t|
+  create_table "agents_departments", id: false, force: :cascade do |t|
     t.integer "agent_id",      null: false
     t.integer "department_id", null: false
   end
 
   add_index "agents_departments", ["agent_id", "department_id"], name: "index_agents_departments_on_agent_id_and_department_id", using: :btree
 
-  create_table "agents_websites", id: false, force: true do |t|
+  create_table "agents_websites", id: false, force: :cascade do |t|
     t.integer "agent_id",   null: false
     t.integer "website_id", null: false
   end
 
   add_index "agents_websites", ["agent_id", "website_id"], name: "index_agents_websites_on_agent_id_and_website_id", using: :btree
 
-  create_table "chat_messages", force: true do |t|
+  create_table "chat_messages", force: :cascade do |t|
     t.integer  "chat_id"
     t.string   "user_name"
     t.integer  "sender"
@@ -88,11 +88,11 @@ ActiveRecord::Schema.define(version: 20150108232513) do
     t.boolean  "seen_by_agent",   default: false
     t.boolean  "seen_by_visitor", default: false
     t.text     "message"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
-  create_table "chat_widgets", force: true do |t|
+  create_table "chat_widgets", force: :cascade do |t|
     t.integer  "organization_id"
     t.integer  "website_id"
     t.string   "online_message"
@@ -104,11 +104,11 @@ ActiveRecord::Schema.define(version: 20150108232513) do
     t.boolean  "display_logo"
     t.boolean  "display_agent_avatar"
     t.boolean  "display_mobile_icon"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
-  create_table "chats", force: true do |t|
+  create_table "chats", force: :cascade do |t|
     t.integer  "organization_id"
     t.integer  "website_id"
     t.integer  "visitor_id"
@@ -123,36 +123,38 @@ ActiveRecord::Schema.define(version: 20150108232513) do
     t.string   "visitor_department", default: ""
     t.string   "visitor_question",   default: ""
     t.integer  "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   add_index "chats", ["organization_id"], name: "index_chats_on_organization_id", using: :btree
   add_index "chats", ["website_id"], name: "index_chats_on_website_id", using: :btree
 
-  create_table "departments", force: true do |t|
+  create_table "departments", force: :cascade do |t|
     t.integer  "organization_id"
     t.string   "name"
     t.string   "email"
     t.integer  "website_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   add_index "departments", ["organization_id"], name: "index_departments_on_organization_id", using: :btree
 
-  create_table "invitations", force: true do |t|
+  create_table "invitations", force: :cascade do |t|
     t.integer  "organization_id"
     t.integer  "website_id"
     t.string   "invitation_message"
+    t.string   "name_text"
+    t.string   "button_text"
     t.integer  "invite_mode"
     t.integer  "invite_pageviews"
     t.integer  "invite_seconds"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
-  create_table "offline_forms", force: true do |t|
+  create_table "offline_forms", force: :cascade do |t|
     t.integer  "organization_id"
     t.integer  "website_id"
     t.string   "intro_text"
@@ -164,11 +166,11 @@ ActiveRecord::Schema.define(version: 20150108232513) do
     t.string   "message_text"
     t.string   "button_text"
     t.text     "success_message"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
-  create_table "offline_messages", force: true do |t|
+  create_table "offline_messages", force: :cascade do |t|
     t.integer  "organization_id"
     t.integer  "website_id"
     t.integer  "visitor_id"
@@ -176,11 +178,11 @@ ActiveRecord::Schema.define(version: 20150108232513) do
     t.string   "email"
     t.string   "department"
     t.text     "message"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
-  create_table "organizations", force: true do |t|
+  create_table "organizations", force: :cascade do |t|
     t.integer  "account_type",           default: 0,  null: false
     t.integer  "max_agents",             default: 1
     t.integer  "payment_system",         default: 0
@@ -188,11 +190,11 @@ ActiveRecord::Schema.define(version: 20150108232513) do
     t.integer  "agent_response_timeout", default: 2
     t.boolean  "completed_setup"
     t.integer  "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
-  create_table "prechat_forms", force: true do |t|
+  create_table "prechat_forms", force: :cascade do |t|
     t.integer  "organization_id"
     t.integer  "website_id"
     t.string   "intro_text"
@@ -203,26 +205,26 @@ ActiveRecord::Schema.define(version: 20150108232513) do
     t.boolean  "department_enabled"
     t.string   "message_text"
     t.string   "button_text"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
-  create_table "rapid_responses", force: true do |t|
+  create_table "rapid_responses", force: :cascade do |t|
     t.integer  "organization_id"
     t.integer  "website_id",      default: 0
     t.string   "name"
     t.string   "text"
     t.integer  "order"
     t.string   "ancestry"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   add_index "rapid_responses", ["ancestry"], name: "index_rapid_responses_on_ancestry", using: :btree
   add_index "rapid_responses", ["organization_id"], name: "index_rapid_responses_on_organization_id", using: :btree
   add_index "rapid_responses", ["website_id"], name: "index_rapid_responses_on_website_id", using: :btree
 
-  create_table "visitor_archives", force: true do |t|
+  create_table "visitor_archives", force: :cascade do |t|
     t.integer  "organization_id"
     t.integer  "website_id",          default: 0
     t.integer  "chat_id",             default: 0
@@ -258,13 +260,13 @@ ActiveRecord::Schema.define(version: 20150108232513) do
     t.string   "metro_code",          default: ""
     t.string   "zipcode",             default: ""
     t.integer  "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
   add_index "visitor_archives", ["organization_id"], name: "index_visitor_archives_on_organization_id", using: :btree
 
-  create_table "visitors", force: true do |t|
+  create_table "visitors", force: :cascade do |t|
     t.integer  "organization_id"
     t.integer  "website_id",          default: 0
     t.integer  "chat_id",             default: 0
@@ -300,15 +302,14 @@ ActiveRecord::Schema.define(version: 20150108232513) do
     t.string   "metro_code",          default: ""
     t.string   "zipcode",             default: ""
     t.integer  "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
-  add_index "visitors", ["chat_id"], name: "index_visitors_on_chat_id", using: :btree
   add_index "visitors", ["organization_id"], name: "index_visitors_on_organization_id", using: :btree
   add_index "visitors", ["website_id"], name: "index_visitors_on_website_id", using: :btree
 
-  create_table "websites", force: true do |t|
+  create_table "websites", force: :cascade do |t|
     t.integer  "organization_id"
     t.string   "url",               default: "", null: false
     t.string   "name",              default: "", null: false
@@ -316,8 +317,8 @@ ActiveRecord::Schema.define(version: 20150108232513) do
     t.datetime "last_ping"
     t.boolean  "smart_invites"
     t.string   "smart_invite_mode"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   add_index "websites", ["organization_id"], name: "index_websites_on_organization_id", using: :btree

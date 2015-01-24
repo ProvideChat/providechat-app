@@ -13,7 +13,7 @@ class CreateOfflineForms < ActiveRecord::Migration
       t.string :button_text
       t.text :success_message
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

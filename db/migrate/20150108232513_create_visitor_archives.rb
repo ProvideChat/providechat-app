@@ -37,7 +37,7 @@ class CreateVisitorArchives < ActiveRecord::Migration
       t.string :zipcode, :default => ''
       t.integer :status
 
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_index :visitor_archives, :organization_id

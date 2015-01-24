@@ -12,7 +12,7 @@ class CreateOrganizations < ActiveRecord::Migration
 
       t.integer :status
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

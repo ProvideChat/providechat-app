@@ -8,7 +8,7 @@ class CreateRapidResponses < ActiveRecord::Migration
       t.integer :order
       t.string :ancestry
 
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_index :rapid_responses, :organization_id

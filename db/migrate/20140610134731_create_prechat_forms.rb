@@ -12,7 +12,7 @@ class CreatePrechatForms < ActiveRecord::Migration
       t.string :message_text
       t.string :button_text
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end
