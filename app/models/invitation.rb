@@ -8,7 +8,9 @@ class Invitation < ActiveRecord::Base
   private
   
   def set_defaults
-    self.invitation_message = "Hi there, is there anything I can help you with today?"
+    self.invitation_message = "Hi there, is there anything I can help you with today? To start chatting, just enter your name and click the button below."
+    self.name_text = "Your name"
+    self.button_text = "Start chatting"
     self.invite_mode = "page_views"
     self.invite_pageviews = 3
     self.invite_seconds = 15

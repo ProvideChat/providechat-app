@@ -13,6 +13,7 @@ class InvitationsController < ApplicationController
 
   def edit
     @invitation = Invitation.find(params[:id])
+    @chat_widget = ChatWidget.find_by(:website_id => @invitation.website_id)
   end
 
   def update
@@ -32,6 +33,6 @@ class InvitationsController < ApplicationController
   end
 
   def invitation_params
-    params.require(:invitation).permit(:organization_id, :website_id, :invitation_message, :invite_mode, :invite_pageviews, :invite_seconds)
+    params.require(:invitation).permit(:organization_id, :website_id, :invitation_message, :name_text, :button_text, :invite_mode, :invite_pageviews, :invite_seconds)
   end
 end
