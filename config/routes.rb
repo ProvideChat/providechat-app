@@ -14,8 +14,6 @@ Rails.application.routes.draw do
   resources :agents, only: [:index, :new, :edit, :create, :update, :destroy]
   resources :rapid_responses, only: [:index, :new, :edit, :create, :update, :destroy]
 
-  resources :widgets, only: [:index]
-
   resources :offline_forms, only: [:index, :edit, :update]
   resources :prechat_forms, only: [:index, :edit, :update]
   resources :chat_widgets, only: [:index, :edit, :update]
@@ -37,6 +35,7 @@ Rails.application.routes.draw do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
       resources :agents, only: [:update]
       resources :chat_monitor, only: [:index, :update]
+      resources :widgets, only: [:index]
     end
   end
 end
