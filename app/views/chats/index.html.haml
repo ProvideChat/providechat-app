@@ -19,23 +19,4 @@
 
 = render partial: 'layouts/flash_messages', flash: flash
 
-%h3 Chat Transcript Results
-
-.row
-  .col-sm-12.col-md-12.col-lg-12
-    %table.table.table-striped.table-bordered.table-hover
-      %thead
-        %tr
-          %th Ticket ID
-          %th Agent
-          %th Website
-          %th Visitor Name
-          %th Chat Accepted
-          %th Department
-      %tbody
-        = render(@chats) || render('no_chats')
-
-:javascript
-  $('tr').click( function() {
-    window.location = $(this).find('a').attr('href');
-  });
+%div{id: "search_results"}

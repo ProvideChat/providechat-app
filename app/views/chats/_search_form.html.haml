@@ -1,4 +1,4 @@
-= form_tag chats_path, :method => 'get', class: 'form-horizontal' do
+= form_tag chats_path, :method => 'get', class: 'form-horizontal', remote: true do
   %fieldset
     .form-group
       %label.col-md-3.control-label Ticket ID
@@ -31,13 +31,13 @@
         Date Range
       .col-md-4
         .input-group
-          %input#from-date.form-control.hasDatepicker{"data-dateformat" => "dd/mm/yy", :placeholder => "From", :type => "text"}/
+          %input#from-date.form-control.hasDatepicker{"data-date-format" => "yyyy/mm/dd", :placeholder => "From", :type => "text", :name => "from_date"}
           %span.input-group-addon
             %i#from-date-icon.fa.fa-calendar
       .col-md-1
       .col-md-4
         .input-group
-          %input#to-date.form-control.hasDatepicker{"data-dateformat" => "dd/mm/yy", :placeholder => "To", :type => "text"}/
+          %input#to-date.form-control.hasDatepicker{"data-date-format" => "yyyy/mm/dd", :placeholder => "To", :type => "text", :name => "to_date"}
           %span.input-group-addon
             %i#to-date-icon.fa.fa-calendar
   .widget-footer
