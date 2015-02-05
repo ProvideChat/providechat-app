@@ -3,30 +3,28 @@
 
   %fieldset
     .form-group
-      %label.col-md-4.control-label= f.label :name
-      .col-md-5
+      %label.col-md-5.control-label= f.label :name
+      .col-md-4
         .input-group{style: "width: 100%;"}
-          = f.text_field :name, :class => "form-control"
+          = f.text_field :name, :class => "form-control", :value => current_agent.name
 
     .form-group
-      %label.col-md-4.control-label Your Email
-      .col-md-5
+      %label.col-md-5.control-label Email
+      .col-md-4
         .input-group{style: "width: 100%;"}
-          = f.text_field :email, :class => "form-control"
+          = f.text_field :email, :class => "form-control", :value => current_agent.email
 
     .form-group
-      %label.col-md-4.control-label Issue subject
-      .col-md-5
+      %label.col-md-5.control-label What are you contacting us about?
+      .col-md-4
         .input-group{style: "width: 100%;"}
-          = f.select :subject, options_for_select([['Bug Report'], ['Question']]), {}, { :class => "form-control" }
-          .help-text{style: "font-size: 10px;"}
-            This department will be available on these websites
+          = f.select :subject, options_for_select([['Bug Report'], ['Customer Support'], ['Feature Request'], ['General Inquiry'], ['Sales'], ['Billing'], ['Other']]), {}, { :class => "form-control" }
 
     .form-group
-      %label.col-md-4.control-label Please tell us the details of your issue
-      .col-md-7
+      %label.col-md-5.control-label Please provide us as much detail of your issue as possible.
+      .col-md-6
         .input-group{style: "width: 100%;"}
-          = f.text_area :message, :class => "form-control"
+          = f.text_area :message, :class => "form-control", :style => "height: 200px;"
 
   .widget-footer
-    = f.submit "Send Message", :class => "btn btn-primary"
+    = f.submit "Send Support Request", :class => "btn btn-primary"
