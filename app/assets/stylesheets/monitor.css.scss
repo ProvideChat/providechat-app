@@ -100,6 +100,7 @@ ul.nav-tabs {
 ul.nav-tabs li:not(.active) {
   border-left: #cccccc 1px solid;
   border-right: #cccccc 1px solid;
+  border-top: #cccccc 1px solid;
   border-bottom: #dddddd 2px solid;
   background-color: #efefef;
 }
@@ -109,7 +110,7 @@ ul.nav-tabs li:not(.active) {
   z-index: 100;
 }
 .nav-tabs li.active a {
-  padding-bottom: 11px;
+  padding-bottom: 12px;
 }
 
 .nav-tabs li a {
