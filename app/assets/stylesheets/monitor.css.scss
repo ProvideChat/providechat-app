@@ -95,18 +95,28 @@
 
 ul.nav-tabs {
   margin-left: 10px;
-  border-left: #cccccc 1px solid;
 }
 
 ul.nav-tabs li:not(.active) {
+  border-left: #cccccc 1px solid;
   border-right: #cccccc 1px solid;
   border-bottom: #dddddd 2px solid;
+  background-color: #efefef;
 }
 .nav-tabs li.active {
-  border-top: #ffffff 1px solid;
-  margin-top: -3px;
+  margin-top: -2px;
   margin-right: 0px;
   z-index: 100;
+}
+.nav-tabs li.active a {
+  padding-bottom: 11px;
+}
+
+.nav-tabs li a {
+  margin-right: 0px;
+}
+ul.nav-tabs li a:hover {
+  background-color: #ffffff;
 }
 
 .no-chats {
@@ -192,10 +202,12 @@ ul.nav-tabs li:not(.active) {
 .typearea {
   border-bottom: none;
   padding: 5px;
+  height: 61px;
 }
 
 .typearea textarea {
   width: 100%;
+  min-height: 46px;
 }
 .textarea-controls {
   //background-color: rgba(248, 248, 248, 0.9);
