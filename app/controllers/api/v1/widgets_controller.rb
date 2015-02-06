@@ -34,12 +34,40 @@ module Api
             visitor.chat_id = chat.id
             visitor.save
 
+            chat_widget = ChatWidget.find_by(:website_id => website_id)
             response = {
               'chat_id' => chat.id,
               'html' => render_to_string(
                           partial: 'chat_widget.html.erb',
                           :layout => false,
-                          :locals => { :org_id => org_id }
+                          :locals => { :chat_widget => chat_widget }
+                        )
+            }
+
+          when "process_invitation"
+            chat = Chat.create(organization_id: @organization.id, website_id: website_id, visitor_id: params[:visitor_id],
+                                chat_requested: DateTime.now, chat_accepted: DateTime.now,
+                                visitor_name: params[:name],
+                                visitor_email: '', visitor_department: params[:department],
+                                visitor_question: '', status: "in_progress")
+
+            visitor = Visitor.find(params[:visitor_id])
+            visitor.name = params[:name]
+            visitor.status = 'in_chat';
+            visitor.chat_id = chat.id
+            visitor.save
+
+            chat.agent_id = visitor.invite_agent_id
+            chat.save
+
+            chat_widget = ChatWidget.find_by(:website_id => website_id)
+
+            response = {
+              'chat_id' => chat.id,
+              'html' => render_to_string(
+                          partial: 'chat_widget.html.erb',
+                          :layout => false,
+                          :locals => { :chat_widget => chat_widget }
                         )
             }
 
@@ -174,13 +202,18 @@ module Api
                         )
             }
           when "get_invitation"
+            visitor = Visitor.find(params[:visitor_id])
+            visitor.process_invitation
+
+            agent = Agent.find(visitor.invite_agent_id)
             invitation = Invitation.find_by(:website_id => website_id)
             chat_widget = ChatWidget.find_by(:website_id => website_id)
+
             response = {
               'html' => render_to_string(
                           partial: 'invitation.html.erb',
                           :layout => false,
-                          :locals => { :invitation => invitation, :chat_widget => chat_widget }
+                          :locals => { :invitation => invitation, :chat_widget => chat_widget, :agent => agent }
                         )
             }
           when "get_in_chat"
@@ -212,7 +245,10 @@ module Api
             visitor.last_ping = DateTime.now
             visitor.save
 
-            response = { 'agent_status' => @organization.agent_status }
+            response = { 
+              'agent_status' => @organization.agent_status,
+              'invite_sent' => visitor.invite_sent
+            }
           when "initialize"
             session = JSON.parse(params[:session])
             logger.debug "SESSION DETAILS: #{session}"

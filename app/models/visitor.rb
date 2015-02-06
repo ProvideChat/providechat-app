@@ -17,6 +17,16 @@ class Visitor < ActiveRecord::Base
     Visitor.where("organization_id = ? AND status IN (?) AND last_ping > ?", current_agent.organization_id, active, 2.minutes.ago)
   end
 
+  def process_invitation
+    self.smart_invite_status = :seen_popup
+    self.agent_invite_status = :visitor_seen
+    self.save
+  end
+
+  def invite_sent
+    self.agent_invite_status == 'agent_sent' ? true : false
+  end
+
 #  t.integer  "organization_id"
 #  t.integer  "website_id"
 #  t.string   "name"

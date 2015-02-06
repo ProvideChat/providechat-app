@@ -188,7 +188,7 @@
       var visitor_content = '<div class="content"><%= image_tag "monitor/current-chat.png", class: "visitor-image" %>';
       visitor_content += '<span class="visitor-name">' + visitor.name + '</span>&nbsp;&nbsp;';
       visitor_content += '<span class="visitor-detail" id="visitor-detail-' + visitor.id + '">' + visitor.status_extended + '</span>';
-      visitor_content += '<div class="visitor-detail" id="visitor-last-message-' + visitor.id + ' ">' + visitor.last_message + '</div></div>';
+      visitor_content += '<div class="visitor-detail" id="visitor-last-message-' + visitor.id + '">' + visitor.last_message + '</div></div>';
       visitor_content += '<div class="button"><a href="javascript:void(0);" id="view_visitor_' + visitor.id + '" data-visitor-id="' + visitor.id + '" data-chat-id="' + visitor.chat_id + '" data-visitor-name="' + visitor.name + '" data-chat-status="' + visitor.chat.status + '" class="btn btn-default btn-xs" style="float: right;"><i class="fa fa-user"></i> View</a></div>';
 
       $('#current-chat-container').append("<div id='in-chat-visitor-" + visitor.id + "' class='visitor-snapshot'>" + visitor_content + "</div>");
@@ -248,6 +248,11 @@
       visitor_content += '<div class="button"><a href="javascript:void(0);" id="invite_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs" style="float: right;"><i class="fa fa-external-link"></i> Invite</a></div>';
 
       $('#visitor-container').append("<div class='visitor-snapshot' id='no-chat-visitor-" + visitor.id + "'>" + visitor_content + "</div>");
+
+      $('#invite_chat_' + visitor.id).click(function() {
+        $(this).hide();
+        invite_chat($(this).data("visitor-id"));
+      });
     }
   }
 
@@ -383,11 +388,22 @@
     });
   }
 
-  function accept_chat( visitor_id ) {
+  function invite_chat( visitor_id ) {
 
-    var msg = 'Chat has begun, click end chat button when done';
-    var title = 'Chat Initiated';
-    //displayMessage(title, msg);
+    var json_data = { "method": 'send_chat_invite', "agent_id": ProvideChat.agent_id, "visitor_id": visitor_id };
+
+    $.getJSON("/api/chat_monitor.json", json_data, function (response) {
+      if (response.success == true) {
+        $.bigBox({
+          title : "Chat invitation sent to visitor",
+          color : "#296191",
+          timeout: 4000
+        });
+      }
+    });
+  }
+
+  function accept_chat( visitor_id ) {
 
     var json_data = { "method": 'accept_chat', "agent_id": ProvideChat.agent_id, "visitor_id": visitor_id, "agent_name": ProvideChat.agent_name };
 

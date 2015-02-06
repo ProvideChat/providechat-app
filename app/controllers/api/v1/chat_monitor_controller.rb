@@ -147,14 +147,16 @@ module Api
           when "send_chat_invite"
 
             visitor_id = params[:visitor_id]
+            agent_id = params[:agent_id]
 
             visitor = Visitor.find(visitor_id)
             visitor.agent_invite_status = 'agent_sent'
+            visitor.invite_agent_id = agent_id
             visitor.save
 
             response = {
               'visitor_id' => visitor_id,
-              'visitor_name' => chat.visitor_name
+              'success' => 'true'
             }
 
           when "agent_message"
