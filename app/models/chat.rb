@@ -40,7 +40,12 @@ class Chat < ActiveRecord::Base
   end
 
   def last_message(sender)
-    self.chat_messages.where(sender: sender).last.message
+    messages = self.chat_messages.where(sender: sender)
+    if messages.length > 0
+      messages.last.message
+    else
+      ""
+    end
   end
 
   def email_transcript(transcript_email)
