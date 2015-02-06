@@ -10,6 +10,7 @@ class CreateVisitors < ActiveRecord::Migration
       t.string :question, :default => ''
       t.integer :smart_invite_status, :default => 0
       t.integer :agent_invite_status, :default => 0
+      t.integer :invite_agent_id, :default => 0
       t.timestamp :last_ping
       t.integer :page_views, :default => 0
       t.string :current_page, :default => ''

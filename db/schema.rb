@@ -276,6 +276,7 @@ ActiveRecord::Schema.define(version: 20150108232513) do
     t.string   "question",            default: ""
     t.string   "smart_invite_status", default: ""
     t.integer  "agent_invite_status", default: 0
+    t.integer  "invite_agent_id",     default: 0
     t.datetime "last_ping"
     t.integer  "page_views",          default: 0
     t.string   "current_page",        default: ""
