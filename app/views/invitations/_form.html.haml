@@ -6,11 +6,11 @@
       .col-md-9
         = f.text_area :invitation_message, :class => "form-control message-field", :style => "height: 90px;"
     .form-group
-      %label.col-md-3.control-label= f.label :name_field, "Name field"
+      %label.col-md-3.control-label= f.label :name_text, "Name field"
       .col-md-9
         = f.text_field :name_text, :class => "form-control"
     .form-group
-      %label.col-md-3.control-label= f.label :name_field, "Start chat button"
+      %label.col-md-3.control-label= f.label :button_text, "Start chat button"
       .col-md-9
         = f.text_field :button_text, :class => "form-control"
   %fieldset
@@ -30,7 +30,7 @@
         .form-inline
           %label
             = f.radio_button :invite_mode, "seconds", :class => "radio radio-inline"
-            Invite after 
+            Invite after
             #{f.text_field :invite_seconds, :placeholder => "Seconds", :class => "form-control", :style => "width: 40px;"} seconds.
     .form-group
       .col-md-3
@@ -38,12 +38,12 @@
         %label
           = f.radio_button :invite_mode, "no_invite", :class => "radio radio-inline", checked: @invitation.invite_mode == 'no_invite'
           Do not invite visitors to chat.
-  
+
   %hr
-  
+
   %footer
     = f.submit "Apply Changes", :class => "btn btn-primary"
-    
+
   %hr
 
 :javascript
