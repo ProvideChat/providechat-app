@@ -173,6 +173,16 @@ module Api
                           :locals => { :pre_chat_form => pre_chat_form, :org_id => org_id, :website_id => website_id }
                         )
             }
+          when "get_invitation"
+            invitation = Invitation.find_by(:website_id => website_id)
+            chat_widget = ChatWidget.find_by(:website_id => website_id)
+            response = {
+              'html' => render_to_string(
+                          partial: 'invitation.html.erb',
+                          :layout => false,
+                          :locals => { :invitation => invitation, :chat_widget => chat_widget }
+                        )
+            }
           when "get_in_chat"
             chat_widget = ChatWidget.find_by(:website_id => website_id)
             response = {
