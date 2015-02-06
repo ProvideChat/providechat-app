@@ -171,14 +171,15 @@
 
     if ($("#in-chat-visitor-" + visitor.id).length > 0) {
       $("#visitor-detail-" + visitor.id).html(visitor.status_extended);
+      $("#visitor-last-message-" + visitor.id).html(visitor.last_message);
     } else {
-      var visitor_content = '<%= image_tag "monitor/current-chat.png", class: "visitor-image" %>';
+      var visitor_content = '<div class="content"><%= image_tag "monitor/current-chat.png", class: "visitor-image" %>';
       visitor_content += '<span class="visitor-name">' + visitor.name + '</span>&nbsp;&nbsp;';
-      visitor_content += '<span class="visitor-detail" id="visitor-detail-' + visitor.id + '">' + visitor.status_extended + '</span>&nbsp;&nbsp;';
-      visitor_content += '<a href="javascript:void(0);" id="view_visitor_' + visitor.id + '" data-visitor-id="' + visitor.id + '" data-chat-id="' + visitor.chat_id + '" data-visitor-name="' + visitor.name + '" data-chat-status="' + visitor.chat.status + '" class="btn btn-default btn-xs" style="float: right;"><i class="fa fa-user"></i> View</a>';
+      visitor_content += '<span class="visitor-detail" id="visitor-detail-' + visitor.id + '">' + visitor.status_extended + '</span>';
+      visitor_content += '<div class="visitor-detail" id="visitor-last-message-' + visitor.id + ' ">' + visitor.last_message + '</div></div>';
+      visitor_content += '<div class="button"><a href="javascript:void(0);" id="view_visitor_' + visitor.id + '" data-visitor-id="' + visitor.id + '" data-chat-id="' + visitor.chat_id + '" data-visitor-name="' + visitor.name + '" data-chat-status="' + visitor.chat.status + '" class="btn btn-default btn-xs" style="float: right;"><i class="fa fa-user"></i> View</a></div>';
 
-      $('#current-chat-container').append("<div id='in-chat-visitor-" + visitor.id + "' class='visitor-snapshot'></div>");
-      $("#in-chat-visitor-" + visitor.id).html(visitor_content);
+      $('#current-chat-container').append("<div id='in-chat-visitor-" + visitor.id + "' class='visitor-snapshot'>" + visitor_content + "</div>");
 
       $('#view_visitor_' + visitor.id).click(function() {
         add_new_tab ($(this).data("chat-id"), $(this).data("visitor-id"), $(this).data("visitor-name"), $(this).data("chat-status"));
@@ -208,13 +209,12 @@
       clearInterval(ProvideChat.visitorWaitingTimer);
       ProvideChat.visitorWaitingTimer = setInterval(function(){waitingToChatAlert();}, 12000);
 
-      var visitor_content = '<%= image_tag "monitor/waiting-to-chat.png", class: "visitor-image" %>';
-      visitor_content += '<span class="visitor-name">' + visitor.name + '</span>&nbsp;&nbsp;';
-      visitor_content += '<span class="visitor-detail" id="visitor-detail-' + visitor.id + '">' + visitor.status_extended + '</span>&nbsp;&nbsp;';
-      visitor_content += '<a href="javascript:void(0);" id="accept_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs" style="float: right;"><i class="fa fa-comments-o"></i> Accept</a>';
+      var visitor_content = '<div class="content"><%= image_tag "monitor/waiting-to-chat.png", class: "visitor-image" %>';
+      visitor_content += '<div class="visitor-name">' + visitor.name + '</div>';
+      visitor_content += '<div class="visitor-detail" id="visitor-detail-' + visitor.id + '">' + visitor.status_extended + '</div></div>';
+      visitor_content += '<div class="button"><a href="javascript:void(0);" id="accept_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs" style="float: right;"><i class="fa fa-comments-o"></i> Accept</a></div>';
 
-      $('#waiting-to-chat-container').append("<div id='waiting-to-chat-visitor-" + visitor.id + "' class='visitor-snapshot'></div>");
-      $("#waiting-to-chat-visitor-" + visitor.id).html(visitor_content);
+      $('#waiting-to-chat-container').append("<div class='visitor-snapshot' id='waiting-to-chat-visitor-" + visitor.id + "'>" + visitor_content + "</div>");
 
       $('#accept_chat_' + visitor.id).click(function() {
         $(this).hide();
@@ -229,13 +229,13 @@
       $("#visitor-detail-" + visitor.id).html(visitor.current_page);
     } else {
 
-      var visitor_content = '<%= image_tag "monitor/visitor-browsing.png", class: "visitor-image" %>';
-      visitor_content += '<span class="visitor-location">' + visitor.city + ',' + visitor.country_name + '&nbsp;<img width="20px" height="20px" src="/images/flags/' + visitor.country_code + '.png" style="vertical-align: top;"></span>&nbsp;&nbsp;';
-      //visitor_content += '<span class="visitor-detail" id="visitor-detail-' + visitor.id + '">' + visitor.current_page + '</span>&nbsp;&nbsp;';
-      visitor_content += '<a href="javascript:void(0);" id="invite_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs" style="float: right;"><i class="fa fa-external-link"></i> Invite</a>';
+      var visitor_content = '<div class="content">';
+      visitor_content += '<%= image_tag "monitor/visitor-browsing.png", class: "visitor-image" %>';
+      visitor_content += '<div class="visitor-location">' + visitor.city + ', ' + visitor.country_name + '&nbsp;&nbsp;<img width="16px" height="16px" src="/images/flags/' + visitor.country_code + '.png" style="vertical-align: top;"></div>';
+      visitor_content += '<div class="visitor-detail" id="visitor-detail-' + visitor.id + '">' + visitor.current_page + '</div></div>';
+      visitor_content += '<div class="button"><a href="javascript:void(0);" id="invite_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs" style="float: right;"><i class="fa fa-external-link"></i> Invite</a></div>';
 
-      $('#visitor-container').append("<div id='no-chat-visitor-" + visitor.id + "' class='visitor-snapshot'></div>");
-      $("#no-chat-visitor-" + visitor.id).html(visitor_content);
+      $('#visitor-container').append("<div class='visitor-snapshot' id='no-chat-visitor-" + visitor.id + "'>" + visitor_content + "</div>");
     }
   }
 

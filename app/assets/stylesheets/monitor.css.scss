@@ -43,9 +43,18 @@
 
 .visitor-snapshot {
   display: block;
-  height: 32px;
+  height: 38px;
   padding: 5px 5px;
   border-bottom: 1px dotted #eeeeee;
+}
+.visitor-snapshot .content {
+  width: 80%;
+  overflow: hidden;
+  white-space: nowrap;
+  float: left;
+}
+.visitor-snapshot .button {
+  float: right;
 }
 
 .visitor-snapshot:hover {
@@ -53,8 +62,8 @@
 }
 
 .visitor-image {
-  width: 24px;
-  height: 24px;
+  width: 30px;
+  height: 30px;
   float: left;
   margin-right: 6px;
 }
@@ -62,10 +71,12 @@
 .visitor-name {
   color: #555555;
   font-weight: bold;
+  font-size: .9em;
 }
 
 .visitor-location {
   color: #333333;
+  font-size: .9em;
 }
 
 .visitor-detail {

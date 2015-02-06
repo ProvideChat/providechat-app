@@ -3,6 +3,7 @@ json.array!(@visitors) do |visitor|
   if visitor.chat
     json.chat visitor.chat
     json.agent visitor.chat.agent
+    json.last_message visitor.chat.last_message(visitor.name)
   end
   json.time_since_created time_ago_in_words(visitor.created_at)
   json.url visitor_url(visitor, format: :json)

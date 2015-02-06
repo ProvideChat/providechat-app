@@ -39,6 +39,10 @@ class Chat < ActiveRecord::Base
     visitor.save
   end
 
+  def last_message(sender)
+    self.chat_messages.where(sender: sender).last.message
+  end
+
   def email_transcript(transcript_email)
     require 'mandrill'
 
