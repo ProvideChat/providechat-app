@@ -5,9 +5,21 @@
     <div class="jarviswidget" id="your-chats">
 
       <header role="heading">
-        <h2> <%= current_agent.display_name %></h2>
+        <h2> Current Activity </h2>
         <div class="widget-toolbar">
-          <%= render 'agent_status'%>
+          <div class="btn-group">
+						<button class="btn dropdown-toggle btn-xs btn-default" data-toggle="dropdown">
+							Filter Results <i class="fa fa-caret-down"></i>
+						</button>
+						<ul class="dropdown-menu pull-right">
+							<li>
+								<a href="javascript:void(0);">Option 1</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);">Option 2</a>
+							</li>
+						</ul>
+					</div>
         </div>
       </header>
 

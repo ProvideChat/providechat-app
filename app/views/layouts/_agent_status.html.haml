@@ -1,0 +1,53 @@
+%ul.header-dropdown-list.hidden-xs
+  %li
+    - if current_agent.availability == 'online'
+      %button.btn.dropdown-toggle.btn-sm.btn-default{:id => "agent-status", "data-toggle" => "dropdown", :style => "margin-top: 10px;"}
+        %i.fa.fa-circle.txt-color-green
+        %span{style: "color: #356e35; font-weight: bold;"}
+          You are Online &nbsp;
+        %i.fa.fa-angle-down
+    - else
+      %button.btn.dropdown-toggle.btn-sm.btn-default{:id => "agent-status", "data-toggle" => "dropdown", :style => "margin-top: 10px;"}
+        %i.fa.fa-circle.txt-color-red
+        %span{style: "color: #a90329; font-weight: bold;"}
+          &nbsp; You are Offline &nbsp;
+        %i.fa.fa-caret-down
+    %ul.js-status-update.dropdown-menu.pull-right
+      %li
+        %a{:href => "javascript:void(0);", :data => {:status => 'online'}}
+          %i.fa.fa-circle.txt-color-green
+          &nbsp; Online
+      %li
+        %a{:href => "javascript:void(0);", :data => {:status => 'offline'}}
+          %i.fa.fa-circle.txt-color-red
+          &nbsp; Offline
+
+:javascript
+  $(document).ready(function() {
+
+    function update_agent_availability(status) {
+      $.ajax({
+        type: "PUT",
+        contentType: "application/json; charset=utf-8",
+        url: "/api/agents/#{current_agent.id}",
+        dataType: "json",
+        data: JSON.stringify({agent: {availability: status}, id: #{current_agent.id}}),
+      });
+    }
+
+    $(".js-status-update a").click(function() {
+      var selText = $(this).text();
+      var status = $(this).data('status');
+      var $this = $(this);
+      $this.parents('.btn-group').find('.dropdown-toggle').html(selText + ' <span class="caret"></span>');
+      $this.parents('.dropdown-menu').find('li').removeClass('active');
+      if (status === 'online') {
+        $('#agent-status').html('<i class="fa fa-circle txt-color-green"></i>&nbsp; <span style="color: #356e35; font-weight: bold;">You are Online</span> &nbsp;<i class="fa fa-angle-down"></i>');
+        update_agent_availability('online');
+      } else if (status === 'offline') {
+        $('#agent-status').html('<i class="fa fa-circle txt-color-red"></i>&nbsp; <span style="color: #a90329; font-weight: bold;">You are Offline</span> &nbsp;<i class="fa fa-angle-down"></i>');
+        update_agent_availability('offline');
+      }
+      $this.parent().addClass('active');
+    });
+  });
