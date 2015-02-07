@@ -8,7 +8,7 @@
     - agents.each do |agent|
       %tr
         %td
-          %a{:href => "#", :onclick => "#', 'content');"}= agent.name
+          = link_to agent.name, edit_agent_path(agent)
         %td
           - if agent.availability == 'online'
             %span{:style => "color: #228b22;"}
