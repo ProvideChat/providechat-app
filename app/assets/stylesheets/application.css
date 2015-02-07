@@ -14,8 +14,6 @@
  *= require font-awesome
  *= require smartadmin-production-plugins
  *= require smartadmin-production
- *= require smartadmin-skins
- *= require smartadmin-rtl
  *= require bootstrap-datepicker
  *= require jquery.colorpicker
  *= require qtip2
