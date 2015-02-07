@@ -24,6 +24,7 @@ module ProvidechatApp
     config.assets.precompile += [ '.json', '.svg', '.eot', '.woff', '.ttf', '.png', '.jpg' ]
     config.assets.precompile += %w( modernizr.js smartadmin.config.js smartadmin.js jarvis.widget.js )
     config.assets.precompile += %w( smart-notification.js select2.js )
+    config.assets.precompile += %w( bootstrap.css smartadmin-production-plugins.css require smartadmin-production.css )
 
     unless Rails.env.test?
       log_level = String(ENV['LOG_LEVEL'] || "info").upcase
