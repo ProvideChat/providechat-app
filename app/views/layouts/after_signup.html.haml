@@ -38,8 +38,11 @@
           .col-xs-12.col-sm-8.col-md-6.col-lg-5
             = yield
 
+    = javascript_include_tag 'smartadmin.config'
+    = javascript_include_tag 'jarvis.widget'
+    = javascript_include_tag 'smartadmin'
+    
     :javascript
       $(document).ready(function() {
         runAllForms();
-
       });
