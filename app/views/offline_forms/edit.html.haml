@@ -2,7 +2,7 @@
   .col-md-12.col-lg-8
     %h1.page-title.txt-color-blueDark
       Chat Widget
-      %i.fa.fa-angle-double-right
+      &nbsp;/&nbsp;
       Offline Message for
       = form_tag(offline_forms_path, method: 'get', class: 'form-inline', id: 'edit_offline_form', style: 'display: inline;') do
         = select_tag "website_id", options_from_collection_for_select(@websites, "id", "url", @offline_form.website_id), :class => "select2", :id => "website_id", :style => "max-width: 300px; margin-top: -5px;"

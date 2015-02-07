@@ -2,7 +2,7 @@
   .col-md-12.col-lg-12
     %h1.page-title.txt-color-blueDark
       Chat Widget
-      %i.fa.fa-angle-double-right
+      &nbsp;/&nbsp;
       Customization for
       = form_tag(chat_widgets_path, method: 'get', class: 'form-inline', id: 'edit_chat_widget', style: 'display: inline;') do
         = select_tag "website_id", options_from_collection_for_select(@websites, "id", "url", @chat_widget.website_id), :class => "select2", :id => "website_id", :style => "max-width: 300px; margin-top: -5px;"
