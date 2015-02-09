@@ -48,7 +48,7 @@ module Api
             chat = Chat.create(organization_id: @organization.id, website_id: website_id, visitor_id: params[:visitor_id],
                                 chat_requested: DateTime.now, chat_accepted: DateTime.now,
                                 visitor_name: params[:name],
-                                visitor_email: '', visitor_department: params[:department],
+                                visitor_email: '', visitor_department: '',
                                 visitor_question: '', status: "in_progress")
 
             visitor = Visitor.find(params[:visitor_id])
