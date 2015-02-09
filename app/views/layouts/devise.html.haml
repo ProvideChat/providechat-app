@@ -11,6 +11,9 @@
 
     = favicon_link_tag 'favicon.ico'
 
+    = stylesheet_link_tag "bootstrap"
+    = stylesheet_link_tag "smartadmin-production-plugins"
+    = stylesheet_link_tag "smartadmin-production"
     = stylesheet_link_tag    "application", media: "all"
     = javascript_include_tag 'application'
     = csrf_meta_tags
@@ -47,8 +50,10 @@
           .col-xs-12.col-sm-8.col-md-6.col-lg-5
             = yield
 
-    = javascript_include_tag "application"
-
+    = javascript_include_tag 'smartadmin.config'
+    = javascript_include_tag 'jarvis.widget'
+    = javascript_include_tag 'smartadmin'
+    
     :javascript
       $(document).ready(function() {
         runAllForms();

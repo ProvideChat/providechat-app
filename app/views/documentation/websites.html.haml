@@ -1,33 +1,53 @@
 = render 'layouts/page_header', :title => 'Documentation', :icon => 'fa-info-circle', :subpage => 'How Multiple Websites Work'
 
-%p Multiple Websites is one of Provide Chat's most powerful features. When you sign up for a paid Provide Chat account, you can add the chat widget to as many websites as you like. This means if you have more than one website you can now chat with visitors from any of those websites. 
+.row
+  .col-sm-12.col-md-12.col-lg-12
+    #wid-id-0.jarviswidget.jarviswidget-color-darken
+      %header
+        %span.widget-icon
+          %i.fa.fa-info-circle
+        %h2 How Multiple Websites Work
+      %div
+        .widget-body.no-padding
 
-%p Many of the features in Provide Chat can be customized for each individual website.
+          .form-container
+            .col-sm-12
+              %p Multiple Websites is one of Provide Chat's most powerful features. When you sign up for a paid Provide Chat account, you can add the chat widget to as many websites as you like. This means if you have more than one website you can now chat with visitors from any of those websites. 
 
-%p To get started, add each of your websites by clicking on <i>Settings</i> -> <i>Websites</i> and then New Website in the top right. You'll want to do this for each of your websites.
+              %p Many of the features in Provide Chat can be customized for each individual website.
 
-%p Below is a list of features and functionality unique to each website.
+              %p To get started, add each of your websites by clicking on #{link_to "Settings", websites_path} <i class="fa fa-angle-double-right"></i> #{link_to "Websites", websites_path} and then <strong>New Website</strong> in the top right. You'll want to do this for each of your websites.
 
+              %p Below is a list of features and functionality unique to each website.
 
-%h3 Agents
+              %br
+              %h4 Agents
+              %br
 
-%p When adding or editing an agent you can input into the Website field the websites to which this agent can accept chats from. Your agent will only be able to chat with visitors from these websites.
+              %div{style: "margin-left: 20px;"}
+                %p When adding or editing an agent you can input into the Website field the websites to which this agent can accept chats from. Your agent will only be able to chat with visitors from these websites.
 
+              %br
+              %h4 Departments
+              %br
+              
+              %div{style: "margin-left: 20px;"}
+                %p When adding or editing a department you can input into the Website field the websites to which this department belongs.
 
-%h3 Departments
+              %br
+              %h4 Chat Widget
+              %br
+              
+              %div{style: "margin-left: 20px;"}
+                %p The chat widget can be customized to match the look and feel of each of your websites. 
 
-%p When adding or editing a department you can input into the Website field the websites to which this department belongs.
+                %p To do this, click on #{link_to "Chat Widget", chat_widgets_path} and then any of the sub-menu items such as #{link_to "Customization", chat_widgets_path}, #{link_to "Invitations", invitations_path}, #{link_to "Pre-chat Survey", prechat_forms_path}, or #{link_to "Offline Message", offline_forms_path}. Once done, use the drop down in the title to select the website you are customizing this part of the widget for.
 
+                %p Make your changes and click <strong>Apply Changes</strong>.
 
-%h3 Chat Widget
-
-%p The chat widget can be customized to match the look and feel of each of your websites. 
-
-%p To do this, click on Chat Widget and then any of the sub-menu items such as Customization, Invitations, Pre-chat Survey, or Offline Message. Once done, use the drop down in the title to select the website you are customizing this part of the widget for.
-
-%p Make your changes and click <strong>Apply Changes</strong>.
-
-
-%h3 Chat Transcripts
-
-%p When searching through previous chat transcripts, you can choose to search for transcripts only from specific websites. To do this, simply add to the Website field the websites you would like to use in your search criteria.
+              %br
+              %h4 Chat Transcripts
+              %br
+              
+              %div{style: "margin-left: 20px;"}
+                %p When searching through previous chat transcripts, you can choose to search for transcripts only from specific websites. To do this, simply add to the Website field the websites you would like to use in your search criteria.

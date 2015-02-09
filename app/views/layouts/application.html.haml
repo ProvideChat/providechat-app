@@ -11,6 +11,9 @@
 
     = favicon_link_tag 'favicon.ico'
 
+    = stylesheet_link_tag "bootstrap"
+    = stylesheet_link_tag "smartadmin-production-plugins"
+    = stylesheet_link_tag "smartadmin-production"
     = stylesheet_link_tag    "application", media: "all"
     = javascript_include_tag 'application'
     = javascript_include_tag 'modernizr'
@@ -41,12 +44,6 @@
     #main{:role => "main"}
       #content
         = yield
-
-    .page-footer
-      .row
-        .col-xs-12.col-sm-6
-          %span.txt-color-white Provide Chat © #{Time.now.year}
-        .col-xs-6.col-sm-6.text-right.hidden-xs
 
     = javascript_include_tag 'smartadmin.config'
     = javascript_include_tag 'jarvis.widget'
