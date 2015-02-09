@@ -680,9 +680,9 @@
   function sendChatText(chat_id) {
 
     if (ProvideChat.chatStatus[chat_id] === 'in_progress') {
-      var message = $("#chat-message-content-" + chat_id).val();
+      var message = $("#chat-message-content-" + chat_id).val().slice(0,-1);
 
-      if ((message.length === 0) || (message === "%0A") || (message === "%0A%0D")) {
+      if (message.length === 0) {
         $('#chat-message-content-' + chat_id).val('');
         $('#chat-message-content-' + chat_id).focus();
       } else {
