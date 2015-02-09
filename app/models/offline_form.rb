@@ -20,7 +20,7 @@ class OfflineForm < ActiveRecord::Base
   protected
 
   def set_defaults
-    self.intro_text = "We're sorry but we're not available to live chat at the moment. Please send us a message and we will get back to you shortly."
+    self.intro_text = "We're sorry we're unavailable to chat at the moment. Please send us a message and we will get back to you shortly."
     self.name_text = 'Name'
     self.email_text =  'Email'
     self.email_enabled = true
