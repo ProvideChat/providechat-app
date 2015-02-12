@@ -148,8 +148,16 @@ input::-moz-focus-inner {
 
 /* select2 plugin custom styles */
 
-.select2 {
+.select2-container .select2-choice {
   font-family: "Open Sans", Arial, Helvetica, Sans-Serif;
+}
+
+.select2-container .select2-choice .select2-arrow {
+  font-family: "Open Sans", Arial, Helvetica, Sans-Serif;
+}
+
+.page-title .select2-container .select2-choice .select2-chosen {
+  font-size: 24px;
 }
 
 .select2-hidden-accessible {
