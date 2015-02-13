@@ -1,28 +1,26 @@
 <div class="chat-widget-container">
   <div class="agent-area">
-    <div class="agent-area">
-      <div style="float: left;">
-        <%= image_tag "#{root_url}#{agent.avatar_url}", :id => "agent-image", :class => "agent-image" %>
-      </div>
-      <div style="float: left; margin-left: 10px;">
-        <div id="agent-name"><%= agent.display_name %></div>
-      </div>
-      <% if chat_widget.logo? && chat_widget.display_logo? %>
-        <div id="logo-image-container">
-          <img src="http://widget.providechat.com/images/silhouette.png">
-        </div>
-      <% end %>
+    <div style="float: left;">
+      <%= image_tag "#{root_url}#{agent.avatar_url}", :id => "agent-image", :class => "agent-image" %>
     </div>
-    <div class="invitation-message-area">
-      <div style="margin: 30px 10px; font-family: arial, verdana, helvetica; font-size: 14px;">
-        <h3><%= invitation.invitation_message %></h3>
-        <br>
-        <div style="width: 320px; margin: 0px auto;">
-          <input type="text" id="invite-chat-text-box" placeholder="<%= invitation.name_text %>" style="height: 40px; width: 200px;">
-          <input type="button" id="accept-chat-invite-btn" style="color: #333333; font-family: arial, verdana, helvetica; font-size: 12px; height: 40px; width: 110px;" value="<%= invitation.button_text %>">
-        </div>
-        <div class="missing-fields">Please fill in the field to start the chat</div>
+    <div style="float: left; margin-left: 10px;">
+      <div id="agent-name"><%= agent.display_name %></div>
+    </div>
+    <% if chat_widget.logo? && chat_widget.display_logo? %>
+      <div id="logo-image-container">
+        <img src="http://widget.providechat.com/images/silhouette.png">
       </div>
+    <% end %>
+  </div>
+  <div class="invitation-message-area">
+    <div style="margin: 30px 10px; font-family: arial, verdana, helvetica; font-size: 14px;">
+      <h3><%= invitation.invitation_message %></h3>
+      <br>
+      <div style="width: 320px; margin: 0px auto;">
+        <input type="text" id="invite-chat-text-box" placeholder="<%= invitation.name_text %>" style="height: 40px; width: 200px;">
+        <input type="button" id="accept-chat-invite-btn" style="color: #333333; font-family: arial, verdana, helvetica; font-size: 12px; height: 40px; width: 110px;" value="<%= invitation.button_text %>">
+      </div>
+      <div class="missing-fields">Please fill in the field to start the chat</div>
     </div>
   </div>
 </div>
