@@ -8,7 +8,7 @@ class Visitor < ActiveRecord::Base
   enum smart_invite_status: [:not_seen, :seen_popup]
   enum agent_invite_status: [:not_sent, :agent_sent, :visitor_seen]
 
-  enum status: [:no_chat, :waiting_to_chat, :in_chat, :chat_ended, :offsite]
+  enum status: [:no_chat, :waiting_to_chat, :in_chat, :agent_ended, :visitor_ended, :offsite]
 
   before_save :titleize_name
 
@@ -131,7 +131,7 @@ class Visitor < ActiveRecord::Base
       website.update_ping
       website.save
 
-      statuses = [ Visitor.statuses[:no_chat], Visitor.statuses[:waiting_to_chat], Visitor.statuses[:in_chat]]
+      statuses = [ Visitor.statuses[:no_chat], Visitor.statuses[:waiting_to_chat], Visitor.statuses[:in_chat], Visitor.statuses[:agent_ended]]
       visitor = Visitor.find_by(:website_id => website.id, :browser_name => browser_name,
                                 :browser_version => browser_version.to_s, :operating_system => operating_system,
                                 :ip_address => ip_address, status: statuses) || Visitor.new

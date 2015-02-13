@@ -35,7 +35,7 @@ class Chat < ActiveRecord::Base
     self.save
 
     visitor = Visitor.find(self.visitor_id)
-    visitor.status = 'chat_ended'
+    visitor.status = reason
     visitor.save
   end
 
