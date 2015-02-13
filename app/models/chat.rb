@@ -30,13 +30,15 @@ class Chat < ActiveRecord::Base
   end
 
   def end_chat(reason)
-    self.status = reason
-    self.chat_ended = DateTime.now
-    self.save
+    if self.status == 'in_progress' || self.status == 'agent_ended'
+      self.status = reason
+      self.chat_ended = DateTime.now
+      self.save
 
-    visitor = Visitor.find(self.visitor_id)
-    visitor.status = reason
-    visitor.save
+      visitor = Visitor.find(self.visitor_id)
+      visitor.status = reason
+      visitor.save
+    end
   end
 
   def last_message(sender)
