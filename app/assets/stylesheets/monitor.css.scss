@@ -166,13 +166,16 @@ ul.nav-tabs li a:hover {
   display: block;
   position: relative;
   margin: 14px 20px 0px;
-  padding-bottom: 8px;
+  padding-bottom: 4px;
 }
-/*
-.chat-messages li:first-child {
-  margin-top: 10px;
+
+.chat-messages .appended-message {
+  display: block;
+  position: relative;
+  margin: 0px 20px;
+  padding-bottom: 4px;
 }
-*/
+
 .chat-messages .message .message-text {
   display: block;
   position: relative;
@@ -182,9 +185,9 @@ ul.nav-tabs li a:hover {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   padding: 0;
-  //margin-left: 65px;
   line-height: normal;
 }
+
 .chat-messages .message .message-text time {
   position: absolute;
   top: 1px;
@@ -194,7 +197,7 @@ ul.nav-tabs li a:hover {
   color: #AFAFAF;
 }
 
-.chat-messages .message .message-text a.username {
+.chat-messages .message .message-text div.agent-name {
   display: block;
   font-weight: bold;
   margin-bottom: 4px;
@@ -203,6 +206,19 @@ ul.nav-tabs li a:hover {
   font-size: 14px;
   letter-spacing: -1px;
   text-decoration: none !important;
+  color: #555555;
+}
+
+.chat-messages .message .message-text div.visitor-name {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 4px;
+  vertical-align: top;
+  line-height: 14px;
+  font-size: 14px;
+  letter-spacing: -1px;
+  text-decoration: none !important;
+  color: #337ab7;
 }
 
 .textarea-div {

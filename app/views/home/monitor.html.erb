@@ -140,6 +140,7 @@
   ProvideChat.activeChatId = 0;	// the chat id of the currently active tab
 
   ProvideChat.chatStatus = [];	// associate array holding the status of all active chats - chatStatus[chatId] = status
+  ProvideChat.last_sender = []; // associate array holding the last sender in active chats - last_sender[chatId] = last_sender
 
   ProvideChat.chatTimer = [];	// array of timers for each active chat - chatTimer[chatId]
   ProvideChat.keypressStatusTimer = [];	// array of timers for getting the keypress status of each active chat: keypressStatusTimer[chatId]
@@ -585,22 +586,23 @@
 
           var message_timestamp = new Date(message.sent);
 
-          if (message.sender === 'agent')
+          if (ProvideChat.last_sender[chat_id] === message.sender)
           {
-            chatText += '<div class="message"><div class="message-text">';
-            chatText += '<time>' +  formatAMPM(message_timestamp) + '</time>';
-            chatText += '<a href="javascript:void(0);" class="username">' + message.user_name  + '</a> ' + message.message + '</div></div>';
+            chatText += '<div class="appended-message"><div class="message-text">' + message.message + '</div></div>';
           }
-          else if (message.sender === "visitor")
+          else
           {
             chatText += '<div class="message"><div class="message-text">';
             chatText += '<time>' + formatAMPM(message_timestamp) + '</time>';
-            chatText += '<a href="javascript:void(0);" class="username">' + message.user_name  + '</a> ' + message.message + '</div></div>';
+            chatText += '<div class="' + message.sender + '-name">' + message.user_name  + '</div> ' + message.message + '</div></div>';
+          }
 
+          if (message.sender === "visitor") {
             $('#typing-notification-' + chat_id).html ('');
-
             newMessageAlert = true;
           }
+
+          ProvideChat.last_sender[chat_id] = message.sender;
         });
       } else if ((response.status === 'agent_ended') || (response.status === 'visitor_ended') ||
                    (response.status === 'visitor_timeout'))
