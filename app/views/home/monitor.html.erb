@@ -155,25 +155,12 @@
       ProvideChat.agent_name = agent_name;
       ProvideChat.organization_id = organization_id;
 
-      loadCurrentChats();
       updateVisitors();
 
       ProvideChat.visitorTimer = setInterval(function(){updateVisitors();}, 2000);
       ProvideChat.initialized = true;
     }
   };
-
-  function loadCurrentChats () {
-
-    var json_data = { "method": 'get_current_chats', "agent_id": ProvideChat.agent_id };
-
-    $.getJSON("/api/chat_monitor.json", json_data, function (response) {
-
-      $.each(response.current_chats, function(i, current_chat) {
-        add_new_tab (current_chat.id, current_chat.visitor_id, current_chat.visitor_name, current_chat.status);
-      });
-    });
-  }
 
   function updateInChat(visitor) {
 
@@ -196,6 +183,7 @@
       $('#view_visitor_' + visitor.id).click(function() {
         add_new_tab ($(this).data("chat-id"), $(this).data("visitor-id"), $(this).data("visitor-name"), $(this).data("chat-status"));
       });
+      add_new_tab (visitor.chat_id, visitor.id, visitor.name, visitor.chat.status);
     }
   }
 
@@ -410,7 +398,6 @@
     $.getJSON("/api/chat_monitor.json", json_data, function (response) {
       if (response.chat_id > 0) {
         ProvideChat.activeChatId = response.chat_id;
-        add_new_tab (response.chat_id, response.visitor_id, response.visitor_name, 'in_progress');
       }
     });
   }
