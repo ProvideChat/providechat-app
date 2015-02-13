@@ -1,20 +1,18 @@
 = render 'layouts/page_header', :title => 'Chat Transcripts', :icon => 'fa-file-text-o'
 .row
   %article.col-sm-10.col-md-10.col-lg-8
-    .alert.alert-info.no-margin.fade.in
-      %div{style: "float: left;"}
-        %i.fa-fw.fa.fa-info
-      %div{style: "margin-left: 24px;"}
-        This is where you can search for previous chats. You can review chats to ensure that you are giving your customers the proper service they derserve, or you can use a Ticket ID provided by your visitor to review their most recent chat.
-
-    %br
-    #wid-id-0.jarviswidget.jarviswidget-color-blueDark
+    .jarviswidget.jarviswidget-color-blueDark
       %header
         %span.widget-icon
           %i.fa.fa-search
         %h2 Search Chat Transcripts
       %div
-        .widget-body
+        .widget-body.no-padding
+          .alert.alert-info.no-margin.fade.in
+            %div{style: "float: left;"}
+              %i.fa-fw.fa.fa-info
+            %div{style: "margin-left: 24px;"}
+              This is where you can search for previous chats. You can review chats to ensure that you are giving your customers the proper service they derserve, or you can use a Ticket ID provided by your visitor to review their most recent chat.
           = render 'search_form'
 
 = render partial: 'layouts/flash_messages', flash: flash
