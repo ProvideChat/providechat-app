@@ -181,14 +181,13 @@ module Api
 
           when "end_chat"
             chat_id = params[:chat_id]
-            enable_email_transcript = params[:enable_email_transcript]
-            transcript_email = params[:transcript_email]
 
             chat = Chat.find(chat_id)
             chat.end_chat('visitor_ended')
 
-            if enable_email_transcript == 'true'
-              chat.email_transcript(transcript_email)
+            if params.has_key?(:enable_email_transcript) && params[:enable_email_transcript] == 'true' && 
+                params.has_key?(:transcript_email) && params[:transcript_email] != ''
+              chat.email_transcript(params[:transcript_email])
             end
 
             response = { 'success' => 'true' }
