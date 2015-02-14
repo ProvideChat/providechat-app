@@ -139,9 +139,12 @@ class Visitor < ActiveRecord::Base
       visitor.organization_id = org_id
       visitor.website_id = website.id
       #visitor.country = country
-      visitor.current_page = current_page
+      if (visitor.current_page != current_page)
+        visitor.current_page = current_page
+        visitor.page_views = visitor.page_views + 1
+      end
       #visitor.remote_host = remote_host
-      visitor.page_views = current_visits
+      #visitor.page_views = current_visits
 
       visitor.language = language
       visitor.referrer_host = referrer_host
