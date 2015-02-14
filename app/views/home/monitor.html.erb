@@ -641,10 +641,7 @@
           end_message = 'The visitor has left your website, ending the chat.';
         }
 
-        chatText = '<div class="message"><div class="message-text">';
-        chatText += '<h5>' + end_message +  '</h5><br><b>Chat Statistics:</b><br>';
-        chatText += 'Chat started at <em>' +  formatAMPM(new Date(response.started)) + '</em><br>';
-        chatText += 'Chat lasted for ' + response.duration + '</div></div>';
+        chatText = '<hr><div class="announcement">' + end_message + '</div>';
 
         console.log("ChatID: " + chat_id + ", Clearing Interval ID: " + ProvideChat.chatTimer[chat_id]);
         clearInterval(ProvideChat.chatTimer[chat_id]);
@@ -800,7 +797,7 @@
     $('#chat-container-' + chat_id).remove();
     $('#chat-tab-container-' + chat_id).remove();
 
-    if (ProvideChat.numChats === 0) {
+    if ($(".tab-pane" + chat_id).length === 0) {
       $('#active-chat-tabs').hide();
       $("#no-active-chat").show();
     } else {
