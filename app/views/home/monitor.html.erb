@@ -272,7 +272,7 @@
       }
 
       $.each(results, function(i, visitor) {
-        console.log(visitor);
+        //console.log(visitor);
 
         $('#no-current-chats-msg').hide();
         $('#no-waiting-chats-msg').hide();
@@ -352,7 +352,7 @@
     $.getJSON("/visitors/" + visitor_id + ".json", {}, function (response) {
       var visitor = response.visitor;
 
-      console.log (visitor);
+      //console.log (visitor);
 
       var visitorInfo = '';
 
@@ -425,8 +425,8 @@
 
         var id = $(".nav-tabs").children().length; //think about it ;)
         var tabId = 'chat-container-' + response.chat_id;
-        console.log(tabId);
-        console.log(response.visitor_name);
+        //console.log(tabId);
+        //console.log(response.visitor_name);
         $('.tab-content').append('<div class="tab-pane" id="' + tabId + '">' + response.html + '</div>');
         $('.nav-tabs').append('<li id="chat-tab-container-' + response.chat_id  + '"><a data-toggle="tab" id="chat_tab_' + response.chat_id + '" href="#chat-container-' + response.chat_id + '" data-chat-id="' + response.chat_id + '">' + response.visitor_name + '</a></li>');
 
@@ -706,7 +706,7 @@
                           "chat_id": chat_id, "message" : message, "agent_name" : ProvideChat.agent_name };
 
         $.getJSON("/api/chat_monitor.json", json_data, function (response) {
-          console.log(response);
+          //console.log(response);
 
           getChatText(response.chat_id, false);
         });
@@ -764,7 +764,7 @@
     var json_data = { "method": 'end_chat', "chat_id": chat_id };
 
     $.getJSON("/api/chat_monitor.json", json_data, function (response) {
-      console.log(response);
+      //console.log(response);
       if (response.success == 'true') {
         enable_close_chat_tab(response.chat_id);
 
@@ -789,7 +789,7 @@
 
   function close_chat_tab(chat_id) {
 
-    console.log("Close Chat Tab, ID: " + chat_id);
+    //console.log("Close Chat Tab, ID: " + chat_id);
 
     $('#chat-container-' + chat_id).remove();
     $('#chat-tab-container-' + chat_id).remove();
