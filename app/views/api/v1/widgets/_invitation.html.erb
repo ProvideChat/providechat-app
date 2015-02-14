@@ -1,7 +1,11 @@
 <div class="chat-widget-container">
   <div class="agent-area">
     <div style="float: left;">
-      <%= image_tag "#{root_url}#{agent.avatar_url}", :id => "agent-image", :class => "agent-image" %>
+      <% if agent.avatar? %>
+        <%= image_tag "#{agent.avatar_url}", :id => "agent-image", :class => "agent-image", :height => 60, :width => 60 %>
+      <% else %>
+        <img src="http://widget.providechat.com/images/silhouette.png" height="60" width="60" class="agent-image">
+      <% end %>
     </div>
     <div style="float: left; margin-left: 10px;">
       <div id="agent-name"><%= agent.display_name %></div>
