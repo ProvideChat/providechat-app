@@ -141,6 +141,7 @@
 
   ProvideChat.chatStatus = [];	// associate array holding the status of all active chats - chatStatus[chatId] = status
   ProvideChat.last_sender = []; // associate array holding the last sender in active chats - last_sender[chatId] = last_sender
+  ProvideChat.last_message_id = []; // associate array holding the last message id in active chats - last_message_id[chatId] = last_sender
 
   ProvideChat.chatTimer = [];	// array of timers for each active chat - chatTimer[chatId]
   ProvideChat.keypressStatusTimer = [];	// array of timers for getting the keypress status of each active chat: keypressStatusTimer[chatId]
@@ -442,7 +443,7 @@
         $('#tabs a:last').tab('show');
 
         ProvideChat.chatStatus[response.chat_id] = response.chat_status;
-
+        ProvideChat.last_message_id[response.chat_id] = 0;
         ProvideChat.activeChatId = response.chat_id;
         ProvideChat.numChats++;
 
@@ -546,6 +547,7 @@
         }
         
         ProvideChat.last_sender[chat_id] = message.sender;
+        ProvideChat.last_message_id[chat_id] = message.id;
       });
 
       var end_message = '';
@@ -572,10 +574,10 @@
   //Gets the current messages from the server
   function getChatText( chat_id, get_all_messages ) {
 
-    var json_data = { "method": 'get_chat_messages', "chat_id": chat_id, "agent_id": ProvideChat.agent_id, "context" : "unseen" };
+    var json_data = { "method": 'get_chat_messages', "chat_id": chat_id, "agent_id": ProvideChat.agent_id, "last_message_id" : ProvideChat.last_message_id[chat_id]};
 
     if (get_all_messages === true) {
-      json_data.context = "all";
+      json_data.last_message_id = 0;
     }
 
     $.getJSON("/api/chat_monitor.json", json_data, function (response) {
@@ -599,10 +601,13 @@
 
         $.each(response.messages, function(count, message) {
 
-          console.log("MESSAGE: " + message);
+          /*
+          console.log("MESSAGE: ");
+          console.log(message);
           console.log("ProvideChat.last_sender[chat_id]: " + ProvideChat.last_sender[chat_id]);
           console.log("message.sender: " + message.sender);
-
+          */
+          
           var message_timestamp = new Date(message.sent);
 
           if (ProvideChat.last_sender[chat_id] === message.sender)
@@ -621,6 +626,7 @@
             newMessageAlert = true;
           }
 
+          ProvideChat.last_message_id[chat_id] = message.id;
           ProvideChat.last_sender[chat_id] = message.sender;
         });
       } else if ((response.status === 'agent_ended') || (response.status === 'visitor_ended') ||

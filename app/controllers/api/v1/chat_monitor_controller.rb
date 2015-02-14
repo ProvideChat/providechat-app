@@ -82,15 +82,12 @@ module Api
             context = params[:context]
             chat_id = params[:chat_id]
             agent_id = params[:agent_id]
+            last_message_id = params[:last_message_id]
 
             chat = Chat.find(chat_id)
 
+            chat_messages = ChatMessage.where(chat_id: chat_id).where("id > ?", last_message_id) 
             #Rails.logger.info "GET_CHAT_MESSAGES: GETTING '#{context}' MESSAGES"
-            if context == 'all'
-              chat_messages = ChatMessage.where(chat_id: chat_id)
-            elsif context == 'unseen'
-              chat_messages = ChatMessage.where(chat_id: chat_id, seen_by_agent: false)
-            end
 
             chat_messages.each do |chat_message|
               chat_message.seen_by_agent = true
