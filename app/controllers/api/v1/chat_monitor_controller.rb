@@ -86,7 +86,7 @@ module Api
 
             chat = Chat.find(chat_id)
 
-            chat_messages = ChatMessage.where(chat_id: chat_id).where("id > ?", last_message_id) 
+            chat_messages = ChatMessage.where(chat_id: chat_id).where("id > ?", last_message_id).order(:id)
             #Rails.logger.info "GET_CHAT_MESSAGES: GETTING '#{context}' MESSAGES"
 
             chat_messages.each do |chat_message|
