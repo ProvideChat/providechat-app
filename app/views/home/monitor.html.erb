@@ -519,6 +519,8 @@
 
       console.log(response);
 
+      var chat_id = response.chat_id;
+      
       $("#chat-messages-"+chat_id).html('<div class="announcement">You are now chatting with ' + response.visitor_name + '</div>');
 
       $.each(response.messages, function(count, message) {
@@ -527,20 +529,23 @@
 
         var message_timestamp = new Date(message.sent);
 
-        if (message.sender === 'agent')
+        if (ProvideChat.last_sender[chat_id] === message.sender)
         {
-          chatText += '<div class="message"><div class="message-text">';
-          chatText += '<time>' +  formatAMPM(message_timestamp) + '</time>';
-          chatText += '<a href="javascript:void(0);" class="username">' + message.user_name  + '</a> ' + message.message + '</div></div>';
+          chatText += '<div class="appended-message"><div class="message-text">' + message.message + '</div></div>';
         }
-        else if (message.sender === "visitor")
+        else
         {
           chatText += '<div class="message"><div class="message-text">';
           chatText += '<time>' + formatAMPM(message_timestamp) + '</time>';
-          chatText += '<a href="javascript:void(0);" class="username">' + message.user_name  + '</a> ' + message.message + '</div></div>';
+          chatText += '<div class="' + message.sender + '-name">' + message.user_name  + '</div> ' + message.message + '</div></div>';
+        }
 
+        if (message.sender === "visitor")
+        {
           $('#typing-notification-' + chat_id).html ('');
         }
+        
+        ProvideChat.last_sender[chat_id] = message.sender;
       });
 
       var end_message = '';
@@ -552,7 +557,7 @@
         end_message = 'The visitor has left your website, ending the chat.';
       }
 
-      chatText = '<div class="message"><div class="message-text">';
+      chatText += '<div class="message"><div class="message-text">';
       chatText += '<h5>' + end_message +  '</h5><br><b>Chat Statistics:</b><br>';
       chatText += 'Chat started at ' + '<em>' +  formatAMPM(new Date(response.started)) + '</em><br>';
       chatText += 'Chat lasted for ' + response.duration + '</div></div>';
@@ -575,7 +580,7 @@
 
     $.getJSON("/api/chat_monitor.json", json_data, function (response) {
 
-      console.log(response);
+      //console.log(response);
 
       var chatText = '';
       var newMessageAlert = false;
@@ -594,8 +599,9 @@
 
         $.each(response.messages, function(count, message) {
 
-          console.log("MESSAGE: ");
-          console.log(message);
+          console.log("MESSAGE: " + message);
+          console.log("ProvideChat.last_sender[chat_id]: " + ProvideChat.last_sender[chat_id]);
+          console.log("message.sender: " + message.sender);
 
           var message_timestamp = new Date(message.sent);
 
