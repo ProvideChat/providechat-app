@@ -462,7 +462,7 @@
           getChatText( response.chat_id, true );
           setup_chat_keypress(chat_id)
 
-          ProvideChat.chatTimer[response.chat_id] = setInterval(function(){ getChatText(response.chat_id, false); }, 2000);
+          ProvideChat.chatTimer[response.chat_id] = setInterval(function(){ getChatText(response.chat_id, false); }, 1500);
           ProvideChat.keypressStatusTimer[response.chat_id] = setInterval(function () { getKeypressStatus(response.chat_id); }, 1500);
         } else if ((response.chat_status == 'agent_ended') || (response.chat_status == 'visitor_ended') || (response.chat_status == 'agent_timeout')) {
           load_finished_chat(response.chat_id);
@@ -711,7 +711,7 @@
         $.getJSON("/api/chat_monitor.json", json_data, function (response) {
           //console.log(response);
 
-          getChatText(response.chat_id, false);
+          //getChatText(response.chat_id, false);
         });
 
       }
