@@ -172,6 +172,10 @@
     if ($("#in-chat-visitor-" + visitor.id).length > 0) {
       $("#visitor-detail-" + visitor.id).html(visitor.status_extended);
       $("#visitor-last-message-" + visitor.id).html(visitor.last_message);
+
+      $("#visitor-page-views-" + visitor.id).html(visitor.page_views);
+      $("#visitor-time-on-site-" + visitor.id).html(visitor.time_since_created);
+      $("#visitor-current-page-" + visitor.id).html('<a href="' + visitor.current_page + '" target="_blank" style="color: #0066CC;">' + visitor.current_page + '</a>');
     } else {
       var visitor_content = '<div class="content"><%= image_tag "monitor/current-chat.png", class: "visitor-image" %>';
       visitor_content += '<span class="visitor-name">' + visitor.name + '</span>&nbsp;&nbsp;';
@@ -354,16 +358,24 @@
 
       visitorInfo += "<h5>" + visitor.name + "'s Information</h5>";
       visitorInfo += '<div class="visitor-info-box">';
-      visitorInfo += '<p><b>Email: </b>' + visitor.email + '</p>';
-      visitorInfo += '<p><b>Department: </b>' + visitor.department + '</p>';
+      if (visitor.email == '') {
+        visitorInfo += '<p><b>Email:</b> <em>Not specified</em></p>';
+      } else {
+        visitorInfo += '<p><b>Email:</b> ' + visitor.email + '</p>';
+      }
+      if (visitor.department == '') {
+        visitorInfo += '<p><b>Department:</b> <em>Not specified</em></p>';
+      } else {
+        visitorInfo += '<p><b>Department:</b> ' + visitor.department + '</p>';
+      }
       visitorInfo += '<p><b>Location: </b>' + visitor.city + ', ' + visitor.region_name + ', ';
       visitorInfo +=  visitor.country_name + '&nbsp;&nbsp;<img width="20px" height="20px" src="/images/flags/' + visitor.country_code + '.png" style="vertical-align: top;">' + '</p>';
       visitorInfo += '</div>';
       visitorInfo += '<h5 style="padding-top: 10px;">Viewing Habits</h5>';
       visitorInfo += '<div class="visitor-info-box">';
-      visitorInfo += '<p><b>Pages Viewed: </b>' + visitor.page_views + '</p>';
-      visitorInfo += '<p><b>Time on Site: </b>' + visitor.time_since_created + '</p>';
-      visitorInfo += '<p><b>Current Page: </b><a href="' + visitor.current_page + '" target="_blank" style="color: #0066CC;">' + visitor.current_page + '</a></p>';
+      visitorInfo += '<p><b>Pages Viewed: </b><span id="visitor-page-views-' + visitor.id + '">' + visitor.page_views + '</span></p>';
+      visitorInfo += '<p><b>Time on Site: </b><span id="visitor-time-on-site-' + visitor.id + '">' + visitor.time_since_created + '</span></p>';
+      visitorInfo += '<p><b>Current Page: </b><span id="visitor-current-page-' + visitor.id + '"><a href="' + visitor.current_page + '" target="_blank" style="color: #0066CC;">' + visitor.current_page + '</a></span></p>';
       visitorInfo += '</div>';
       visitorInfo += '<h5 style="padding-top: 10px;">System Information</h5>';
       visitorInfo += '<div class="visitor-info-box">';
