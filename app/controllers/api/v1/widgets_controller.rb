@@ -108,6 +108,22 @@ module Api
               'duration' => chat.chat_ended ? distance_of_time_in_words(chat.chat_accepted, chat.chat_ended) : ''
             }
 
+          when "save_chat_messages"
+
+            messages = params[:messages]
+
+            messages.each do |count, message|
+              ChatMessage.create(
+                chat_id: message['chat_id'], user_name: message['user_name'], sender: message['sender'],
+                seen_by_agent: false, seen_by_visitor: true,
+                sent: message['sent'], message: strip_tags(message['message'])
+              )
+            end
+
+            response = {
+              'success' => 'true'
+            }
+
           when "visitor_message"
             visitor_id = params[:visitor_id]
             chat_id = params[:chat_id]

@@ -157,6 +157,22 @@ module Api
               'success' => 'true'
             }
 
+          when "save_chat_messages"
+
+            messages = params[:messages]
+
+            messages.each do |count, message|
+              ChatMessage.create(
+                chat_id: message['chat_id'], user_name: message['user_name'], sender: message['sender'],
+                seen_by_agent: true, seen_by_visitor: false,
+                sent: message['sent'], message: strip_tags(message['message'])
+              )
+            end
+
+            response = {
+              'success' => 'true'
+            }
+
           when "agent_message"
             agent_id = params[:agent_id]
             chat_id = params[:chat_id]
