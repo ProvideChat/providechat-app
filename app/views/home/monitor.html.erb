@@ -8,15 +8,15 @@
         <h2> Current Activity </h2>
         <div class="widget-toolbar">
           <div class="btn-group">
-						<button class="btn dropdown-toggle btn-xs btn-default" data-toggle="dropdown">
+						<button id="filter-results" class="btn dropdown-toggle btn-xs btn-default" data-toggle="dropdown">
 							Filter Results <i class="fa fa-caret-down"></i>
 						</button>
-						<ul class="dropdown-menu pull-right">
+						<ul class="dropdown-menu pull-right filter-result-update">
 							<li>
-								<a href="javascript:void(0);">My Chats</a>
+								<a href="javascript:void(0);" data-filter="mine">My Chats</a>
 							</li>
 							<li>
-								<a href="javascript:void(0);">All Chats</a>
+								<a href="javascript:void(0);" data-filter="all">All Chats</a>
 							</li>
 						</ul>
 					</div>
@@ -165,6 +165,8 @@
       ProvideChat.visitorTimer = setInterval(function(){updateVisitors();}, 3000);
       ProvideChat.chatQueueTimer = setInterval(function(){sendChatMessageQueue();}, 3000);
       ProvideChat.initialized = true;
+
+      bind_filter_results_button();
     }
   };
 
@@ -277,7 +279,7 @@
       }
 
       $.each(results, function(i, visitor) {
-        //console.log(visitor);
+        console.log(visitor);
 
         $('#no-current-chats-msg').hide();
         $('#no-waiting-chats-msg').hide();
@@ -840,6 +842,24 @@
     minutes = minutes < 10 ? '0'+minutes : minutes;
     var strTime = hours + ':' + minutes + ' ' + ampm;
     return strTime;
+  }
+
+  function bind_filter_results_button() {
+    $(".filter-result-update a").click(function() {
+      var selText = $(this).text();
+      var filter = $(this).data('filter');
+      var $this = $(this);
+      $this.parents('.btn-group').find('.dropdown-toggle').html(selText + ' <span class="caret"></span>');
+      $this.parents('.dropdown-menu').find('li').removeClass('active');
+      if (filter === 'mine') {
+        $('#filter-results').html('My Chats <i class="fa fa-caret-down"></i>');
+        //update_agent_availability('online');
+      } else if (filter === 'all') {
+        $('#filter-results').html('All Chats <i class="fa fa-caret-down"></i>');
+        //update_agent_availability('offline');
+      }
+      $this.parent().addClass('active');
+    });
   }
 
 })(window.ProvideChat = window.ProvideChat || {}, jQuery);
