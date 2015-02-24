@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20150108232513) do
     t.integer  "organization_id"
     t.string   "name",                   default: "", null: false
     t.string   "display_name",           default: "", null: false
+    t.string   "title",                  default: "", null: false
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.integer  "access_level"

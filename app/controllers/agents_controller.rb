@@ -72,6 +72,6 @@ class AgentsController < ApplicationController
 
       #logger.info "Department IDs (after): #{params[:agent][:department_ids]}";
 
-      params.require(:agent).permit(:name, :display_name, :email, :password, :password_confirmation, :access_level, :availability, :active_chat_sound, :background_chat_sound, :visitor_arrived_sound, :avatar, :remove_avatar, :avatar_cache, website_ids: [], department_ids: [])
+      params.require(:agent).permit(:name, :display_name, :email, :title, :password, :password_confirmation, :access_level, :availability, :active_chat_sound, :background_chat_sound, :visitor_arrived_sound, :avatar, :remove_avatar, :avatar_cache, website_ids: [], department_ids: [])
     end
 end

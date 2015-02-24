@@ -18,6 +18,14 @@
             %i{class:"icon-append fa fa-question-circle"}
 
     .form-group
+      %label.col-md-4.control-label= f.label :title
+      .col-md-8
+        .input-group
+          = f.text_field :title, :class => "form-control title-field"
+          %span{class:"input-group-addon"}
+            %i{class:"icon-append fa fa-question-circle"}
+
+    .form-group
       %label.col-md-4.control-label= f.label :email
       .col-md-8
         .input-group
@@ -146,6 +154,10 @@
 
     $('.display-name-field').qtip(
       default_style('When chatting with a visitor, this is the name visitors will know you as (e.g. Adam).', '.display-name-field')
+    );
+
+    $('.title-field').qtip(
+      default_style('When chatting with a visitor, this title will be displayed on the widget', '.title-field')
     );
 
     $('.email-field').qtip(
