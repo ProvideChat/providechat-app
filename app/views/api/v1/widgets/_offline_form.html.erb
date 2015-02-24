@@ -33,7 +33,7 @@ if offline_form.department_enabled && departments && departments.count > 0
   <input type="hidden" id="pre-chat-department" value="Any Department">
 <% end %>
 
-<textarea rows="4" style="border: 1px solid #CCCCCC; width: 350px;" id="offline-message" placeholder="<%= offline_form.message_text %>"></textarea></p>
+<textarea rows="4" id="offline-message" placeholder="<%= offline_form.message_text %>"></textarea></p>
 
 <input type="submit" value="  <%= offline_form.button_text %>  " style="" id="send-offline-email">
 
