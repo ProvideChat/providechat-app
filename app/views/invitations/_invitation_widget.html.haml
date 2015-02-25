@@ -1,9 +1,10 @@
 .widget-preview-container
   #pc-chat-window{:style => "display: block;"}
-    .chat-widget.chat-widget-open{:style => "background-color: \##{@chat_widget.color}; border-color: \##{@chat_widget.color};"}
-      .chat-widget-header
-        = @chat_widget.title_message
-        %div{:style => "float: right; margin-right: 10px;"}
+    .chat-widget.chat-widget-open
+      .chat-widget-header{:style => "background-color: \##{@chat_widget.color};"}
+        %span{id: "pc-title-message"}
+          = @chat_widget.title_message
+        %div{:id => "chat-header-images"}
           = image_tag "widget/down-arrow.png", id: "close-chat-widget"
           = image_tag "widget/close.png", id: "end-chat"
 
@@ -11,11 +12,13 @@
         #in-chat
           .chat-widget-container
             .agent-area
-              %div{id: "agent-image-container"}
-                = image_tag current_agent.avatar_url, :id => "agent-image"
+              %div{style: "float: left;"}
+                = image_tag current_agent.avatar_url, :id => "agent-image", :height => "60", :width => "60"
               %div{:style => "float: left; margin-left: 10px;"}
-                %p#agent-name{:style => "font-weight: bold; font-size: 16px; margin-top: 0px;"}
+                %div#agent-name
                   = current_agent.display_name
+                %div#agent-title
+                  = current_agent.title
               %div{id: "logo-image-container"}
                 = image_tag(@chat_widget.logo_url) if @chat_widget.logo? && @chat_widget.display_logo?
 
@@ -30,6 +33,7 @@
 
                   %input#start-chat-btn{:style => "color: #333333; font-family: arial, verdana, helvetica; font-size: 12px; height: 40px; width: 110px;", :type => "submit", :value => "  #{@invitation.button_text}  "}/
 
-      .chat-widget-footer
-        %a{:href => "http://www.providechat.com/", :style => "color: #EEEEEE;"} Live Chat Software
-        powered by Provide Chat.
+      #chat-widget-footer
+        %p{id: "powered-by"}
+          %a{:href => "#"}
+            Live Chat Software powered by Provide Chat

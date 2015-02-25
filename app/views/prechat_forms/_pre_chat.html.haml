@@ -1,10 +1,13 @@
 .widget-preview-container
   #pc-chat-window{:style => "display: block;"}
-    .chat-widget.chat-widget-open{:style => "background-color: \##{@chat_widget.color}; border-color: #{darken_color(@chat_widget.color)};"}
-      .chat-widget-header
-        = @chat_widget.title_message
-        %div{:style => "float: right; margin-right: 10px;"}
+    .chat-widget.chat-widget-open
+      .chat-widget-header{:style => "background-color: \##{@chat_widget.color};"}
+        %span{id: "pc-title-message"}
+          = @chat_widget.title_message
+        %div{:id => "chat-header-images"}
           = image_tag "widget/down-arrow.png", id: "close-chat-widget"
+          = image_tag "widget/close.png", id: "end-chat"
+
       #chat-widget-content
         .chat-widget-container
           %div{:style => "margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px;"}
@@ -23,7 +26,9 @@
                   - @departments.each do |department|
                     %option{:value => department.id}= department.name
             %textarea#start-chat-question{:placeholder => @prechat_form.message_text, :rows => "4"}
-            %input#start-chat-btn{:style => "color: #333333; font-family: arial, verdana, helvetica; font-size: 12px; height: 40px;", :type => "submit", :value => "  #{@prechat_form.button_text}  "}/
-      .chat-widget-footer
-        %a{:href => "http://www.providechat.com/", :style => "color: #EEEEEE;"} Live Chat Software
-        powered by Provide Chat.
+            %input#start-chat-btn{:style => "color: #333333; font-family: arial, verdana, helvetica; font-size: 12px; height: 40px;", :type => "submit", :value => "  #{@prechat_form.button_text}  "}
+
+      #chat-widget-footer
+        %p{id: "powered-by"}
+          %a{:href => "#"}
+            Live Chat Software powered by Provide Chat

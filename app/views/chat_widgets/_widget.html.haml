@@ -1,28 +1,48 @@
 .widget-preview-container
   #pc-chat-window{:style => "display: block;"}
-    .chat-widget.chat-widget-open{:style => "background-color: \##{@chat_widget.color}; border-color: \##{@chat_widget.color};"}
-      .chat-widget-header
-        = @chat_widget.title_message
-        %div{:style => "float: right; margin-right: 10px;"}
+    .chat-widget.chat-widget-open
+      .chat-widget-header{:style => "background-color: \##{@chat_widget.color};"}
+        %span{id: "pc-title-message"}
+          = @chat_widget.title_message
+        %div{:id => "chat-header-images"}
           = image_tag "widget/down-arrow.png", id: "close-chat-widget"
           = image_tag "widget/close.png", id: "end-chat"
-          
+
       #chat-widget-content
         #in-chat
-          .chat-widget-container{:style => "height: 325px;"}
+          .chat-widget-container{:style => "height: 306px;"}
             .agent-area
-              %div{id: "agent-image-container"}
-                = image_tag current_agent.avatar_url, :id => "agent-image"
+              %div{style: "float: left;"}
+                = image_tag current_agent.avatar_url, :id => "agent-image", :height => "60", :width => "60"
               %div{:style => "float: left; margin-left: 10px;"}
-                %p#agent-name{:style => "font-weight: bold; font-size: 16px; margin-top: 0px;"}
+                %div#agent-name
                   = current_agent.display_name
+                %div#agent-title
+                  = current_agent.title
               %div{id: "logo-image-container"}
                 = image_tag(@chat_widget.logo_url) if @chat_widget.logo? && @chat_widget.display_logo?
+
             %div{:style => "background-color: #3B3B3B; width: 392px; height: 30px; position: absolute; right: 4px; border-top: 1px solid #000000; border-bottom: 1px solid #000000; display:none;"}
               %input{:style => "width: 200px; font-family: Lucida Sans Unicode, verdana, helvetica; font-size: 12px; border: 1px solid #000000; border-radius: 3px; margin-left: 5px; height: 22px; padding: 2px; margin-top: 4px;", :type => "text", :value => "luke@providechat.com"}/
-            #chat-message-area
+            #chat-message-area{class: "custom-scroll"}
+              .start-chat-msg
+                ="You are now chatting with #{current_agent.display_name}"
+              .message-box
+                .visitor-name
+                  Bruce
+              .visitor-message
+                Hi, I need some help with my purchase
+              .message-box
+                .agent-name
+                  =current_agent.display_name
+              .visitor-message
+                Hi Bruce!
+              .visitor-message
+                Please let me know how I can help
+
           .send-message
             %textarea#chat-message-box{:placeholder => "Your message..."}
-      .chat-widget-footer
-        %a{:href => "http://www.providechat.com/", :style => "color: #EEEEEE;"} Live Chat Software
-        powered by Provide Chat.
+      #chat-widget-footer
+        %p{id: "powered-by"}
+          %a{:href => "#"}
+            Live Chat Software powered by Provide Chat
