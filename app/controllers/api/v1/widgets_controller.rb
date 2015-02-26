@@ -198,6 +198,7 @@ module Api
           when "process_offline"
             @organization.process_offline_msg(website_id, params[:name], params[:email], params[:department], params[:message])
 
+            response = { 'success' => 'true' }
           when "end_chat"
             chat_id = params[:chat_id]
 
