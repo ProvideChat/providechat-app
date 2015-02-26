@@ -1,39 +1,40 @@
 <div class="chat-widget-container">
 
-<div style="margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px;">
+  <div style="margin: 10px;">
 
-<p><%= pre_chat_form.intro_text %></p>
+    <p id="intro-text"><%= pre_chat_form.intro_text %></p>
 
-<input type="text" id="pre-chat-name" placeholder="<%= pre_chat_form.name_text %>"></p>
+    <div class="pc-error-message" id="missing-fields">Please fill in required fields</div>
+    <div class="pc-error-message" id="invalid-email">Please enter a valid email</div>
 
-<% if pre_chat_form.email_enabled %>
-  <input type="text" id="pre-chat-email" placeholder="<%= pre_chat_form.email_text %>"></p>
-<% end %>
+    <input type="text" id="pre-chat-name" placeholder="<%= pre_chat_form.name_text %>"></p>
 
-<%
-departments = Website.find(website_id).departments
+    <% if pre_chat_form.email_enabled %>
+      <input type="text" id="pre-chat-email" placeholder="<%= pre_chat_form.email_text %>"></p>
+    <% end %>
 
-if pre_chat_form.department_enabled && departments && departments.count > 0
-%>
-  <p>
-    <select id="pre-chat-department">
-      <option value="Any Department">Any Department</option>
-      <% departments.each do |department| %>
-        <option value="<%= department.name %>"><%= department.name %></option>
-      <% end %>
-    </select>
-  </p>
-<% else %>
-  <input type="hidden" id="pre-chat-department" value="Any Department">
-<% end %>
+    <%
+    departments = Website.find(website_id).departments
 
-<textarea rows="4" id="pre-chat-message" placeholder="<%= pre_chat_form.message_text %>"></textarea></p>
+    if pre_chat_form.department_enabled && departments && departments.count > 0
+    %>
+      <p>
+        <select id="pre-chat-department">
+          <option value="Any Department">Any Department</option>
+          <% departments.each do |department| %>
+            <option value="<%= department.name %>"><%= department.name %></option>
+          <% end %>
+        </select>
+      </p>
+    <% else %>
+      <input type="hidden" id="pre-chat-department" value="Any Department">
+    <% end %>
 
-<input type="submit" value="  <%= pre_chat_form.button_text %>  " style="color: #333333; font-family: arial, verdana, helvetica; font-size: 12px; height: 40px;" id="start-chat-btn">
+    <textarea rows="4" id="pre-chat-message" placeholder="<%= pre_chat_form.message_text %>"></textarea></p>
 
-<div class="missing-fields">Please fill in all fields</div>
+    <input type="submit" value="  <%= pre_chat_form.button_text %>  " style="color: #333333; font-family: arial, verdana, helvetica; font-size: 12px; height: 40px;" id="start-chat-btn">
 
-</div>
+  </div>
 
 </div>
 
