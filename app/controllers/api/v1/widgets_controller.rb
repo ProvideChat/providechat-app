@@ -199,6 +199,17 @@ module Api
             @organization.process_offline_msg(website_id, params[:name], params[:email], params[:department], params[:message])
 
             response = { 'success' => 'true' }
+
+          when "email_transcript"
+            chat_id = params[:chat_id]
+
+            if params.has_key?(:transcript_email) && params[:transcript_email] != ''
+              chat = Chat.find(chat_id)
+              chat.email_transcript(params[:transcript_email])
+            end
+
+            response = { 'success' => 'true' }
+
           when "end_chat"
             chat_id = params[:chat_id]
 
@@ -211,6 +222,7 @@ module Api
             end
 
             response = { 'success' => 'true' }
+
           when "get_pre_chat"
             pre_chat_form = PrechatForm.find_by(:website_id => website_id)
             response = {
@@ -220,6 +232,7 @@ module Api
                           :locals => { :pre_chat_form => pre_chat_form, :org_id => org_id, :website_id => website_id }
                         )
             }
+
           when "get_invitation"
             visitor = Visitor.find(params[:visitor_id])
             visitor.process_invitation
@@ -235,6 +248,7 @@ module Api
                           :locals => { :invitation => invitation, :chat_widget => chat_widget, :agent => agent }
                         )
             }
+
           when "get_in_chat"
             chat_widget = ChatWidget.find_by(:website_id => website_id)
             response = {
@@ -244,6 +258,7 @@ module Api
                           :locals => { :chat_widget => chat_widget }
                         )
             }
+
           when "get_offline"
             offline_form = OfflineForm.find_by(:website_id => website_id)
             response = {
@@ -253,6 +268,7 @@ module Api
                           :locals => { :offline_form => offline_form, :org_id => org_id, :website_id => website_id }
                         )
             }
+
           when "update_status"
             if website = Website.find(website_id)
               website.update_ping
@@ -268,6 +284,7 @@ module Api
               'agent_status' => @organization.agent_status,
               'invite_sent' => visitor.invite_sent
             }
+
           when "initialize"
             session = JSON.parse(params[:session])
             logger.debug "SESSION DETAILS: #{session}"
@@ -285,7 +302,8 @@ module Api
 
               response = { 'success' => 'true', 'visitor_id' => visitor.id, 'website_id' => visitor.website_id,
                            'agent_status' => @organization.agent_status, 'agent_response_timeout' => @organization.agent_response_timeout,
-                           'chat_id' => chat_id, 'chat_status' => chat_status, 'visitor_name' => visitor.name, 'online_message' => chat_widget.online_message,
+                           'chat_id' => chat_id, 'chat_status' => chat_status, 'visitor_name' => visitor.name, 
+                           'visitor_email' => visitor.email, 'online_message' => chat_widget.online_message,
                            'offline_message' => chat_widget.offline_message, 'title_message' => chat_widget.title_message,
                            'widget_color' => "\##{chat_widget.color}" }
             else
