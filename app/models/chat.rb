@@ -59,11 +59,16 @@ class Chat < ActiveRecord::Base
       text_msg = text_msg + " - #{chat_message.user_name}: #{chat_message.message}\n\n"
     end
 
-    html_msg = "<html><h3>Hello #{self.visitor_name}</h3><p>Here is your requested chat transcript</p><ul>"
+    html_msg = "<html><h3>Hello #{self.visitor_name}</h3><p>Here is your requested chat transcript</p><hr>"
+    last_user_name = ""
     self.chat_messages.each do |chat_message|
-      html_msg = html_msg + "<li><strong>#{chat_message.user_name}:</strong> #{chat_message.message}"
+      if chat_message.user_name != last_user_name
+        html_msg = html_msg + "<br><strong>#{chat_message.user_name}:</strong><br>"
+      end
+      html_msg = html_msg + "#{chat_message.message}<br>"
+      last_user_name = chat_message.user_name
     end
-    html_msg = html_msg + "</ul><hr></html>"
+    html_msg = html_msg + "<hr><p>Thanks for using Provide Chat!</p></html>"
 
     m = Mandrill::API.new
     message = {
