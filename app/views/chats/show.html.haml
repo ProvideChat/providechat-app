@@ -20,30 +20,34 @@
               = @chat.agent.display_name
 
             %p
-              %strong Visitor name:
+              %strong Visitor:
               = @chat.visitor_name
+              - if @chat.visitor_email.length > 0
+                = "(#{@chat.visitor_email})" 
 
-            %p
-              %strong Visitor email:
-              = @chat.visitor_email
+            - if @chat.visitor_department.length > 0
+              %p
+                %strong Visitor department:
+                = @chat.visitor_department
 
-            %p
-              %strong Visitor department:
-              = @chat.visitor_department
-
-            %p
-              %strong Visitor question:
-              = @chat.visitor_question
+            - if @chat.visitor_question.length > 0
+              %p
+                %strong Visitor question:
+                = @chat.visitor_question
 
           %p &nbsp;
 
           %h3 Chat Transcript
 
-          %ul
+          - last_user_name = ''
           - @chat.chat_messages.each do |chat_message|
-            %li 
+            - if chat_message.user_name != last_user_name
+              %br
               %strong #{chat_message.user_name}:
-              = chat_message.message
+              %br
+            = chat_message.message
+            %br
+            - last_user_name = chat_message.user_name
 
           .widget-footer
             = link_to chats_url, class: "btn btn-default" do
