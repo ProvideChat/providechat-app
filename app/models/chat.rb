@@ -68,7 +68,8 @@ class Chat < ActiveRecord::Base
       html_msg = html_msg + "#{chat_message.message}<br>"
       last_user_name = chat_message.user_name
     end
-    html_msg = html_msg + "<hr><p>Thanks for using Provide Chat!</p></html>"
+    html_msg = html_msg + "<hr><p>Thanks for using Provide Chat! "
+    html_msg = html_msg + "Learn more at <a href='http://providechat.com'>providechat.com</a></p></html>"
 
     m = Mandrill::API.new
     message = {
