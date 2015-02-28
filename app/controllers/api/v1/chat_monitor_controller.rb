@@ -58,6 +58,7 @@ module Api
                           seen_by_visitor: false, seen_by_agent: false, sent: DateTime.now,
                           message: visitor.question)
 
+
             response = {
               'chat_id' => chat.id,
               'visitor_id' => visitor_id,
@@ -134,18 +135,16 @@ module Api
               'success' => 'true'
             }
 
-          when "update_agent_keypress"
+          when "get_visitor_typing"
 
             chat_id = params[:chat_id]
-            typing = params[:typing]
 
             chat = Chat.find(chat_id)
-            chat.agent_typing = typing
-            chat.save
 
             response = {
               'chat_id' => chat_id,
-              'success' => 'true'
+              'visitor_name' => chat.visitor_name,
+              'visitor_typing' => chat.visitor_typing
             }
 
           when "send_chat_invite"
