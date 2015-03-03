@@ -72,41 +72,44 @@ module Api
             }
 
           when "get_chat_messages"
-            context = params[:context]
-            chat_id = params[:chat_id]
 
             visitor_id = params[:visitor_id]
-            visitor = Visitor.find(visitor_id)
-            visitor.last_ping = DateTime.now
-            visitor.save
-
-            chat = Chat.find(chat_id)
-
-            if context == 'all'
-              chat_messages = ChatMessage.where(chat_id: chat_id)
-            elsif context == 'unseen'
-              chat_messages = ChatMessage.where(chat_id: chat_id, seen_by_visitor: false)
+            if visitor = Visitor.find(visitor_id)
+              visitor.last_ping = DateTime.now
+              visitor.save
             end
 
-            #logger.debug chat_messages
-            chat_messages.each do |chat_message|
-              chat_message.seen_by_visitor = true
-              chat_message.save
-            end
-            #ChatMessage.where(chat_id: chat_id, seen_by_visitor: false).update_all(seen_by_visitor: true)
+            if chat = Chat.find(params[:chat_id])
+              if params[:context] == 'all'
+                chat_messages = ChatMessage.where(chat_id: chat_id)
+              elsif params[:context] == 'unseen'
+                chat_messages = ChatMessage.where(chat_id: chat_id, seen_by_visitor: false)
+              end
 
-            agent_name = "None"
-            if chat.agent && chat.agent.display_name
-              agent_name = chat.agent.display_name
-            end
+              #logger.debug chat_messages
+              chat_messages.each do |chat_message|
+                chat_message.seen_by_visitor = true
+                chat_message.save
+              end
+              #ChatMessage.where(chat_id: chat_id, seen_by_visitor: false).update_all(seen_by_visitor: true)
 
-            response = {
-              'status' => chat.status,
-              'agent_name' => agent_name,
-              'messages' => chat_messages || Array.new,
-              'started' => chat.chat_accepted ? chat.chat_accepted : '',
-              'duration' => chat.chat_ended ? distance_of_time_in_words(chat.chat_accepted, chat.chat_ended) : ''
-            }
+              agent_name = "None"
+              if chat.agent && chat.agent.display_name
+                agent_name = chat.agent.display_name
+              end
+
+              response = {
+                'status' => chat.status,
+                'agent_name' => agent_name,
+                'messages' => chat_messages || Array.new,
+                'started' => chat.chat_accepted,
+                'duration' => chat.chat_ended ? distance_of_time_in_words(chat.chat_accepted, chat.chat_ended) : ''
+              }
+            else
+              response = {
+                'success' => 'false'
+              }
+            end
 
           when "save_chat_messages"
 
