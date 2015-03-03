@@ -4,7 +4,8 @@ module Api
       include ActionView::Helpers::DateHelper
       include ActionView::Helpers::SanitizeHelper
 
-      protect_from_forgery with: :null_session
+      skip_before_action :verify_authenticity_token
+      #protect_from_forgery with: :null_session
 
       respond_to :json
 
