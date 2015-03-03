@@ -81,9 +81,9 @@ module Api
 
             if chat = Chat.find(params[:chat_id])
               if params[:context] == 'all'
-                chat_messages = ChatMessage.where(chat_id: chat_id)
+                chat_messages = ChatMessage.where(chat_id: params[:chat_id])
               elsif params[:context] == 'unseen'
-                chat_messages = ChatMessage.where(chat_id: chat_id, seen_by_visitor: false)
+                chat_messages = ChatMessage.where(chat_id: params[:chat_id], seen_by_visitor: false)
               end
 
               #logger.debug chat_messages
