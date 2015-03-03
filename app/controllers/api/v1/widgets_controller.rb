@@ -104,7 +104,7 @@ module Api
               'status' => chat.status,
               'agent_name' => agent_name,
               'messages' => chat_messages || Array.new,
-              'started' => chat.chat_accepted,
+              'started' => chat.chat_accepted ? chat.chat_accepted : '',
               'duration' => chat.chat_ended ? distance_of_time_in_words(chat.chat_accepted, chat.chat_ended) : ''
             }
 
