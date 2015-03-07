@@ -1,47 +1,46 @@
 <div class="chat-widget-container">
 
-  <div style="margin: 10px;">
+  <div class="pre-chat-container">
     <p id="pc-intro-text"><%= offline_form.intro_text %></p>
+
+    <div style="display: none;" id="offline-success">
+
+      <div class="pc-success-message"><%= offline_form.success_message %></div>
+
+    </div>
+
+    <div id="offline-form">
+
+      <div class="pc-error-message" id="missing-fields">Please fill in required fields</div>
+      <div class="pc-error-message" id="invalid-email">Please enter a valid email</div>
+
+      <input type="text" id="offline-name" placeholder="<%= offline_form.name_text %>"></p>
+
+      <% if offline_form.email_enabled %>
+        <input type="text" id="offline-email" placeholder="<%= offline_form.email_text %>"></p>
+      <% end %>
+
+      <%
+      departments = Website.find(website_id).departments
+
+      if offline_form.department_enabled && departments && departments.count > 0
+      %>
+        <p>
+          <select id="offline-department">
+            <option value="Any Department">Any Department</option>
+            <% departments.each do |department| %>
+              <option value="<%= department.name %>"><%= department.name %></option>
+            <% end %>
+          </select>
+        </p>
+      <% else %>
+        <input type="hidden" id="pre-chat-department" value="Any Department">
+      <% end %>
+
+      <textarea rows="4" id="offline-message" placeholder="<%= offline_form.message_text %>"></textarea></p>
+
+      <input type="submit" value="  <%= offline_form.button_text %>  " style="" id="send-offline-email">
+
+    </div>
   </div>
-
-  <div style="margin: 10px; display: none;" id="offline-success">
-
-    <div class="pc-success-message"><%= offline_form.success_message %></div>
-
-  </div>
-
-  <div style="margin: 10px; font-family: arial, verdana, helvetica; font-size: 13px;" id="offline-form">
-
-    <div class="pc-error-message" id="missing-fields">Please fill in required fields</div>
-    <div class="pc-error-message" id="invalid-email">Please enter a valid email</div>
-
-    <input type="text" id="offline-name" placeholder="<%= offline_form.name_text %>"></p>
-
-    <% if offline_form.email_enabled %>
-      <input type="text" id="offline-email" placeholder="<%= offline_form.email_text %>"></p>
-    <% end %>
-
-    <%
-    departments = Website.find(website_id).departments
-
-    if offline_form.department_enabled && departments && departments.count > 0
-    %>
-      <p>
-        <select id="offline-department">
-          <option value="Any Department">Any Department</option>
-          <% departments.each do |department| %>
-            <option value="<%= department.name %>"><%= department.name %></option>
-          <% end %>
-        </select>
-      </p>
-    <% else %>
-      <input type="hidden" id="pre-chat-department" value="Any Department">
-    <% end %>
-
-    <textarea rows="4" id="offline-message" placeholder="<%= offline_form.message_text %>"></textarea></p>
-
-    <input type="submit" value="  <%= offline_form.button_text %>  " style="" id="send-offline-email">
-
-  </div>
-
 </div>

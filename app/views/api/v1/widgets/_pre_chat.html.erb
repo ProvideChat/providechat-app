@@ -1,8 +1,7 @@
 <div class="chat-widget-container">
 
-  <div style="margin: 10px;">
-
-    <p id="intro-text"><%= pre_chat_form.intro_text %></p>
+  <div class="pre-chat-container">
+    <p id="pc-intro-text"><%= pre_chat_form.intro_text %></p>
 
     <div class="pc-error-message" id="missing-fields">Please fill in required fields</div>
     <div class="pc-error-message" id="invalid-email">Please enter a valid email</div>
@@ -33,8 +32,6 @@
     <textarea rows="4" id="pre-chat-message" placeholder="<%= pre_chat_form.message_text %>"></textarea></p>
 
     <input type="submit" value="  <%= pre_chat_form.button_text %>  " style="color: #333333; font-family: arial, verdana, helvetica; font-size: 12px; height: 40px;" id="start-chat-btn">
-
   </div>
-
 </div>
 
