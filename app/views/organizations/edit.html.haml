@@ -1,15 +1,15 @@
 = render 'layouts/page_header', :title => 'Settings', :icon => 'fa-cog', :subpage => 'General Settings'
-.row
-  .col-sm-12.col-md-8.col-lg-7
-    #wid-id-0.jarviswidget.jarviswidget-color-darken
-      %header
-        %span.widget-icon
-          %i.fa.fa-cog
-        %h2 General Settings
-        %span.jarviswidget-loader
-          %i.fa.fa-refresh.fa-spin
-      %div{:role => "content"}
-        .jarviswidget-editbox
-          / This area used as dropdown edit box
-        .widget-body
-          = render 'form'
+
+.col-sm-12.col-md-8.col-lg-7
+  #wid-id-0.jarviswidget.jarviswidget-color-darken
+    %header
+      %span.widget-icon
+        %i.fa.fa-cog
+      %h2 General Settings
+      %span.jarviswidget-loader
+        %i.fa.fa-refresh.fa-spin
+    %div{:role => "content"}
+      .jarviswidget-editbox
+        / This area used as dropdown edit box
+      .widget-body
+        = render 'form'

@@ -1,28 +1,27 @@
 = render 'layouts/page_header', :title => 'Settings', :icon => 'fa-sitemap', :subpage => 'Websites'
-.row
-  .col-sm-12.col-md-12.col-lg-12
-    #wid-id-0.jarviswidget.jarviswidget-color-darken
-      %header
-        %span.widget-icon
-          %i.fa.fa-cloud
-        %h2 Websites
-        .widget-toolbar{:role => "menu"}
-          = link_to 'New Website', new_website_path, { title: "Add Website", class: "btn btn-primary" }
-        %span.jarviswidget-loader
-          %i.fa.fa-refresh.fa-spin
-      %div{:role => "content"}
-        .widget-body.no-padding
-          .alert.alert-info.no-margin.fade.in
-            %div{style: "float: left;"}
-              %i.fa-fw.fa.fa-info
-            %div{style: "margin-left: 24px;"}
-              You can place Provide Chat's chat widget on more than one website. For every website you would like to use Provide Chat on you will have to add it here.
-          %table.table.table-bordered
-            %thead
-              %tr
-                %th Name
-                %th URL
-                %th Main Email
-                %th
-            %tbody
-              = render(@websites) || render('no_websites')
+.col-sm-12.col-md-12.col-lg-12
+  #wid-id-0.jarviswidget.jarviswidget-color-darken
+    %header
+      %span.widget-icon
+        %i.fa.fa-cloud
+      %h2 Websites
+      .widget-toolbar{:role => "menu"}
+        = link_to 'New Website', new_website_path, { title: "Add Website", class: "btn btn-primary" }
+      %span.jarviswidget-loader
+        %i.fa.fa-refresh.fa-spin
+    %div{:role => "content"}
+      .widget-body.no-padding
+        .alert.alert-info.no-margin.fade.in
+          %div{style: "float: left;"}
+            %i.fa-fw.fa.fa-info
+          %div{style: "margin-left: 24px;"}
+            You can place Provide Chat's chat widget on more than one website. For every website you would like to use Provide Chat on you will have to add it here.
+        %table.table.table-bordered
+          %thead
+            %tr
+              %th Name
+              %th URL
+              %th Main Email
+              %th
+          %tbody
+            = render(@websites) || render('no_websites')

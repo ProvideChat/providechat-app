@@ -1,47 +1,68 @@
 <%= render 'layouts/page_header', :title => 'Chat Monitor', :icon => 'fa-comments' %>
 
-<div class="row">
-  <div class="col-sm-12 col-md-4">
-    <div class="jarviswidget" id="your-chats">
+<div class="col-sm-12 col-md-4">
+  <div class="jarviswidget" id="your-chats">
+
+    <header role="heading">
+      <h2> Current Activity </h2>
+      <div class="widget-toolbar">
+        <div class="btn-group">
+					<button id="filter-results" class="btn dropdown-toggle btn-xs btn-default" data-toggle="dropdown">
+						Filter Results <i class="fa fa-caret-down"></i>
+					</button>
+					<ul class="dropdown-menu pull-right filter-result-update">
+						<li>
+							<a href="javascript:void(0);" data-filter="mine">My Chats</a>
+						</li>
+						<li>
+							<a href="javascript:void(0);" data-filter="all">All Chats</a>
+						</li>
+					</ul>
+				</div>
+      </div>
+    </header>
+
+    <div role="content">
+      <div class="widget-body no-padding">
+        <div class="people-container">
+          <div class="people-header">Current Chats</div>
+          <div id="current-chat-container">
+            <%= image_tag "select2-spinner.gif", :id => "current-chat-loading" %>
+            <div id="no-current-chats-msg" class="chat-container-status">No current chats</div>
+          </div>
+
+          <div class="people-header">Waiting to Chat</div>
+          <div id="waiting-to-chat-container">
+            <%= image_tag "select2-spinner.gif", :id => "waiting-to-chat-loading" %>
+            <div id="no-waiting-chats-msg" class="chat-container-status">No one is currently waiting to chat</div>
+          </div>
+
+          <div class="people-header">Visitors</div>
+          <div id="visitor-container">
+            <%= image_tag "select2-spinner.gif", :id => "no-chat-loading" %>
+            <div id="no-visitor-msg" class="chat-container-status">No current visitors</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-12 col-md-8">
+  <div id="no-active-chat" class="no-chats">
+    <div class="jarviswidget" id="your-chats" data-widget-editbutton="false" data-widget-fullscreenbutton="false">
 
       <header role="heading">
-        <h2> Current Activity </h2>
-        <div class="widget-toolbar">
-          <div class="btn-group">
-						<button id="filter-results" class="btn dropdown-toggle btn-xs btn-default" data-toggle="dropdown">
-							Filter Results <i class="fa fa-caret-down"></i>
-						</button>
-						<ul class="dropdown-menu pull-right filter-result-update">
-							<li>
-								<a href="javascript:void(0);" data-filter="mine">My Chats</a>
-							</li>
-							<li>
-								<a href="javascript:void(0);" data-filter="all">All Chats</a>
-							</li>
-						</ul>
-					</div>
-        </div>
+        <span class="widget-icon"> <i class="fa fa-comments"></i> </span>
+        <h2>No Active Chats</h2>
       </header>
 
       <div role="content">
-        <div class="widget-body no-padding">
-          <div class="people-container">
-            <div class="people-header">Current Chats</div>
-            <div id="current-chat-container">
-              <%= image_tag "select2-spinner.gif", :id => "current-chat-loading" %>
-              <div id="no-current-chats-msg" class="chat-container-status">No current chats</div>
-            </div>
-
-            <div class="people-header">Waiting to Chat</div>
-            <div id="waiting-to-chat-container">
-              <%= image_tag "select2-spinner.gif", :id => "waiting-to-chat-loading" %>
-              <div id="no-waiting-chats-msg" class="chat-container-status">No one is currently waiting to chat</div>
-            </div>
-
-            <div class="people-header">Visitors</div>
-            <div id="visitor-container">
-              <%= image_tag "select2-spinner.gif", :id => "no-chat-loading" %>
-              <div id="no-visitor-msg" class="chat-container-status">No current visitors</div>
+        <div class="widget-body widget-hide-overflow">
+          <div class="no-chats">
+            <div class="alert alert-info alert-block">
+              <h4 class="alert-heading">No Active Chats</h4>
+              Go grab a coffee and relax, you have no active chats at this time.
             </div>
           </div>
         </div>
@@ -49,40 +70,16 @@
     </div>
   </div>
 
-  <div class="col-sm-12 col-md-8">
-    <div id="no-active-chat" class="no-chats">
-      <div class="jarviswidget" id="your-chats" data-widget-editbutton="false" data-widget-fullscreenbutton="false">
+  <div id="active-chat-tabs" style="display: none;">
+    <div class="tab-pane active" id="hr1">
 
-        <header role="heading">
-          <span class="widget-icon"> <i class="fa fa-comments"></i> </span>
-          <h2>No Active Chats</h2>
-        </header>
+      <div class="tabbable tabs-below" id="tabs">
+        <div class="tab-content">
 
-        <div role="content">
-          <div class="widget-body widget-hide-overflow">
-            <div class="no-chats">
-              <div class="alert alert-info alert-block">
-                <h4 class="alert-heading">No Active Chats</h4>
-                Go grab a coffee and relax, you have no active chats at this time.
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
+        <ul class="nav nav-tabs">
 
-    <div id="active-chat-tabs" style="display: none;">
-
-      <div class="tab-pane active" id="hr1">
-
-        <div class="tabbable tabs-below" id="tabs">
-          <div class="tab-content">
-
-          </div>
-          <ul class="nav nav-tabs">
-
-          </ul>
-        </div>
+        </ul>
       </div>
     </div>
   </div>
@@ -104,12 +101,9 @@
     <p>Only paid accounts have access to the chat invitation features.  Please upgrade your account to access
     this and many more features.</p>
   </div>
-
 </div>
 
-
 <div id="audio-settings-dialog" title="Audio Settings" class="ui-dialog" style="display: none;">
-
 	<form>
 		<h5>Alert me with a sound when:</h5>
 		<p style="padding-left: 10px;">

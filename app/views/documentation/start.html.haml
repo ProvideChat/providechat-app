@@ -1,64 +1,63 @@
 = render 'layouts/page_header', :title => 'Documentation', :icon => 'fa-info-circle', :subpage => 'Getting Started with Provide Chat'
 
-.row
-  .col-sm-12.col-md-12.col-lg-12
-    #wid-id-0.jarviswidget.jarviswidget-color-darken
-      %header
-        %span.widget-icon
-          %i.fa.fa-info-circle
-        %h2 Getting Started with Provide Chat
-      %div
-        .widget-body.no-padding
-          .alert.alert-info.no-margin.fade.in
-            %div{style: "float: left;"}
-              %i.fa-fw.fa.fa-info
-            %div{style: "margin-left: 24px;"}
-              Provide Chat makes it easy for you to chat live with your visitors. To get started with Provide Chat simply follow these steps and you'll be chatting in no time.
+.col-sm-12.col-md-12.col-lg-12
+  #wid-id-0.jarviswidget.jarviswidget-color-darken
+    %header
+      %span.widget-icon
+        %i.fa.fa-info-circle
+      %h2 Getting Started with Provide Chat
+    %div
+      .widget-body.no-padding
+        .alert.alert-info.no-margin.fade.in
+          %div{style: "float: left;"}
+            %i.fa-fw.fa.fa-info
+          %div{style: "margin-left: 24px;"}
+            Provide Chat makes it easy for you to chat live with your visitors. To get started with Provide Chat simply follow these steps and you'll be chatting in no time.
 
-          .form-container
-            .col-sm-12
-              %h4 1. Add Your Website
-              %br
+        .form-container
+          .col-sm-12
+            %h4 1. Add Your Website
+            %br
 
-              %div{style: "margin-left: 20px;"}
-                %p The first thing you'll want to do is add your website to Provide Chat. 
+            %div{style: "margin-left: 20px;"}
+              %p The first thing you'll want to do is add your website to Provide Chat. 
 
-                %p Click on #{link_to "Settings", websites_path} <i class="fa fa-angle-double-right"></i> #{link_to "Websites", websites_path} and click <strong>New Website</strong> in the top right. 
+              %p Click on #{link_to "Settings", websites_path} <i class="fa fa-angle-double-right"></i> #{link_to "Websites", websites_path} and click <strong>New Website</strong> in the top right. 
 
-                %p Enter in your website's name, web address (e.g. http://www.yourwebsite.com/), and your main email.
+              %p Enter in your website's name, web address (e.g. http://www.yourwebsite.com/), and your main email.
 
-                %p Once done, click <strong>Add Website.</strong>
+              %p Once done, click <strong>Add Website.</strong>
 
-                %p <i>Note: One of the most powerful features for Provide Chat is that it can used on an unlimited number of websites and each website can have its own agents, departments, and chat widget design. In other words, many of the features used in Provide Chat can be customized for each website. Click here to read more about Provide Chat's Multiple Websites feature.</i>
+              %p <i>Note: One of the most powerful features for Provide Chat is that it can used on an unlimited number of websites and each website can have its own agents, departments, and chat widget design. In other words, many of the features used in Provide Chat can be customized for each website. Click here to read more about Provide Chat's Multiple Websites feature.</i>
 
 
-              %br
-              %h4 2. Copy the Provide Chat Code into your website
-              %br
-              
-              %div{style: "margin-left: 20px;"}
-                %p Click on #{link_to "Chat Widget", code_path} <i class="fa fa-angle-double-right"></i> #{link_to "Website Code", code_path}. Now click in the text box that has the JavaScript code. Don't worry if you don't understand it, you will not have to edit any of this code. Next, click select all, and copy the code (Ctrl + C).
+            %br
+            %h4 2. Copy the Provide Chat Code into your website
+            %br
+            
+            %div{style: "margin-left: 20px;"}
+              %p Click on #{link_to "Chat Widget", code_path} <i class="fa fa-angle-double-right"></i> #{link_to "Website Code", code_path}. Now click in the text box that has the JavaScript code. Don't worry if you don't understand it, you will not have to edit any of this code. Next, click select all, and copy the code (Ctrl + C).
 
-                %p To install the Provide Chat widget, paste this code (unaltered, in it’s entirety) on every page of your website just before the closing </body> tag.
+              %p To install the Provide Chat widget, paste this code (unaltered, in it’s entirety) on every page of your website just before the closing </body> tag.
 
-                %p If you're not sure how to do this, or not in charge of updating the HTML on your website, you may want to forward this code to your webmaster or web developer.
+              %p If you're not sure how to do this, or not in charge of updating the HTML on your website, you may want to forward this code to your webmaster or web developer.
 
-              %br
-              %h4 3. Add Your Departments
-              %br
+            %br
+            %h4 3. Add Your Departments
+            %br
 
-              %div{style: "margin-left: 20px;"}
-                %p If you plan to have different departments (sales, support, orders, etc), you'll want to add them here. 
+            %div{style: "margin-left: 20px;"}
+              %p If you plan to have different departments (sales, support, orders, etc), you'll want to add them here. 
 
-                %p Click on #{link_to "Departments", departments_path} <i class="fa fa-angle-double-right"></i> #{link_to "New Department", new_department_path} to add a new department. Next, enter in the details such as the department's name (e.g. Sales), email (e.g. sales@yourwebsite.com) and assign it to the website to which this department belongs.
+              %p Click on #{link_to "Departments", departments_path} <i class="fa fa-angle-double-right"></i> #{link_to "New Department", new_department_path} to add a new department. Next, enter in the details such as the department's name (e.g. Sales), email (e.g. sales@yourwebsite.com) and assign it to the website to which this department belongs.
 
-              %br
-              %h4 4. Update your Agent's Information
-              %br
+            %br
+            %h4 4. Update your Agent's Information
+            %br
 
-              %div{style: "margin-left: 20px;"}              
-                %p Now go to #{link_to "Agents", agents_path} , and for your agent click Edit.
+            %div{style: "margin-left: 20px;"}              
+              %p Now go to #{link_to "Agents", agents_path} , and for your agent click Edit.
 
-                %p Input all of the appropriate information for your agent. Input your name, display name, change your email address and password if necessary, upload a photo of yourself, and assign yourself to the website you created in Step 1.
+              %p Input all of the appropriate information for your agent. Input your name, display name, change your email address and password if necessary, upload a photo of yourself, and assign yourself to the website you created in Step 1.
 
-                %p You're now ready to chat live with your website visitors. You'll now want to click on the Chat Monitor to begin chatting with your site visitors. You can read documentation on how to use the chat monitor here. 
+              %p You're now ready to chat live with your website visitors. You'll now want to click on the Chat Monitor to begin chatting with your site visitors. You can read documentation on how to use the chat monitor here. 

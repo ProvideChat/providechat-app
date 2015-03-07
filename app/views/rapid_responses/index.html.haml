@@ -1,39 +1,38 @@
 = render 'layouts/page_header', :title => 'Settings', :icon => 'fa-sitemap', :subpage => 'Rapid Responses'
 
-.row
-  .col-sm-12.col-md-12.col-lg-12
-    #wid-id-0.jarviswidget.jarviswidget-color-darken
-      %header
-        %span.widget-icon
-          %i.fa.fa-flash
-        %h2 Rapid Responses
-        .widget-toolbar{:role => "menu"}
-          = link_to 'New Website', new_website_path, { title: "Add Website", class: "btn btn-primary" }
-        %span.jarviswidget-loader
-          %i.fa.fa-refresh.fa-spin
-      %div{:role => "content"}
+.col-sm-12.col-md-12.col-lg-12
+  #wid-id-0.jarviswidget.jarviswidget-color-darken
+    %header
+      %span.widget-icon
+        %i.fa.fa-flash
+      %h2 Rapid Responses
+      .widget-toolbar{:role => "menu"}
+        = link_to 'New Website', new_website_path, { title: "Add Website", class: "btn btn-primary" }
+      %span.jarviswidget-loader
+        %i.fa.fa-refresh.fa-spin
+    %div{:role => "content"}
 
-        #nestable-menu
-          %button.btn.btn-default{"data-action" => "expand-all", :type => "button"}
-            Expand All
-          %button.btn.btn-default{"data-action" => "collapse-all", :type => "button"}
-            Collapse All
-        #nestable.dd
-          %ol.dd-list
-            - @rapid_responses.roots.each do |rapid_response|
-              %li.dd-item.dd3-item{"data-id" => rapid_response.id}
-                .dd-handle.dd3-handle
-                  Drag
-                .dd3-content
-                  = rapid_response.name
-                %ol.dd-list
-                  - rapid_response.children.each do |rapid_response_child|
-                    %li.dd-item.dd3-item{"data-id" => "16"}
-                      .dd-handle.dd3-handle
-                        Drag
-                      .dd3-content
-                        = rapid_response_child.name
-                        .pull-right
-                          = rapid_response_child.text
-        %br/
-        = link_to 'New Rapid response', new_rapid_response_path
+      #nestable-menu
+        %button.btn.btn-default{"data-action" => "expand-all", :type => "button"}
+          Expand All
+        %button.btn.btn-default{"data-action" => "collapse-all", :type => "button"}
+          Collapse All
+      #nestable.dd
+        %ol.dd-list
+          - @rapid_responses.roots.each do |rapid_response|
+            %li.dd-item.dd3-item{"data-id" => rapid_response.id}
+              .dd-handle.dd3-handle
+                Drag
+              .dd3-content
+                = rapid_response.name
+              %ol.dd-list
+                - rapid_response.children.each do |rapid_response_child|
+                  %li.dd-item.dd3-item{"data-id" => "16"}
+                    .dd-handle.dd3-handle
+                      Drag
+                    .dd3-content
+                      = rapid_response_child.name
+                      .pull-right
+                        = rapid_response_child.text
+      %br/
+      = link_to 'New Rapid response', new_rapid_response_path

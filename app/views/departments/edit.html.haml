@@ -1,12 +1,11 @@
 = render 'layouts/page_header', :title => 'Departments', :icon => 'fa-sitemap', :subpage => 'Edit Department'
 
-.row
-  %article.col-sm-12.col-md-8.col-lg-6
-    #wid-id-0.jarviswidget.jarviswidget-color-darken{"data-widget-colorbutton" => "false", "data-widget-custombutton" => "false", "data-widget-editbutton" => "false"}
-      %header
-        %span.widget-icon
-          %i.fa.fa-sitemap
-        %h2 Edit Department
-      %div
-        .widget-body
-          = render 'form'
+%article.col-sm-12.col-md-8.col-lg-6
+  #wid-id-0.jarviswidget.jarviswidget-color-darken{"data-widget-colorbutton" => "false", "data-widget-custombutton" => "false", "data-widget-editbutton" => "false"}
+    %header
+      %span.widget-icon
+        %i.fa.fa-sitemap
+      %h2 Edit Department
+    %div
+      .widget-body
+        = render 'form'

@@ -1,26 +1,27 @@
-.jarviswidget.jarviswidget-color-blueDark
-  %header{:role => "heading"}
+%article.col-sm-12
+  .jarviswidget.jarviswidget-color-blueDark
+    %header{:role => "heading"}
 
-    %span.widget-icon
-      %i.fa.fa-table
-    %h2 Chat Transcript Search Results
-    %span.jarviswidget-loader
-      %i.fa.fa-refresh.fa-spin
-  %div{:role => "content"}
-    .jarviswidget-editbox
-    .widget-body.no-padding
-      .table-responsive
-        %table.table.table-striped.table-bordered.table-hover
-          %thead
-            %tr
-              %th Ticket ID
-              %th Agent
-              %th Website
-              %th Visitor Name
-              %th Chat Accepted
-              %th Department
-          %tbody
-            = render(@chats) || render('no_chats')
+      %span.widget-icon
+        %i.fa.fa-table
+      %h2 Chat Transcript Search Results
+      %span.jarviswidget-loader
+        %i.fa.fa-refresh.fa-spin
+    %div{:role => "content"}
+      .jarviswidget-editbox
+      .widget-body.no-padding
+        .table-responsive
+          %table.table.table-striped.table-bordered.table-hover
+            %thead
+              %tr
+                %th Ticket ID
+                %th Agent
+                %th Website
+                %th Visitor Name
+                %th Chat Accepted
+                %th Department
+            %tbody
+              = render(@chats) || render('no_chats')
 
 
 :javascript

@@ -1,55 +1,55 @@
 = render 'layouts/page_header', :title => 'Chat Transcripts', :icon => 'fa-file-text-o', :subpage => 'View Transcript'
-.row
-  %article.col-sm-10.col-md-10.col-lg-8
-    #wid-id-0.jarviswidget.jarviswidget-color-blueDark
-      %header
-        %span.widget-icon
-          %i.fa.fa-comments-o
-        %h2 View Chat Transcript
-      %div
-        .widget-body
-          .well.well-sm
-            %h5 Chat Overview
 
+%article.col-sm-10.col-md-10.col-lg-8
+  #wid-id-0.jarviswidget.jarviswidget-color-blueDark
+    %header
+      %span.widget-icon
+        %i.fa.fa-comments-o
+      %h2 View Chat Transcript
+    %div
+      .widget-body
+        .well.well-sm
+          %h5 Chat Overview
+
+          %p
+            %strong Website:
+            = @chat.website.name
+
+          %p
+            %strong Agent:
+            = @chat.agent.display_name
+
+          %p
+            %strong Visitor:
+            = @chat.visitor_name
+            - if @chat.visitor_email.length > 0
+              = "(#{@chat.visitor_email})" 
+
+          - if @chat.visitor_department.length > 0
             %p
-              %strong Website:
-              = @chat.website.name
+              %strong Visitor department:
+              = @chat.visitor_department
 
+          - if @chat.visitor_question.length > 0
             %p
-              %strong Agent:
-              = @chat.agent.display_name
+              %strong Visitor question:
+              = @chat.visitor_question
 
-            %p
-              %strong Visitor:
-              = @chat.visitor_name
-              - if @chat.visitor_email.length > 0
-                = "(#{@chat.visitor_email})" 
+        %p &nbsp;
 
-            - if @chat.visitor_department.length > 0
-              %p
-                %strong Visitor department:
-                = @chat.visitor_department
+        %h3 Chat Transcript
 
-            - if @chat.visitor_question.length > 0
-              %p
-                %strong Visitor question:
-                = @chat.visitor_question
-
-          %p &nbsp;
-
-          %h3 Chat Transcript
-
-          - last_user_name = ''
-          - @chat.chat_messages.each do |chat_message|
-            - if chat_message.user_name != last_user_name
-              %br
-              %strong #{chat_message.user_name}:
-              %br
-            = chat_message.message
+        - last_user_name = ''
+        - @chat.chat_messages.each do |chat_message|
+          - if chat_message.user_name != last_user_name
             %br
-            - last_user_name = chat_message.user_name
+            %strong #{chat_message.user_name}:
+            %br
+          = chat_message.message
+          %br
+          - last_user_name = chat_message.user_name
 
-          .widget-footer
-            = link_to chats_url, class: "btn btn-default" do
-              %i.fa.fa-chevron-left
-              &nbsp;Back to search
+        .widget-footer
+          = link_to chats_url, class: "btn btn-default" do
+            %i.fa.fa-chevron-left
+            &nbsp;Back to search

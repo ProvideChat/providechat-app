@@ -1,11 +1,10 @@
-<div class="row">
-  <div class="col-sm-12">
-    <% flash.each do |name, msg| %>
-      <div class="alert alert-<%= flash_class(name.to_s) %> fade in">
-        <button class="close" data-dismiss="alert">×</button>
-        <i class="fa-fw fa fa-<%= flash_class(name.to_s) %>"></i>
-        <%= msg %>
-      </div>
-    <% end %>
-  </div>
+<div class="col-sm-12">
+  <% flash.each do |name, msg| %>
+    <div class="alert alert-<%= flash_class(name.to_s) %> fade in">
+      <button class="close" data-dismiss="alert">×</button>
+      <i class="fa-fw fa fa-<%= flash_class(name.to_s) %>"></i>
+      <%= msg %>
+    </div>
+  <% end %>
 </div>
+
