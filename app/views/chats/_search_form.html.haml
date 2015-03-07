@@ -16,13 +16,13 @@
             %i{class:"icon-append fa fa-question-circle"}
     .form-group
       %label.col-md-3.control-label Agent
-      .col-md-9
+      .col-md-7
         = select_tag :agent_ids, options_from_collection_for_select(@agents, "id", "name"), {:multiple => true, :style => "width:100%", :class  => "select2", :placeholder => "Any agent(s)" }
         .help-text{style: "font-size: 10px;"}
           Limit search to specific agents or leave blank to search all agents.
     .form-group
       %label.col-md-3.control-label Website
-      .col-md-9
+      .col-md-7
         = select_tag :website_ids, options_from_collection_for_select(@websites, "id", "name"), {:multiple => true, :style => "width:100%", :class  => "select2", :placeholder => "Any website(s)" }
         .help-text{style: "font-size: 10px;"}
           Limit search to specific websites or leave blank to search all websites.
@@ -34,7 +34,6 @@
           %input#from-date.form-control.hasDatepicker{"data-date-format" => "yyyy/mm/dd", :placeholder => "From", :type => "text", :name => "from_date"}
           %span.input-group-addon
             %i#from-date-icon.fa.fa-calendar
-      .col-md-1
       .col-md-4
         .input-group
           %input#to-date.form-control.hasDatepicker{"data-date-format" => "yyyy/mm/dd", :placeholder => "To", :type => "text", :name => "to_date"}
