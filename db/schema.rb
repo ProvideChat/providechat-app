@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150108232513) do
+ActiveRecord::Schema.define(version: 20150307065026) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -307,8 +307,10 @@ ActiveRecord::Schema.define(version: 20150108232513) do
     t.integer  "status"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.string   "browser_fingerprint"
   end
 
+  add_index "visitors", ["browser_fingerprint"], name: "index_visitors_on_browser_fingerprint", using: :btree
   add_index "visitors", ["organization_id"], name: "index_visitors_on_organization_id", using: :btree
   add_index "visitors", ["website_id"], name: "index_visitors_on_website_id", using: :btree
 
