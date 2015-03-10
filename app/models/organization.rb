@@ -15,14 +15,12 @@ class Organization < ActiveRecord::Base
   enum account_type: [:trial, :paid, :free]
   enum status: [:disabled, :enabled]
 
-  def validate_widget_website(url, http_host)
+  def validate_widget_website(url, http_referrer)
     
-    logger.info "Validating Widget, URL: #{url}, HTTP_HOST: #{http_host}"
+    logger.info "Validating Widget, URL: #{url}, HTTP_REFERER: #{http_referrer}"
     
-    if http_host == "localhost:3000"
+    if http_referrer == url
       website = Website.find_by(:organization_id => self.id, :url => url)
-    else
-      website = Website.find_by(:organization_id => self.id, :url => http_host)
     end
   end
 

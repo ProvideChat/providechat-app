@@ -15,9 +15,10 @@ module Api
         url = params[:url]
         
         organization = Organization.find(org_id)
-        
+                
         if organization
-          website = organization.validate_widget_website(url, request.env['HTTP_HOST'])
+          http_referrer = request.env['HTTP_REFERER'].sub(/^https?\:\/\//, '').sub(/\/$/, '')
+          website = organization.validate_widget_website(url, http_referrer)
         end
         
         if website && organization
