@@ -5,7 +5,6 @@ module Api
       include ActionView::Helpers::SanitizeHelper
 
       skip_before_action :verify_authenticity_token
-      #protect_from_forgery with: :null_session
 
       respond_to :json
 
@@ -13,15 +12,24 @@ module Api
 
         method = params[:method]
         org_id = params[:org_id]
-        website_id = params[:website_id]
+        url = params[:url]
+        
+        organization = Organization.find(org_id)
+        
+        if organization
+          website = organization.validate_widget_website(url, request.env['HTTP_HOST'])
+        end
+        
+        if website && organization
 
-        if @organization = Organization.find_by_id(org_id)
-
-          logger.debug "METHOD: #{method}"
+          logger.info "METHOD: #{method}"
+          
+          website.update_ping
+          website.save
 
           case method
           when "process_pre_chat"
-            chat = Chat.create(organization_id: @organization.id, website_id: website_id, visitor_id: params[:visitor_id],
+            chat = Chat.create(organization_id: organization.id, website_id: website.id, visitor_id: params[:visitor_id],
                                 chat_requested: DateTime.now, visitor_name: params[:name],
                                 visitor_email: params[:email], visitor_department: params[:department],
                                 visitor_question: params[:message], status: "not_started")
@@ -35,7 +43,7 @@ module Api
             visitor.chat_id = chat.id
             visitor.save
 
-            chat_widget = ChatWidget.find_by(:website_id => website_id)
+            chat_widget = ChatWidget.find_by(:website_id => website.id)
             response = {
               'chat_id' => chat.id,
               'html' => render_to_string(
@@ -46,7 +54,7 @@ module Api
             }
 
           when "process_invitation"
-            chat = Chat.create(organization_id: @organization.id, website_id: website_id, visitor_id: params[:visitor_id],
+            chat = Chat.create(organization_id: organization.id, website_id: website.id, visitor_id: params[:visitor_id],
                                 chat_requested: DateTime.now, chat_accepted: DateTime.now,
                                 visitor_name: params[:name],
                                 visitor_email: '', visitor_department: '',
@@ -61,7 +69,7 @@ module Api
             chat.agent_id = visitor.invite_agent_id
             chat.save
 
-            chat_widget = ChatWidget.find_by(:website_id => website_id)
+            chat_widget = ChatWidget.find_by(:website_id => website.id)
 
             response = {
               'chat_id' => chat.id,
@@ -198,7 +206,7 @@ module Api
             }
 
           when "process_offline"
-            @organization.process_offline_msg(website_id, params[:name], params[:email], params[:department], params[:message])
+            organization.process_offline_msg(website.id, params[:name], params[:email], params[:department], params[:message])
 
             response = { 'success' => 'true' }
 
@@ -226,12 +234,12 @@ module Api
             response = { 'success' => 'true' }
 
           when "get_pre_chat"
-            pre_chat_form = PrechatForm.find_by(:website_id => website_id)
+            pre_chat_form = PrechatForm.find_by(:website_id => website.id)
             response = {
               'html' => render_to_string(
                           partial: 'pre_chat.html.erb',
                           :layout => false,
-                          :locals => { :pre_chat_form => pre_chat_form, :org_id => org_id, :website_id => website_id }
+                          :locals => { :pre_chat_form => pre_chat_form, :org_id => org_id, :website_id => website.id }
                         )
             }
 
@@ -240,8 +248,8 @@ module Api
             visitor.process_invitation
 
             agent = Agent.find(visitor.invite_agent_id)
-            invitation = Invitation.find_by(:website_id => website_id)
-            chat_widget = ChatWidget.find_by(:website_id => website_id)
+            invitation = Invitation.find_by(:website_id => website.id)
+            chat_widget = ChatWidget.find_by(:website_id => website.id)
 
             response = {
               'html' => render_to_string(
@@ -252,7 +260,7 @@ module Api
             }
 
           when "get_in_chat"
-            chat_widget = ChatWidget.find_by(:website_id => website_id)
+            chat_widget = ChatWidget.find_by(:website_id => website.id)
             response = {
               'html' => render_to_string(
                           partial: 'chat_widget.html.erb',
@@ -262,17 +270,17 @@ module Api
             }
 
           when "get_offline"
-            offline_form = OfflineForm.find_by(:website_id => website_id)
+            offline_form = OfflineForm.find_by(:website_id => website.id)
             response = {
               'html' => render_to_string(
                           partial: 'offline_form.html.erb',
                           :layout => false,
-                          :locals => { :offline_form => offline_form, :org_id => org_id, :website_id => website_id }
+                          :locals => { :offline_form => offline_form, :org_id => org_id, :website_id => website.id }
                         )
             }
 
           when "update_status"
-            if website = Website.find(website_id)
+            if website = Website.find(website.id)
               website.update_ping
               website.save
             end
@@ -283,17 +291,17 @@ module Api
             visitor.save
 
             response = { 
-              'agent_status' => @organization.agent_status,
+              'agent_status' => organization.agent_status,
               'invite_sent' => visitor.invite_sent
             }
 
           when "initialize"
             session = JSON.parse(params[:session])
             logger.debug "SESSION DETAILS: #{session}"
-            visitor = Visitor.process_session(org_id, session)
+            visitor = Visitor.process_session(org_id, website, session)
 
             if visitor
-              chat_widget = ChatWidget.find_by(:website_id => visitor.website_id)
+              chat_widget = ChatWidget.find_by(:website_id => visitor.website.id)
 
               chat_id = 0
               chat_status = ''
@@ -302,8 +310,8 @@ module Api
                 chat_status = visitor.chat.status
               end
 
-              response = { 'success' => 'true', 'visitor_id' => visitor.id, 'website_id' => visitor.website_id,
-                           'agent_status' => @organization.agent_status, 'agent_response_timeout' => @organization.agent_response_timeout,
+              response = { 'success' => 'true', 'visitor_id' => visitor.id, 'website_id' => visitor.website.id,
+                           'agent_status' => organization.agent_status, 'agent_response_timeout' => organization.agent_response_timeout,
                            'chat_id' => chat_id, 'chat_status' => chat_status, 'visitor_name' => visitor.name, 
                            'visitor_email' => visitor.email, 'online_message' => chat_widget.online_message,
                            'offline_message' => chat_widget.offline_message, 'title_message' => chat_widget.title_message,
