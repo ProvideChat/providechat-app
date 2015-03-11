@@ -15,13 +15,15 @@ class Organization < ActiveRecord::Base
   enum account_type: [:trial, :paid, :free]
   enum status: [:disabled, :enabled]
 
-  def validate_widget_website(url, http_referrer)
+  def validate_widget_website(http_referrer)
     
-    logger.info "Validating Widget, URL: #{url}, HTTP_REFERER: #{http_referrer}"
+    require 'uri'
+    uri = URI(http_referrer)
     
-    if http_referrer == url
-      website = Website.find_by(:organization_id => self.id, :url => url)
-    end
+    logger.info "Validating Widget, HTTP_REFERER: #{http_referrer}"
+    
+    website = Website.find_by(:organization_id => self.id, :url => uri.host)
+
   end
 
   def self.create_default_organization
