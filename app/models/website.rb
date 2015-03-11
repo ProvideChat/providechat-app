@@ -38,6 +38,7 @@ class Website < ActiveRecord::Base
 
   def smart_url_update
     self.url = self.url.sub(/^https?\:\/\//, '').sub(/\/$/, '')
+    self.url = self.url.sub(/\/(?!.*\.).*/, '').sub(/\/$/, '')
   end
 
   private
