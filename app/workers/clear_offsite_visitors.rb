@@ -7,6 +7,9 @@ class ClearOffsiteVisitors
     visitors.each do |visitor|
       visitor.status = Visitor.statuses[:offsite]
       visitor.save
+
+      chat = Chat.find(visitor.chat_id)
+      chat.end_chat('visitor_timeout')
     end
   end
 end
