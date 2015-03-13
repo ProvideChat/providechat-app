@@ -23,7 +23,7 @@ set :repo_url, 'git@bitbucket.org:providechat/providechat-app'
 set :linked_files, %w{config/database.yml .rbenv-vars}
 
 # Default value for linked_dirs is []
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -57,5 +57,33 @@ namespace :deploy do
       # end
     end
   end
-
 end
+
+# For capistrano 3
+namespace :sidekiq do
+  task :quiet do
+    # Horrible hack to get PID without having to use terrible PID files
+    puts capture("kill -USR1 $(sudo initctl status workers | grep /running | awk '{print $NF}') || :") 
+  end
+  task :restart do
+    execute :sudo, :initctl, :restart, :workers
+  end
+end
+
+after 'deploy:starting', 'sidekiq:quiet'
+after 'deploy:reverted', 'sidekiq:restart'
+after 'deploy:published', 'sidekiq:restart'
+
+# If you wish to use Inspeqtor to monitor Sidekiq
+# https://github.com/mperham/inspeqtor/wiki/Deployments
+namespace :inspeqtor do
+  task :start do
+    execute :inspeqtorctl, :start, :deploy
+  end
+  task :finish do
+    execute :inspeqtorctl, :finish, :deploy
+  end
+end
+
+before 'deploy:starting', 'inspeqtor:start'
+after 'deploy:finished', 'inspeqtor:finish'
