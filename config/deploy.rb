@@ -17,7 +17,7 @@ set :repo_url, 'git@bitbucket.org:providechat/providechat-app'
 # set :log_level, :debug
 
 # Default value for :pty is false
-# set :pty, true
+set :pty, true
 
 # Default value for :linked_files is []
 set :linked_files, %w{config/database.yml .rbenv-vars}
@@ -61,14 +61,18 @@ end
 
 # For capistrano 3
 namespace :sidekiq do
+
+  desc 'Restart sidekiq'
   task :quiet do
-    on roles(:app)
+    on roles(:app) do
       # Horrible hack to get PID without having to use terrible PID files
       puts capture("kill -USR1 $(sudo initctl status workers | grep /running | awk '{print $NF}') || :")
     end
   end
   task :restart do
-    execute :sudo, :initctl, :restart, :workers
+    on roles(:app) do
+      execute :sudo, :initctl, :restart, :workers
+    end
   end
 end
 
@@ -78,14 +82,18 @@ after 'deploy:published', 'sidekiq:restart'
 
 # If you wish to use Inspeqtor to monitor Sidekiq
 # https://github.com/mperham/inspeqtor/wiki/Deployments
-#namespace :inspeqtor do
-#  task :start do
-#    execute :inspeqtorctl, :start, :deploy
-#  end
-#  task :finish do
-#    execute :inspeqtorctl, :finish, :deploy
-#  end
-#end
+namespace :inspeqtor do
+  task :start do
+    on roles(:app) do
+      execute :inspeqtorctl, :start, :deploy
+    end
+  end
+  task :finish do
+    on roles(:app) do
+      execute :inspeqtorctl, :finish, :deploy
+    end
+  end
+end
 
-#before 'deploy:starting', 'inspeqtor:start'
-#after 'deploy:finished', 'inspeqtor:finish'
+before 'deploy:starting', 'inspeqtor:start'
+after 'deploy:finished', 'inspeqtor:finish'
