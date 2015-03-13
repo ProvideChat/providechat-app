@@ -8,6 +8,7 @@ require 'capistrano/bundler'
 require 'capistrano/rbenv'
 require 'capistrano/rails'
 require "whenever/capistrano"
+require 'sshkit/dsl'
 
 set :rbenv_type, :user
 set :rbenv_ruby, '2.2.1'
