@@ -3,6 +3,12 @@
 # It's helpful, but not entirely necessary to understand cron before proceeding.
 # http://en.wikipedia.org/wiki/Cron
 
+job_type :sidekiq, "cd :path && :environment_variable=:environment bundle exec sidekiq-client push :task :output"
+
+every 5.minutes, :roles => [:app] do #Check frequently
+  sidekiq "ClearOffsiteVisitors"
+end
+
 # Example:
 #
 # set :output, "/path/to/my/cron_log.log"
