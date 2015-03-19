@@ -30,6 +30,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'sidekiq'
 gem 'sidekiq-client-cli'
 gem "skylight"
+gem 'stripe', '~> 1.20.0'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
 gem 'whenever', :require => false
