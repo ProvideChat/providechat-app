@@ -14,15 +14,15 @@ module Api
         org_id = params[:org_id]
 
         organization = Organization.find(org_id)
-                
+
         if organization
           website = organization.validate_widget_website(request.env['HTTP_REFERER'])
         end
-        
+
         if website && organization
 
           logger.info "METHOD: #{method}"
-          
+
           website.update_ping
           website.save
 
