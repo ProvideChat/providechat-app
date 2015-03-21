@@ -5,6 +5,7 @@ ruby '2.2.1'
 gem 'rails', '4.2.1'
 
 gem 'ancestry'
+gem 'brakeman'
 gem 'carrierwave'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'devise'
