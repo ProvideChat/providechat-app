@@ -45,6 +45,7 @@ group :development do
   gem 'spring'
   gem 'binding_of_caller'
   gem 'quiet_assets'
+  gem 'rails_best_practices'
 end
 
 group :test, :development do 

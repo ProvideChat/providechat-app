@@ -111,6 +111,8 @@ GEM
       timers (~> 4.0.0)
     chronic (0.10.2)
     cli (1.3.1)
+    code_analyzer (0.4.5)
+      sexp_processor
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -118,6 +120,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
+    colored (1.2)
     colorize (0.7.5)
     columnize (0.9.0)
     connection_pool (2.1.1)
@@ -342,6 +345,15 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.2)
       loofah (~> 2.0)
+    rails_best_practices (1.15.7)
+      activesupport
+      code_analyzer (>= 0.4.3)
+      colored
+      erubis
+      i18n
+      json
+      require_all
+      ruby-progressbar
     railties (4.2.1)
       actionpack (= 4.2.1)
       activesupport (= 4.2.1)
@@ -353,6 +365,7 @@ GEM
     redis-namespace (1.5.1)
       redis (~> 3.0, >= 3.0.4)
     request_store (1.1.0)
+    require_all (1.3.2)
     responders (2.0.2)
       railties (>= 4.2.0.alpha, < 5)
     rest-client (1.7.3)
@@ -374,6 +387,7 @@ GEM
       rspec-mocks (~> 3.1.0)
       rspec-support (~> 3.1.0)
     rspec-support (3.1.2)
+    ruby-progressbar (1.7.1)
     ruby2ruby (2.1.3)
       ruby_parser (~> 3.1)
       sexp_processor (~> 4.0)
@@ -520,6 +534,7 @@ DEPENDENCIES
   pg
   quiet_assets
   rails (= 4.2.1)
+  rails_best_practices
   rspec-rails
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
