@@ -57,6 +57,7 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'bundler-audit'
   gem 'mailcatcher'
+  gem 'stripe-ruby-mock'
 end
 
 group :test do
