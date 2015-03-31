@@ -20,21 +20,22 @@ class AgentsController < ApplicationController
     @agent.status = 'enabled'
 
     if @agent.save
-      redirect_to agents_url, :flash => { :success => 'Agent was successfully created.' }
+      redirect_to agents_url,
+                  flash: { success: 'Agent was successfully created.' }
     else
       render :new
     end
   end
 
   def update
-
     if params[:agent][:password].blank? && params[:agent][:password_confirmation].blank?
-        params[:agent].delete(:password)
-        params[:agent].delete(:password_confirmation)
+      params[:agent].delete(:password)
+      params[:agent].delete(:password_confirmation)
     end
 
     if @agent.update(agent_params)
-      redirect_to agents_url, :flash => { :success => 'Agent was successfully updated.' }
+      redirect_to agents_url,
+                  flash: { success: 'Agent was successfully updated.' }
     else
       render :edit
     end
@@ -42,36 +43,44 @@ class AgentsController < ApplicationController
 
   def destroy
     @agent.destroy
-    redirect_to agents_url, :flash => { :success => 'Agent was successfully deleted.' }
+    redirect_to agents_url,
+                flash: { success: 'Agent was successfully deleted.' }
   end
 
   private
-    def set_agent
-      @agent = Agent.find(params[:id])
+
+  def set_agent
+    @agent = Agent.find(params[:id])
+  end
+
+  def set_websites
+    @websites = Website.where(organization_id: current_agent.organization_id)
+  end
+
+  def process_department_ids(department_ids)
+    if department_ids.size > 0
+      department_ids = department_ids.slice(department_ids.index("]") + 1..department_ids.size)
     end
 
-    def set_websites
-      @websites = Website.where(organization_id: current_agent.organization_id)
+    if department_ids.include?(",")
+      department_ids.split(",")
+    else
+      ["#{department_ids}"]
     end
+  end
 
-    def process_department_ids(department_ids)
-      if department_ids.size > 0
-        department_ids = department_ids.slice(department_ids.index("]")+1..department_ids.size)
-      end
+  def agent_params
 
-      if department_ids.include?(",")
-        department_ids = department_ids.split(",")
-      else
-        department_ids = ["#{department_ids}"]
-      end
-    end
+    params[:agent][:department_ids] = process_department_ids(params[:agent][:department_ids]) if params[:agent][:department_ids]
 
-    def agent_params
+    # logger.info "Department IDs (after): #{params[:agent][:department_ids]}";
 
-      params[:agent][:department_ids] = process_department_ids(params[:agent][:department_ids]) if params[:agent][:department_ids]
-
-      #logger.info "Department IDs (after): #{params[:agent][:department_ids]}";
-
-      params.require(:agent).permit(:name, :display_name, :email, :title, :password, :password_confirmation, :access_level, :availability, :active_chat_sound, :background_chat_sound, :visitor_arrived_sound, :avatar, :remove_avatar, :avatar_cache, website_ids: [], department_ids: [])
-    end
+    params.require(:agent).permit(:name, :display_name, :email, :title,
+                                  :password, :password_confirmation,
+                                  :access_level, :availability,
+                                  :active_chat_sound, :background_chat_sound,
+                                  :visitor_arrived_sound, :avatar,
+                                  :remove_avatar, :avatar_cache,
+                                  website_ids: [], department_ids: [])
+  end
 end

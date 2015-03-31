@@ -18,7 +18,8 @@ class WebsitesController < ApplicationController
     @website.organization_id = current_agent.organization_id
 
     if @website.save
-      redirect_to websites_path, :flash => { :success => 'Website was successfully created.' }
+      redirect_to websites_path,
+                  flash: { success: 'Website was successfully created.' }
     else
       render :new
     end
@@ -26,7 +27,8 @@ class WebsitesController < ApplicationController
 
   def update
     if @website.update(website_params)
-      redirect_to websites_path, :flash => { :success => 'Website was successfully updated.' }
+      redirect_to websites_path,
+                  flash: { success: 'Website was successfully updated.' }
     else
       render :edit
     end
@@ -34,7 +36,8 @@ class WebsitesController < ApplicationController
 
   def destroy
     @website.destroy
-    redirect_to websites_url, :flash => { :success => 'Website was successfully deleted.' }
+    redirect_to websites_url,
+                flash: { success: 'Website was successfully deleted.' }
   end
 
   private

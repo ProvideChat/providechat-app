@@ -4,7 +4,7 @@ class DepartmentsController < ApplicationController
   before_action :set_websites, only: [:edit, :new, :create]
 
   def index
-    if params.has_key?(:websites)
+    if params.key?(:websites)
       @departments = Department.where(organization_id: current_agent.organization_id).where("website_id" => params[:websites])
     else
       @departments = Department.where(organization_id: current_agent.organization_id)
@@ -23,7 +23,8 @@ class DepartmentsController < ApplicationController
     @department.organization_id = current_agent.organization_id
 
     if @department.save
-      redirect_to departments_url, :flash => { :success => 'Department was successfully updated.' }
+      redirect_to departments_url,
+                  flash: { success: 'Department was successfully updated.' }
     else
       render :new
     end
@@ -34,7 +35,8 @@ class DepartmentsController < ApplicationController
 
   def update
     if @department.update(department_params)
-      redirect_to departments_url, :flash => { :success => 'Department was successfully updated.' }
+      redirect_to departments_url,
+                  flash: { success: 'Department was successfully updated.' }
     else
       render :edit
     end
@@ -42,19 +44,21 @@ class DepartmentsController < ApplicationController
 
   def destroy
     @department.destroy
-    redirect_to departments_url, :flash => { :success => 'Department was successfully updated.' }
+    redirect_to departments_url,
+                flash: { success: 'Department was successfully updated.' }
   end
 
   private
-    def set_department
-      @department = Department.find(params[:id])
-    end
 
-    def set_websites
-      @websites = Website.where(organization_id: current_agent.organization_id)
-    end
+  def set_department
+    @department = Department.find(params[:id])
+  end
 
-    def department_params
-      params.require(:department).permit(:name, :email, :website_id)
-    end
+  def set_websites
+    @websites = Website.where(organization_id: current_agent.organization_id)
+  end
+
+  def department_params
+    params.require(:department).permit(:name, :email, :website_id)
+  end
 end

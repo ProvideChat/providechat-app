@@ -1,5 +1,4 @@
 class ChatsController < ApplicationController
-
   def index
     @agents = Agent.where(organization_id: current_agent.organization_id)
     @websites = Website.where(organization_id: current_agent.organization_id)
@@ -9,16 +8,17 @@ class ChatsController < ApplicationController
     respond_to do |format|
       format.html
       format.js
-     end
+    end
   end
 
   def show
     @chat = Chat.find(params[:id])
   end
 
-private
-  def filtering_params(params)
-    params.slice(:chat_id, :visitor_email, :website_ids, :agent_ids, :from_date, :to_date)
-  end
+  private
 
+  def filtering_params(params)
+    params.slice(:chat_id, :visitor_email, :website_ids, :agent_ids,
+                 :from_date, :to_date)
+  end
 end

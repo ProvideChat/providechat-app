@@ -5,23 +5,23 @@ class ApplicationController < ActionController::Base
 
   layout :layout_by_resource
 
-   def layout_by_resource
-     if devise_controller? #&& resource_name == :agent && action_name == 'new'
-       "devise"
-     else
-       "application"
-     end
-   end
-   
-   #def after_sign_in_path_for(resource)
+  def layout_by_resource
+    if devise_controller? #&& resource_name == :agent && action_name == 'new'
+      "devise"
+    else
+      "application"
+    end
+  end
+
+  # def after_sign_in_path_for(resource)
   #   if resource.completed_signup?
   #     after_signup_path
   #   else
   #     dashboard_path
   #   end
   # end
-   
-   def current_agent
-     super.decorate unless super.nil?
-   end
+
+  def current_agent
+    super.decorate unless super.nil?
+  end
 end

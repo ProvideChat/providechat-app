@@ -18,11 +18,13 @@ class OrganizationsController < ApplicationController
   end
 
   private
-    def set_organization
-      @organization = Organization.find(current_agent.organization_id)
-    end
 
-    def organization_params
-      params.require(:organization).permit(:agent_session_timeout, :agent_response_timeout )
-    end
+  def set_organization
+    @organization = Organization.find(current_agent.organization_id)
+  end
+
+  def organization_params
+    params.require(:organization).permit(:agent_session_timeout,
+                                         :agent_response_timeout )
+  end
 end

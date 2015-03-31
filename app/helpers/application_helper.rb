@@ -1,5 +1,4 @@
 module ApplicationHelper
-
   def controller?(*controller)
     controller.include?(params[:controller])
   end
@@ -16,5 +15,4 @@ module ApplicationHelper
     when 'alert' then "warning"
     end
   end
-
 end
