@@ -35,6 +35,7 @@
           .pull-right
             You are currently using #{@agents.count} of #{current_agent.organization.max_agents} available agents
 
+.clearfix
 
 .col-xs-12.col-sm-6.col-md-6
   #blog-widget.jarviswidget.jarviswidget-color-darken{:role => "widget"}
@@ -71,7 +72,7 @@
     %div{:role => "content"}
       .widget-body
         - if current_agent.organization.account_type == 'trial'
-          %h4 You are in your trial period
+          %h4 You currently have #{current_agent.organization.remaining_trial_days} days left in your trial period.
         - elsif current_agent.organization.account_type == 'paid'
           %h4 You are a paid customer
         - elsif current_agent.organization.account_type == 'free'

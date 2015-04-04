@@ -16,12 +16,12 @@ class Organization < ActiveRecord::Base
   enum status: [:disabled, :enabled]
 
   def validate_widget_website(http_referrer)
-    
+
     require 'uri'
     uri = URI(http_referrer)
-    
+
     logger.info "Validating Widget, HTTP_REFERER: #{http_referrer}"
-    
+
     website = Website.find_by(:organization_id => self.id, :url => uri.host)
 
   end
@@ -38,6 +38,11 @@ class Organization < ActiveRecord::Base
 
     organization
   end
+
+  def remaining_trial_days
+    (Time.now - self.trial_period_start).to_i
+  end
+
 
   def agent_status
     Agent.where(:organization_id => self.id, :availability => 1).count > 0 ? "online" : "offline"
