@@ -33,7 +33,7 @@
         = render :partial => 'agents_availability', :locals => { agents: @agents}
         .widget-footer
           .pull-right
-            You are currently using #{@agents.count} of #{current_agent.organization.max_agents} available agents
+            You are currently using #{@agents.count} 
 
 .clearfix
 
@@ -73,6 +73,9 @@
       .widget-body
         - if current_agent.organization.account_type == 'trial'
           %h4 You currently have #{current_agent.organization.remaining_trial_days} days left in your trial period.
+          
+          = link_to "Subscribe", new_subscription_path, class: "btn btn-primary btn-large"
+          
         - elsif current_agent.organization.account_type == 'paid'
           %h4 You are a paid customer
         - elsif current_agent.organization.account_type == 'free'

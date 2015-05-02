@@ -1,0 +1,65 @@
+= render 'layouts/page_header', :title => 'Payment Info', :icon => 'fa-credit-card'
+
+.col-sm-12.col-md-8.col-lg-7
+  #wid-id-0.jarviswidget.jarviswidget-color-darken
+    %header
+      %span.widget-icon
+        %i.fa.fa-credit-card
+      %h2 Start your Provide Chat Subscription
+      %span.jarviswidget-loader
+        %i.fa.fa-refresh.fa-spin
+    %div{:role => "content"}
+      .widget-body
+
+        = form_for @subscription, html: { id: 'payment-form' } do |f|
+          = render "layouts/error_messages", :f => @subscription
+          %fieldset
+            .form-group
+              %label.col-md-5.control-label Billing Email Address
+              .col-md-7
+                .form-inline
+                  %label
+                    %input{:name => "email_address", :size => "20", :type => "email", :class => "form-control", :value => current_agent.email}/
+                .help-text{style: "font-size: 10px;"}
+                  This is the billing email address that will be receiving invoices
+            .form-group
+              %label.col-md-5.control-label= f.label :quantity, "Number of agents"
+              .col-md-7
+                .form-inline
+                  %label
+                    = f.number_field :quantity, :class => "form-control", :min => 1, :style => "width: 90px;", :value => 1
+                    &nbsp
+                    agents
+
+                .help-text{style: "font-size: 10px;"}
+                  This is the number of agents that you want to purchase. Each agent is $15/month.
+
+            .form-group
+              %label.col-md-5.control-label Credit Card Number
+              .col-md-7
+                .form-inline
+                  %label
+                    %input{"data-stripe" => "number", :size => "20", :type => "text", :class => "form-control"}/
+
+            .form-group
+              %label.col-md-5.control-label CVC
+              .col-md-7
+                .form-inline
+                  %label
+                    %input{"data-stripe" => "cvc", :size => "4", :type => "text", :class => "form-control"}
+                .help-text{style: "font-size: 10px;"}
+                  The number on the back of your credit card
+                  
+            .form-group
+              %label.col-md-5.control-label Expiration (MM/YYYY)
+              .col-md-7
+                .form-inline
+                  %label
+                    %input{"data-stripe" => "exp-month", :size => "2", :type => "text"}/
+                    %span /
+                    %input{"data-stripe" => "exp-year", :size => "4", :type => "text"}/
+                                                      
+          .widget-footer
+            = f.submit "Start Subscription", :class => "btn btn-primary"
+
+        

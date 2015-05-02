@@ -27,3 +27,4 @@
 //= require nprogress
 //= require nprogress-turbolinks
 //= require providechat
+//= require subscriptions

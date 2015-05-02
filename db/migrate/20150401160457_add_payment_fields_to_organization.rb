@@ -1,9 +1,8 @@
 class AddPaymentFieldsToOrganization < ActiveRecord::Migration
   def change
-    t.integer :trial_days, :default => 14, :null => false
-    t.timestamp :trial_ends, null: false
-    t.timestamp :billing_start, null: false
-    t.integer :agent_subscription, :default => 0
-    t.string :stripe_customer_id
+    add_column :organizations, :trial_days, :integer, :default => 14, :null => false
+    add_column :organizations, :trial_period_end, :timestamp
+    add_column :organizations, :stripe_customer_id, :string, :default => ''
+    remove_column :organizations, :max_agents
   end
 end

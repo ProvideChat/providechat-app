@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-organization = Organization.create( max_agents: 3, payment_system: "stripe", status: "enabled", account_type: "paid" )
+organization = Organization.create( payment_system: "stripe", status: "enabled", account_type: "paid" )
 organization.save!
 
 agent = Agent.create( name: "Derek Barber", display_name: "Derek", title: "Support Hero", organization_id: organization.id, access_level: "superadmin", email: "derek@providechat.com", password: "password", password_confirmation: "password", status: "enabled")

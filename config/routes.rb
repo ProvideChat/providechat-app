@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resources :chat_widgets, only: [:index, :edit, :update]
   resources :invitations, only: [:index, :edit, :update]
   resources :organizations, only: [:edit, :update]
+  resources :subscriptions, only: [:new, :create, :edit]
 
   root to: 'home#dashboard', via: :get
 

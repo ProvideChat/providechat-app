@@ -1,25 +1,25 @@
 class CreateSubscription
-  def self.call(plan, email_address, token)
-    user, raw_token = CreateUser.call(email_address)
-
+  def self.call(organization, quantity, email_address, token)
     subscription = Subscription.new(
-      plan: plan,
-      user: user
+      quantity: quantity,
+      organization_id: organization.id
     )
 
     begin
       stripe_sub = nil
-      if user.stripe_customer_id.blank?
+      if organization.stripe_customer_id.blank?
         customer = Stripe::Customer.create(
           card: token,
-          email: user.email,
-          plan: plan.stripe_id,
+          email: email_address,
+          plan: 'agent',
+          quantity: quantity
         )
-        user.stripe_customer_id = customer.id
-        user.save!
+        organization.stripe_customer_id = customer.id
+        organization.account_type = "paid"
+        organization.save!
         stripe_sub = customer.subscriptions.first
       else
-        customer = Stripe::Customer.retrieve(user.stripe_customer_id)
+        customer = Stripe::Customer.retrieve(organization.stripe_customer_id)
         stripe_sub = customer.subscriptions.create(
           plan: plan.stripe_id
         )

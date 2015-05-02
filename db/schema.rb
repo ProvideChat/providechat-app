@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150321060036) do
+ActiveRecord::Schema.define(version: 20150404043818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -185,7 +185,6 @@ ActiveRecord::Schema.define(version: 20150321060036) do
 
   create_table "organizations", force: :cascade do |t|
     t.integer  "account_type",           default: 0,  null: false
-    t.integer  "max_agents",             default: 1
     t.integer  "payment_system",         default: 0
     t.integer  "agent_session_timeout",  default: 30
     t.integer  "agent_response_timeout", default: 2
@@ -193,6 +192,9 @@ ActiveRecord::Schema.define(version: 20150321060036) do
     t.integer  "status"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "trial_days",             default: 14, null: false
+    t.datetime "trial_period_end"
+    t.string   "stripe_customer_id",     default: ""
   end
 
   create_table "prechat_forms", force: :cascade do |t|
@@ -224,6 +226,17 @@ ActiveRecord::Schema.define(version: 20150321060036) do
   add_index "rapid_responses", ["ancestry"], name: "index_rapid_responses_on_ancestry", using: :btree
   add_index "rapid_responses", ["organization_id"], name: "index_rapid_responses_on_organization_id", using: :btree
   add_index "rapid_responses", ["website_id"], name: "index_rapid_responses_on_website_id", using: :btree
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.integer  "organization_id"
+    t.string   "stripe_id"
+    t.integer  "quantity"
+    t.datetime "active_until"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "subscriptions", ["organization_id"], name: "index_subscriptions_on_organization_id", using: :btree
 
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",      null: false
@@ -340,4 +353,5 @@ ActiveRecord::Schema.define(version: 20150321060036) do
 
   add_index "websites", ["organization_id"], name: "index_websites_on_organization_id", using: :btree
 
+  add_foreign_key "subscriptions", "organizations"
 end
