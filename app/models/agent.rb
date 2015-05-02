@@ -15,7 +15,8 @@ class Agent < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
-  validates :name, :title, presence: true
+  validates_presence_of :name, presence: true, length: { maximum: 50 }, :on => :update
+  validates_presence_of :title, :on => :update
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
   validates :email, format: { with: VALID_EMAIL_REGEX },
                       uniqueness: { case_sensitive: false }
