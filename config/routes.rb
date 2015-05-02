@@ -22,14 +22,17 @@ Rails.application.routes.draw do
 
   root to: 'home#dashboard', via: :get
 
-  get '/monitor', to: 'home#monitor', as: 'monitor'
-  get '/dashboard', to: 'home#dashboard', as: 'dashboard'
-  get '/code', to: 'home#code', as: 'code'
+  get 'monitor', to: 'home#monitor', as: 'monitor'
+  get 'dashboard', to: 'home#dashboard', as: 'dashboard'
+  get 'code', to: 'home#code', as: 'code'
 
   get 'documentation/start', to: 'documentation#start', as: 'doc_start'
   get 'documentation/general', to: 'documentation#general', as: 'doc_general'
   get 'documentation/websites', to: 'documentation#websites', as: 'doc_websites'
   get 'documentation/monitor', to: 'documentation#monitor', as: 'doc_monitor'
+  
+  get 'terms-of-service', to: 'static_pages#terms', as: 'terms'
+  get 'privacy-policy', to: 'static_pages#privacy', as: 'privacy'
 
   namespace :api, defaults: {format: 'json'} do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
