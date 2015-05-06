@@ -5,7 +5,7 @@ class Organization < ActiveRecord::Base
   has_many :offline_messages
   has_many :visitors
   has_many :visitor_archives
-  has_many :subscriptions
+  has_one :subscription
 
   validates :agent_session_timeout, numericality: { only_integer: true, greater_than: 0 }
   validates :agent_response_timeout, numericality: { only_integer: true, greater_than: 0 }
@@ -25,6 +25,21 @@ class Organization < ActiveRecord::Base
 
     website = Website.find_by(:organization_id => self.id, :url => uri.host)
 
+  end
+
+  def can_create_agents
+    case account_type
+    when "trial"
+      false
+    when "free"
+      false
+    when "paid"
+      if self.subscription.quantity && (self.agents.count < self.subscription.quantity)
+        true
+      else
+        false
+      end
+    end
   end
 
   def self.create_default_organization
