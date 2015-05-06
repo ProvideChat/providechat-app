@@ -8,7 +8,8 @@
       %h2
         %strong Agents
       .widget-toolbar{:role => "menu"}
-        = link_to "New Agent", new_agent_path, { title: "Add Agent", class: "btn btn-primary" }
+        - if current_agent.organization.can_create_agents
+          = link_to "New Agent", new_agent_path, { title: "Add Agent", class: "btn btn-primary" }
       %span.jarviswidget-loader
         %i.fa.fa-refresh.fa-spin
     %div{:role => "content"}
@@ -17,7 +18,17 @@
           %div{style: "float: left;"}
             %i.fa-fw.fa.fa-info
           %div{style: "margin-left: 24px;"}
-            Agents are the foundation of your Provide Chat system. Your account can have up to #{current_agent.organization.max_agents} agents.
+            - if current_agent.organization.account_type == 'trial'
+              Agents are the foundation of your Provide Chat system. As you are currently in your trial
+              period you are not able to create any addional agents. Please upgrade to a paid subscription
+              to increase your agents.
+            - elsif current_agent.organization.account_type == 'free'
+              Agents are the foundation of your Provide Chat system. As you are currently in your trial
+              period you are not able to create any addional agents. Please upgrade to a paid subscription
+              to increase your agents.
+            - elsif current_agent.organization.account_type == 'paid'
+              Agents are the foundation of your Provide Chat system. Your account can have up to 
+              #{current_agent.organization.subscription.quantity} agents.
         %table.table.table-bordered
           %thead
             %tr

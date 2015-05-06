@@ -44,7 +44,8 @@
     .form-group
       %label.col-md-4.control-label= f.label :password_confirmation, "Confirm Password"
       .col-md-8
-        = f.password_field :password_confirmation, autocomplete: "off", :class => "form-control"
+        .input-group
+          = f.password_field :password_confirmation, autocomplete: "off", :class => "form-control"
     
     - unless @agent.id == current_agent.id && current_agent.access_level == 'agent'
       .form-group

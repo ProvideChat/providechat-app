@@ -33,7 +33,11 @@
         = render :partial => 'agents_availability', :locals => { agents: @agents}
         .widget-footer
           .pull-right
-            You are currently using #{@agents.count} 
+            - if current_agent.organization.account_type == 'trial' || current_agent.organization.account_type == 'free'
+              You are currently using your maximum available agents.
+            - elsif current_agent.organization.account_type == 'paid'
+              You are currently using #{current_agent.organization.agents.count} of 
+              #{current_agent.organization.subscription.quantity} available agents.
 
 .clearfix
 
