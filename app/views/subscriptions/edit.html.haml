@@ -28,7 +28,7 @@
               .col-md-7
                 .form-inline
                   .input-group.spinner
-                    %input.form-control{:type => "text", :value => "1", :id => "agent-quantity", :name => "quantity"}/
+                    %input.form-control{:type => "text", :value => "#{@subscription.quantity}", :id => "agent-quantity", :name => "quantity"}/
                     .input-group-btn-vertical
                       %button.btn.btn-default{:type => "button"}
                         %i.fa.fa-caret-up

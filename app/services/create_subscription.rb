@@ -12,7 +12,8 @@ class CreateSubscription
           card: token,
           email: email_address,
           plan: 'agent',
-          quantity: quantity
+          quantity: quantity,
+          active_until: Date.today + 1.month
         )
         organization.stripe_customer_id = customer.id
         organization.account_type = "paid"
