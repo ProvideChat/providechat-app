@@ -3,3 +3,4 @@ $(document).on 'page:fetch', ->
 
 $(document).on 'page:restore', ->
   $('#content').fadeIn 'fast'
+  
