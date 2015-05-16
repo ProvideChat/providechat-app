@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150516051705) do
+ActiveRecord::Schema.define(version: 20150516052217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -154,6 +154,19 @@ ActiveRecord::Schema.define(version: 20150516051705) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
   end
+
+  create_table "invoice_payments", force: :cascade do |t|
+    t.string   "stripe_id"
+    t.integer  "amount"
+    t.integer  "fee_amount"
+    t.integer  "organization_id"
+    t.integer  "subscription_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "invoice_payments", ["organization_id"], name: "index_invoice_payments_on_organization_id", using: :btree
+  add_index "invoice_payments", ["subscription_id"], name: "index_invoice_payments_on_subscription_id", using: :btree
 
   create_table "offline_forms", force: :cascade do |t|
     t.integer  "organization_id"
@@ -361,5 +374,7 @@ ActiveRecord::Schema.define(version: 20150516051705) do
 
   add_index "websites", ["organization_id"], name: "index_websites_on_organization_id", using: :btree
 
+  add_foreign_key "invoice_payments", "organizations"
+  add_foreign_key "invoice_payments", "subscriptions"
   add_foreign_key "subscriptions", "organizations"
 end
