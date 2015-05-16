@@ -25,5 +25,4 @@ class StripeMailer < ActionMailer::Base
     @sale = Sale.find_by!(stripe_id: @charge.id)
     mail(to: @sale.email, subject: "Thanks for purchasing #{@sale.product.name}")
   end
-
 end

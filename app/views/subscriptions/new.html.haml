@@ -1,6 +1,6 @@
 = render 'layouts/page_header', :title => 'Start your Provide Chat Subscription', :icon => 'fa-credit-card'
 
-.col-sm-12.col-md-8.col-lg-7
+.col-sm-12.col-md-8.col-lg-6
   #wid-id-0.jarviswidget
     %header
       %span.widget-icon
@@ -22,22 +22,35 @@
                     %input{:name => "email_address", :size => "20", :type => "email", :class => "form-control", :value => current_agent.email}/
                 .help-text{style: "font-size: 10px;"}
                   This is the billing email address that will be receiving invoices
+
             .form-group
-              %label.col-md-5.control-label= f.label :quantity, "Number of agents"
+              %label.col-md-5.control-label= f.label :quantity, "Number of Agents"
               .col-md-7
                 .form-inline
-                  %label
-                    = f.number_field :quantity, :class => "form-control input-lg", :min => 1, :style => "width: 90px;", :value => 1
-                    &nbsp
-                    agents
+                  .input-group.spinner
+                    %input.form-control{:type => "text", :value => "1", :id => "agent-quantity", :name => "quantity"}/
+                    .input-group-btn-vertical
+                      %button.btn.btn-default{:type => "button"}
+                        %i.fa.fa-caret-up
+                      %button.btn.btn-default{:type => "button"}
+                        %i.fa.fa-caret-down
+                  &nbsp
+                  agents
 
                 .help-text{style: "font-size: 10px;"}
                   This is the number of agents that you want to purchase. Each agent is $15/month.
 
           %br
+          .form-group
+            %label.col-md-5.control-label{style: "font-size: 140%; font-weight: bold;"} Total Price
+            .col-md-7
+              %div{:id => "total-price"} $15 / month
 
+          %br
+          %br
+          
           .row
-            .col-xs-12.col-sm-8.col-sm-offset-2
+            .col-xs-12.col-sm-10.col-sm-offset-1
               .panel.panel-default
                 .panel-heading
                   %h3.panel-title

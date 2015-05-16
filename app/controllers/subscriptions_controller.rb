@@ -27,4 +27,8 @@ class SubscriptionsController < ApplicationController
       render :new
     end
   end
+  
+  def edit
+    @subscription = Subscription.find(params[:id])
+  end
 end

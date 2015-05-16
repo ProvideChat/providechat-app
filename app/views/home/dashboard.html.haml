@@ -39,7 +39,6 @@
               You are currently using #{current_agent.organization.agents.count} of 
               #{current_agent.organization.subscription.quantity} available agents.
 
-.clearfix
 
 .col-xs-12.col-sm-6.col-md-6
   #blog-widget.jarviswidget.jarviswidget-color-darken{:role => "widget"}
@@ -77,10 +76,17 @@
       .widget-body
         - if current_agent.organization.account_type == 'trial'
           %h4 You currently have #{current_agent.organization.remaining_trial_days} days left in your trial period.
-          
-          = link_to "Subscribe", new_subscription_path, class: "btn btn-primary btn-large"
-          
+                    
         - elsif current_agent.organization.account_type == 'paid'
-          %h4 You are a paid customer
+          %h4 You have a Provide Chat subscription
+
         - elsif current_agent.organization.account_type == 'free'
           %h4 You are using a free account
+          
+        %hr
+        .pull-right
+          - if current_agent.organization.account_type == 'trial' || current_agent.organization.account_type == 'free'
+            = link_to "Subscribe", new_subscription_path, class: "btn btn-success btn-large"
+          - elsif current_agent.organization.account_type == 'paid'
+            = link_to "Modify Your Subscription", edit_subscription_path(current_agent.organization.subscription), class: "btn btn-success btn-large"
+        .clearfix

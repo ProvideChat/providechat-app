@@ -8,6 +8,15 @@ jQuery(function($) {
 
     return false;
   });
+  
+  $('.spinner .btn:first-of-type').on('click', function() {
+    $('.spinner input').val( parseInt($('.spinner input').val(), 10) + 1);
+    $('#total-price').html( "$" + parseInt($('#agent-quantity').val(), 10) * 15 + " / month");
+  });
+  $('.spinner .btn:last-of-type').on('click', function() {
+    $('.spinner input').val( parseInt($('.spinner input').val(), 10) - 1);
+    $('#total-price').html( "$" + parseInt($('#agent-quantity').val(), 10) * 15 + " / month");    
+  });
 });
 
 function stripeResponseHandler(status, response) {
@@ -26,3 +35,4 @@ function stripeResponseHandler(status, response) {
     $form.get(0).submit();
   }
 };
+
