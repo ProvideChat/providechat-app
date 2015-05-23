@@ -3,7 +3,11 @@ require 'api_constraints'
 Rails.application.routes.draw do
 
   devise_for :admins
-  devise_for :agents, :path => 'auth', :controllers => {:registrations => "registrations"}
+  devise_for :agents, :path => 'auth', 
+               :controllers => {
+                 :registrations => "registrations",
+                 :sessions => "sessions"
+               }
 
   resources :contact_forms, only: [:new, :create]
 
