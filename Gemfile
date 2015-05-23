@@ -30,7 +30,6 @@ gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'sidekiq'
 gem 'sidekiq-client-cli'
-gem "skylight"
 gem 'stripe', '~> 1.21.0'
 gem 'stripe_event'
 gem 'turbolinks'
