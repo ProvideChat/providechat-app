@@ -121,6 +121,23 @@
 	</form>
 </div>
 
+<div class="modal fade" id="maxChats" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Maximum chat limit</h4>
+      </div>
+      <div class="modal-body">
+        <p>We're sorry but as a free account you are limited to a single simultaneous chat.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 
 (function(ProvideChat, $,undefined) {
@@ -395,12 +412,14 @@
     var json_data = { "method": 'send_chat_invite', "agent_id": ProvideChat.agent_id, "visitor_id": visitor_id };
 
     $.getJSON("/api/chat_monitor.json", json_data, function (response) {
-      if (response.success == true) {
+      if (response.success == "invited") {
         $.bigBox({
           title : "Chat invitation sent to visitor",
           color : "#296191",
           timeout: 4000
         });
+      } else if (response.success == "max_chats") {
+        $('#maxChats').modal({show: true});
       }
     });
   }
@@ -410,8 +429,10 @@
     var json_data = { "method": 'accept_chat', "agent_id": ProvideChat.agent_id, "visitor_id": visitor_id, "agent_name": ProvideChat.agent_name };
 
     $.getJSON("/api/chat_monitor.json", json_data, function (response) {
-      if (response.chat_id > 0) {
+      if ((response.status == 'accepted') && (response.chat_id > 0)) {
         ProvideChat.activeChatId = response.chat_id;
+      } else if (response.status == 'max_chats') {
+        $('#maxChats').modal({show: true});
       }
     });
   }

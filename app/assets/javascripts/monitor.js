@@ -368,7 +368,6 @@
         var json_data = { "method": 'insert_message', "chat_id": visitor.chat_id, "msg_sender": "operator",
                           "msg_type": "in_chat", "message": urlencode(message), "name": urlencode(operatorDispName) };
 
-
         $.ajax({
           type: "PUT",
           contentType: "application/json; charset=utf-8",
@@ -569,6 +568,5 @@
       }
     });
   }
-
 
 })(window.ProvideChat = window.ProvideChat || {}, jQuery);
