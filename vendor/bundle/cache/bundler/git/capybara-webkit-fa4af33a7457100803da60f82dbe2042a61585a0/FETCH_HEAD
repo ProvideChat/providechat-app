@@ -1,6 +1,12 @@
+88fc84e2f8d7fa1ffc245766c2fe919675aece8a		branch '1.5.x' of https://github.com/thoughtbot/capybara-webkit
 c9cf3cfcc2e50f11c1e60e18028412c2c8ba0786		branch 'benchmarks' of https://github.com/thoughtbot/capybara-webkit
+8e02b68b312e9314ca47ccda5efd84e88e4d583f		branch 'coc' of https://github.com/thoughtbot/capybara-webkit
+5005de663f8664a9ae266925f03445c3dbe41320		branch 'jf-global-config' of https://github.com/thoughtbot/capybara-webkit
+6b6a2e10d34ce96223dd87ed65221017798e474e		branch 'jf-patch-body-test' of https://github.com/thoughtbot/capybara-webkit
+4f8a0b9e174ffa9b912bda7f8a89f5223b067809		branch 'jf-remove-deprecated-behavior' of https://github.com/thoughtbot/capybara-webkit
+d287acfef3ec0893589fdc113e692f021448b048		branch 'jf-reset-crash' of https://github.com/thoughtbot/capybara-webkit
 798268f0db384e72a044118ada57566310db79da		branch 'jf-support-fewer-capybara-versions' of https://github.com/thoughtbot/capybara-webkit
-4d898b453634d323058b2a66a09d8ee4f2a2e32c		branch 'master' of https://github.com/thoughtbot/capybara-webkit
+179ca5b6daa25d54b111a3a7fce4e21a5d51ac60		branch 'master' of https://github.com/thoughtbot/capybara-webkit
 fc201479bcaafbeb9e7bebe72864e07e17c9e487		branch 'no-server' of https://github.com/thoughtbot/capybara-webkit
 226f34566a76e63f1e443e7535fb493d803a9b33		branch 'pause_and_show' of https://github.com/thoughtbot/capybara-webkit
 5ad7a5b92751458b8afb597252e557a101444a2a		branch 'split-large-classes' of https://github.com/thoughtbot/capybara-webkit
@@ -46,3 +52,6 @@ bf27d10ea85dcf4790a460c513be467cf2822c52	not-for-merge	tag 'v1.1.0' of https://g
 3099d859a3b16e98715360ea1317204b96ee7454	not-for-merge	tag 'v1.3.0' of https://github.com/thoughtbot/capybara-webkit
 e9575d815dbd6efd8aa62403e8a8987111e60673	not-for-merge	tag 'v1.3.1' of https://github.com/thoughtbot/capybara-webkit
 2d857588ce932183561967d06612490589ab9f24	not-for-merge	tag 'v1.4.0' of https://github.com/thoughtbot/capybara-webkit
+7f3ee48773a3ceb467f73d38a3969aed6b8baae7	not-for-merge	tag 'v1.4.1' of https://github.com/thoughtbot/capybara-webkit
+38dbb04a0ab0fef4947c146cf81dda450645b736	not-for-merge	tag 'v1.5.0' of https://github.com/thoughtbot/capybara-webkit
+fa7bf996e8ca4b5b6d6b5de68cb18230acf2b4cf	not-for-merge	tag 'v1.5.1' of https://github.com/thoughtbot/capybara-webkit

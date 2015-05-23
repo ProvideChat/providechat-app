@@ -1,0 +1,13 @@
+/Users/derek/.rbenv/versions/2.2.2/bin/ruby -r ./siteconf20150522-14753-19ildzo.rb extconf.rb
+cd src/ && /usr/local/bin/qmake /Users/derek/work/providechat-app/vendor/bundle/bundler/gems/capybara-webkit-179ca5b6daa2/src/webkit_server.pro -o Makefile.webkit_server
+cd src/ && /Library/Developer/CommandLineTools/usr/bin/make -f Makefile.webkit_server 
+make[1]: Nothing to be done for `first'.
+
+make "DESTDIR=" clean
+make: *** No rule to make target `clean'.  Stop.
+
+make "DESTDIR="
+ok
+
+make "DESTDIR=" install
+ok

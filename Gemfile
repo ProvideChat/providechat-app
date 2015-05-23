@@ -47,6 +47,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'quiet_assets'
   gem 'rails_best_practices'
+  gem 'pry-rails'
 end
 
 group :test, :development do 
