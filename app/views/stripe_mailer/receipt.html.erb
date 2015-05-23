@@ -1,0 +1,14 @@
+<html>
+  <body>
+    <h1>Receipt</h1>
+    <p>
+      You purchased <%= @sale.product.name %> for <%= formatted_price(@sale.amount) %> on <%= @sale.created_at %>.
+    </p>
+    <p>
+      Thank you for your purchase!
+    </p>
+    <p>
+      -- Luke
+    </p>
+  </body>
+</html>

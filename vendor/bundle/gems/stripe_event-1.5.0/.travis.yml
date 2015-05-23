@@ -1,0 +1,20 @@
+language: ruby
+
+rvm:
+  - 1.9.3
+  - 2.1
+  - jruby-19mode
+
+gemfile:
+  - gemfiles/rails3.2.gemfile
+  - gemfiles/rails4.1.gemfile
+  - gemfiles/rails4.2.gemfile
+
+sudo: false
+
+matrix:
+  fast_finish: true
+
+notifications:
+  email:
+    - daniel.r.whalen+travis-ci@gmail.com

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150404043818) do
+ActiveRecord::Schema.define(version: 20150516052217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -155,6 +155,19 @@ ActiveRecord::Schema.define(version: 20150404043818) do
     t.datetime "updated_at",         null: false
   end
 
+  create_table "invoice_payments", force: :cascade do |t|
+    t.string   "stripe_id"
+    t.integer  "amount"
+    t.integer  "fee_amount"
+    t.integer  "organization_id"
+    t.integer  "subscription_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "invoice_payments", ["organization_id"], name: "index_invoice_payments_on_organization_id", using: :btree
+  add_index "invoice_payments", ["subscription_id"], name: "index_invoice_payments_on_subscription_id", using: :btree
+
   create_table "offline_forms", force: :cascade do |t|
     t.integer  "organization_id"
     t.integer  "website_id"
@@ -195,6 +208,8 @@ ActiveRecord::Schema.define(version: 20150404043818) do
     t.integer  "trial_days",             default: 14, null: false
     t.datetime "trial_period_end"
     t.string   "stripe_customer_id",     default: ""
+    t.datetime "expiration_date"
+    t.datetime "date_reminded"
   end
 
   create_table "prechat_forms", force: :cascade do |t|
@@ -226,6 +241,12 @@ ActiveRecord::Schema.define(version: 20150404043818) do
   add_index "rapid_responses", ["ancestry"], name: "index_rapid_responses_on_ancestry", using: :btree
   add_index "rapid_responses", ["organization_id"], name: "index_rapid_responses_on_organization_id", using: :btree
   add_index "rapid_responses", ["website_id"], name: "index_rapid_responses_on_website_id", using: :btree
+
+  create_table "stripe_webhooks", force: :cascade do |t|
+    t.string   "stripe_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "subscriptions", force: :cascade do |t|
     t.integer  "organization_id"
@@ -353,5 +374,7 @@ ActiveRecord::Schema.define(version: 20150404043818) do
 
   add_index "websites", ["organization_id"], name: "index_websites_on_organization_id", using: :btree
 
+  add_foreign_key "invoice_payments", "organizations"
+  add_foreign_key "invoice_payments", "subscriptions"
   add_foreign_key "subscriptions", "organizations"
 end
