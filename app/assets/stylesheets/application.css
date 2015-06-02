@@ -16,6 +16,7 @@
  *= require qtip2
  *= require nprogress
  *= require nprogress-bootstrap
+ *= require sweet-alert
  *= require styles
  *= require monitor
  *= require widget

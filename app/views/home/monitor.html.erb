@@ -121,23 +121,6 @@
 	</form>
 </div>
 
-<div class="modal fade" id="maxChats" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Maximum chat limit</h4>
-      </div>
-      <div class="modal-body">
-        <p>We're sorry but as a free account you are limited to a single simultaneous chat.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <script>
 
 (function(ProvideChat, $,undefined) {
@@ -419,7 +402,12 @@
           timeout: 4000
         });
       } else if (response.success == "max_chats") {
-        $('#maxChats').modal({show: true});
+        swal({
+          title: "Max chat limit",
+          text: "We're sorry but as a free account you are limited to a single simultaneous chat.",
+          type: "error",
+          confirmButtonText: "Close"
+        });
       }
     });
   }
@@ -432,7 +420,12 @@
       if ((response.status == 'accepted') && (response.chat_id > 0)) {
         ProvideChat.activeChatId = response.chat_id;
       } else if (response.status == 'max_chats') {
-        $('#maxChats').modal({show: true});
+        swal({
+          title: "Max chat limit",
+          text: "We're sorry but as a free account you are limited to a single simultaneous chat.",
+          type: "error",
+          confirmButtonText: "Close"
+        });
       }
     });
   }
