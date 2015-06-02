@@ -129,7 +129,7 @@ GEM
     dante (0.2.0)
     database_cleaner (1.4.1)
     debug_inspector (0.0.2)
-    devise (3.4.1)
+    devise (3.5.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -194,7 +194,7 @@ GEM
     fog-atmos (0.1.0)
       fog-core
       fog-xml
-    fog-aws (0.3.0)
+    fog-aws (0.4.0)
       fog-core (~> 1.27)
       fog-json (~> 1.0)
       fog-xml (~> 0.1)
@@ -217,9 +217,9 @@ GEM
       fog-core
       fog-json
       fog-xml
-    fog-json (1.0.1)
+    fog-json (1.0.2)
       fog-core (~> 1.0)
-      multi_json (~> 1.0)
+      multi_json (~> 1.10)
     fog-local (0.2.1)
       fog-core (~> 1.27)
     fog-powerdns (0.1.1)
@@ -290,7 +290,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
-    json (1.8.2)
+    json (1.8.3)
     launchy (2.4.3)
       addressable (~> 2.3)
     local_time (1.0.2)
@@ -318,10 +318,10 @@ GEM
       excon (>= 0.16.0, < 1.0)
       json (>= 1.7.7, < 2.0)
     method_source (0.8.2)
-    mime-types (2.5)
+    mime-types (2.6.1)
     mini_magick (4.0.4)
     mini_portile (0.6.2)
-    minitest (5.6.1)
+    minitest (5.7.0)
     multi_json (1.11.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -430,7 +430,7 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    sexp_processor (4.5.1)
+    sexp_processor (4.6.0)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
     sidekiq (3.3.4)
@@ -451,7 +451,7 @@ GEM
       thin (~> 1.5.0)
     slop (3.6.0)
     spring (1.3.6)
-    sprockets (3.1.0)
+    sprockets (3.2.0)
       rack (~> 1.0)
     sprockets-rails (2.3.1)
       actionpack (>= 3.0)
@@ -472,6 +472,7 @@ GEM
     stripe_event (1.5.0)
       activesupport (>= 3.1)
       stripe (~> 1.6)
+    sweet-alert (0.0.7)
     terminal-table (1.4.5)
     thin (1.5.1)
       daemons (>= 1.0.9)
@@ -480,7 +481,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
-    timecop (0.7.3)
+    timecop (0.7.4)
     timers (4.0.1)
       hitimes
     turbolinks (2.5.3)
@@ -566,6 +567,7 @@ DEPENDENCIES
   stripe (~> 1.21.0)
   stripe-ruby-mock
   stripe_event
+  sweet-alert
   thin
   timecop
   turbolinks
