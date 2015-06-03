@@ -108,9 +108,9 @@ module Api
             chat = Chat.find(chat_id)
 
             if context == 'all'
-              chat_messages = ChatMessage.where(chat_id: chat_id)
+              chat_messages = ChatMessage.where(chat_id: chat_id).order(:sent)
             else
-              chat_messages = ChatMessage.where(chat_id: chat_id, seen_by_agent: false)
+              chat_messages = ChatMessage.where(chat_id: chat_id, seen_by_agent: false).order(:sent)
             end
 
             #chat_messages = ChatMessage.where(chat_id: chat_id).where("id > ?", last_message_id).order(:id)
