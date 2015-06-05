@@ -32,6 +32,7 @@ gem 'sidekiq'
 gem 'sidekiq-client-cli'
 gem 'stripe', '~> 1.21.0'
 gem 'stripe_event'
+gem 'sweet-alert'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
 gem 'whenever', :require => false
@@ -47,6 +48,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'quiet_assets'
   gem 'rails_best_practices'
+  gem 'pry-rails'
 end
 
 group :test, :development do 

@@ -154,7 +154,7 @@ module Api
             chat.save
 
             visitor = Visitor.find(visitor_id)
-            visitor.status = 'chat_ended'
+            visitor.status = 'agent_ended'
             visitor.save
 
             response = { 'success' => 'true' }

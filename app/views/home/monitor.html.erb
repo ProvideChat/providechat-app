@@ -395,11 +395,18 @@
     var json_data = { "method": 'send_chat_invite', "agent_id": ProvideChat.agent_id, "visitor_id": visitor_id };
 
     $.getJSON("/api/chat_monitor.json", json_data, function (response) {
-      if (response.success == true) {
+      if (response.success == "invited") {
         $.bigBox({
           title : "Chat invitation sent to visitor",
           color : "#296191",
           timeout: 4000
+        });
+      } else if (response.success == "max_chats") {
+        swal({
+          title: "Max chat limit",
+          text: "We're sorry but as a free account you are limited to a single simultaneous chat.",
+          type: "error",
+          confirmButtonText: "Close"
         });
       }
     });
@@ -410,8 +417,15 @@
     var json_data = { "method": 'accept_chat', "agent_id": ProvideChat.agent_id, "visitor_id": visitor_id, "agent_name": ProvideChat.agent_name };
 
     $.getJSON("/api/chat_monitor.json", json_data, function (response) {
-      if (response.chat_id > 0) {
+      if ((response.status == 'accepted') && (response.chat_id > 0)) {
         ProvideChat.activeChatId = response.chat_id;
+      } else if (response.status == 'max_chats') {
+        swal({
+          title: "Max chat limit",
+          text: "We're sorry but as a free account you are limited to a single simultaneous chat.",
+          type: "error",
+          confirmButtonText: "Close"
+        });
       }
     });
   }

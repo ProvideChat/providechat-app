@@ -20,14 +20,15 @@
           %div{style: "margin-left: 24px;"}
             - if current_agent.organization.account_type == 'trial'
               Agents are the foundation of your Provide Chat system. As you are currently in your trial
-              period you are not able to create any addional agents. Please upgrade to a paid subscription
-              to increase your agents.
+              period you are not able to create any addional agents. Please 
+              #{link_to "upgrade to a paid subscription", new_subscription_path}
+              to add additional agents.
             - elsif current_agent.organization.account_type == 'free'
-              Agents are the foundation of your Provide Chat system. As you are currently in your trial
-              period you are not able to create any addional agents. Please upgrade to a paid subscription
-              to increase your agents.
+              Agents are the foundation of your Provide Chat system. You have a Forever Free account
+              which is limited to one agent. Please #{link_to "upgrade to a paid subscription", new_subscription_path}
+              to add additional agents.
             - elsif current_agent.organization.account_type == 'paid'
-              Agents are the foundation of your Provide Chat system. Your account can have up to 
+              Agents are the foundation of your Provide Chat system. Your current subscription level can have up to 
               #{current_agent.organization.subscription.quantity} agents.
         %table.table.table-bordered
           %thead

@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-organization = Organization.create( payment_system: "stripe", status: "enabled", account_type: "paid" )
+organization = Organization.create( payment_system: "stripe", status: "enabled", account_type: "paid", trial_period_end: 15.days.ago )
 organization.save!
 
 subscription = Subscription.create(organization_id: organization.id, quantity: 3)

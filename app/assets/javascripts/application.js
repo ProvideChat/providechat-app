@@ -26,5 +26,6 @@
 //= require qtip2_custom
 //= require nprogress
 //= require nprogress-turbolinks
+//= require sweet-alert
 //= require providechat
 //= require subscriptions

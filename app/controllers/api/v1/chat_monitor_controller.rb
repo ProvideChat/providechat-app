@@ -44,27 +44,46 @@ module Api
             agent_name = params[:agent_name]
             visitor_id = params[:visitor_id]
 
-            visitor = Visitor.find(visitor_id)
-            visitor.status = 'in_chat'
-            visitor.save
+            agent = Agent.find(agent_id)
+            if agent.organization.account_type == 'free' && 
+                agent.chats.where(status: Chat.statuses[:in_progress]).count >= 1
+                
+              visitor = Visitor.find(visitor_id)
+              
+              chat = Chat.find(visitor.chat.id)
+              chat.agent_id = agent_id
+              chat.status = 'agent_timeout'
+              chat.chat_accepted = DateTime.now
+              chat.save
 
-            chat = Chat.find(visitor.chat.id)
-            chat.agent_id = agent_id
-            chat.status = 'in_progress'
-            chat.chat_accepted = DateTime.now
-            chat.save
+              response = {
+                'chat_id' => 0,
+                'status' => 'max_chats'
+              }
+            else
+              visitor = Visitor.find(visitor_id)
+              visitor.status = 'in_chat'
+              visitor.save
 
-            if visitor.question.length > 0
-              ChatMessage.create(chat_id: chat.id, user_name: visitor.name, sender: "visitor",
-                            seen_by_visitor: false, seen_by_agent: false, sent: DateTime.now,
-                            message: visitor.question)
+              chat = Chat.find(visitor.chat.id)
+              chat.agent_id = agent_id
+              chat.status = 'in_progress'
+              chat.chat_accepted = DateTime.now
+              chat.save
+
+              if visitor.question.length > 0
+                ChatMessage.create(chat_id: chat.id, user_name: visitor.name, sender: "visitor",
+                              seen_by_visitor: false, seen_by_agent: false, sent: DateTime.now,
+                              message: visitor.question)
+              end
+
+              response = {
+                'chat_id' => chat.id,
+                'visitor_id' => visitor_id,
+                'visitor_name' => chat.visitor_name,
+                'status' => 'accepted'
+              }
             end
-
-            response = {
-              'chat_id' => chat.id,
-              'visitor_id' => visitor_id,
-              'visitor_name' => chat.visitor_name
-            }
 
           when "get_chat_tab"
             chat_id = params[:chat_id]
@@ -89,9 +108,9 @@ module Api
             chat = Chat.find(chat_id)
 
             if context == 'all'
-              chat_messages = ChatMessage.where(chat_id: chat_id)
+              chat_messages = ChatMessage.where(chat_id: chat_id).order(:sent)
             else
-              chat_messages = ChatMessage.where(chat_id: chat_id, seen_by_agent: false)
+              chat_messages = ChatMessage.where(chat_id: chat_id, seen_by_agent: false).order(:sent)
             end
 
             #chat_messages = ChatMessage.where(chat_id: chat_id).where("id > ?", last_message_id).order(:id)
@@ -153,15 +172,23 @@ module Api
             visitor_id = params[:visitor_id]
             agent_id = params[:agent_id]
 
-            visitor = Visitor.find(visitor_id)
-            visitor.agent_invite_status = 'agent_sent'
-            visitor.invite_agent_id = agent_id
-            visitor.save
+            agent = Agent.find(agent_id)
+            if agent.organization.account_type == 'free' && 
+                agent.chats.where(status: Chat.statuses[:in_progress]).count >= 1
+              response = {
+                'success' => 'max_chats'
+              }
+            else            
+              visitor = Visitor.find(visitor_id)
+              visitor.agent_invite_status = 'agent_sent'
+              visitor.invite_agent_id = agent_id
+              visitor.save
 
-            response = {
-              'visitor_id' => visitor_id,
-              'success' => 'true'
-            }
+              response = {
+                'visitor_id' => visitor_id,
+                'success' => 'invited'
+              }
+            end
 
           when "save_chat_messages"
 
