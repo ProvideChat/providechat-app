@@ -119,7 +119,13 @@ module Api
 
           when "save_chat_messages"
 
-            if (messages = params[:messages]) then
+            messages = params[:messages]
+            
+            if messages.kind_of?(String) then
+              messages = ActiveSupport::JSON.decode(messages)
+            end
+
+            if messages then
               messages.each do |count, message|
                 ChatMessage.create(
                   chat_id: message['chat_id'], user_name: message['user_name'], sender: message['sender'],
@@ -128,6 +134,7 @@ module Api
                 )
               end
             end
+            
             response = {
               'success' => 'true'
             }
