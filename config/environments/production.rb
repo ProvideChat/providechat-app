@@ -44,7 +44,6 @@ Rails.application.configure do
 
   # Set to :debug to see everything in the log.
   config.log_level = :debug
-  RAILS_DEFAULT_LOGGER = Logger.new('log/production.log')
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
@@ -100,4 +99,6 @@ Rails.application.configure do
       :sender_address => %{"notifier" <derek@providechat.com>},
       :exception_recipients => %w{derek@providechat.com}
     }
+    
+  config.lograge.enabled = true
 end
