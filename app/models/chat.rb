@@ -24,9 +24,13 @@ class Chat < ActiveRecord::Base
     chats = chats.from_date(params[:from_date]) if params[:from_date].present?
     chats = chats.to_date(params[:to_date]) if params[:to_date].present?
 
-    chats = chats.find(params[:chat_id]) if params[:chat_id].present?
+    chats = chats.find(params[:chat_id][6..-1]) if params[:chat_id].present?
 
     chats
+  end
+
+  def chat_id
+    created_at.to_i.to_s[-6, 6] + id.to_s
   end
 
   def end_chat(reason)

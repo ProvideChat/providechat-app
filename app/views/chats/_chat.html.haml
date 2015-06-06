@@ -1,5 +1,5 @@
 %tr
-  %td= link_to "Chat #{chat.id}", chat
+  %td= link_to chat.chat_id, chat
   %td= chat.agent ? chat.agent.name : 'None'
   %td= chat.website.url
   %td= chat.visitor ? chat.visitor.name : 'Not specified'
