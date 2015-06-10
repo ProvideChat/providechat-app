@@ -1,5 +1,5 @@
-# config valid only for Capistrano 3.1
-lock '3.1.0'
+# config valid only for Capistrano 3.3
+lock '3.3.5'
 
 set :application, 'providechat-app'
 set :deploy_user, 'deploy'
