@@ -109,6 +109,7 @@ module Api
               response = {
                 'status' => chat.status,
                 'agent_name' => agent_name,
+                'ticket_id' => chat.ticket_id,
                 'messages' => chat_messages || Array.new
               }
             else

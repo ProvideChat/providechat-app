@@ -29,12 +29,12 @@ class Chat < ActiveRecord::Base
     chats
   end
 
-  def chat_id
+  def ticket_id
     created_at.to_i.to_s[-6, 6] + id.to_s
   end
 
   def end_chat(reason)
-    if self.status == 'in_progress' || self.status == 'agent_ended'
+    if self.status == 'in_progress' || self.status == 'agent_ended' || self.status == 'visitor_ended'
       self.status = reason
       self.chat_ended = DateTime.now
       self.save
@@ -77,7 +77,7 @@ class Chat < ActiveRecord::Base
 
     m = Mandrill::API.new
     message = {
-     :subject=> "Your Provide Chat Transcript",
+     :subject=> "Your chat with #{self.website.name} - Ticket ID: #{self.ticket_id}",
      :from_name=> "Provide Chat",
      :text=> text_msg,
      :to=>[
