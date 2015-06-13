@@ -101,6 +101,6 @@ Rails.application.configure do
     }
 end
 
-MyApp::Application.configure do
+ProvidechatApp::Application.configure do
   config.lograge.enabled = true
 end
