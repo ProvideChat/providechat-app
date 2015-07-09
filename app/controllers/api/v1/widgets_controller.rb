@@ -109,6 +109,7 @@ module Api
               response = {
                 'status' => chat.status,
                 'agent_name' => agent_name,
+                'ticket_id' => chat.ticket_id,
                 'messages' => chat_messages || Array.new
               }
             else
@@ -120,15 +121,21 @@ module Api
           when "save_chat_messages"
 
             messages = params[:messages]
-
-            messages.each do |count, message|
-              ChatMessage.create(
-                chat_id: message['chat_id'], user_name: message['user_name'], sender: message['sender'],
-                seen_by_agent: false, seen_by_visitor: true,
-                sent: message['sent'], message: strip_tags(message['message'])
-              )
+            
+            if messages.kind_of?(String) then
+              messages = ActiveSupport::JSON.decode(messages)
             end
 
+            if messages then
+              messages.each do |count, message|
+                ChatMessage.create(
+                  chat_id: message['chat_id'], user_name: message['user_name'], sender: message['sender'],
+                  seen_by_agent: false, seen_by_visitor: true,
+                  sent: message['sent'], message: strip_tags(message['message'])
+                )
+              end
+            end
+            
             response = {
               'success' => 'true'
             }

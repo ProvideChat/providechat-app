@@ -37,11 +37,11 @@ gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
 gem 'whenever', :require => false
 
-
-gem 'capistrano', '~> 3.1.0'
+gem 'capistrano', '~> 3.3.0'
 gem 'capistrano-bundler', '~> 1.1.2'
 gem 'capistrano-rails', '~> 1.1.1'
-gem 'capistrano-rbenv', github: "capistrano/rbenv"
+gem 'capistrano-rbenv', '~> 2.0'
+
 
 group :development do
   gem 'spring'

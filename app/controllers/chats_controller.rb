@@ -1,4 +1,5 @@
 class ChatsController < ApplicationController
+  before_action :authenticate_agent!
   def index
     @agents = Agent.where(organization_id: current_agent.organization_id)
     @websites = Website.where(organization_id: current_agent.organization_id)
@@ -10,7 +11,7 @@ class ChatsController < ApplicationController
       format.js
     end
   end
-
+  
   def show
     @chat = Chat.find(params[:id])
   end

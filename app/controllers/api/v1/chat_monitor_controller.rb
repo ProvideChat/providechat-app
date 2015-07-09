@@ -126,6 +126,7 @@ module Api
             response = {
               'status' => chat.status,
               'chat_id' => chat.id,
+              'ticket_id' => chat.ticket_id,
               'visitor_name' => chat.visitor_name,
               'messages' => chat_messages || Array.new,
               'started' => chat.chat_accepted,
