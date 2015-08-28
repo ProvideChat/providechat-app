@@ -1,7 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
   def create
     super
-
+    
     organization = Organization.create_default_organization
 
     resource.name = 'Agent'
@@ -9,6 +9,8 @@ class RegistrationsController < Devise::RegistrationsController
     resource.access_level = 'superadmin'
     resource.organization_id = organization.id
     resource.save
+    
+    AgentMailer.welcome(resource.id).deliver
   end
 
   private

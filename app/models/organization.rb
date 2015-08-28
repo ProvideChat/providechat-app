@@ -24,7 +24,6 @@ class Organization < ActiveRecord::Base
     logger.info "Validating Widget, HTTP_REFERER: #{http_referrer}"
 
     website = Website.find_by(:organization_id => self.id, :url => uri.host)
-
   end
 
   def can_create_agents
