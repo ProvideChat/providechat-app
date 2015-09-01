@@ -1,11 +1,14 @@
-# config valid only for Capistrano 3.3
-lock '3.3.5'
+# config valid only for Capistrano 3.4
+lock '3.4.0'
 
 set :application, 'providechat-app'
 set :deploy_user, 'deploy'
 
 set :scm, :git
 set :repo_url, 'git@bitbucket.org:providechat/providechat-app'
+
+set :puma_threads,    [4, 16]
+set :puma_workers,    0
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
@@ -32,22 +35,57 @@ set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/sys
 # continue, see lib/capistrano/tasks/run_tests.cap
 set :tests, []
 
+set :puma_preload_app, true
+set :puma_worker_timeout, nil
+set :puma_init_active_record, true  # Change to false when not using ActiveRecord
 
 # Default value for keep_releases is 5
 set :keep_releases, 5
 
+namespace :puma do
+  desc 'Create Directories for Puma Pids and Socket'
+  task :make_dirs do
+    on roles(:app) do
+      execute "mkdir #{shared_path}/tmp/sockets -p"
+      execute "mkdir #{shared_path}/tmp/pids -p"
+    end
+  end
+
+  before :start, :make_dirs
+end
+
 namespace :deploy do
+
+  desc "Make sure local git is in sync with remote."
+  task :check_revision do
+    on roles(:app) do
+      unless `git rev-parse HEAD` == `git rev-parse origin/master`
+        puts "WARNING: HEAD is not the same as origin/master"
+        puts "Run `git push` to sync changes."
+        exit
+      end
+    end
+  end
+
+  desc 'Initial Deploy'
+  task :initial do
+    on roles(:app) do
+      before 'deploy:restart', 'puma:start'
+      invoke 'deploy'
+    end
+  end
 
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      # Your restart mechanism here, for example:
-      execute :touch, release_path.join('tmp/restart.txt')
+      invoke 'puma:restart'
     end
   end
 
-  after :publishing, :restart
-  after :finishing, :restart
+  before :production,   :check_revision
+  after  :finishing,    :compile_assets
+  after  :finishing,    :cleanup
+  after  :finishing,    :restart
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
@@ -58,6 +96,10 @@ namespace :deploy do
     end
   end
 end
+
+# ps aux | grep puma    # Get puma pid
+# kill -s SIGUSR2 pid   # Restart puma
+# kill -s SIGTERM pid   # Stop puma
 
 # For capistrano 3
 namespace :sidekiq do

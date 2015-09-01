@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-ruby '2.2.2'
+ruby '2.2.3'
 
-gem 'rails', '4.2.1'
+gem 'rails', '4.2.4'
 
 gem 'ancestry'
 gem 'carrierwave'
@@ -37,10 +37,6 @@ gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
 gem 'whenever', :require => false
 
-gem 'capistrano', '~> 3.3.0'
-gem 'capistrano-bundler', '~> 1.1.2'
-gem 'capistrano-rails', '~> 1.1.1'
-gem 'capistrano-rbenv', '~> 2.0'
 
 
 group :development do
@@ -49,6 +45,12 @@ group :development do
   gem 'quiet_assets'
   gem 'rails_best_practices'
   gem 'pry-rails'
+
+  gem 'capistrano', '~> 3.4.0', require: false
+  gem 'capistrano-bundler',     require: false
+  gem 'capistrano-rails',       require: false
+  gem 'capistrano-rbenv',       require: false
+  gem 'capistrano3-puma',       require: false
 end
 
 group :test, :development do 
@@ -76,5 +78,5 @@ group :test do
   gem "webmock"
 end
 
-gem 'thin'
+gem 'puma'
 
