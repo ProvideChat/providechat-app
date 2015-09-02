@@ -8,6 +8,7 @@ require 'capistrano/bundler'
 require 'capistrano/rbenv'
 require 'capistrano/rails'
 require 'capistrano/puma'
+require 'capistrano/puma/nginx'
 require "whenever/capistrano"
 
 set :rbenv_type, :user
