@@ -16,6 +16,11 @@
         = link_to edit_agent_path(current_agent), :class => "btn btn-sm", :"data-original-title" => "Your Profile", :rel => "tooltip", :"data-placement" => "bottom" do
           %i.fa.fa-user
 
+    .btn-header.transparent.pull-right
+      %span
+        = link_to "#", :class => "btn btn-sm", :"data-original-title" => "Settings", :rel => "tooltip", :"data-placement" => "bottom" do
+          %i.fa.fa-cog
+
     = render 'layouts/agent_status'
 
 :javascript

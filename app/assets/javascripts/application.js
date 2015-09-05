@@ -22,6 +22,7 @@
 //= require jquery.nestable
 //= require jquery.validate
 //= require turbolinks
+//= require monitor
 //= require qtip2
 //= require qtip2_custom
 //= require nprogress

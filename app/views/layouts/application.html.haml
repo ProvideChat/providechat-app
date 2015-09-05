@@ -68,9 +68,13 @@
       $(document).ready(function() {
         pageSetUp();
         initialize_nprogress();
+        ProvideChat.init (#{current_agent.id}, "#{current_agent.display_name}", #{current_agent.organization_id});
       });
 
       $(window).bind('page:change', function() {
         pageSetUp();
         initialize_nprogress();
+        ProvideChat.init (#{current_agent.id}, "#{current_agent.display_name}", #{current_agent.organization_id});
       });
+
+
