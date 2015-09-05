@@ -125,6 +125,10 @@ ul.nav-tabs li:not(.active) {
 
 .nav-tabs li a {
   margin-right: 0px;
+  text-overflow: ellipsis;
+  max-width: 180px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 ul.nav-tabs li a:hover {
   background-color: #ffffff;
