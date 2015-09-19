@@ -1,0 +1,19 @@
+script: rake ci
+language: ruby
+rvm:
+  - 2.2.0
+  - jruby
+  - ruby-head
+  - jruby-head
+  - rbx-2
+
+matrix:
+  allow_failures:
+    - rvm: rbx-2
+    - rvm: ruby-head
+    - rvm: jruby-head
+
+notifications:
+  irc: "irc.freenode.org#abstractive"
+
+sudo: false
