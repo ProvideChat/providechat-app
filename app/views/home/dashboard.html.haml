@@ -75,35 +75,37 @@
       .widget-body
         .row
           - if current_agent.organization.account_type == 'trial'
-            .col-xs-4   
-              = image_tag 'icons/subscribe.png', style: "margin-bottom: 10px;"
-            .col-xs-8
+            .col-xs-2
+              = image_tag 'icons/subscribe.png', class: "dashboard-icon"
+            .col-xs-10
               .alert.alert-info
                 %h4 You currently have #{current_agent.organization.remaining_trial_days} days left in your trial period.
                 %br
                 %p
-                  Click the button below to start your paid subscription, otherwise your account will downgrade to
-                  the free version once the trial period expires.
-                    
+                  Click the button below to start your paid subscription, otherwise your 
+                  account will downgrade to the free version once the trial period expires.
+ 
           - elsif current_agent.organization.account_type == 'paid'
-            .col-xs-4
-              = image_tag 'icons/subscribed.png', style: "margin-bottom: 10px;"
-            .col-xs-8        
+            .col-xs-2
+              = image_tag 'icons/subscribed.png', class: "dashboard-icon"
+            .col-xs-10
               .alert.alert-info
                 %h4 You have an active subscription of #{current_agent.organization.subscription.quantity} agents.
                 %br
                 %p
-                  You are charged $#{current_agent.organization.subscription.monthly_cost}/month. Your next payment
-                  is scheduled for #{current_agent.organization.subscription.active_until}.
+                  You are charged $#{current_agent.organization.subscription.monthly_cost}/month. 
+                  Your next payment is scheduled for 
+                  #{current_agent.organization.subscription.active_until}.
 
           - elsif current_agent.organization.account_type == 'free'
-            .col-xs-4  
-              = image_tag 'icons/subscribe.png', style: "margin-bottom: 10px;"
-            .col-xs-8        
+            .col-xs-2
+              = image_tag 'icons/subscribe.png', class: "dashboard-icon"
+            .col-xs-10
               %h4 You have a free account, which is limited to a single concurrent chat. 
               %br
               %p
-                To unlock multiple chats or to add multiple agents, start your subscription today.
+                To unlock multiple chats or to add multiple agents, start your 
+                subscription today.
 
         .widget-footer
           .pull-right
