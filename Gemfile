@@ -8,6 +8,7 @@ gem 'ancestry'
 gem 'carrierwave'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'devise'
+gem 'devise-async'
 gem 'draper', '~> 1.3'
 gem 'exception_notification'
 gem 'feedjira'
@@ -30,21 +31,17 @@ gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'sidekiq'
 gem 'sidekiq-client-cli'
-gem 'stripe', '~> 1.21.0'
+gem 'sinatra', :require => nil
+gem 'stripe', '~> 1.22.0'
 gem 'stripe_event'
 gem 'sweet-alert'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
 gem 'whenever', :require => false
 
-
-
-group :development do
-  gem 'spring'
-  gem 'binding_of_caller'
+group :development  do
   gem 'quiet_assets'
   gem 'rails_best_practices'
-  gem 'pry-rails'
 
   gem 'capistrano', '~> 3.4.0', require: false
   gem 'capistrano-bundler',     require: false
@@ -55,21 +52,29 @@ end
 
 group :test, :development do 
   gem 'annotate'
-  gem 'web-console', '~> 2.0'
+  gem 'binding_of_caller'
+  gem 'bundler-audit'
   gem 'brakeman', :require => false
   gem 'byebug'
-  gem 'dotenv-rails'
-  gem 'factory_girl_rails'
-  gem 'rspec-rails'
-  gem 'bundler-audit'
-  gem 'mailcatcher'
-  gem 'stripe-ruby-mock'
-end
-
-group :test do
   gem 'capybara'
   gem 'capybara-webkit', :git => 'https://github.com/thoughtbot/capybara-webkit.git'
   gem 'capybara-email'
+  gem 'dotenv-rails'
+  gem 'factory_girl_rails'
+  gem 'rspec-rails'
+
+  gem 'pry'
+  gem 'pry-rescue'
+  gem 'pry-stack_explorer'
+  gem 'pry-rails'
+
+  gem 'mailcatcher'
+  gem 'stripe-ruby-mock'
+  gem 'spring'
+  gem 'web-console', '~> 2.0'
+end
+
+group :test do
   gem 'database_cleaner'
   gem 'faker'
   gem 'launchy'

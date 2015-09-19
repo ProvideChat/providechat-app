@@ -1,0 +1,10 @@
+/Users/derek/.rbenv/versions/2.2.3/bin/ruby -r ./siteconf20150918-67602-yar4vx.rb extconf.rb
+
+make "DESTDIR=" clean
+make: *** No rule to make target `clean'.  Stop.
+
+make "DESTDIR="
+:
+
+make "DESTDIR=" install
+:
