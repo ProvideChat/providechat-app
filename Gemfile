@@ -68,7 +68,6 @@ group :test, :development do
   gem 'pry-stack_explorer'
   gem 'pry-rails'
 
-  gem 'mailcatcher'
   gem 'stripe-ruby-mock'
   gem 'spring'
   gem 'web-console', '~> 2.0'
