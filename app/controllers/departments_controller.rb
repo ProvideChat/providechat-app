@@ -5,9 +5,11 @@ class DepartmentsController < ApplicationController
 
   def index
     if params.key?(:websites)
-      @departments = Department.where(organization_id: current_agent.organization_id).where("website_id" => params[:websites])
+      @departments = Department.where(organization_id: current_agent.organization_id, 
+                                      website_id: params[:websites]).order("name ASC")
     else
       @departments = Department.where(organization_id: current_agent.organization_id)
+                               .order("name ASC")
     end
   end
 
