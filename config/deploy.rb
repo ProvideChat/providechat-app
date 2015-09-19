@@ -20,7 +20,7 @@ set :format, :pretty
 set :log_level, :debug
 
 # Default value for :pty is false
-set :pty, true
+set :pty, false
 
 # Default value for :linked_files is []
 set :linked_files, %w{config/database.yml .rbenv-vars}
@@ -81,29 +81,28 @@ namespace :deploy do
       invoke 'puma:restart'
     end
   end
+ 
+  desc "Update crontab with whenever"
+  task :update_cron do
+    on roles(:app) do
+      within current_path do
+        execute :bundle, :exec, "whenever --update-crontab #{fetch(:application)}"
+      end
+    end
+  end
 
   before :production,   :check_revision
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
   after  :finishing,    :restart
-
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
-    end
-  end
+  after  :finishing,    :update_cron
 end
 
 # ps aux | grep puma    # Get puma pid
 # kill -s SIGUSR2 pid   # Restart puma
 # kill -s SIGTERM pid   # Stop puma
 
-# For capistrano 3
 namespace :sidekiq do
-
   desc 'Restart sidekiq'
   task :quiet do
     on roles(:app) do

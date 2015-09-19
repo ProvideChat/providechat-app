@@ -48,4 +48,10 @@ Rails.application.routes.draw do
       resources :widgets, only: [:index]
     end
   end
+
+  # Sidekiq monitoring
+  require 'sidekiq/web'
+  authenticate :admin do
+    mount Sidekiq::Web => 'sidekiq'
+  end
 end
