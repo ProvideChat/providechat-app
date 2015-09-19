@@ -22,5 +22,6 @@ doc/
 .DS_Store
 .secret
 .env
+bin/
 
 public/uploads
