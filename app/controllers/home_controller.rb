@@ -15,6 +15,12 @@ class HomeController < ApplicationController
     @websites = Website.where(organization_id: current_agent.organization_id)
   end
 
+  def send_code
+    webmaster_email = params[:webmaster_email]
+    SendCodeMailer.send_code(current_agent.organization_id, webmaster_email, current_agent.name).deliver_later
+    head :no_content
+  end
+
   def contact
   end
 end

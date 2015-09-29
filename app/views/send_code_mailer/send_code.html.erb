@@ -1,0 +1,22 @@
+<html>
+  <body>
+    <strong>Hello Webmaster,</strong>
+    <p>
+    You are receiving this email as <%= @agent_name %> has requested your assistance
+    with installing the Provide Chat widget code on your website.
+    </p>
+    <p>
+    Please copy and paste the following code (unaltered, in it’s entirety) on 
+    every page of your website just before the closing &lt;/body&gt; tag:
+    </p>
+
+    <pre><code>
+<%=raw @widget_code_encoded %>
+    </code></pre>
+
+    <p>Cheers,</p>
+    <p>
+    -- Luke
+    </p>
+  </body>
+</html>

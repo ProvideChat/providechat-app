@@ -19,24 +19,51 @@
             .row
               .col-md-12
                 .pull-right
-                  %a{:href => "#", :id => "select-code"}> (select all)
+                  %a{href: "#", id: "select-code"}> (select all)
 
-                %textarea#widget-code.codetext= render :partial => "home/widget_include_code"
+                %textarea#widget-code.codetext= render partial: "home/widget_include_code", locals: { organization_id: current_agent.organization_id }
 
             %hr
             .row
               .col-md-12
-                %a{:href => "#", :id => "email-code"}Or you can send these instructions to your webmaster
+                %a{href: "#", id: "email-code", "data-target": ".send-code-modal", "data-toggle": "modal"}
+                  Or you can send these instructions to your webmaster
         - else
           .alert.alert-warning.no-margin.fade.in
             %h4.alert-heading No websites configured yet!
             %br
             You have not yet added any websites, please #{link_to "add a website", new_website_path}.
-              
+
+.modal.fade.send-code-modal{"aria-labelledby" => "mySmallModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header
+        %button{type: "button", class: "close", "data-dismiss": "modal", "aria-label": "close"}
+          %span{"aria-hidden": "true"} &times;
+        %h4 Email Widget Code
+      = form_tag(send_code_path, method: 'post', class: 'form-horizontal', remote: true) do
+        .modal-body
+          .alert.alert-danger#error_msg{style: "display: none;"}
+          .form-group
+            %label.col-sm-4 Webmaster's Email
+            .col-sm-8
+              = text_field_tag 'webmaster_email', '', class: "form-control"
+        .modal-footer
+          .col-sm-offset-4.col-sm-8
+            = submit_tag "Send Widget Code", class: "btn btn-default"
 
 :javascript
   $(document).ready(function () {
     $('#select-code').click(function() {
       $('#widget-code').select();
     });
+
+    $(document.bind('ajaxError', 'form#send_code', function(event, jqxhr, settings, exception) {
+      console.log(jqxhr.responseText);
+    });
+
+    $.fn.modal_success = function() {
+      this.modal('hide');
+      this.find('form input[type="text"]').val('');
+    }
   });

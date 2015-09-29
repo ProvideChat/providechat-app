@@ -1,7 +1,7 @@
 <script id="pc-widget">
   var ProvideChat = window.ProvideChat || {};
   (function() {
-    ProvideChat.org_id = <%= current_agent.organization_id %>;
+    ProvideChat.org_id = <%= organization_id %>;
     var pc = document.createElement('script'); pc.type = 'text/javascript'; pc.async = true;
     pc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.providechat.com/widget.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(pc, s);

@@ -1,4 +1,4 @@
-/Users/derek/.rbenv/versions/2.2.3/bin/ruby -r ./siteconf20150918-75179-1insgu2.rb extconf.rb
+/Users/derek/.rbenv/versions/2.2.3/bin/ruby -r ./siteconf20150929-56219-62jzp1.rb extconf.rb
 cd src/ && /usr/local/bin/qmake /Users/derek/work/providechat-app/vendor/bundle/bundler/gems/capybara-webkit-6c375e5dbfe8/src/webkit_server.pro -o Makefile.webkit_server
 cd src/ && /Library/Developer/CommandLineTools/usr/bin/make -f Makefile.webkit_server 
 make[1]: Nothing to be done for `first'.

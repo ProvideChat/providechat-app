@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   get 'monitor', to: 'home#monitor', as: 'monitor'
   get 'dashboard', to: 'home#dashboard', as: 'dashboard'
   get 'code', to: 'home#code', as: 'code'
+  post 'send_code', to: 'home#send_code', as: 'send_code'
 
   get 'documentation/start', to: 'documentation#start', as: 'doc_start'
   get 'documentation/general', to: 'documentation#general', as: 'doc_general'
