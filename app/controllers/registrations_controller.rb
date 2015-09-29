@@ -10,7 +10,7 @@ class RegistrationsController < Devise::RegistrationsController
     resource.organization_id = organization.id
     resource.save
     
-    AgentMailer.welcome(resource.id).deliver
+    AgentMailer.welcome(resource.id).deliver_later
   end
 
   private

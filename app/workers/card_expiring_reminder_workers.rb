@@ -8,7 +8,7 @@ class CardExpiringReminder
     )
 
     expiring_organizations.each do |organizations|
-      StripeMailer.card_expiring(organization).deliver
+      StripeMailer.card_expiring(organization).deliver_later
       organization.update_attributes(date_reminded: Date.today)
     end
   end
