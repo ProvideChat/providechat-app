@@ -28,6 +28,7 @@
               .col-md-12
                 %a{href: "#", id: "email-code", "data-target": ".send-code-modal", "data-toggle": "modal"}
                   Or you can send these instructions to your webmaster
+                .alert.alert-success#success_msg{style: "display: none;"} Email sent successfully
         - else
           .alert.alert-warning.no-margin.fade.in
             %h4.alert-heading No websites configured yet!
@@ -41,9 +42,10 @@
         %button{type: "button", class: "close", "data-dismiss": "modal", "aria-label": "close"}
           %span{"aria-hidden": "true"} &times;
         %h4 Email Widget Code
-      = form_tag(send_code_path, method: 'post', class: 'form-horizontal', remote: true) do
+      = form_tag(send_code_path, method: 'post', class: 'form-horizontal', remote: true, id: 'send-code-form') do
         .modal-body
-          .alert.alert-danger#error_msg{style: "display: none;"}
+          .alert.alert-danger#error_msg{style: "display: none;"} Error in sending email, please ensure email address is valid
+          .alert.alert-success#sending_msg{style: "display: none;"} Sending...
           .form-group
             %label.col-sm-4 Webmaster's Email
             .col-sm-8
@@ -58,12 +60,20 @@
       $('#widget-code').select();
     });
 
-    $(document.bind('ajaxError', 'form#send_code', function(event, jqxhr, settings, exception) {
-      console.log(jqxhr.responseText);
+    $('#send-code-form').on('ajax:success', function(e, data, status, xhr) {
+      $('.send-code-modal').modal('hide');
+      $('#send-code-form').find('form input[type="text"]').val('');
+      $('#send-code-form input[type="submit"]').prop('disabled', false);
+      $('#error_msg').hide();
+      $('#sending_msg').hide();
+      $('#success_msg').fadeIn().delay(3000).fadeOut();
+    }).on('ajax:error', function(e, xhr, status, error) {
+      $('#sending_msg').hide();
+      $('#error_msg').fadeIn().delay(3000).fadeOut();
+      $('#send-code-form input[type="submit"]').prop('disabled', false);
+    }).on('ajax:send', function(xhr) {
+      $('#error_msg').hide();
+      $('#sending_msg').fadeIn();
+      $('#send-code-form input[type="submit"]').prop('disabled', true);
     });
-
-    $.fn.modal_success = function() {
-      this.modal('hide');
-      this.find('form input[type="text"]').val('');
-    }
   });

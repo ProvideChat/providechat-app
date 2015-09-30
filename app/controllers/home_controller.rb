@@ -16,11 +16,21 @@ class HomeController < ApplicationController
   end
 
   def send_code
-    webmaster_email = params[:webmaster_email]
-    SendCodeMailer.send_code(current_agent.organization_id, webmaster_email, current_agent.name).deliver_later
-    head :no_content
+    if (params.has_key?(:webmaster_email) && valid_email?(params[:webmaster_email]))
+      webmaster_email = params[:webmaster_email]
+      SendCodeMailer.send_code(current_agent.organization_id, webmaster_email, current_agent.name).deliver_later
+      head :ok
+    else
+      render status: :unprocessable_entity
+    end
   end
 
   def contact
+  end
+
+  private
+
+  def valid_email?(email)
+    email =~ /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   end
 end
