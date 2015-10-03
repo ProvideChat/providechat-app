@@ -1,5 +1,6 @@
 class PrechatFormsController < ApplicationController
   before_action :authenticate_agent!
+  before_action :validate_admin
 
   def index
     params.key?(:website_id) ? website_id = params[:website_id] : website_id = Website.where(organization_id: current_agent.organization_id).first
@@ -34,5 +35,11 @@ class PrechatFormsController < ApplicationController
                                          :email_enabled, :department_text,
                                          :department_enabled, :message_text,
                                          :button_text)
+  end
+
+  def validate_admin
+    if current_agent.access_level == 'agent'
+      redirect_to monitor_path
+    end
   end
 end

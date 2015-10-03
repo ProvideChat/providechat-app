@@ -1,6 +1,7 @@
 class OrganizationsController < ApplicationController
   before_action :authenticate_agent!
   before_action :set_organization, only: [:edit, :update]
+  before_action :validate_admin
 
   def edit
   end
@@ -26,5 +27,11 @@ class OrganizationsController < ApplicationController
   def organization_params
     params.require(:organization).permit(:agent_session_timeout,
                                          :agent_response_timeout )
+  end
+
+  def validate_admin
+    if current_agent.access_level == 'agent'
+      redirect_to monitor_path
+    end
   end
 end

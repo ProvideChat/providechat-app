@@ -35,18 +35,20 @@
 
     = render 'layouts/header'
 
-    %aside#left-panel
-      .login-info
-        %span
-          = link_to edit_agent_path(current_agent) do
-            = image_tag current_agent.avatar.url, :style => "height: 25px; width: 25px;"
-            %span
-              = current_agent.name
-          .btn-group.pull-right
+    -if current_agent.access_level != 'agent'
+      %aside#left-panel
+        .login-info
+          %span
+            = link_to edit_agent_path(current_agent) do
+              = image_tag current_agent.avatar.url, :style => "height: 25px; width: 25px;"
+              %span
+                = current_agent.name
+            .btn-group.pull-right
 
-      = render "layouts/left_nav"
+        = render "layouts/left_nav"
 
-    #main{:role => "main"}
+    %div{role: "main", id: current_agent.access_level == 'agent' ? 'main-agent' : 'main'}
+
       #content
         = yield
 
