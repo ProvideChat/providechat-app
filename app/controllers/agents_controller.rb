@@ -4,7 +4,7 @@ class AgentsController < ApplicationController
   before_action :set_websites, only: [:edit, :new, :update, :create]
 
   def index
-    @agents = Agent.where(organization_id: current_agent.organization_id)
+    @agents = Agent.for_organization(current_agent.organization_id)
   end
 
   def new
