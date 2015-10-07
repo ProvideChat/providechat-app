@@ -41,6 +41,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'whenever', :require => false
 
 group :development  do
+  gem "bundler-audit"
   gem 'quiet_assets'
   gem 'rails_best_practices'
 
