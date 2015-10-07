@@ -2,13 +2,13 @@ class PrechatForm < ActiveRecord::Base
   belongs_to :organization
   belongs_to :website
   before_create :set_defaults
-  
+
   def process_update(params, prechat_form_params)
-    if params.has_key?(:restore_defaults)
+    if params.key?(:restore_defaults)
       self.set_defaults
       self.save
       "Your prechat form was reset to defaults."
-    elsif params.has_key?(:save_changes)
+    elsif params.key?(:save_changes)
       self.update(prechat_form_params)
       self.save
       "Your prechat form was successfully updated."
@@ -16,9 +16,9 @@ class PrechatForm < ActiveRecord::Base
       "Your changes were cancelled"
     end
   end
-  
+
   protected
-  
+
   def set_defaults
     self.intro_text = 'Thank you for contacting us!'
     self.name_text = 'Name'

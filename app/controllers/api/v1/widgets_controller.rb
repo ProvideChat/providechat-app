@@ -42,14 +42,14 @@ module Api
             visitor.chat_id = chat.id
             visitor.save
 
-            chat_widget = ChatWidget.find_by(:website_id => website.id)
+            chat_widget = ChatWidget.find_by(website_id: website.id)
             response = {
               'chat_id' => chat.id,
               'html' => render_to_string(
-                          partial: 'chat_widget.html.erb',
-                          :layout => false,
-                          :locals => { :chat_widget => chat_widget }
-                        )
+                partial: 'chat_widget.html.erb',
+                layout: false,
+                locals: { chat_widget: chat_widget }
+              )
             }
 
           when "process_invitation"
@@ -61,7 +61,7 @@ module Api
 
             visitor = Visitor.find(params[:visitor_id])
             visitor.name = params[:name]
-            visitor.status = 'in_chat';
+            visitor.status = 'in_chat'
             visitor.chat_id = chat.id
             visitor.save
 
@@ -73,10 +73,10 @@ module Api
             response = {
               'chat_id' => chat.id,
               'html' => render_to_string(
-                          partial: 'chat_widget.html.erb',
-                          :layout => false,
-                          :locals => { :chat_widget => chat_widget }
-                        )
+                partial: 'chat_widget.html.erb',
+                layout: false,
+                locals: { chat_widget: chat_widget }
+              )
             }
 
           when "get_chat_messages"
@@ -99,7 +99,7 @@ module Api
                 chat_message.seen_by_visitor = true
                 chat_message.save
               end
-              #ChatMessage.where(chat_id: chat_id, seen_by_visitor: false).update_all(seen_by_visitor: true)
+              # ChatMessage.where(chat_id: chat_id, seen_by_visitor: false).update_all(seen_by_visitor: true)
 
               agent_name = "None"
               if chat.agent && chat.agent.display_name
@@ -110,7 +110,7 @@ module Api
                 'status' => chat.status,
                 'agent_name' => agent_name,
                 'ticket_id' => chat.ticket_id,
-                'messages' => chat_messages || Array.new
+                'messages' => chat_messages || []
               }
             else
               response = {
@@ -122,11 +122,11 @@ module Api
 
             messages = params[:messages]
             
-            if messages.kind_of?(String) then
+            if messages.kind_of?(String)
               messages = ActiveSupport::JSON.decode(messages)
             end
 
-            if messages then
+            if messages
               messages.each do |count, message|
                 ChatMessage.create(
                   chat_id: message['chat_id'], user_name: message['user_name'], sender: message['sender'],
@@ -219,7 +219,7 @@ module Api
           when "email_transcript"
             chat_id = params[:chat_id]
 
-            if params.has_key?(:transcript_email) && params[:transcript_email] != ''
+            if params.key?(:transcript_email) && params[:transcript_email] != ''
               chat = Chat.find(chat_id)
               chat.email_transcript(params[:transcript_email])
             end
@@ -232,8 +232,8 @@ module Api
             chat = Chat.find(chat_id)
             chat.end_chat('visitor_ended')
 
-            if params.has_key?(:enable_email_transcript) && params[:enable_email_transcript] == 'true' && 
-                params.has_key?(:transcript_email) && params[:transcript_email] != ''
+            if params.key?(:enable_email_transcript) && params[:enable_email_transcript] == 'true' && 
+                params.key?(:transcript_email) && params[:transcript_email] != ''
               chat.email_transcript(params[:transcript_email])
             end
 
@@ -243,10 +243,14 @@ module Api
             pre_chat_form = PrechatForm.find_by(:website_id => website.id)
             response = {
               'html' => render_to_string(
-                          partial: 'pre_chat.html.erb',
-                          :layout => false,
-                          :locals => { :pre_chat_form => pre_chat_form, :org_id => org_id, :website_id => website.id }
-                        )
+                partial: 'pre_chat.html.erb',
+                layout: false,
+                locals: {
+                  pre_chat_form: pre_chat_form,
+                  org_id: org_id,
+                  website_id: website.id 
+                }
+              )
             }
 
           when "get_invitation"
@@ -259,30 +263,38 @@ module Api
 
             response = {
               'html' => render_to_string(
-                          partial: 'invitation.html.erb',
-                          :layout => false,
-                          :locals => { :invitation => invitation, :chat_widget => chat_widget, :agent => agent }
-                        )
+                partial: 'invitation.html.erb',
+                layout: false,
+                locals: {
+                  invitation: invitation,
+                  chat_widget: chat_widget,
+                  agent: agent
+                }
+              )
             }
 
           when "get_in_chat"
             chat_widget = ChatWidget.find_by(:website_id => website.id)
             response = {
               'html' => render_to_string(
-                          partial: 'chat_widget.html.erb',
-                          :layout => false,
-                          :locals => { :chat_widget => chat_widget }
-                        )
+                partial: 'chat_widget.html.erb',
+                layout: false,
+                locals: { chat_widget: chat_widget }
+              )
             }
 
           when "get_offline"
             offline_form = OfflineForm.find_by(:website_id => website.id)
             response = {
               'html' => render_to_string(
-                          partial: 'offline_form.html.erb',
-                          :layout => false,
-                          :locals => { :offline_form => offline_form, :org_id => org_id, :website_id => website.id }
-                        )
+                partial: 'offline_form.html.erb',
+                layout: false,
+                locals: { 
+                  offline_form: offline_form,
+                  org_id: org_id,
+                  website_id: website.id
+                }
+              )
             }
 
           when "update_status"
@@ -296,7 +308,7 @@ module Api
             visitor.last_ping = DateTime.now
             visitor.save
 
-            response = { 
+            response = {
               'agent_status' => organization.agent_status,
               'invite_sent' => visitor.invite_sent
             }

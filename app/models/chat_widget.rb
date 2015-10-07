@@ -8,11 +8,11 @@ class ChatWidget < ActiveRecord::Base
   mount_uploader :logo, LogoUploader
 
   def process_update(params, chat_widget_params)
-    if params.has_key?(:restore_defaults)
+    if params.key?(:restore_defaults)
       self.set_defaults
       self.save
       "Your chat widget was reset to default settings."
-    elsif params.has_key?(:save_changes)
+    elsif params.key?(:save_changes)
       self.update(chat_widget_params)
       self.save
       "Your chat widget was successfully updated."

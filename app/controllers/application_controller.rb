@@ -5,6 +5,12 @@ class ApplicationController < ActionController::Base
 
   layout :layout_by_resource
 
+  before_action do
+    if current_admin
+      Rack::MiniProfiler.authorize_request
+    end
+  end
+
   def layout_by_resource
     if devise_controller? #&& resource_name == :agent && action_name == 'new'
       "devise"

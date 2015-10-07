@@ -4,11 +4,11 @@ class OfflineForm < ActiveRecord::Base
   before_create :set_defaults
 
   def process_update(params, offline_form_params)
-    if params.has_key?(:restore_defaults)
+    if params.key?(:restore_defaults)
       self.set_defaults
       self.save
       "Your offline form was reset to defaults."
-    elsif params.has_key?(:save_changes)
+    elsif params.key?(:save_changes)
       self.update(offline_form_params)
       self.save
       "Your offline form was successfully updated."

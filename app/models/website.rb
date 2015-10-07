@@ -17,8 +17,10 @@ class Website < ActiveRecord::Base
   validates :name, :url, presence: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
   validates :email, format: { with: VALID_EMAIL_REGEX }
-  validates_uniqueness_of :name, scope: :organization_id, :message => "'%{value}' has already been assigned to another website. Please enter a unique name."
-  validates_uniqueness_of :url, scope: :organization_id, :message => "'%{value}' has already been assigned to another website. Please enter a unique URL."
+  validates_uniqueness_of :name, scope: :organization_id,
+    message: "'%{value}' has already been assigned to another website. Please enter a unique name."
+  validates_uniqueness_of :url, scope: :organization_id,
+    message: "'%{value}' has already been assigned to another website. Please enter a unique URL."
 
   def update_ping
     self.last_ping = DateTime.now
@@ -42,6 +44,7 @@ class Website < ActiveRecord::Base
   end
 
   private
+
   def create_widget_support
     chat_widget = ChatWidget.new
     offline_form = OfflineForm.new

@@ -126,26 +126,26 @@ class Visitor < ActiveRecord::Base
     screen_resolution = "#{session['device']['screen']['width']}x#{session['device']['screen']['height']}"
 
     Rails.logger.info "referrer_host: #{referrer_host}"
-    #website = Website.find(:organization_id => org_id, :url => website_url)
+    # website = Website.find(:organization_id => org_id, :url => website_url)
 
     browser_fingerprint = Digest::MD5.hexdigest("#{ip_address.to_s}#{browser_name}#{browser_version.to_s}#{operating_system}#{screen_resolution}#{plugins}")
 
     statuses = [ Visitor.statuses[:no_chat], Visitor.statuses[:waiting_to_chat], Visitor.statuses[:in_chat], Visitor.statuses[:agent_ended]]
-    #visitor = Visitor.find_by(:website_id => website.id, :browser_name => browser_name,
+    # visitor = Visitor.find_by(:website_id => website.id, :browser_name => browser_name,
     #                          :browser_version => browser_version.to_s, :operating_system => operating_system,
     #                          :ip_address => ip_address, status: statuses) || Visitor.new
-    visitor = Visitor.find_by(:website_id => website.id, :browser_fingerprint => browser_fingerprint, status: statuses) || Visitor.new
+    visitor = Visitor.find_by(website_id: website.id, browser_fingerprint: browser_fingerprint, status: statuses) || Visitor.new
 
     visitor.organization_id = org_id
     visitor.website_id = website.id
     visitor.browser_fingerprint = browser_fingerprint
-    #visitor.country = country
+    # visitor.country = country
     if (visitor.current_page != current_page)
       visitor.current_page = current_page
       visitor.page_views = visitor.page_views + 1
     end
-    #visitor.remote_host = remote_host
-    #visitor.page_views = current_visits
+    # visitor.remote_host = remote_host
+    # visitor.page_views = current_visits
 
     visitor.language = language
     visitor.referrer_host = referrer_host
@@ -173,13 +173,9 @@ class Visitor < ActiveRecord::Base
     visitor.area_code = area_code
     visitor.metro_code = metro_code
 
-    if session['location']['error']
-      Rails.logger.debug "No location data"
-    end
+    Rails.logger.debug "No location data" if session['location']['error']
 
-    if visitor.new_record?
-      visitor.status = 'no_chat'
-    end
+    visitor.status = 'no_chat' if visitor.new_record?
 
     visitor.last_ping = DateTime.now
     visitor.save

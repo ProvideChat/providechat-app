@@ -15,11 +15,12 @@ class Agent < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
-  validates_presence_of :name, presence: true, length: { maximum: 50 }, :on => :update
-  validates_presence_of :title, :on => :update
+  validates_presence_of :name, presence: true, length: { maximum: 50 },
+                               on: :update
+  validates_presence_of :title, on: :update
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
   validates :email, format: { with: VALID_EMAIL_REGEX },
-                      uniqueness: { case_sensitive: false }
+                    uniqueness: { case_sensitive: false }
 
   def access_level_display
     if self.access_level == 'superadmin'
@@ -28,5 +29,4 @@ class Agent < ActiveRecord::Base
       self.access_level.capitalize
     end
   end
-
 end

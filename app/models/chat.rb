@@ -15,7 +15,8 @@ class Chat < ActiveRecord::Base
 
   before_save :titleize_visitor_name
 
-  enum status: [:not_started , :in_progress, :agent_ended, :visitor_ended, :agent_timeout, :visitor_timeout]
+  enum status: [:not_started, :in_progress, :agent_ended, :visitor_ended,
+                :agent_timeout, :visitor_timeout]
 
   def self.filter_results(organization_id, params)
     chats = Chat.where(organization_id: organization_id)
@@ -58,38 +59,36 @@ class Chat < ActiveRecord::Base
     require 'mandrill'
 
     text_msg = "Hello #{self.visitor_name},\n\n"
-    text_msg = text_msg + "Here if your requested chat transcript\n\n"
+    text_msg += "Here if your requested chat transcript\n\n"
     self.chat_messages.each do |chat_message|
-      text_msg = text_msg + " - #{chat_message.user_name}: #{chat_message.message}\n\n"
+      text_msg += " - #{chat_message.user_name}: #{chat_message.message}\n\n"
     end
 
     html_msg = "<html><h3>Hello #{self.visitor_name}</h3><p>Here is your requested chat transcript</p><hr>"
     last_user_name = ""
     self.chat_messages.each do |chat_message|
       if chat_message.user_name != last_user_name
-        html_msg = html_msg + "<br><strong>#{chat_message.user_name}:</strong><br>"
+        html_msg += "<br><strong>#{chat_message.user_name}:</strong><br>"
       end
-      html_msg = html_msg + "#{chat_message.message}<br>"
+      html_msg += "#{chat_message.message}<br>"
       last_user_name = chat_message.user_name
     end
-    html_msg = html_msg + "<hr><p>Thanks for using Provide Chat! "
-    html_msg = html_msg + "Learn more at <a href='http://providechat.com'>providechat.com</a></p></html>"
+    html_msg += "<hr><p>Thanks for using Provide Chat! "
+    html_msg += "Learn more at <a href='http://providechat.com'>providechat.com</a></p></html>"
 
     m = Mandrill::API.new
     message = {
-     :subject=> "Your chat with #{self.website.name} - Ticket ID: #{self.ticket_id}",
-     :from_name=> "Provide Chat",
-     :text=> text_msg,
-     :to=>[
-       {
-         :email=> transcript_email,
-         :name=> self.visitor_name
-       }
-     ],
-     :html=> html_msg,
-     :from_email=>"info@providechat.com"
+      subject: "Your chat with #{self.website.name} - Ticket ID: #{self.ticket_id}",
+      from_name: "Provide Chat",
+      text: text_msg,
+      to: [{
+        email: transcript_email,
+        name: self.visitor_name
+      }],
+      html: html_msg,
+      from_email: "info@providechat.com"
     }
-    sending = m.messages.send message
+    m.messages.send message
   end
 
   protected

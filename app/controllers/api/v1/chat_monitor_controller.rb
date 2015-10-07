@@ -96,7 +96,15 @@ module Api
               'visitor_id' => visitor_id,
               'visitor_name' => visitor_name,
               'chat_status' => chat_status,
-              'html' => render_to_string(partial: 'chat_tab.html.erb', :layout => false, :locals => { :chat_id => chat_id, :visitor_name => visitor_name, :visitor_id => visitor_id })
+              'html' => render_to_string(
+                partial: 'chat_tab.html.erb',
+                layout: false,
+                locals: {
+                  chat_id: chat_id,
+                  visitor_name: visitor_name,
+                  visitor_id: visitor_id
+                }
+              )
             }
 
           when "get_chat_messages"
@@ -113,15 +121,15 @@ module Api
               chat_messages = ChatMessage.where(chat_id: chat_id, seen_by_agent: false).order(:sent)
             end
 
-            #chat_messages = ChatMessage.where(chat_id: chat_id).where("id > ?", last_message_id).order(:id)
-            #Rails.logger.info "GET_CHAT_MESSAGES: GETTING '#{context}' MESSAGES"
+            # chat_messages = ChatMessage.where(chat_id: chat_id).where("id > ?", last_message_id).order(:id)
+            # Rails.logger.info "GET_CHAT_MESSAGES: GETTING '#{context}' MESSAGES"
 
             chat_messages.each do |chat_message|
               chat_message.seen_by_agent = true
               chat_message.save
             end
 
-            #ChatMessage.where(chat_id: chat_id, seen_by_agent: false).update_all(seen_by_agent: true)
+            # ChatMessage.where(chat_id: chat_id, seen_by_agent: false).update_all(seen_by_agent: true)
 
             response = {
               'status' => chat.status,

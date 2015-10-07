@@ -16,7 +16,7 @@ class HomeController < ApplicationController
   end
 
   def send_code
-    if (params.has_key?(:webmaster_email) && valid_email?(params[:webmaster_email]))
+    if (params.key?(:webmaster_email) && valid_email?(params[:webmaster_email]))
       webmaster_email = params[:webmaster_email]
       SendCodeMailer.send_code(current_agent.organization_id, webmaster_email, current_agent.name).deliver_later
       head :ok

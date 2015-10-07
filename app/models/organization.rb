@@ -23,7 +23,7 @@ class Organization < ActiveRecord::Base
 
     logger.info "Validating Widget, HTTP_REFERER: #{http_referrer}"
 
-    website = Website.find_by(:organization_id => self.id, :url => uri.host)
+    website = Website.find_by(organization_id: self.id, url: uri.host)
   end
 
   def can_create_agents
@@ -65,7 +65,7 @@ class Organization < ActiveRecord::Base
 
 
   def agent_status
-    Agent.where(:organization_id => self.id, :availability => 1).count > 0 ? "online" : "offline"
+    Agent.where(organization_id: self.id, availability: 1).count > 0 ? "online" : "offline"
   end
 
   def process_offline_msg(website_id, name, email, department, message)
