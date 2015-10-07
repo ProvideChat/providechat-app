@@ -38,12 +38,13 @@ gem 'stripe_event'
 gem 'sweet-alert'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
-gem 'whenever', :require => false
+gem 'whenever', require: false
 
 group :development  do
-  gem "bundler-audit"
+  gem "flamegraph"
   gem 'quiet_assets'
   gem 'rails_best_practices'
+  gem 'rack-mini-profiler', require: false
 
   gem 'capistrano', '~> 3.4.0', require: false
   gem 'capistrano-bundler',     require: false
@@ -56,10 +57,10 @@ group :test, :development do
   gem 'annotate'
   gem 'binding_of_caller'
   gem 'bundler-audit'
-  gem 'brakeman', :require => false
+  gem 'brakeman', require: false
   gem 'byebug'
   gem 'capybara'
-  gem 'capybara-webkit', :git => 'https://github.com/thoughtbot/capybara-webkit.git'
+  gem 'capybara-webkit', git: 'https://github.com/thoughtbot/capybara-webkit.git'
   gem 'capybara-email'
   gem 'dotenv-rails'
   gem 'factory_girl_rails'
