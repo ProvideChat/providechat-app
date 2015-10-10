@@ -53,7 +53,7 @@
       $("#visitor-time-on-site-" + visitor.id).html(visitor.time_since_created);
       $("#visitor-current-page-" + visitor.id).html('<a href="' + visitor.current_page + '" target="_blank" style="color: #0066CC;">' + visitor.current_page + '</a>');
     } else {
-      var visitor_content = '<div class="content"><%= image_tag "monitor/current-chat.png", class: "visitor-image" %>';
+      var visitor_content = '<div class="content"><img src="/images/monitor/current-chat.png" class="visitor-image">';
       visitor_content += '<span class="visitor-name">' + visitor.name + '</span>&nbsp;&nbsp;';
       visitor_content += '<span class="visitor-detail" id="visitor-detail-' + visitor.id + '">' + visitor.status_extended + '</span>';
       visitor_content += '<div class="visitor-detail" id="visitor-last-message-' + visitor.id + '">' + visitor.last_message + '</div></div>';
@@ -103,7 +103,7 @@
         clearInterval(ProvideChat.visitorWaitingTimer);
         ProvideChat.visitorWaitingTimer = setInterval(function(){waitingToChatAlert();}, 12000);
 
-        var visitor_content = '<div class="content"><%= image_tag "monitor/waiting-to-chat.png", class: "visitor-image" %>';
+        var visitor_content = '<div class="content"><img src="/images/monitor/waiting-to-chat.png" class="visitor-image">';
         visitor_content += '<div class="visitor-name">' + visitor.name + '</div>';
         visitor_content += '<div class="visitor-detail" id="visitor-detail-' + visitor.id + '">' + visitor.status_extended + '</div></div>';
         visitor_content += '<div class="button"><a href="javascript:void(0);" id="accept_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs" style="float: right;"><i class="fa fa-comments-o"></i> Accept</a></div>';
@@ -130,7 +130,7 @@
     } else {
 
       var visitor_content = '<div class="content">';
-      visitor_content += '<%= image_tag "monitor/visitor-browsing.png", class: "visitor-image" %>';
+      visitor_content += '<img src="/images/monitor/visitor-browsing.png" class="visitor-image">';
       visitor_content += '<div class="visitor-location">' + visitor.city + ', ' + visitor.country_name + '&nbsp;&nbsp;<img width="16px" height="16px" src="/images/flags/' + visitor.country_code + '.png" style="vertical-align: top;"></div>';
       visitor_content += '<div class="visitor-detail" id="visitor-detail-' + visitor.id + '">' + visitor.current_page + '</div></div>';
       visitor_content += '<div class="button"><a href="javascript:void(0);" id="invite_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs" style="float: right;"><i class="fa fa-external-link"></i> Invite</a></div>';
