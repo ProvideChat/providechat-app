@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   before_action :authenticate_agent!
+  before_action :validate_admin, except: [:monitor]
 
   def monitor
   end
@@ -32,5 +33,11 @@ class HomeController < ApplicationController
 
   def valid_email?(email)
     email =~ /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  end
+
+  def validate_admin
+    if current_agent.access_level == 'agent'
+      redirect_to monitor_path
+    end
   end
 end

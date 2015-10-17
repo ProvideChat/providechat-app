@@ -1,6 +1,7 @@
 class WebsitesController < ApplicationController
   before_action :authenticate_agent!
   before_action :set_website, only: [:edit, :update, :destroy]
+  before_action :validate_admin
 
   def index
     @websites = Website.where(organization_id: current_agent.organization_id)
@@ -48,5 +49,11 @@ class WebsitesController < ApplicationController
 
   def website_params
     params.require(:website).permit(:organization_id, :url, :name, :email)
+  end
+
+  def validate_admin
+    if current_agent.access_level == 'agent'
+      redirect_to monitor_path
+    end
   end
 end

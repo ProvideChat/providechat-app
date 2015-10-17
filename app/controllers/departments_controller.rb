@@ -2,6 +2,7 @@ class DepartmentsController < ApplicationController
   before_action :authenticate_agent!
   before_action :set_department, only: [:edit, :update, :destroy, :show]
   before_action :set_websites, only: [:edit, :new, :create]
+  before_action :validate_admin
 
   def index
     if params.key?(:websites)
@@ -62,5 +63,11 @@ class DepartmentsController < ApplicationController
 
   def department_params
     params.require(:department).permit(:name, :email, :website_id)
+  end
+
+  def validate_admin
+    if current_agent.access_level == 'agent'
+      redirect_to monitor_path
+    end
   end
 end

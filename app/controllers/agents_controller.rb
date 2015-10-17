@@ -2,9 +2,10 @@ class AgentsController < ApplicationController
   before_action :authenticate_agent!
   before_action :set_agent, only: [:edit, :update, :destroy]
   before_action :set_websites, only: [:edit, :new, :update, :create]
+  before_action :validate_admin
 
   def index
-    @agents = Agent.where(organization_id: current_agent.organization_id)
+    @agents = Agent.for_organization(current_agent.organization_id)
   end
 
   def new
@@ -82,5 +83,11 @@ class AgentsController < ApplicationController
                                   :visitor_arrived_sound, :avatar,
                                   :remove_avatar, :avatar_cache,
                                   website_ids: [], department_ids: [])
+  end
+
+  def validate_admin
+    if current_agent.access_level == 'agent'
+      redirect_to monitor_path
+    end
   end
 end
