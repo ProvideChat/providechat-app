@@ -4,18 +4,21 @@ sf = {latitude: "37.7833", longitude: "122.4167", country_code: "US", country_na
           city: "San Francisco", region_code: "CA", region_name: "California"}
 austin = {latitude: "30.2500", longitude: "97.7500", country_code: "US", country_name: "United States",
       city: "Austin", region_code: "TX", region_name: "Texas"}
-london = {latitude: "51.5072", longitude: "0.1275", country_code: "UK", country_name: "United Kingdom",
+oz = {latitude: "33.8650", longitude: "151.2094", country_code: "AU", country_name: "Australia",
+          city: "Sydney", region_code: "NSW", region_name: "New South Wales"}
+london = {latitude: "51.5072", longitude: "0.1275", country_code: "GB", country_name: "United Kingdom",
           city: "London", region_code: "", region_name: ""}
 locations = []
 locations.push(boston)
+locations.push(oz)
 locations.push(sf)
 locations.push(austin)
 locations.push(london)
 
 browsers = ["Chrome", "Firefox", "Safari", "Opera"]
 operating_systems = ["Mac", "Windows", "Linux"]
-(1..5).each do 
-  location_index = Random.new.rand(0..3)
+(0..4).each do |count|
+  location_index = count #Random.new.rand(0..3)
   browser_index = Random.new.rand(0..3)
   os_index = Random.new.rand(0..2)
   status = 0 #Random.new.rand(0..1)
