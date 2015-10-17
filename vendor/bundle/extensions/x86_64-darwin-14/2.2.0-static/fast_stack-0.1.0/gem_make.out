@@ -1,0 +1,11 @@
+/Users/derek/.rbenv/versions/2.2.3/bin/ruby -r ./siteconf20151016-53427-73vqur.rb extconf.rb
+creating Makefile
+
+make "DESTDIR=" clean
+
+make "DESTDIR="
+compiling fast_stack.c
+linking shared-object fast_stack/fast_stack.bundle
+
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 fast_stack.bundle ./.gem.20151016-53427-1wxgky8/fast_stack
