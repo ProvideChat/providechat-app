@@ -1,7 +1,6 @@
-/Users/derek/.rbenv/versions/2.2.3/bin/ruby -r ./siteconf20151023-71803-3h2on2.rb extconf.rb
-cd src/ && /usr/local/bin/qmake /Users/derek/work/providechat-app/vendor/bundle/bundler/gems/capybara-webkit-6c375e5dbfe8/src/webkit_server.pro -o Makefile.webkit_server
-cd src/ && /Library/Developer/CommandLineTools/usr/bin/make -f Makefile.webkit_server 
-make[1]: Nothing to be done for `first'.
+/Users/derek/.rbenv/versions/2.2.3/bin/ruby -r ./siteconf20151023-27073-uss6qu.rb extconf.rb
+Project ERROR: Xcode not set up properly. You may need to confirm the license agreement by running /usr/bin/xcodebuild.
+Command 'qmake ' failed
 
 make "DESTDIR=" clean
 make: *** No rule to make target `clean'.  Stop.

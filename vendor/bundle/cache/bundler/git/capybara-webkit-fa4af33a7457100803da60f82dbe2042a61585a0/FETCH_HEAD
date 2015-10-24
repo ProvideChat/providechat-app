@@ -4,7 +4,7 @@ c9cf3cfcc2e50f11c1e60e18028412c2c8ba0786		branch 'benchmarks' of https://github.
 6b6a2e10d34ce96223dd87ed65221017798e474e		branch 'jf-patch-body-test' of https://github.com/thoughtbot/capybara-webkit
 a2952d5124776edc5d07198ca2ac79975cff2da3		branch 'jf-remove-deprecated-behavior' of https://github.com/thoughtbot/capybara-webkit
 798268f0db384e72a044118ada57566310db79da		branch 'jf-support-fewer-capybara-versions' of https://github.com/thoughtbot/capybara-webkit
-6c375e5dbfe82305468828a759aac5251315a040		branch 'master' of https://github.com/thoughtbot/capybara-webkit
+e9bd20a184d7e3c3b1aeebdceeaa66b2905afca2		branch 'master' of https://github.com/thoughtbot/capybara-webkit
 fc201479bcaafbeb9e7bebe72864e07e17c9e487		branch 'no-server' of https://github.com/thoughtbot/capybara-webkit
 226f34566a76e63f1e443e7535fb493d803a9b33		branch 'pause_and_show' of https://github.com/thoughtbot/capybara-webkit
 6e5d7939877041cd54b28def70322fd9c8e62899		branch 'remove-auto-screenshot' of https://github.com/thoughtbot/capybara-webkit
@@ -57,3 +57,4 @@ fa7bf996e8ca4b5b6d6b5de68cb18230acf2b4cf	not-for-merge	tag 'v1.5.1' of https://g
 26a0f518c4f8fe2f01bd982f43b482be931203aa	not-for-merge	tag 'v1.5.2' of https://github.com/thoughtbot/capybara-webkit
 14e94633f671f6839a278bfc4f179f561ec161a1	not-for-merge	tag 'v1.6.0' of https://github.com/thoughtbot/capybara-webkit
 2ad10aa869e4a33adcba927e92e8d6bbab991dc7	not-for-merge	tag 'v1.7.0' of https://github.com/thoughtbot/capybara-webkit
+b5b0a8193072a12166646f68df28276bb076d32c	not-for-merge	tag 'v1.7.1' of https://github.com/thoughtbot/capybara-webkit

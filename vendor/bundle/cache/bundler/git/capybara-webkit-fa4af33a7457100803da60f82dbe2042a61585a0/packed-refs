@@ -1,29 +1,15 @@
 # pack-refs with: peeled fully-peeled 
-d882dc18a02613d56c5a603748aa45430566628f refs/heads/0.13.x
-b6a09ee0bf3ff490cd307724f630a874d9566025 refs/heads/1.0
-046eeb8dc9a3238aa23fc65fe93bf09e385c4640 refs/heads/anchors
+ccd4277605d5cc5eb3555af66135c9d13ea68518 refs/heads/1.5.x
 c9cf3cfcc2e50f11c1e60e18028412c2c8ba0786 refs/heads/benchmarks
-b9cbd4aa3a727bdd2af8c9bff310e7cceabfcd75 refs/heads/gb-mouse-event-coordinates
-a43244037112bcc48f39e616a2428c4cb7548f2e refs/heads/gbw-code-climate-badge
-bec3bfc73ab8bc16c49bb4a3bd8faed6cd70f62f refs/heads/jf-4-8
-f3fd2e9e7562be7003e69aadc6d6ab73663e49c2 refs/heads/jf-faster-attach-check
-fa8e377784ef1a44ae2c59b436625ccb750ba9f8 refs/heads/jf-release-1.1.0
-ef3122a26d29ff5a721657fac2f5f1aef6c26585 refs/heads/jm-crash
-b7d6be163c3fd6f5f6b6e34fc19200ceeaffd700 refs/heads/master
-b7b728aceb02f6073e4b98301e4d4aa0bf0fd16b refs/heads/mf-document-setting-headers
-eee6437a0db5292fc6a9566ea18d6c9f415c3418 refs/heads/mm-authentication
-1a28da89addbf9fe111538e768e4b8a7e80b005e refs/heads/mm-dates
-250e4313ff1a576524e46d6cc09358adc9eee66a refs/heads/mm-make
-5c8e518559f15e514d46de00c8a532add5d1c315 refs/heads/mm-makefile-clean
-51c4dfe1414a9b1620dfb61db456646f51a782dd refs/heads/mm-mouse-events
-81ad8fd130437149d843191893550160cd6ec6c3 refs/heads/mm-session-spec-with-javascript
-a4107f231dff1ee7703c90548c62695e60615cde refs/heads/mm-strip-and-normalize-spaces
+8e02b68b312e9314ca47ccda5efd84e88e4d583f refs/heads/coc
+6b6a2e10d34ce96223dd87ed65221017798e474e refs/heads/jf-patch-body-test
+a2952d5124776edc5d07198ca2ac79975cff2da3 refs/heads/jf-remove-deprecated-behavior
+798268f0db384e72a044118ada57566310db79da refs/heads/jf-support-fewer-capybara-versions
+e9bd20a184d7e3c3b1aeebdceeaa66b2905afca2 refs/heads/master
 fc201479bcaafbeb9e7bebe72864e07e17c9e487 refs/heads/no-server
 226f34566a76e63f1e443e7535fb493d803a9b33 refs/heads/pause_and_show
-6000c99d417e60aef712f20f933d048ef2821f25 refs/heads/ps-use-multi-json
-e3248b7946e38fd291c9c3cce0c481beede37f02 refs/heads/reraise_exceptions
-02f2a8ab73a2e69eb023ba1d48ee4000360cd213 refs/heads/revert_visibility_changes
-a7eb033780b419215184585d43a6e4f1943fa4ca refs/heads/v0.14.x
+6e5d7939877041cd54b28def70322fd9c8e62899 refs/heads/remove-auto-screenshot
+5ad7a5b92751458b8afb597252e557a101444a2a refs/heads/split-large-classes
 0d2347eac351984db4a297f161837a6a4a61a469 refs/tags/0.11.0.4
 01b50b717816f3a61d4685e240515a825c18328d refs/tags/0.11.0.5
 a37c8e051e4a7d55bb1d456156e8b66139deae8a refs/tags/0.11.0.7
@@ -95,3 +81,25 @@ bf27d10ea85dcf4790a460c513be467cf2822c52 refs/tags/v1.1.0
 ^fa8e377784ef1a44ae2c59b436625ccb750ba9f8
 743fd31a380f75ab4b3568fae6aa3030361a4049 refs/tags/v1.1.1
 ^681aa64bf278cf5a0a32be561de5f98b6b216260
+3e298fe501e54078bbd410ecca77fecc0e533027 refs/tags/v1.2.0
+^2687c2f31ca7b911b4d3c98c0208ba4eafcf1f63
+3099d859a3b16e98715360ea1317204b96ee7454 refs/tags/v1.3.0
+^c1b501ca525532d261ded8d3c0c6408716a1f8ef
+e9575d815dbd6efd8aa62403e8a8987111e60673 refs/tags/v1.3.1
+^37fdbe135596ac2f615aa6bae86ee8c2b04ff82b
+2d857588ce932183561967d06612490589ab9f24 refs/tags/v1.4.0
+^4d898b453634d323058b2a66a09d8ee4f2a2e32c
+7f3ee48773a3ceb467f73d38a3969aed6b8baae7 refs/tags/v1.4.1
+^70ffd662133e8a1dc623317a39f16f6945007cd3
+38dbb04a0ab0fef4947c146cf81dda450645b736 refs/tags/v1.5.0
+^61403a2bfdec2c188ba8e38f3946c6ec0809b3f8
+fa7bf996e8ca4b5b6d6b5de68cb18230acf2b4cf refs/tags/v1.5.1
+^88fc84e2f8d7fa1ffc245766c2fe919675aece8a
+26a0f518c4f8fe2f01bd982f43b482be931203aa refs/tags/v1.5.2
+^ccd4277605d5cc5eb3555af66135c9d13ea68518
+14e94633f671f6839a278bfc4f179f561ec161a1 refs/tags/v1.6.0
+^3ef6732baa2a3ed7a1b7ba5d6a464485779cebd4
+2ad10aa869e4a33adcba927e92e8d6bbab991dc7 refs/tags/v1.7.0
+^6c375e5dbfe82305468828a759aac5251315a040
+b5b0a8193072a12166646f68df28276bb076d32c refs/tags/v1.7.1
+^e9bd20a184d7e3c3b1aeebdceeaa66b2905afca2
