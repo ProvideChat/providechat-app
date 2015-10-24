@@ -64,6 +64,7 @@ group :test, :development do
   gem 'capybara-email'
   gem 'dotenv-rails'
   gem 'factory_girl_rails'
+  gem 'guard-rspec'
   gem 'rspec-rails'
 
   gem 'pry'
@@ -73,6 +74,7 @@ group :test, :development do
 
   gem 'stripe-ruby-mock'
   gem 'spring'
+  gem 'spring-commands-rspec'
   gem 'web-console', '~> 2.0'
 end
 
