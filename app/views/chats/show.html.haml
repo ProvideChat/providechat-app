@@ -11,13 +11,15 @@
         .well.well-sm
           %h5 Chat Overview
 
+          %hr
+          
           %p
             %strong Website:
             = @chat.website.name
 
           %p
             %strong Agent:
-            = @chat.agent.display_name
+            = @chat.agent.nil? ? 'No agent': @chat.agent.display_name
 
           %p
             %strong Visitor:

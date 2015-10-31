@@ -1,0 +1,18 @@
+var title       =   '.modal-title',
+    loader      =   '.ajax-loader',
+    content     =   '.modal-body-content',
+    dataRemote  =   'a[data-remote=true]',
+    toolbar     =   'div.modal-footer',
+    modal       =   '#ajax-modal';
+
+//i set the title through a helper function
+$(title).html('Chat Transcript');
+//hides the modal and shows the ajax content
+$(content).html('');
+
+$(loader).fadeToggle('fast', function() {
+  $(loader).fadeOut('slow');
+  console.log("<%= j render("show") %>");
+  $(content).html('<%= j render("show") %>');
+  $(modal).modal('show');
+});

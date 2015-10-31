@@ -1,0 +1,39 @@
+
+.well.well-sm
+  %p
+    %strong Website:
+    = @chat.website.name
+
+  %p
+    %strong Agent:
+    = @chat.agent.nil? ? 'No agent': @chat.agent.display_name
+
+  %p
+    %strong Visitor:
+    = @chat.visitor_name.empty? ? 'Not specified' : @chat.visitor_name
+    = @chat.visitor_email.length > 0 ? "(#{@chat.visitor_email})" : ''
+
+  - if @chat.visitor_department.length > 0
+    %p
+      %strong Visitor department:
+      = @chat.visitor_department
+
+  - if @chat.visitor_question.length > 0
+    %p
+      %strong Visitor question:
+      = @chat.visitor_question
+
+%h3 Transcript
+
+- if @chat.chat_messages.count == 0
+  %strong Chat never started
+- else
+  - last_user_name = ''
+  - @chat.chat_messages.each do |chat_message|
+    - if chat_message.user_name != last_user_name
+      %br
+      %strong #{chat_message.user_name}:
+      %br
+    = chat_message.message
+    %br
+    - last_user_name = chat_message.user_name
