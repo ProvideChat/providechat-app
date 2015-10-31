@@ -23,8 +23,9 @@ module ProvidechatApp
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
     config.assets.precompile += [ '.json', '.svg', '.eot', '.woff', '.ttf', '.png', '.jpg' ]
     config.assets.precompile += %w( modernizr.js smartadmin.config.js smartadmin.js jarvis.widget.js )
-    config.assets.precompile += %w( smart-notification.js select2.js )
-    config.assets.precompile += %w( bootstrap.css smartadmin-production-plugins.css require smartadmin-production.css )
+    config.assets.precompile += %w( smart-notification.js select2.js bootstrap-touchspin.js )
+    config.assets.precompile += %w( bootstrap.css smartadmin-production-plugins.css )
+    config.assets.precompile += %w( smartadmin-production.css bootstrap-touchspin.css )
 
     config.active_record.raise_in_transactional_callbacks = true
   end

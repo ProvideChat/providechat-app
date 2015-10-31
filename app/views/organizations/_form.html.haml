@@ -6,7 +6,7 @@
       .col-md-7
         .form-inline
           %label
-            = f.number_field :agent_session_timeout, :class => "form-control", :min => 1, :style => "width: 90px;"
+            = f.text_field :agent_session_timeout, :class => "form-control", :min => 1, :style => "width: 90px;"
             &nbsp
             minutes
         .help-text{style: "font-size: 10px;"}
@@ -16,7 +16,7 @@
       .col-md-7
         .form-inline
           %label
-            = f.number_field :agent_response_timeout, :class => "form-control", :min => 1, :style => "width: 90px;"
+            = f.text_field :agent_response_timeout, :class => "form-control", :min => 1, :style => "width: 90px;"
             &nbsp
             minutes
 
@@ -25,3 +25,18 @@
 
   .widget-footer
     = f.submit "Save Settings", :class => "btn btn-primary"
+
+:javascript
+  $( document ).ready(function() {
+    $("#organization_agent_session_timeout").TouchSpin({
+      min: 1,
+      step: 1,
+      max: 90
+    });
+
+    $("#organization_agent_response_timeout").TouchSpin({
+      min: 1,
+      step: 1,
+      max: 15
+    });
+  });

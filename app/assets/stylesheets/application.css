@@ -17,6 +17,7 @@
  *= require nprogress
  *= require nprogress-bootstrap
  *= require sweet-alert
+ *= require bootstrap-touchspin
  *= require styles
  *= require monitor
  *= require widget

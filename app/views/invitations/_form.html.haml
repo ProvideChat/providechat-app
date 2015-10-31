@@ -49,6 +49,18 @@
 :javascript
   $( document ).ready(function() {
 
+    $("#invitation_invite_pageviews").TouchSpin({
+      min: 1,
+      step: 1,
+      max: 10
+    });
+
+    $("#invitation_invite_seconds").TouchSpin({
+      min: 1,
+      step: 1,
+      max: 90
+    });
+
     $('.message-field').qtip(
       no_icon_style('This message is displayed to your visitors when you invite them to chat with your agents.', '.message-field')
     );
