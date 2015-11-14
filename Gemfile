@@ -39,6 +39,7 @@ gem 'stripe_event'
 gem 'sweet-alert'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
+gem 'wicked'
 gem 'whenever', require: false
 
 group :development  do
