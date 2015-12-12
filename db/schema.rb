@@ -39,30 +39,36 @@ ActiveRecord::Schema.define(version: 20150516052217) do
 
   create_table "agents", force: :cascade do |t|
     t.integer  "organization_id"
-    t.string   "name",                   default: "", null: false
-    t.string   "display_name",           default: "", null: false
-    t.string   "title",                  default: "", null: false
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "name",                   default: "",    null: false
+    t.string   "display_name",           default: "",    null: false
+    t.string   "title",                  default: "",    null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.integer  "access_level"
-    t.integer  "availability"
-    t.boolean  "active_chat_sound"
-    t.boolean  "background_chat_sound"
-    t.boolean  "visitor_arrived_sound"
+    t.integer  "availability",           default: 0
+    t.boolean  "active_chat_sound",      default: true
+    t.boolean  "background_chat_sound",  default: true
+    t.boolean  "visitor_arrived_sound",  default: true
+    t.boolean  "completed_setup",        default: false
     t.string   "avatar"
-    t.integer  "status"
+    t.integer  "status",                 default: 0
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
   end
 
+  add_index "agents", ["confirmation_token"], name: "index_agents_on_confirmation_token", unique: true, using: :btree
   add_index "agents", ["email"], name: "index_agents_on_email", unique: true, using: :btree
   add_index "agents", ["organization_id"], name: "index_agents_on_organization_id", using: :btree
   add_index "agents", ["reset_password_token"], name: "index_agents_on_reset_password_token", unique: true, using: :btree
@@ -207,7 +213,7 @@ ActiveRecord::Schema.define(version: 20150516052217) do
     t.datetime "updated_at",                          null: false
     t.integer  "trial_days",             default: 14, null: false
     t.datetime "trial_period_end"
-    t.string   "stripe_customer_id",     default: ""
+    t.string   "stripe_customer_id"
     t.datetime "expiration_date"
     t.datetime "date_reminded"
   end

@@ -8,12 +8,13 @@ class CreateAgents < ActiveRecord::Migration
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
       t.integer :access_level
-      t.integer :availability
-      t.boolean :active_chat_sound
-      t.boolean :background_chat_sound
-      t.boolean :visitor_arrived_sound
+      t.integer :availability,            default: 0
+      t.boolean :active_chat_sound,       default: true
+      t.boolean :background_chat_sound,   default: true
+      t.boolean :visitor_arrived_sound,   default: true
+      t.boolean :completed_setup,         default: false
       t.string :avatar
-      t.integer :status
+      t.integer :status,                  default: 0
 
       ## Recoverable
       t.string   :reset_password_token
@@ -30,10 +31,10 @@ class CreateAgents < ActiveRecord::Migration
       t.string   :last_sign_in_ip
 
       ## Confirmable
-      # t.string   :confirmation_token
-      # t.datetime :confirmed_at
-      # t.datetime :confirmation_sent_at
-      # t.string   :unconfirmed_email # Only if using reconfirmable
+      t.string   :confirmation_token
+      t.datetime :confirmed_at
+      t.datetime :confirmation_sent_at
+      t.string   :unconfirmed_email # Only if using reconfirmable
 
       ## Lockable
       # t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
@@ -46,7 +47,7 @@ class CreateAgents < ActiveRecord::Migration
     add_index :agents, :organization_id
     add_index :agents, :email,                unique: true
     add_index :agents, :reset_password_token, unique: true
-    # add_index :operators, :confirmation_token,   unique: true
-    # add_index :operators, :unlock_token,         unique: true
+    add_index :agents, :confirmation_token,   unique: true
+    # add_index :agents, :unlock_token,         unique: true
   end
 end
