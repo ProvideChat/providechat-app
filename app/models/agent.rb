@@ -8,19 +8,58 @@ class Agent < ActiveRecord::Base
   enum availability: [:offline, :online]
   enum status: [:disabled, :enabled]
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :async,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :registerable, :confirmable, :async,
+         :recoverable, :rememberable, :trackable, :validatable,
+         :timeoutable
 
   mount_uploader :avatar, AvatarUploader
 
-  validates_presence_of :name, presence: true, length: { maximum: 50 },
-                               on: :update
+  validates_presence_of :name, presence: true, on: :update
   validates_presence_of :title, on: :update
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
-  validates :email, format: { with: VALID_EMAIL_REGEX },
-                    uniqueness: { case_sensitive: false }
+  #VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
+  #validates :email, format: { with: VALID_EMAIL_REGEX },
+  #                  uniqueness: { case_sensitive: false }
+
+  attr_accessor :website_url
+
+  def password_required?
+    super if confirmed?
+  end
+
+  def password_match?
+    self.errors[:password] << "can't be blank" if password.blank?
+    self.errors[:password_confirmation] << "can't be blank" if password_confirmation.blank?
+    self.errors[:password_confirmation] << "does not match password" if password != password_confirmation
+    password == password_confirmation && !password.blank?
+  end
+  
+  # new method to set the password without knowing the current password
+  # used in our confirmation controller
+  def attempt_set_password(params)
+    p = {}
+    p[:password] = params[:password]
+    p[:password_confirmation] = params[:password_confirmation]
+    update_attributes(p)
+  end
+  
+  # new method to return whether a password has been set
+  def has_no_password?
+    self.encrypted_password.blank?
+  end
+  
+  # new method to provide access to protected method unless_confirmed
+  def only_if_unconfirmed
+    pending_any_confirmation {yield}
+  end
+  
+  # only require password if it is being set, but not for new records
+  def password_required?
+    if !persisted?
+      false
+    else
+      !password.nil? || !password_confirmation.nil?
+    end
+  end
 
   def access_level_display
     if self.access_level == 'superadmin'

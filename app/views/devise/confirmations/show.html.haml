@@ -1,0 +1,20 @@
+- provide(:title, 'Confirm your account')
+
+%section.content
+  %section.authentication
+    %h1 Confirm your account
+    %fieldset
+      You're almost done! Now create a password to securely access your account.
+
+      = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name)) do |f|
+
+        = devise_error_messages!
+        = f.input :password, required: true
+        = f.input :password_confirmation, required: true
+        = f.input :confirmation_token, as: :hidden, value: @original_token
+
+        .actions
+          = f.button :submit, "Set Password"
+
+      %p
+        = link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name)

@@ -9,8 +9,6 @@ describe "User Registration" do
   context "failure" do
     before do
       fill_in 'Email', with: ''
-      fill_in 'user[password]', with: 'password'
-      fill_in 'user[password_confirmation]', with: 'password'
       click_button 'Sign up'
     end
 
@@ -31,8 +29,6 @@ describe "User Registration" do
   context "success" do
     before do
       fill_in 'Email', with: 'jill@example.com'
-      fill_in 'user[password]', with: 'password'
-      fill_in 'user[password_confirmation]', with: 'password'
       click_button 'Sign up'
     end
 

@@ -1,7 +1,134 @@
-%h1 Welcome!
+- provide(:title, 'Welcome to Provide Chat')
 
-.well.no-padding
-  %p To install ProvideChat, put this code on every page of your website just before the closing </body> tag.
-  
-  %textarea
-    
+.after-signup
+  .wizard-container
+    #wizard.card.wizard-card.ct-wizard-blue
+      = form_for(@agent, :url => after_signup_path, :html => {:id => "after-signup-form"}) do |f|
+        / You can switch "ct-wizard-azzure"  with one of the next bright colors: "ct-wizard-blue", "ct-wizard-green", "ct-wizard-orange", "ct-wizard-red"
+        .wizard-header
+          %h3
+            %b COMPLETE YOUR ACCOUNT SETUP
+            %br/
+            %small This information will finalize your account setup
+        %ul.nav.nav-pills
+          %li.active{:style => "width: 25%;"}
+            %a{"aria-expanded" => "true", "data-toggle" => "tab", :href => "#agent"} Your Account
+          %li{:style => "width: 25%;"}
+            %a{"data-toggle" => "tab", :href => "#website"} Website
+          %li{:style => "width: 25%;"}
+            %a{"data-toggle" => "tab", :href => "#install-code"} Install Code
+        .tab-content
+                            
+          #agent.tab-pane.active
+          
+            = render "layouts/error_messages", :f => @agent
+            
+            .row
+              .col-sm-12
+                %h4.info-text Let's start with your account details
+              - if @agent.has_no_password?
+                .col-sm-5.col-sm-offset-1
+                  .form-group
+                    %label Enter Your password
+                    = f.password_field :password, class: "form-control", placeholder: "Your password", required: true
+                .col-sm-5
+                  .form-group
+                    %label Confirm Your password
+                    = f.password_field :password_confirmation, class: "form-control", placeholder: "Confirm password", required: true
+
+              .col-sm-5.col-sm-offset-1
+                .form-group
+                  %label Your Full Name
+                  = f.text_field :name, class: "form-control", placeholder: "Your full name", required: true
+              .col-sm-5
+                .form-group
+
+          #website.tab-pane
+            %h4.info-text What website will you be installing Provide Chat on?
+            .row
+              .col-sm-8.col-sm-offset-2
+                .form-group
+                  %label Web Address (URL)
+                  = f.text_field :website_url, :class => "form-control url-field", required: true, value: @website.url
+          #install-code.tab-pane
+            %h4.info-text Install the Provide Chat Widget
+            .row
+              .col-sm-10.col-sm-offset-1
+                To install the Provide Chat Widget, paste this code (unaltered, in it’s entirety) on every page of your website just before the closing &lt;/body&gt; tag.
+
+            .code-container
+              .row
+                .col-md-12
+                  .pull-right
+                    %a{href: "#", id: "select-code"}> (select all)
+
+                  %textarea#widget-code.codetext= render partial: "home/widget_include_code", locals: { organization_id: current_agent.organization_id }
+
+        .wizard-footer
+          .pull-right
+            %input.btn.btn-next.btn-fill.btn-success.btn-wd.btn-sm{:name => "next", :type => "button", :value => "Next"}/
+            = f.submit "finish", class: "btn btn-finish btn-fill btn-success btn-wd btn-sm", name: "finish", style: "display: none;", value: "Finish"
+          .pull-left
+            %input.btn.btn-previous.btn-fill.btn-default.btn-wd.btn-sm.disabled{:name => "previous", :type => "button", :value => "Previous"}/
+          .clearfix
+          
+
+-#
+  %section.content
+    %section.full-form
+      %h2
+        %i.fa.fa-check-circle
+        Welcome to Smartsettle
+
+      .flash-alert
+        %span
+          %i.fa-fw.fa.fa-info
+          Please fill out the following fields to complete your profile setup
+
+      = simple_form_for(@user, :url => after_signup_path, :html => {:id => "profile-setup"}) do |f|
+        = render "shared/error_messages", :f => @user
+        %fieldset
+          - if @user.has_no_password?
+            .left-column
+              = f.input :password, required: true
+            .right-column
+              = f.input :password_confirmation, required: true
+          .left-column
+            = f.input :name, :id => "creator_party_name", :placeholder => "Your full name"
+          .right-column
+            = f.input :mobile_number, :placeholder => "Your mobile number"
+
+          = f.simple_fields_for :address, Address.new do |a|
+            = a.input :street_address, as: :hidden, value: "Home"
+            .full-column
+              = a.input :street_address
+            .left-column
+              = a.input :locality, label: "City"
+            .right-column
+              = a.input :region, label: "State / Province"
+            .left-column
+              = a.input :postal_code, label: "Postal/Zip"
+            .right-column
+              = a.input :country_name
+
+          .actions
+            = f.button :submit, "Complete your profile setup"
+
+:javascript
+
+  $(document).ready(function() {
+
+    var $validator = $("#after-signup-form").validate({
+      highlight: function (element) {
+        $(element).addClass('has-error');
+      },
+      unhighlight: function (element) {
+        $(element).addClass('has-success');
+      },
+      errorElement: 'span',
+      errorClass: 'error-block',
+      errorPlacement: function (error, element) {
+        error.insertAfter(element);
+      }
+    });
+  });

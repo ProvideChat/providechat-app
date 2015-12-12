@@ -4,11 +4,10 @@ class RegistrationsController < Devise::RegistrationsController
     
     organization = Organization.create_default_organization
 
-    resource.name = 'Agent'
     resource.title = 'Support Hero'
     resource.access_level = 'superadmin'
     resource.organization_id = organization.id
-    resource.save
+    resource.save(validate: false)
     
     AgentMailer.welcome(resource.id).deliver_later
   end
@@ -16,7 +15,7 @@ class RegistrationsController < Devise::RegistrationsController
   private
   
   def sign_up_params
-    params.require(:agent).permit(:email, :password)
+    params.require(:agent).permit(:email)
   end
 
   def account_update_params
