@@ -133,7 +133,6 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     colored (1.2)
-    colorize (0.7.7)
     connection_pool (2.2.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
@@ -532,8 +531,7 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
-    sshkit (1.7.1)
-      colorize (>= 0.7.0)
+    sshkit (1.8.1)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     stackprof (0.2.7)
