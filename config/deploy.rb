@@ -7,7 +7,7 @@ set :deploy_user, 'deploy'
 set :scm, :git
 set :repo_url, 'git@bitbucket.org:providechat/providechat-app'
 
-set :rbenv_path, '/home/deploy/.rbenv/'
+set :rbenv_path, '$HOME/.rbenv'
 
 set :puma_threads,    [4, 16]
 set :puma_workers,    0
