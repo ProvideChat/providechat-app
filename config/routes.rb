@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   resources :after_signup, only: [:edit, :update]
   resources :contact_forms, only: [:new, :create]
+  resources :support_forms, only: [:new, :create]
 
   resources :visitors
   resources :departments

@@ -1,20 +1,23 @@
-= render 'layouts/page_header', :title => 'Contact Support', :icon => 'fa-smile-o'
-
-.col-sm-12.col-md-8.col-lg-8
-  #wid-id-0.jarviswidget.jarviswidget-color-darken
+.well.no-padding
+  = form_for(@contact_form, :html => {class: 'smart-form client-form'}) do |f|
+    = render "layouts/error_messages", :f => @contact_form
+  
     %header
-      %span.widget-icon
-        %i.fa.fa-smile-o
-      %h2 Contact Support
-    %div
-      .jarviswidget-editbox
+      Contact Us
+    %fieldset
+      %legend We strive to provide you with fast and friendly service for any questions you may have. Please fill out this form and we'll get back to you as soon as possible.
 
-      .widget-body.no-padding
-        .alert.alert-info.no-margin.fade.in
-          %div{style: "float: left;"}
-            %i.fa-fw.fa.fa-info
-          %div{style: "margin-left: 24px;"}
-            We strive to provide you with fast and friendly service for any questions you may have. Please fill out this form and we'll get back to you as soon as possible.
+      %section
+        %label.input= f.label :name
+        = f.text_field :name, :class => "form-control"
 
-        %br
-        = render 'form'
+      %section
+        %label.input= f.label :email
+        = f.text_field :email, :class => "form-control"
+
+      %section
+        %label.input Your Message
+        = f.text_area :message, :class => "form-control", :style => "height: 200px;"
+
+    %footer
+      = f.submit "Send Message", :class => "btn btn-primary"

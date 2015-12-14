@@ -33,16 +33,21 @@
     %header#header{:class => "login-header"}
       #logo-group
         %span#logo
-          = image_tag "logo.png", alt: "Provide Chat"
+          = image_tag "logo.png", alt: "Provide Chat"          
+      .btn-header.transparent
+        %span
+          = link_to "Contact Us", new_contact_form_path
+
       %span#extr-page-header-space
         - if controller_name == 'sessions'
           %span.hidden-mobile Need an account?
         - if controller_name != 'registrations'
-          = link_to "Sign up", new_registration_path(resource_name), :class => "btn btn-danger"
+          = link_to "Sign up", new_registration_path(:agent), :class => "btn btn-danger"
+      %span#extr-page-header-space
         - if controller_name == 'registrations'
           %span.hidden-mobile Have an account?
         - if controller_name != 'sessions'
-          = link_to "Sign in", new_session_path(resource_name), :class => "btn btn-danger"
+          = link_to "Sign in", new_session_path(:agent), :class => "btn btn-danger"
 
     #main{:role => "main"}
       #content.container

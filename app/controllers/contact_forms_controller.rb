@@ -1,8 +1,10 @@
 class ContactFormsController < ApplicationController
-  before_action :authenticate_agent!
+  skip_before_filter :verify_authenticity_token, :only => :create
+  layout 'devise'
 
   def new
     @contact_form = ContactForm.new
+    resource_name = Agent.new
   end
 
   def create
