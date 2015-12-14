@@ -626,6 +626,7 @@ DEPENDENCIES
   mail_form
   mandrill-api
   mini_magick (~> 4.0.0.rc)
+  net-ssh
   nprogress-rails
   paper_trail (~> 4.0.0.beta)
   pg

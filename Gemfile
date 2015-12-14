@@ -26,6 +26,7 @@ gem 'pg'
 gem 'mail_form'
 gem 'mandrill-api'
 gem 'mini_magick', '~> 4.0.0.rc'
+gem "net-ssh"
 gem 'nprogress-rails'
 gem 'paper_trail', '~> 4.0.0.beta'
 gem 'sass-rails', '~> 5.0'
