@@ -4,41 +4,41 @@
 
     <div class="agent-area">
       <div style="float: left;">
-        <img src="http://widget.providechat.com/images/silhouette.png" height="60" width="60">
+        <img src="https://widget.providechat.com/images/silhouette.png" height="60" width="60">
       </div>
       <div style="float: left; margin-left: 10px;">
         <p style="font-weight: bold; font-size: 16px; margin-top: 0px;">Connecting...</p>
       </div>
       <% if chat_widget.logo? && chat_widget.display_logo? %>
         <div id="logo-image-container">
-          <img src="http://widget.providechat.com/images/silhouette.png">
+          <img src="https://widget.providechat.com/images/silhouette.png">
         </div>
       <% end %>
     </div>
 
-    <div style="text-align: center; margin-top: 80px;">
-      Please wait while we connect you with an agent <br><br><br>
-      <img src="http://widget.providechat.com/images/loading.gif" height="48" width="48" style="margin: auto 0;">
+    <div class="waiting-for-agent">
+      <p>Please wait while we connect you with an agent</p?>
+      <img src="https://widget.providechat.com/images/loading.gif" height="48" width="48" style="margin: auto 0;">
     </div>
   </div>
 </div>
 
 <div id="in-chat" style="display: none;">
 
-  <div class="chat-widget-container" style="height: 306px;">
+  <div class="chat-widget-container">
 
     <div class="agent-area">
-      <div style="float: left;">
-        <img src="http://widget.providechat.com/images/silhouette.png" height="60" width="60" id="agent-image">
+      <div class="agent-image-container">
+        <img src="https://widget.providechat.com/images/silhouette.png" height="60" width="60" id="agent-image">
       </div>
-      <div style="float: left; margin-left: 10px;">
+      <div class="agent-detail-container">
         <div id="agent-name"></div>
         <div id="agent-title"></div>
-        <img id="chat-transcript-btn" src="http://widget.providechat.com/images/transcript.png" height="16" width="16">
+        <img id="chat-transcript-btn" src="https://widget.providechat.com/images/transcript.png" height="16" width="16">
       </div>
       <% if chat_widget.logo? && chat_widget.display_logo? %>
         <div id="logo-image-container">
-          <img src="http://widget.providechat.com/images/silhouette.png">
+          <img src="https://widget.providechat.com/images/silhouette.png">
         </div>
       <% end %>
     </div>

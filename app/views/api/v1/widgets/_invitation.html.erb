@@ -1,32 +1,31 @@
 <div class="chat-widget-container">
   <div class="agent-area">
-    <div style="float: left;">
+    <div class="agent-image-container">
       <% if agent.avatar? %>
         <%= image_tag "#{agent.avatar_url}", :id => "agent-image", :class => "agent-image", :height => 60, :width => 60 %>
       <% else %>
-        <img src="http://widget.providechat.com/images/silhouette.png" height="60" width="60" class="agent-image">
+        <img src="https://widget.providechat.com/images/silhouette.png" height="60" width="60" class="agent-image">
       <% end %>
     </div>
-    <div style="float: left; margin-left: 10px;">
+    <div class="agent-detail-container">
       <div id="agent-name"><%= agent.display_name %></div>
       <div id="agent-title"><%= agent.title %></div>
     </div>
     <% if chat_widget.logo? && chat_widget.display_logo? %>
       <div id="logo-image-container">
-        <img src="http://widget.providechat.com/images/silhouette.png">
+        <img src="https://widget.providechat.com/images/silhouette.png">
       </div>
     <% end %>
   </div>
   <div class="invitation-message-area">
-    <div style="margin: 30px 10px; font-family: arial, verdana, helvetica; font-size: 14px;">
+    <div class="invitation-message-container">
       <h3><%= invitation.invitation_message %></h3>
       <br>
-      <div style="width: 320px; margin: 0px auto;">
+      <div class="invitation-form-area">
         <div class="pc-error-message" id="missing-fields">Please fill in the field to start the chat</div>
-        <input type="text" id="invite-chat-text-box" placeholder="<%= invitation.name_text %>" style="height: 40px; width: 200px;">
-        <input type="button" id="accept-chat-invite-btn" style="color: #333333; font-family: arial, verdana, helvetica; font-size: 12px; height: 40px; width: 110px;" value="<%= invitation.button_text %>">
+        <input type="text" id="invite-chat-text-box" placeholder="<%= invitation.name_text %>">
+        <input type="button" id="accept-chat-invite-btn" style="" value="<%= invitation.button_text %>">
       </div>
-      
     </div>
   </div>
 </div>
