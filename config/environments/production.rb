@@ -99,8 +99,6 @@ Rails.application.configure do
       :sender_address => %{"notifier" <derek@providechat.com>},
       :exception_recipients => %w{derek@providechat.com}
     }
-end
 
-ProvidechatApp::Application.configure do
   config.lograge.enabled = true
 end
