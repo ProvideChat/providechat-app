@@ -25,10 +25,9 @@ class AfterSignupController < ApplicationController
     if @agent.update_attributes(agent_params) && @website.save
       @agent.display_name = @agent.name
       @agent.completed_setup = true
+      @agent.skip_confirmation!
       @agent.websites << @website
       if @agent.save
-        @agent.confirm!
-
         sign_in(@agent, :bypass => true)
         redirect_to dashboard_path, notice: 'Your account has been successfully set up.'
       else
