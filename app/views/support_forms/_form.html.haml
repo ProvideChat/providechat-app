@@ -1,5 +1,5 @@
-= form_for(@contact_form, :html => {class: 'form-horizontal'}) do |f|
-  = render "layouts/error_messages", :f => @contact_form
+= form_for(@support_form, :html => {class: 'form-horizontal'}) do |f|
+  = render "layouts/error_messages", :f => @support_form
 
   %fieldset
     .form-group
@@ -24,7 +24,7 @@
       %label.col-md-5.control-label Please provide us as much detail of your issue as possible.
       .col-md-6
         .input-group{style: "width: 100%;"}
-          = f.text_area :message, :class => "form-control", :style => "height: 200px;"
+          = f.text_area :message, :class => "form-control", :style => "height: 240px;"
 
   .widget-footer
     = f.submit "Send Support Request", :class => "btn btn-primary"
