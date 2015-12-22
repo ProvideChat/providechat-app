@@ -18,11 +18,11 @@
           %li{:style => "width: 25%;"}
             %a{"data-toggle" => "tab", :href => "#install-code"} Install Code
         .tab-content
-                            
+
           #agent.tab-pane.active
-          
+
             = render "layouts/error_messages", :f => @agent
-            
+
             .row
               .col-sm-12
                 %h4.info-text Let's start with your account details
@@ -71,48 +71,6 @@
           .pull-left
             %input.btn.btn-previous.btn-fill.btn-default.btn-wd.btn-sm.disabled{:name => "previous", :type => "button", :value => "Previous"}/
           .clearfix
-          
-
--#
-  %section.content
-    %section.full-form
-      %h2
-        %i.fa.fa-check-circle
-        Welcome to Smartsettle
-
-      .flash-alert
-        %span
-          %i.fa-fw.fa.fa-info
-          Please fill out the following fields to complete your profile setup
-
-      = simple_form_for(@user, :url => after_signup_path, :html => {:id => "profile-setup"}) do |f|
-        = render "shared/error_messages", :f => @user
-        %fieldset
-          - if @user.has_no_password?
-            .left-column
-              = f.input :password, required: true
-            .right-column
-              = f.input :password_confirmation, required: true
-          .left-column
-            = f.input :name, :id => "creator_party_name", :placeholder => "Your full name"
-          .right-column
-            = f.input :mobile_number, :placeholder => "Your mobile number"
-
-          = f.simple_fields_for :address, Address.new do |a|
-            = a.input :street_address, as: :hidden, value: "Home"
-            .full-column
-              = a.input :street_address
-            .left-column
-              = a.input :locality, label: "City"
-            .right-column
-              = a.input :region, label: "State / Province"
-            .left-column
-              = a.input :postal_code, label: "Postal/Zip"
-            .right-column
-              = a.input :country_name
-
-          .actions
-            = f.button :submit, "Complete your profile setup"
 
 :javascript
 

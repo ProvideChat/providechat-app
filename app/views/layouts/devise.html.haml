@@ -2,7 +2,7 @@
 %html{lang: "en"}
   %head
     %title Provide Chat App
-    
+
     %meta{charset: "utf-8"}
     %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}
     %meta{name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'}
@@ -33,21 +33,20 @@
     %header#header{:class => "login-header"}
       #logo-group
         %span#logo
-          = image_tag "logo.png", alt: "Provide Chat"          
-      .btn-header.transparent
-        %span
-          = link_to "Contact Us", new_contact_form_path
+          = image_tag "logo.png", alt: "Provide Chat"
 
-      %span#extr-page-header-space
-        - if controller_name == 'sessions'
-          %span.hidden-mobile Need an account?
+      .pull-right{style: "padding-top: 6px;"}
         - if controller_name != 'registrations'
-          = link_to "Sign up", new_registration_path(:agent), :class => "btn btn-danger"
-      %span#extr-page-header-space
-        - if controller_name == 'registrations'
-          %span.hidden-mobile Have an account?
+          .btn-header.transparent.pull-right
+            = link_to new_registration_path(:agent), class: "btn btn-danger btn-sm" do
+              %i.fa.fa-user-plus &nbsp; Sign Up
         - if controller_name != 'sessions'
-          = link_to "Sign in", new_session_path(:agent), :class => "btn btn-danger"
+          .btn-header.transparent.pull-right
+            = link_to new_session_path(:agent), class: "btn btn-danger btn-sm" do
+              %i.fa.fa-sign-in &nbsp; Sign in
+        .btn-header.transparent.pull-right
+          = link_to new_contact_form_path, class: "btn btn-primary btn-sm" do
+            %i.fa.fa-paper-plane &nbsp; Contact Us
 
     #main{:role => "main"}
       #content.container
@@ -66,7 +65,7 @@
     = javascript_include_tag 'smartadmin.config'
     = javascript_include_tag 'jarvis.widget'
     = javascript_include_tag 'smartadmin'
-    
+
     :javascript
       $(document).ready(function() {
         runAllForms();

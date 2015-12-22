@@ -4,6 +4,7 @@
       Sign in your Provide Chat account
     %fieldset
       %section
+        = render "layouts/flash_messages"
         = devise_error_messages!
       %section
         %label.input
@@ -17,7 +18,8 @@
           = succeed "Stay signed in" do
             %i
       %section
-        = f.submit "Sign in", :class => "btn btn-primary btn-lg"
+        = button_tag type: "submit", :class => "btn btn-primary btn-lg" do
+          %i.fa.fa-sign-in &nbsp; Sign in
 
     %footer
       New to Provide Chat? 

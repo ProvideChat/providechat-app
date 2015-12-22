@@ -4,14 +4,17 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     super
 
-    organization = Organization.create_default_organization
+    if resource.errors.empty?
+      organization = Organization.create_default_organization
 
-    resource.title = 'Support Hero'
-    resource.access_level = 'superadmin'
-    resource.organization_id = organization.id
-    resource.save(validate: false)
-
-    AgentMailer.welcome(resource.id).deliver_later
+      resource.title = 'Support Hero'
+      resource.access_level = 'superadmin'
+      resource.organization_id = organization.id
+      resource.skip_registation_validations = true
+      if resource.save! #(validate: false)
+        AgentMailer.welcome(resource.id).deliver_later
+      end
+    end
   end
 
   private

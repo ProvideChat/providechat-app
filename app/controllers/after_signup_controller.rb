@@ -1,5 +1,5 @@
 class AfterSignupController < ApplicationController
-  
+
   before_filter :authenticate_agent!
   layout 'after_signup'
 
@@ -17,14 +17,23 @@ class AfterSignupController < ApplicationController
       @website.name = params[:agent][:website_url]
       @website.email = @agent.email
     end
-                           
-    if @agent.update_attributes(agent_params) && @website.save
-      
-      @agent.completed_setup = true
-      @agent.save
 
-      sign_in(@agent, :bypass => true)
-      redirect_to dashboard_path, notice: 'Your account has been successfully set up.'
+    if params[:agent].has_key?(:name)
+      @agent.display_name = params[:agent][:name]
+    end
+
+    if @agent.update_attributes(agent_params) && @website.save
+      @agent.display_name = @agent.name
+      @agent.completed_setup = true
+      @agent.websites << @website
+      if @agent.save
+        @agent.confirm!
+
+        sign_in(@agent, :bypass => true)
+        redirect_to dashboard_path, notice: 'Your account has been successfully set up.'
+      else
+        render action: 'edit'
+      end
     else
       render action: 'edit'
     end

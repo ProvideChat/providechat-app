@@ -14,13 +14,12 @@ class Agent < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
-  validates_presence_of :name, presence: true, on: :update
+  validates_presence_of :name, presence: true, on: :update, unless: :skip_registation_validations
+  validates_presence_of :display_name, presence: true, on: :update, unless: :skip_registation_validations
   validates_presence_of :title, on: :update
-  #VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
-  #validates :email, format: { with: VALID_EMAIL_REGEX },
-  #                  uniqueness: { case_sensitive: false }
 
   attr_accessor :website_url
+  attr_accessor :skip_registation_validations
 
   def password_required?
     super if confirmed?
@@ -32,7 +31,7 @@ class Agent < ActiveRecord::Base
     self.errors[:password_confirmation] << "does not match password" if password != password_confirmation
     password == password_confirmation && !password.blank?
   end
-  
+
   # new method to set the password without knowing the current password
   # used in our confirmation controller
   def attempt_set_password(params)
@@ -41,17 +40,17 @@ class Agent < ActiveRecord::Base
     p[:password_confirmation] = params[:password_confirmation]
     update_attributes(p)
   end
-  
+
   # new method to return whether a password has been set
   def has_no_password?
     self.encrypted_password.blank?
   end
-  
+
   # new method to provide access to protected method unless_confirmed
   def only_if_unconfirmed
     pending_any_confirmation {yield}
   end
-  
+
   # only require password if it is being set, but not for new records
   def password_required?
     if !persisted?
@@ -80,7 +79,7 @@ class Agent < ActiveRecord::Base
   end
 
   def can_delete?(current_agent)
-    if self.id != current_agent.id && current_agent.access_level != 'agent' && 
+    if self.id != current_agent.id && current_agent.access_level != 'agent' &&
         self.access_level != 'superadmin'
       true
     else
