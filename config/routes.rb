@@ -47,7 +47,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: {format: 'json'} do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
-      resources :agents, only: [:update]
+      resources :agents, only: [:update, :show]
       resources :chat_monitor, only: [:index, :update]
       resources :widgets, only: [:index]
     end

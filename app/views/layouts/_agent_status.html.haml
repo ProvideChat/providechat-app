@@ -13,17 +13,39 @@
           &nbsp; You are Offline &nbsp;
         %i.fa.fa-caret-down
     %ul.js-status-update.dropdown-menu.pull-right
-      %li
+      %li#agent-online
         %a{:href => "javascript:void(0);", :data => {:status => 'online'}}
           %i.fa.fa-circle.txt-color-green
           &nbsp; Online
-      %li
+      %li#agent-offline
         %a{:href => "javascript:void(0);", :data => {:status => 'offline'}}
           %i.fa.fa-circle.txt-color-red
           &nbsp; Offline
 
 :javascript
   $(document).ready(function() {
+
+    function get_agent_availability() {
+      $.ajax({
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        url: "/api/agents/#{current_agent.id}",
+        dataType: "json",
+        success: function(data, status, xhr) {
+          if (data.availability === 'online') {
+            $('#agent-status').html('<i class="fa fa-circle txt-color-green"></i>&nbsp; <span style="color: #356e35; font-weight: bold;">You are Online</span> &nbsp;<i class="fa fa-angle-down"></i>');
+            $('#agent-online').addClass('active');
+            $('#agent-offline').removeClass('active');
+          } else {
+            $('#agent-status').html('<i class="fa fa-circle txt-color-red"></i>&nbsp; <span style="color: #a90329; font-weight: bold;">You are Offline</span> &nbsp;<i class="fa fa-angle-down"></i>');
+            $('#agent-offline').addClass('active');
+            $('#agent-online').removeClass('active');
+          }
+        }
+      });
+    }
+
+    setInterval(function(){get_agent_availability();}, 30000);
 
     function update_agent_availability(status) {
       $.ajax({
