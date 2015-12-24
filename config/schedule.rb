@@ -7,6 +7,11 @@ job_type :sidekiq, "cd :path && :environment_variable=:environment bundle exec s
 
 every 5.minutes, :roles => [:app] do #Check frequently
   sidekiq "ClearOffsiteVisitors"
+  sidekiq "AgentOfflineTimeout"
+end
+
+every 1.day, :roles => [:app] do #Check frequently
+  sidekiq "TrialPeriodExpiry"
 end
 
 # Example:
