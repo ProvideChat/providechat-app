@@ -130,7 +130,7 @@ class Visitor < ActiveRecord::Base
 
     browser_fingerprint = Digest::MD5.hexdigest("#{ip_address.to_s}#{browser_name}#{browser_version.to_s}#{operating_system}#{screen_resolution}#{plugins}")
 
-    statuses = [ Visitor.statuses[:no_chat], Visitor.statuses[:waiting_to_chat], Visitor.statuses[:in_chat], Visitor.statuses[:agent_ended]]
+    statuses = [ Visitor.statuses[:no_chat], Visitor.statuses[:waiting_to_chat], Visitor.statuses[:in_chat]]
     # visitor = Visitor.find_by(:website_id => website.id, :browser_name => browser_name,
     #                          :browser_version => browser_version.to_s, :operating_system => operating_system,
     #                          :ip_address => ip_address, status: statuses) || Visitor.new
