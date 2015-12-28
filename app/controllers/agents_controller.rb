@@ -59,12 +59,9 @@ class AgentsController < ApplicationController
   end
 
   def process_department_ids(department_ids)
-    if department_ids.size > 0
-      department_ids = department_ids.slice(department_ids.index("]") + 1..department_ids.size)
-    end
-
     if department_ids.include?(",")
-      department_ids.split(",")
+      department_array = department_ids.split(",")
+      department_array.delete_if{|department| department.include?(" ") }
     else
       ["#{department_ids}"]
     end
@@ -74,7 +71,7 @@ class AgentsController < ApplicationController
 
     params[:agent][:department_ids] = process_department_ids(params[:agent][:department_ids]) if params[:agent][:department_ids]
 
-    # logger.info "Department IDs (after): #{params[:agent][:department_ids]}";
+    logger.info "Department IDs (after): #{params[:agent][:department_ids]}";
 
     params.require(:agent).permit(:name, :display_name, :email, :title,
                                   :password, :password_confirmation,
