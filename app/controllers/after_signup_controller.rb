@@ -1,6 +1,8 @@
 class AfterSignupController < ApplicationController
 
   before_filter :authenticate_agent!
+  before_filter :validate_superadmin
+
   layout 'after_signup'
 
   def edit
@@ -42,6 +44,12 @@ class AfterSignupController < ApplicationController
 
   def agent_params
     params.require(:agent).permit(:name, :password, :password_confirmation, :website_url)
+  end
+  
+  def validate_superadmin
+    unless current_agent.access_level == 'superadmin'
+      redirect_to dashboard_path
+    end
   end
 
 end

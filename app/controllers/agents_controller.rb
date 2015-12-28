@@ -19,7 +19,9 @@ class AgentsController < ApplicationController
     @agent = Agent.new(agent_params)
     @agent.organization_id = current_agent.organization_id
     @agent.status = 'enabled'
-
+    @agent.completed_setup = true
+    @agent.skip_confirmation!
+    
     if @agent.save
       redirect_to agents_url,
                   flash: { success: 'Agent was successfully created.' }
