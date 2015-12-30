@@ -1,7 +1,8 @@
 class CreateSubscription
-  def self.call(organization, quantity, email_address, token)
+  def self.call(organization, quantity, plan, email_address, token)
     subscription = Subscription.new(
       quantity: quantity,
+      plan_id: plan,
       organization_id: organization.id
     )
 
@@ -11,10 +12,10 @@ class CreateSubscription
         customer = Stripe::Customer.create(
           card: token,
           email: email_address,
-          plan: 'agent',
-          quantity: quantity,
-          active_until: Date.today + 1.month
+          plan: plan,
+          quantity: quantity
         )
+        Rails.logger.debug "#{customer}"
         organization.stripe_customer_id = customer.id
         organization.account_type = "paid"
         organization.save!
@@ -22,12 +23,23 @@ class CreateSubscription
       else
         customer = Stripe::Customer.retrieve(organization.stripe_customer_id)
         stripe_sub = customer.subscriptions.create(
-          plan: plan.stripe_id
+          plan: plan
         )
+        organization.account_type = "paid"
+        organization.save!
       end
-
+      subscription.interval = stripe_sub.plan.interval
+      subscription.amount = stripe_sub.plan.amount
+      subscription.current_period_end = Time.at(stripe_sub.current_period_end)
+      subscription.current_period_start = Time.at(stripe_sub.current_period_start)
       subscription.stripe_id = stripe_sub.id
 
+      if (subscription.interval == "year")
+        subscription.active_until = 1.year.from_now
+      elsif (subscription.interval == "month")
+        subscription.active_until = 1.month.from_now
+      end
+      
       subscription.save!
     rescue Stripe::StripeError => e
       subscription.errors[:base] << e.message

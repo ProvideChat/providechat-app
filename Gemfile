@@ -35,7 +35,7 @@ gem 'sidekiq'
 gem 'sidekiq-client-cli'
 gem 'sinatra', :require => nil
 gem 'stackprof'
-gem 'stripe', '~> 1.22.0'
+gem 'stripe', '~> 1.31.0'
 gem 'stripe_event'
 gem 'sweet-alert'
 gem 'turbolinks'
@@ -75,8 +75,8 @@ group :test, :development do
   gem 'pry-rails'
 
   gem 'stripe-ruby-mock'
-  gem 'spring'
-  gem 'spring-commands-rspec'
+  #gem 'spring'
+  #gem 'spring-commands-rspec'
   gem 'web-console', '~> 2.0'
 end
 

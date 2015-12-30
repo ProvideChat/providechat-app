@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   resources :organizations, only: [:edit, :update]
 
   mount StripeEvent::Engine => '/stripe-events'
-  resources :subscriptions, only: [:new, :create, :edit, :update]
+  resources :subscriptions, only: [:new, :create, :edit, :update, :destroy]
 
   root to: 'home#dashboard', via: :get
 

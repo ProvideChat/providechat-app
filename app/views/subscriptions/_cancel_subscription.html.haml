@@ -1,0 +1,22 @@
+
+
+
+= form_for @subscription, method: :delete, html: { id: 'payment-form' } do |f|
+
+  = render "layouts/error_messages", :f => @subscription
+  .row
+    .col-xs-12.col-sm-8.col-sm-offset-2
+  
+      %div{class:"tab-pane fade active in"}											
+        %h4{class:"alert alert-danger"}
+          Cancel Your Subscription
+
+        .panel-body
+          You can cancel your subcription at any time and your account will
+          be downgraded to our forever free level. Please note that when
+          you cancel it will disable all your agent accounts except for your
+          primary user account. If you ever subscribe in the future, your
+          agents will be re-enabled. All chat transcripts older than 14 days will
+          be deleted.
+        .panel-footer 
+          = f.submit "Yes, Cancel Subscription", :class => "btn btn-danger", data: {disable_with: "Submitting..."}

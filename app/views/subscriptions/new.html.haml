@@ -19,32 +19,42 @@
               .col-md-7
                 .form-inline
                   %label
-                    %input{:name => "email_address", :size => "20", :type => "email", :class => "form-control", :value => current_agent.email}/
+                    %input{:name => "email_address", :size => "30", :type => "email", :class => "form-control", :value => current_agent.email}/
                 .help-text{style: "font-size: 10px;"}
                   This is the billing email address that will be receiving invoices
 
-            .form-group
+            .form-group{style: "padding-top: 20px;"}
               %label.col-md-5.control-label= f.label :quantity, "Number of Agents"
               .col-md-7
                 .form-inline
                   .input-group.spinner
-                    %input.form-control{:type => "text", :value => "1", :id => "agent-quantity", :name => "quantity"}/
+                    %input.form-control{type: "text", value: "1", id: "agent-quantity", name: "quantity"}
                     .input-group-btn-vertical
-                      %button.btn.btn-default{:type => "button"}
+                      %button.btn.btn-default{type: "button"}
                         %i.fa.fa-caret-up
-                      %button.btn.btn-default{:type => "button"}
+                      %button.btn.btn-default{type: "button"}
                         %i.fa.fa-caret-down
                   &nbsp;
                   agents
-
                 .help-text{style: "font-size: 10px;"}
-                  This is the number of agents that you want to purchase. Each agent is $15/month.
+                  This is the number of agents that you want to purchase.
+
+            .form-group{style: "padding-top: 8px;"}
+              %label.col-md-5.control-label Payment Cycle
+              .col-md-7
+                .form-inline
+                  %label
+                    %select{name: "plan", id: "agent-plan", class: "form-control"}
+                      %option{value: "yearly-agent-180"} Yearly
+                      %option{value: "monthly-agent-19"} Monthly
+                .help-text{style: "font-size: 10px;"}
+                  You save $4/agent each month on a yearly payment cycle
 
           %br
           .form-group
             %label.col-md-5.control-label{style: "font-size: 140%; font-weight: bold;"} Total Price
             .col-md-7
-              %div{:id => "total-price"} $15 / month
+              %div{:id => "total-price"} 
 
           %br
           %br
@@ -86,6 +96,9 @@
                         %label{:for => "couponCode"} COUPON CODE
                         %input.form-control{:name => "couponCode", :type => "text"}
 
+          .alert.alert-danger.fade.in{id: "payment-error-box", style: "display: none;"}
+            %strong Error:
+            .payment-error-msg
 
           .widget-footer
             = f.submit "Start Subscription", :class => "btn btn-success btn-lg"

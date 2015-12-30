@@ -1,53 +1,36 @@
 = render 'layouts/page_header', :title => 'Modify your Provide Chat Subscription', :icon => 'fa-credit-card'
 
-.col-sm-12.col-md-8.col-lg-6
-  #wid-id-0.jarviswidget
-    %header
-      %span.widget-icon
-        %i.fa.fa-credit-card
-      %h2 Plan Details
-      %span.jarviswidget-loader
-        %i.fa.fa-refresh.fa-spin
-    %div{:role => "content"}
-      .widget-body
+.row
+  .col-xs-12
 
-        = form_for @subscription, html: { id: 'payment-form' } do |f|
-          = render "layouts/error_messages", :f => @subscription
-          %fieldset
-            .form-group
-              %label.col-md-5.control-label Billing Email Address
-              .col-md-7
-                .form-inline
-                  %label
-                    %input{:name => "email_address", :size => "20", :type => "email", :class => "form-control", :value => current_agent.email}/
-                .help-text{style: "font-size: 10px;"}
-                  This is the billing email address that will be receiving invoices
+    #modify-subscription-widget.jarviswidget{:role => "widget"}
+      %header{:role => "heading"}
+        %h2
+          %span.widget-icon
+            %i.fa.fa-credit-card
+          %strong Modify Your Subscription
+        %ul#widget-tab-1.nav.nav-tabs.pull-right
+          %li.active
+            %a{"aria-expanded" => "true", "data-toggle" => "tab", :href => "#hr1"}
+              Modify Plan
+          %li
+            %a{"aria-expanded" => "false", "data-toggle" => "tab", :href => "#hr2"}
+              Update Credit Card
+          %li
+            %a{"aria-expanded" => "false", "data-toggle" => "tab", :href => "#hr3"}
+              Cancel Subscription
 
-            .form-group
-              %label.col-md-5.control-label= f.label :quantity, "Number of Agents"
-              .col-md-7
-                .form-inline
-                  .input-group.spinner
-                    %input.form-control{:type => "text", :value => "#{@subscription.quantity}", :id => "agent-quantity", :name => "quantity"}/
-                    .input-group-btn-vertical
-                      %button.btn.btn-default{:type => "button"}
-                        %i.fa.fa-caret-up
-                      %button.btn.btn-default{:type => "button"}
-                        %i.fa.fa-caret-down
-                  &nbsp;
-                  agents
+        %span.jarviswidget-loader
+          %i.fa.fa-refresh.fa-spin
+      %div{:role => "content"}
+        .widget-body.no-padding            
+          .tab-content.padding-10
+            #hr1.tab-pane.fade.active.in
+              = render "modify_plan"
+            #hr2.tab-pane.fade
+              = render "update_credit_card"
+            #hr3.tab-pane.fade
+              = render "cancel_subscription"
 
-                .help-text{style: "font-size: 10px;"}
-                  This is the number of agents in your subscription. Each agent is $15/month.
 
-          %br
-          .form-group
-            %label.col-md-5.control-label{style: "font-size: 140%; font-weight: bold;"} Total Price
-            .col-md-7
-              %div{:id => "total-price"} $15 / month
-
-          %br
-          
-          .widget-footer
-            = f.submit "Update Subscription", :class => "btn btn-success btn-lg"
 

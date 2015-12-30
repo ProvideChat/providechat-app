@@ -1,6 +1,7 @@
 ccd4277605d5cc5eb3555af66135c9d13ea68518		branch '1.5.x' of https://github.com/thoughtbot/capybara-webkit
 c9cf3cfcc2e50f11c1e60e18028412c2c8ba0786		branch 'benchmarks' of https://github.com/thoughtbot/capybara-webkit
 8e02b68b312e9314ca47ccda5efd84e88e4d583f		branch 'coc' of https://github.com/thoughtbot/capybara-webkit
+d6c72bcd33fb9be77940eebe3b5149cb1fba13a1		branch 'jf-missing-ajax-status-on-empty-failed-requests' of https://github.com/thoughtbot/capybara-webkit
 6b6a2e10d34ce96223dd87ed65221017798e474e		branch 'jf-patch-body-test' of https://github.com/thoughtbot/capybara-webkit
 a2952d5124776edc5d07198ca2ac79975cff2da3		branch 'jf-remove-deprecated-behavior' of https://github.com/thoughtbot/capybara-webkit
 798268f0db384e72a044118ada57566310db79da		branch 'jf-support-fewer-capybara-versions' of https://github.com/thoughtbot/capybara-webkit
