@@ -39,14 +39,17 @@
         - if controller_name != 'registrations'
           .btn-header.transparent.pull-right
             = link_to new_registration_path(:agent), class: "btn btn-danger btn-sm" do
-              %i.fa.fa-user-plus &nbsp; Sign Up
+              %i.fa.fa-user-plus
+              &nbsp;Sign Up
         - if controller_name != 'sessions'
           .btn-header.transparent.pull-right
             = link_to new_session_path(:agent), class: "btn btn-danger btn-sm" do
-              %i.fa.fa-sign-in &nbsp; Sign in
+              %i.fa.fa-sign-in
+              &nbsp;Sign in
         .btn-header.transparent.pull-right
           = link_to new_contact_form_path, class: "btn btn-primary btn-sm" do
-            %i.fa.fa-paper-plane &nbsp; Contact Us
+            %i.fa.fa-paper-plane
+            &nbsp;Contact Us
 
     #main{:role => "main"}
       #content.container
