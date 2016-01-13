@@ -14,10 +14,10 @@
       <div class="pc-error-message" id="missing-fields">Please fill in required fields</div>
       <div class="pc-error-message" id="invalid-email">Please enter a valid email</div>
 
-      <input type="text" id="offline-name" placeholder="<%= offline_form.name_text %>"></p>
+      <p><input type="text" id="offline-name" placeholder="<%= offline_form.name_text %>"></p>
 
       <% if offline_form.email_enabled %>
-        <input type="text" id="offline-email" placeholder="<%= offline_form.email_text %>"></p>
+        <p><input type="text" id="offline-email" placeholder="<%= offline_form.email_text %>"></p>
       <% end %>
 
       <%

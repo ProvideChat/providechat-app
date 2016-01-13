@@ -6,10 +6,10 @@
     <div class="pc-error-message" id="missing-fields">Please fill in required fields</div>
     <div class="pc-error-message" id="invalid-email">Please enter a valid email</div>
 
-    <input type="text" id="pre-chat-name" placeholder="<%= pre_chat_form.name_text %>"></p>
+    <p><input type="text" id="pre-chat-name" placeholder="<%= pre_chat_form.name_text %>"></p>
 
     <% if pre_chat_form.email_enabled %>
-      <input type="text" id="pre-chat-email" placeholder="<%= pre_chat_form.email_text %>"></p>
+      <p><input type="text" id="pre-chat-email" placeholder="<%= pre_chat_form.email_text %>"></p>
     <% end %>
 
     <%
