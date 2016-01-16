@@ -17,6 +17,8 @@ class Agent < ActiveRecord::Base
   validates_presence_of :name, presence: true, on: :update, unless: :skip_registation_validations
   validates_presence_of :display_name, presence: true, on: :update, unless: :skip_registation_validations
   validates_presence_of :title, on: :update
+  validates :display_name, length: {maximum: 20}
+  validates :title, length: {maximum: 25}
 
   attr_accessor :website_url
   attr_accessor :skip_registation_validations
