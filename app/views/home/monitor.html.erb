@@ -26,19 +26,19 @@
       <div class="widget-body no-padding">
         <div class="people-container">
           <div class="people-header">Current Chats</div>
-          <div id="current-chat-container">
+          <div id="current-chat-container" class="custom-scroll">
             <%= image_tag "select2-spinner.gif", :id => "current-chat-loading" %>
             <div id="no-current-chats-msg" class="chat-container-status">No current chats</div>
           </div>
 
           <div class="people-header">Waiting to Chat</div>
-          <div id="waiting-to-chat-container">
+          <div id="waiting-to-chat-container" class="custom-scroll">
             <%= image_tag "select2-spinner.gif", :id => "waiting-to-chat-loading" %>
             <div id="no-waiting-chats-msg" class="chat-container-status">No one is currently waiting to chat</div>
           </div>
 
           <div class="people-header">Visitors</div>
-          <div id="visitor-container">
+          <div id="visitor-container" class="custom-scroll">
             <%= image_tag "select2-spinner.gif", :id => "no-chat-loading" %>
             <div id="no-visitor-msg" class="chat-container-status">No current visitors</div>
           </div>
