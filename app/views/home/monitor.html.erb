@@ -1,4 +1,6 @@
-<%= render 'layouts/page_header', :title => 'Chat Monitor', :icon => 'fa-comments' %>
+<% if current_agent.access_level != 'agent' %>
+  <%= render 'layouts/page_header', :title => 'Chat Monitor', :icon => 'fa-comments' %>
+<% end %>
 
 <div class="col-sm-12 col-md-4">
   <div class="jarviswidget" id="your-chats">

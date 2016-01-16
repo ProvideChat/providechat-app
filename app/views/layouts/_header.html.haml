@@ -3,14 +3,20 @@
     %span#logo= image_tag "logo.png", alt: "Provide Chat", height: 30, width: 114
 
   .pull-right
-    #hide-menu.btn-header.pull-right
-      %span
-        %a{:href => "javascript:void(0);", :"data-action" => "toggleMenu", :"data-original-title" => "Collapse Menu", :rel => "tooltip", :"data-placement" => "bottom"}
-          %i.fa.fa-reorder
+    - if current_agent.access_level != 'agent'
+      #hide-menu.btn-header.pull-right
+        %span
+          %a{:href => "javascript:void(0);", :"data-action" => "toggleMenu", :"data-original-title" => "Collapse Menu", :rel => "tooltip", :"data-placement" => "bottom"}
+            %i.fa.fa-reorder
     .btn-header.transparent.pull-right
       %span
         = link_to destroy_agent_session_path, :method => :delete, :class => "btn btn-sm", :"data-original-title" => "Sign out", :rel => "nofollow", :"data-placement" => "bottom" do
           %i.fa.fa-sign-out
+    - if current_agent.access_level == 'agent'
+      .btn-header.transparent.pull-right
+        %span
+          = link_to monitor_path, :class => "btn btn-sm", :"data-original-title" => "Chat Monitor", :rel => "tooltip", :"data-placement" => "bottom" do
+            %i.fa.fa-comments
     .btn-header.transparent.pull-right
       %span
         = link_to edit_agent_path(current_agent), :class => "btn btn-sm", :"data-original-title" => "Your Profile", :rel => "tooltip", :"data-placement" => "bottom" do

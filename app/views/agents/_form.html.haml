@@ -92,7 +92,10 @@
           You will be able to chat with visitors who request these departments
 
   .widget-footer
-    = link_to "Cancel", agents_path, :class => "btn btn-default"
+    - if current_agent.access_level != 'agent'
+      = link_to "Cancel", agents_path, :class => "btn btn-default"
+    - else
+      = link_to "Return to Chat Monitor", monitor_path, :class => "btn btn-default"
     = f.submit @agent.new_record? ? "Add Agent" : "Update Agent", :class => "btn btn-primary"
 
 :javascript

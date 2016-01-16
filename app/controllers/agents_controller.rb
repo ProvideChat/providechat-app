@@ -21,7 +21,7 @@ class AgentsController < ApplicationController
     @agent.status = 'enabled'
     @agent.completed_setup = true
     @agent.skip_confirmation!
-    
+
     if @agent.save
       redirect_to agents_url,
                   flash: { success: 'Agent was successfully created.' }
@@ -85,7 +85,7 @@ class AgentsController < ApplicationController
   end
 
   def validate_admin
-    if current_agent.access_level == 'agent'
+    if current_agent.access_level == 'agent' && @agent.id != current_agent.id
       redirect_to monitor_path
     end
   end
