@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   devise_for :agents, path: 'auth', 
                controllers: {
                  registrations: "registrations",
-                 sessions: "sessions",
                  confirmations: 'confirmations'
                }
 
@@ -32,6 +31,7 @@ Rails.application.routes.draw do
 
   root to: 'home#dashboard', via: :get
 
+  delete 'signout', to: 'home#signout', as: 'signout'
   get 'monitor', to: 'home#monitor', as: 'monitor'
   get 'dashboard', to: 'home#dashboard', as: 'dashboard'
   get 'code', to: 'home#code', as: 'code'
@@ -41,7 +41,7 @@ Rails.application.routes.draw do
   get 'documentation/general', to: 'documentation#general', as: 'doc_general'
   get 'documentation/websites', to: 'documentation#websites', as: 'doc_websites'
   get 'documentation/monitor', to: 'documentation#monitor', as: 'doc_monitor'
-  
+
   get 'terms-of-service', to: 'static_pages#terms', as: 'terms'
   get 'privacy-policy', to: 'static_pages#privacy', as: 'privacy'
 

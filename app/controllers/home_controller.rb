@@ -1,8 +1,14 @@
 class HomeController < ApplicationController
   before_action :authenticate_agent!
-  before_action :validate_admin, except: [:monitor]
+  before_action :validate_admin, except: [:monitor, :signout]
 
   def monitor
+  end
+
+  def signout
+    current_agent.availability = Agent.availabilities[:offline]
+    current_agent.save
+    sign_out_and_redirect(current_agent)
   end
 
   def dashboard

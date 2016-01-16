@@ -10,7 +10,7 @@
             %i.fa.fa-reorder
     .btn-header.transparent.pull-right
       %span
-        = link_to destroy_agent_session_path, :method => :delete, :class => "btn btn-sm", :"data-original-title" => "Sign out", :rel => "nofollow", :"data-placement" => "bottom" do
+        = link_to signout_path, method: :delete, class: "btn btn-sm", :"data-original-title" => "Sign out", rel: "nofollow", :"data-placement" => "bottom" do
           %i.fa.fa-sign-out
     - if current_agent.access_level == 'agent'
       .btn-header.transparent.pull-right
