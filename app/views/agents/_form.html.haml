@@ -78,18 +78,19 @@
           %label
             = f.check_box :remove_avatar
             Remove photo
-    .form-group
-      %label.col-md-4.control-label Assigned Websites
-      .col-md-8.websites-field
-        = f.select :website_ids, @websites.collect {|x| [x.name, x.id]}, {}, {:multiple => true, :style => "width:100%", :class  => "select2", :id => "websites-select" }
-        .help-text{style: "font-size: 10px;"}
-          You will be able to chat with visitors on these websites
-    .form-group
-      %label.col-md-4.control-label Assigned Departments
-      .col-md-8.departments-field
-        = f.hidden_field :department_ids, :style => "width: 100%;", :id => "department-select"
-        .help-text{style: "font-size: 10px;"}
-          You will be able to chat with visitors who request these departments
+    - if current_agent.access_level != 'agent'
+      .form-group
+        %label.col-md-4.control-label Assigned Websites
+        .col-md-8.websites-field
+          = f.select :website_ids, @websites.collect {|x| [x.name, x.id]}, {}, {:multiple => true, :style => "width:100%", :class  => "select2", :id => "websites-select" }
+          .help-text{style: "font-size: 10px;"}
+            You will be able to chat with visitors on these websites
+      .form-group
+        %label.col-md-4.control-label Assigned Departments
+        .col-md-8.departments-field
+          = f.hidden_field :department_ids, :style => "width: 100%;", :id => "department-select"
+          .help-text{style: "font-size: 10px;"}
+            You will be able to chat with visitors who request these departments
 
   .widget-footer
     - if current_agent.access_level != 'agent'
