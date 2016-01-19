@@ -276,6 +276,19 @@
 
       //console.log (visitor);
 
+      var visitor_location = "";
+      if ((visitor.city.length > 0) && (visitor.city.region_name > 0) && (visitor.country_name.length > 0)) {
+        visitor_location = visitor.city + ', ' + visitor.region_name + ', ' + visitor.country_name;
+      } else if ((visitor.city.region_name > 0) && (visitor.country_name.length > 0)) {
+        visitor_location = visitor.region_name + ', ' + visitor.country_name;
+      } else if (visitor.country_name.length > 0) {
+        visitor_location = visitor.country_name;
+      } else if (visitor.city.length > 0) {
+        visitor_location = visitor.city;
+      } else {
+        visitor_location = "Unknown";
+      }
+
       var visitorInfo = '';
 
       visitorInfo += "<h5>" + visitor.name + "'s Information</h5>";
@@ -290,8 +303,8 @@
       } else {
         visitorInfo += '<p><b>Department:</b> ' + visitor.department + '</p>';
       }
-      visitorInfo += '<p><b>Location: </b>' + visitor.city + ', ' + visitor.region_name + ', ';
-      visitorInfo +=  visitor.country_name + '&nbsp;&nbsp;<img width="20px" height="20px" src="/images/flags/' + visitor.country_code + '.png" style="vertical-align: top;">' + '</p>';
+      visitorInfo += '<p><b>Location: </b>' + visitor_location;
+      visitorInfo += '&nbsp;&nbsp;<img width="20px" height="20px" src="/images/flags/' + visitor.country_code + '.png" style="vertical-align: top;">' + '</p>';
       visitorInfo += '</div>';
       visitorInfo += '<h5 style="padding-top: 10px;">Viewing Habits</h5>';
       visitorInfo += '<div class="visitor-info-box">';
