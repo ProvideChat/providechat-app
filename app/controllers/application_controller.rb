@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
   def current_agent
     super.decorate unless super.nil?
   end
-  
+
   def verify_completed_setup
     if agent_signed_in?
       unless current_agent.completed_setup || controller_name != 'AfterSignupController'

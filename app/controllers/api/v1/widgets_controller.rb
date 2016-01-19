@@ -121,7 +121,7 @@ module Api
           when "save_chat_messages"
 
             messages = params[:messages]
-            
+
             if messages.kind_of?(String)
               messages = ActiveSupport::JSON.decode(messages)
             end
@@ -135,7 +135,7 @@ module Api
                 )
               end
             end
-            
+
             response = {
               'success' => 'true'
             }
@@ -232,7 +232,7 @@ module Api
             chat = Chat.find(chat_id)
             chat.end_chat('visitor_ended')
 
-            if params.key?(:enable_email_transcript) && params[:enable_email_transcript] == 'true' && 
+            if params.key?(:enable_email_transcript) && params[:enable_email_transcript] == 'true' &&
                 params.key?(:transcript_email) && params[:transcript_email] != ''
               chat.email_transcript(params[:transcript_email])
             end
@@ -248,7 +248,7 @@ module Api
                 locals: {
                   pre_chat_form: pre_chat_form,
                   org_id: org_id,
-                  website_id: website.id 
+                  website_id: website.id
                 }
               )
             }
@@ -289,7 +289,7 @@ module Api
               'html' => render_to_string(
                 partial: 'offline_form.html.erb',
                 layout: false,
-                locals: { 
+                locals: {
                   offline_form: offline_form,
                   org_id: org_id,
                   website_id: website.id
@@ -330,7 +330,7 @@ module Api
 
               response = { 'success' => 'true', 'visitor_id' => visitor.id, 'website_id' => visitor.website.id,
                            'agent_status' => organization.agent_status, 'agent_response_timeout' => organization.agent_response_timeout,
-                           'chat_id' => chat_id, 'chat_status' => chat_status, 'visitor_name' => visitor.name, 
+                           'chat_id' => chat_id, 'chat_status' => chat_status, 'visitor_name' => visitor.name,
                            'visitor_email' => visitor.email, 'online_message' => chat_widget.online_message,
                            'offline_message' => chat_widget.offline_message, 'title_message' => chat_widget.title_message,
                            'widget_color' => "\##{chat_widget.color}" }
@@ -351,6 +351,5 @@ module Api
         end
       end
     end
-
   end
 end
