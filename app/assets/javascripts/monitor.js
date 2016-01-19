@@ -3,6 +3,7 @@
 
   ProvideChat.agent_id = 0;
   ProvideChat.agent_name = '';
+  ProvideChat.agent_availability = 'offline';
   ProvideChat.organization_id = 0;
   ProvideChat.initialized = false;
 
@@ -23,10 +24,11 @@
 
   ProvideChat.numChats = 0;
 
-  ProvideChat.init = function (agent_id, agent_name, organization_id) {
+  ProvideChat.init = function (agent_id, agent_name, agent_availability, organization_id) {
     if (ProvideChat.initialized === false) {
       ProvideChat.agent_id = agent_id;
       ProvideChat.agent_name = agent_name;
+      ProvideChat.agent_availability = agent_availability;
       ProvideChat.organization_id = organization_id;
 
       updateVisitors();
@@ -111,8 +113,17 @@
         $('#waiting-to-chat-container').append("<div class='visitor-snapshot' id='waiting-to-chat-visitor-" + visitor.id + "'>" + visitor_content + "</div>");
 
         $('#accept_chat_' + visitor.id).click(function() {
-          $(this).hide();
-          accept_chat($(this).data("visitor-id"));
+          if (ProvideChat.agent_availability == 'online') {
+            $(this).hide();
+            accept_chat($(this).data("visitor-id"));
+          } else if (ProvideChat.agent_availability == 'offline') {
+            swal({
+              title: "Unable to accept chat while offline",
+              text: "Please ensure you are online before accepting a chat.",
+              type: "error",
+              confirmButtonText: "Close"
+            });
+          }
         });
       }
     } else { // if not on the chat monitor
@@ -138,8 +149,17 @@
       $('#visitor-container').append("<div class='visitor-snapshot' id='no-chat-visitor-" + visitor.id + "'>" + visitor_content + "</div>");
 
       $('#invite_chat_' + visitor.id).click(function() {
-        $(this).hide();
-        invite_chat($(this).data("visitor-id"));
+        if (ProvideChat.agent_availability == 'online') {
+          $(this).hide();
+          invite_chat($(this).data("visitor-id"));
+        } else if (ProvideChat.agent_availability == 'offline') {
+          swal({
+            title: "Unable to invite while offline",
+            text: "Please ensure you are online before inviting a visitor to chat.",
+            type: "error",
+            confirmButtonText: "Close"
+          });
+        }
       });
     }
   }
@@ -165,9 +185,10 @@
         $('#waiting-to-chat-container').find(".visitor-snapshot").remove();
         $('#visitor-container').find(".visitor-snapshot").remove();
       }
+      //console.log(results);
+      ProvideChat.agent_availability = results.agent_availability
 
-      $.each(results, function(i, visitor) {
-        //console.log(visitor);
+      $.each(results.visitors, function(i, visitor) {
 
         $('#no-current-chats-msg').hide();
         $('#no-waiting-chats-msg').hide();

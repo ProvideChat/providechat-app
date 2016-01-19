@@ -66,9 +66,11 @@
       if (status === 'online') {
         $('#agent-status').html('<i class="fa fa-circle txt-color-green"></i>&nbsp; <span style="color: #356e35; font-weight: bold;">You are Online</span> &nbsp;<i class="fa fa-angle-down"></i>');
         update_agent_availability('online');
+        ProvideChat.agent_availability = 'online';
       } else if (status === 'offline') {
         $('#agent-status').html('<i class="fa fa-circle txt-color-red"></i>&nbsp; <span style="color: #a90329; font-weight: bold;">You are Offline</span> &nbsp;<i class="fa fa-angle-down"></i>');
         update_agent_availability('offline');
+        ProvideChat.agent_availability = 'offline';
       }
       $this.parent().addClass('active');
     });
