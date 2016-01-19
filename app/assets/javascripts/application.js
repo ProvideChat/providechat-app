@@ -27,7 +27,7 @@
 //= require nprogress
 //= require nprogress-turbolinks
 //= require bootstrap-touchspin
-//= require sweet-alert
+//= require sweetalert
 //= require providechat
 //= require subscriptions
 //= require jquery.bootstrap.wizard
