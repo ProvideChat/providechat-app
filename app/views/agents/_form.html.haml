@@ -1,11 +1,11 @@
-= form_for(@agent, :html => {class: 'form-horizontal', :multipart => true}) do |f|
-  = render "layouts/error_messages", :f => @agent
+= form_for(@agent, html: {class: 'form-horizontal', multipart: true}) do |f|
+  = render "layouts/error_messages", f: @agent
   %fieldset
     .form-group
       %label.col-md-4.control-label= f.label :name
       .col-md-8
         .input-group
-          = f.text_field :name, :class => "form-control name-field"
+          = f.text_field :name, class: "form-control name-field", maxlength: 30
           %span{class:"input-group-addon"}
             %i{class:"icon-append fa fa-question-circle"}
 
@@ -13,7 +13,7 @@
       %label.col-md-4.control-label= f.label :display_name
       .col-md-8
         .input-group
-          = f.text_field :display_name, :class => "form-control display-name-field"
+          = f.text_field :display_name, class: "form-control display-name-field", maxlength: 20
           %span{class:"input-group-addon"}
             %i{class:"icon-append fa fa-question-circle"}
 
@@ -21,7 +21,7 @@
       %label.col-md-4.control-label= f.label :title
       .col-md-8
         .input-group
-          = f.text_field :title, :class => "form-control title-field"
+          = f.text_field :title, class: "form-control title-field", maxlength: 25
           %span{class:"input-group-addon"}
             %i{class:"icon-append fa fa-question-circle"}
 
@@ -29,7 +29,7 @@
       %label.col-md-4.control-label= f.label :email
       .col-md-8
         .input-group
-          = f.text_field :email, :class => "form-control email-field"
+          = f.text_field :email, class: "form-control email-field"
           %span{class:"input-group-addon"}
             %i{class:"icon-append fa fa-question-circle"}
 
@@ -37,7 +37,7 @@
       %label.col-md-4.control-label= f.label :password
       .col-md-8
         .input-group
-          = f.password_field :password, autocomplete: "off", :class => "form-control password-field"
+          = f.password_field :password, autocomplete: "off", class: "form-control password-field"
           %span{class:"input-group-addon"}
             %i{class:"icon-append fa fa-question-circle"}
 
@@ -45,8 +45,8 @@
       %label.col-md-4.control-label= f.label :password_confirmation, "Confirm Password"
       .col-md-8
         .input-group
-          = f.password_field :password_confirmation, autocomplete: "off", :class => "form-control"
-    
+          = f.password_field :password_confirmation, autocomplete: "off", class: "form-control"
+
     - unless @agent.id == current_agent.id && current_agent.access_level == 'agent'
       .form-group
         %label.col-md-4.control-label= f.label :access_level, "Access Level"
@@ -56,7 +56,7 @@
               %strong Super Admin
           - else
             .input-group
-              = f.select :access_level, [["Agent", "agent"], ["Admin", "admin"]], {:include_blank => "-- Select Account Type --"}, {:class => "form-control access-field"}
+              = f.select :access_level, [["Agent", "agent"], ["Admin", "admin"]], {include_blank: "-- Select Account Type --"}, {class: "form-control access-field"}
               %span{class:"input-group-addon"}
                 %i{class:"icon-append fa fa-question-circle"}
     .form-group
@@ -64,13 +64,12 @@
       .col-md-8
         = image_tag(@agent.avatar_url) if @agent.avatar?
         .input-group
-          = f.file_field :avatar, :class => "form-control photo-field file-form-control"
+          = f.file_field :avatar, class: "form-control photo-field file-form-control"
           %span{class:"input-group-addon"}
             %i{class:"icon-append fa fa-question-circle"}
-
         = f.hidden_field :avatar_cache
         .help-text{style: "font-size: 10px;"}
-          Photo should be 60 x 60 pixels        
+          Photo should be 60 x 60 pixels
     - if @agent.avatar?
       .form-group
         %label.col-md-4.control-label
@@ -82,22 +81,22 @@
       .form-group
         %label.col-md-4.control-label Assigned Websites
         .col-md-8.websites-field
-          = f.select :website_ids, @websites.collect {|x| [x.name, x.id]}, {}, {:multiple => true, :style => "width:100%", :class  => "select2", :id => "websites-select" }
+          = f.select :website_ids, @websites.collect {|x| [x.name, x.id]}, {}, {multiple: true, style: "width:100%", class: "select2", id: "websites-select" }
           .help-text{style: "font-size: 10px;"}
             You will be able to chat with visitors on these websites
       .form-group
         %label.col-md-4.control-label Assigned Departments
         .col-md-8.departments-field
-          = f.hidden_field :department_ids, :style => "width: 100%;", :id => "department-select"
+          = f.hidden_field :department_ids, style: "width: 100%;", id: "department-select"
           .help-text{style: "font-size: 10px;"}
             You will be able to chat with visitors who request these departments
 
   .widget-footer
     - if current_agent.access_level != 'agent'
-      = link_to "Cancel", agents_path, :class => "btn btn-default"
+      = link_to "Cancel", agents_path, class: "btn btn-default"
     - else
-      = link_to "Return to Chat Monitor", monitor_path, :class => "btn btn-default"
-    = f.submit @agent.new_record? ? "Add Agent" : "Update Agent", :class => "btn btn-primary"
+      = link_to "Return to Chat Monitor", monitor_path, class: "btn btn-default"
+    = f.submit @agent.new_record? ? "Add Agent" : "Update Agent", class: "btn btn-primary"
 
 :javascript
 
@@ -138,7 +137,7 @@
           var f = function(id) {
             return $.ajax("/departments/" + id, {
               dataType: 'json',
-              success: function(data) { 
+              success: function(data) {
                 if (data.length > 0) {
                   $.each(data, function(index, item) {
                     result.push({id: item.id, text: item.website + ": " + item.name});
@@ -188,11 +187,11 @@
       on_focus_style('We recommend uploading a photo of your face here. This will be displayed in the chat widget when visitors chat with you.', '.photo-field')
     );
   }
-    
+
   $( document ).ready(function() {
     initialize();
   });
-  
+
   $(window).bind('page:change', function() {
     initialize();
   });
