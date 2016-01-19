@@ -227,9 +227,9 @@ module Api
             response = { 'success' => 'true' }
 
           when "end_chat"
-            chat_id = params[:chat_id]
+            visitor_id = params[:visitor_id]
 
-            chat = Chat.find(chat_id)
+            chat = Chat.where(visitor_id: visitor_id).first
             chat.end_chat('visitor_ended')
 
             if params.key?(:enable_email_transcript) && params[:enable_email_transcript] == 'true' &&
@@ -322,7 +322,7 @@ module Api
               chat_widget = ChatWidget.find_by(:website_id => visitor.website.id)
 
               chat_id = 0
-              chat_status = ''
+              chat_status = 'not_started'
               if visitor.chat
                 chat_id = visitor.chat.id
                 chat_status = visitor.chat.status
