@@ -24,7 +24,7 @@
       <div class="invitation-form-area">
         <div class="pc-error-message" id="missing-fields">Please fill in the field to start the chat</div>
         <div class="pc-error-message" id="long-name">Please enter a name less than 30 characters</div>
-        <input type="text" id="invite-chat-text-box" placeholder="<%= invitation.name_text %>">
+        <input type="text" id="invite-chat-text-box" placeholder="<%= invitation.name_text %>" maxlength="30">
         <input type="button" id="accept-chat-invite-btn" style="" value="<%= invitation.button_text %>">
       </div>
     </div>

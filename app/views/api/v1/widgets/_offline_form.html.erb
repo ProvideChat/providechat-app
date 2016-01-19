@@ -4,17 +4,14 @@
     <p id="pc-intro-text"><%= offline_form.intro_text %></p>
 
     <div style="display: none;" id="offline-success">
-
       <div class="pc-success-message"><%= offline_form.success_message %></div>
-
     </div>
 
     <div id="offline-form">
-
       <div class="pc-error-message" id="missing-fields">Please fill in required fields</div>
       <div class="pc-error-message" id="invalid-email">Please enter a valid email</div>
 
-      <p><input type="text" id="offline-name" placeholder="<%= offline_form.name_text %>"></p>
+      <p><input type="text" id="offline-name" placeholder="<%= offline_form.name_text %>" maxlength="30"></p>
 
       <% if offline_form.email_enabled %>
         <p><input type="text" id="offline-email" placeholder="<%= offline_form.email_text %>"></p>
@@ -40,7 +37,6 @@
       <p><textarea rows="4" id="offline-message" placeholder="<%= offline_form.message_text %>"></textarea></p>
 
       <input type="submit" value="  <%= offline_form.button_text %>  " style="" id="send-offline-email">
-
     </div>
   </div>
 </div>
