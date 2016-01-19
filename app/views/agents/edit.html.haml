@@ -1,5 +1,8 @@
-- if current_agent.access_level != 'agent'
+- if current_agent.access_level == 'agent'
+  = render partial: 'layouts/flash_messages', flash: flash
+-else
   = render 'layouts/page_header', :title => 'Agents', :icon => 'fa-user', :subpage => 'Edit Agent'
+
 
 %article.col-sm-12.col-md-8.col-lg-6
   #wid-id-0.jarviswidget.jarviswidget-color-darken

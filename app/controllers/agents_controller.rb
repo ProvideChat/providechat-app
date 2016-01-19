@@ -37,8 +37,11 @@ class AgentsController < ApplicationController
     end
 
     if @agent.update(agent_params)
-      redirect_to agents_url,
-                  flash: { success: 'Agent was successfully updated.' }
+      if current_agent.access_level == 'agent'
+        redirect_to edit_agent_path(@agent)
+      else
+        redirect_to agents_url, flash: { success: 'Agent was successfully updated.' }
+      end
     else
       render :edit
     end

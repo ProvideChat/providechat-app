@@ -1,4 +1,6 @@
-<% if current_agent.access_level != 'agent' %>
+<% if current_agent.access_level == 'agent' %>
+  <%= render partial: 'layouts/flash_messages', flash: flash %>
+<% else %>
   <%= render 'layouts/page_header', :title => 'Chat Monitor', :icon => 'fa-comments' %>
 <% end %>
 
