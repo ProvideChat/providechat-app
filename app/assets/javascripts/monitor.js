@@ -139,10 +139,20 @@
     if ($("#no-chat-visitor-" + visitor.id).length > 0) {
       $("#visitor-detail-" + visitor.id).html(visitor.current_page);
     } else {
+      var visitor_location = "";
+      if ((visitor.city.length > 0) && (visitor.country_name.length > 0)) {
+        visitor_location = visitor.city + ', ' + visitor.country_name;
+      } else if ((visitor.city.length == 0) && (visitor.country_name.length > 0)) {
+        visitor_location = visitor.country_name;
+      } else if ((visitor.city.length > 0) && (visitor.country_name.length == 0)) {
+        visitor_location = visitor.city;
+      } else {
+        visitor_location = "Unknown";
+      }
 
       var visitor_content = '<div class="content">';
       visitor_content += '<img src="/images/monitor/visitor-browsing.png" class="visitor-image">';
-      visitor_content += '<div class="visitor-location">' + visitor.city + ', ' + visitor.country_name + '&nbsp;&nbsp;<img width="16px" height="16px" src="/images/flags/' + visitor.country_code + '.png" style="vertical-align: top;"></div>';
+      visitor_content += '<div class="visitor-location">' + visitor_location + '&nbsp;&nbsp;<img width="16px" height="16px" src="/images/flags/' + visitor.country_code + '.png" style="vertical-align: top;"></div>';
       visitor_content += '<div class="visitor-detail" id="visitor-detail-' + visitor.id + '">' + visitor.current_page + '</div></div>';
       visitor_content += '<div class="button"><a href="javascript:void(0);" id="invite_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs" style="float: right;"><i class="fa fa-external-link"></i> Invite</a></div>';
 
@@ -195,18 +205,14 @@
         $('#no-visitor-msg').hide();
 
         if ((visitor.status === "in_chat") || (visitor.status === "chat_ended")) {
-
           updateInChat(visitor);
           in_chat++;
-
         }
         else if (visitor.status === "waiting_to_chat") {
-
           updateWaitingToChat(visitor);
           waiting_to_chat++;
         }
         else if (visitor.status === "no_chat") {
-
           updateNoChat(visitor);
           visitors++;
         }
