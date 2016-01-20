@@ -65,13 +65,14 @@ class Chat < ActiveRecord::Base
   def email_transcript(transcript_email)
     require 'mandrill'
 
-    text_msg = "Hello #{self.visitor_name},\n\n"
-    text_msg += "Here if your requested chat transcript\n\n"
+    text_msg = "Your ticket ID for this chat is #{self.ticket_id}, "
+    text_msg += "please keep this ID handy for next time when you chat with an agent\n\n"
     self.chat_messages.each do |chat_message|
       text_msg += " - #{chat_message.user_name}: #{chat_message.message}\n\n"
     end
 
-    html_msg = "<html><h3>Hello #{self.visitor_name}</h3><p>Here is your requested chat transcript</p><hr>"
+    html_msg = "<html><p>Your ticket ID for this chat is #{self.ticket_id}, "
+    html_msg += "please keep this ID handy for next time when you chat with an agent</p><hr>"
     last_user_name = ""
     self.chat_messages.each do |chat_message|
       if chat_message.user_name != last_user_name
@@ -85,7 +86,7 @@ class Chat < ActiveRecord::Base
 
     m = Mandrill::API.new
     message = {
-      subject: "Your chat with #{self.website.name} - Ticket ID: #{self.ticket_id}",
+      subject: "(#{self.website.url} - Chat Ticket ID #{self.ticket_id})",
       from_name: "Provide Chat",
       text: text_msg,
       to: [{
