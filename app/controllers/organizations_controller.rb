@@ -9,7 +9,7 @@ class OrganizationsController < ApplicationController
   def update
     respond_to do |format|
       if @organization.update(organization_params)
-        format.html { redirect_to edit_organization_path(@organization), notice: 'Settings were successfully updated.' }
+        format.html { redirect_to edit_organization_path(@organization), flash: { success: 'Settings were successfully updated.' } }
         format.json { render :show, status: :ok, location: edit_organization_path(@organization) }
       else
         format.html { render :edit }
