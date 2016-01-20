@@ -19,7 +19,7 @@ class Chat < ActiveRecord::Base
                 :agent_timeout, :visitor_timeout]
 
   def self.filter_results(organization_id, params)
-    chats = Chat.where(organization_id: organization_id)
+    chats = Chat.where(organization_id: organization_id).order(created_at: :desc)
     chats = chats.websites(params[:website_ids]) if params[:website_ids].present?
     chats = chats.agents(params[:agent_ids]) if params[:agent_ids].present?
     chats = chats.from_date(params[:from_date]) if params[:from_date].present?
