@@ -4,17 +4,21 @@
       %td{:colspan => "3"}
         You haven't added any websites yet. #{link_to "Add Website", new_website_path, { title: "Add Website", class: "btn btn-primary btn-sm" }}
 - else
-  %table.table.table-bordered
+  %table.table.table-bordered{style: "table-layout:fixed;"}
     %thead
       %tr
-        %th Name
-        %th
+        %th{style: "width: 40%;"}
+          Name
+        %th{style: "width: 40%;"}
           URL
-        %th
-          Widget Installed?
+        %th{style: "width: 20%;"}
+          Widget
     %tbody
       - @websites.each do |website|
         %tr
-          %td= website.name
-          %td= website.url
-          %td= website.widget_status
+          %td{style: "width: 40%; overflow: hidden;"}
+            = website.name
+          %td{style: "width: 40%; overflow: hidden;"}
+            = website.url
+          %td{style: "width: 20%;"}
+            = website.widget_status
