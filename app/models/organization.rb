@@ -63,9 +63,8 @@ class Organization < ActiveRecord::Base
     end
   end
 
-
-  def agent_status
-    Agent.where(organization_id: self.id, availability: 1).count > 0 ? "online" : "offline"
+  def agent_status(website_id)
+    Website.find(website_id).agents.where(availability: 1).count > 0 ? "online" : "offline"
   end
 
   def process_offline_msg(website_id, name, email, department, message)

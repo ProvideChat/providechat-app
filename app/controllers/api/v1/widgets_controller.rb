@@ -23,8 +23,8 @@ module Api
 
           logger.info "METHOD: #{method}"
 
-          website.update_ping
-          website.save
+          #website.update_ping
+          #website.save
 
           case method
           when "process_pre_chat"
@@ -309,7 +309,7 @@ module Api
             visitor.save
 
             response = {
-              'agent_status' => organization.agent_status,
+              'agent_status' => organization.agent_status(website.id),
               'invite_sent' => visitor.invite_sent
             }
 
@@ -329,7 +329,8 @@ module Api
               end
 
               response = { 'success' => 'true', 'visitor_id' => visitor.id, 'website_id' => visitor.website.id,
-                           'agent_status' => organization.agent_status, 'agent_response_timeout' => organization.agent_response_timeout,
+                           'agent_status' => organization.agent_status(website.id),
+                           'agent_response_timeout' => organization.agent_response_timeout,
                            'chat_id' => chat_id, 'chat_status' => chat_status, 'visitor_name' => visitor.name,
                            'visitor_email' => visitor.email, 'online_message' => chat_widget.online_message,
                            'offline_message' => chat_widget.offline_message, 'title_message' => chat_widget.title_message,
