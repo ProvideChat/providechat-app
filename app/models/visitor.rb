@@ -13,8 +13,14 @@ class Visitor < ActiveRecord::Base
   before_save :titleize_name
 
   def self.current_visitors(current_agent)
-    active = [ Visitor.statuses[:no_chat], Visitor.statuses[:waiting_to_chat], Visitor.statuses[:in_chat]]
-    Visitor.where("organization_id = ? AND status IN (?) AND last_ping > ?", current_agent.organization_id, active, 2.minutes.ago)
+    active_statuses = [ Visitor.statuses[:no_chat], Visitor.statuses[:waiting_to_chat], Visitor.statuses[:in_chat]]
+    websites = current_agent.websites.pluck(:id)
+    Visitor.where("organization_id = ? AND status IN (?) AND website_id IN (?) AND last_ping > ?",
+      current_agent.organization_id,
+      active_statuses,
+      websites,
+      2.minutes.ago
+    )
   end
 
   def process_invitation
