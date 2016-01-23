@@ -28,12 +28,18 @@ module Api
 
           case method
           when "process_pre_chat"
-            chat = Chat.create(organization_id: organization.id, website_id: website.id, visitor_id: params[:visitor_id],
-                                chat_requested: DateTime.now, visitor_name: params[:name],
-                                visitor_email: params[:email], visitor_department: params[:department],
-                                visitor_question: params[:message], status: "not_started")
+            chat = Chat.create(organization_id: organization.id, website_id: website.id, 
+                               chat_requested: DateTime.now, 
+                               visitor_name: params[:name], visitor_email: params[:email], 
+                               visitor_department: params[:department],
+                               visitor_question: params[:message], status: "not_started")
 
-            visitor = Visitor.find(params[:visitor_id])
+            if (params[:visitor_id].to_i > 0)
+              visitor = Visitor.find(params[:visitor_id])
+            else
+              session = JSON.parse(params[:session])
+              visitor = Visitor.process_session(org_id, website, session)
+            end
             visitor.name = params[:name]
             visitor.email = params[:email]
             visitor.department = params[:department]
@@ -41,10 +47,14 @@ module Api
             visitor.status = 'waiting_to_chat';
             visitor.chat_id = chat.id
             visitor.save
+            
+            chat.visitor_id = visitor.id
+            chat.save
 
             chat_widget = ChatWidget.find_by(website_id: website.id)
             response = {
-              'chat_id' => chat.id,
+              'chat_id' => chat.id, 'chat_status' => chat.status, 
+              'visitor_id' => visitor.id,
               'html' => render_to_string(
                 partial: 'chat_widget.html.erb',
                 layout: false,
@@ -227,15 +237,15 @@ module Api
             response = { 'success' => 'true' }
 
           when "end_chat"
-            visitor_id = params[:visitor_id]
+            chat_id = params[:chat_id]
 
-            chat = Chat.where(visitor_id: visitor_id).first
-            chat.end_chat('visitor_ended')
-
+            chat = Chat.find(chat_id)
             if params.key?(:enable_email_transcript) && params[:enable_email_transcript] == 'true' &&
                 params.key?(:transcript_email) && params[:transcript_email] != ''
               chat.email_transcript(params[:transcript_email])
             end
+            
+            chat.end_chat('visitor_ended')
 
             response = { 'success' => 'true' }
 
@@ -303,14 +313,18 @@ module Api
               website.save
             end
 
-            visitor_id = params[:visitor_id]
-            visitor = Visitor.find(visitor_id)
-            visitor.last_ping = DateTime.now
-            visitor.save
+            invite_sent = false
+            visitor_id = params[:visitor_id].to_i
+            if visitor_id > 0
+              visitor = Visitor.find(visitor_id)
+              visitor.last_ping = DateTime.now
+              visitor.save
+              invite_sent = visitor.invite_sent
+            end
 
             response = {
               'agent_status' => organization.agent_status(website.id),
-              'invite_sent' => visitor.invite_sent
+              'invite_sent' => invite_sent
             }
 
           when "initialize"
