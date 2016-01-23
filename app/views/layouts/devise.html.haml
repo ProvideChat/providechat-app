@@ -37,24 +37,34 @@
       .pull-right{style: "padding-top: 6px;"}
         - if controller_name != 'registrations'
           .btn-header.transparent.pull-right
-            = link_to new_registration_path(:agent), class: "btn btn-danger btn-sm" do
-              %i.fa.fa-user-plus
-              &nbsp;Sign Up
+            .hidden-md.hidden-lg
+              = link_to new_registration_path(:agent), class: "btn btn-danger btn-sm" do
+                %i.fa.fa-user-plus
+            .hidden-sm.hidden-xs
+              = link_to new_registration_path(:agent), class: "btn btn-danger btn-sm" do
+                %i.fa.fa-user-plus
+                &nbsp;Sign Up
         - if controller_name != 'sessions'
           .btn-header.transparent.pull-right
-            = link_to new_session_path(:agent), class: "btn btn-danger btn-sm" do
-              %i.fa.fa-sign-in
-              &nbsp;Sign in
+            .hidden-md.hidden-lg
+              = link_to new_session_path(:agent), class: "btn btn-danger btn-sm" do
+                %i.fa.fa-sign-in
+            .hidden-sm.hidden-xs
+              = link_to new_session_path(:agent), class: "btn btn-danger btn-sm" do
+                %i.fa.fa-sign-in
+                &nbsp;Sign in
         .btn-header.transparent.pull-right
-          = link_to new_contact_form_path, class: "btn btn-primary btn-sm" do
-            %i.fa.fa-paper-plane
-            &nbsp;Contact Us
+          .hidden-md.hidden-lg
+            = link_to new_contact_form_path, class: "btn btn-primary btn-sm" do
+              %i.fa.fa-paper-plane
+          .hidden-sm.hidden-xs
+            = link_to new_contact_form_path, class: "btn btn-primary btn-sm" do
+              %i.fa.fa-paper-plane
+              &nbsp;Contact Us
 
-    #main{:role => "main"}
-      #content.container
-        .row
-          .col-xs-12.col-sm-8.col-md-6.col-lg-5
-            = yield
+    #content.container
+      .col-xs-12.col-sm-8.col.sm-offset-2.col-md-6.col-md-offset-3.col-lg-5
+        = yield
 
     #termsModal.modal.fade{"aria-hidden": "true", "aria-labelledby": "TermsOfService", tabindex: "-1"}
       .modal-dialog

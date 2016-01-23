@@ -47,7 +47,6 @@
         = render "layouts/left_nav"
 
     %div{role: "main", id: current_agent.access_level == 'agent' ? 'main-agent' : 'main'}
-
       #content
         = yield
 
