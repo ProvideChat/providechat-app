@@ -1,8 +1,12 @@
 .well.well-lg
 
-  %h1 Oops! Something went wrong...
+  %h1 We're sorry, something went wrong.
 
-  %h2 Please try again and don't hesitate to contact support if the problem persists.
+  %h2 If the problem presists please contact us at support@providechat.com
 
-  %h2
-    = link_to "Back to Home", root_path,  class: "btn btn-primary btn-lg"
+  - if current_agent
+    %h2
+      = link_to "Back to Dashboard", dashboard_path,  class: "btn btn-primary btn-lg"
+  - else
+    %h2
+      = link_to "Back to Home", root_path,  class: "btn btn-primary btn-lg"

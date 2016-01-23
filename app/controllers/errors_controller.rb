@@ -1,5 +1,13 @@
 class ErrorsController < ApplicationController
-  layout 'devise'
+  layout :layout_by_session
+
+  def layout_by_session
+    if current_agent
+      "application"
+    else
+      "devise"
+    end
+  end
 
   def not_found
     render(:status => 404)

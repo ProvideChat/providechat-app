@@ -2,6 +2,10 @@
 
   %h1 Oops! We couldn't find that page...
 
-  %h2
-    = link_to "Back to Home", root_path,  class: "btn btn-primary btn-lg"
+  - if current_agent
+    %h2
+      = link_to "Back to Dashboard", dashboard_path,  class: "btn btn-primary btn-lg"
+  - else
+    %h2
+      = link_to "Back to Home", root_path,  class: "btn btn-primary btn-lg"
 
