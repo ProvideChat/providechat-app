@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   resources :websites, only: [:index, :new, :edit, :create, :update, :destroy]
   resources :agents, only: [:index, :new, :edit, :create, :update, :destroy]
   resources :rapid_responses, only: [:index, :new, :edit, :create, :update, :destroy]
+  resources :settings, only: [:update]
 
   resources :offline_forms, only: [:index, :edit, :update]
   resources :prechat_forms, only: [:index, :edit, :update]

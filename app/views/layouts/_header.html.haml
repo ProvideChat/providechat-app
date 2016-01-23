@@ -6,24 +6,24 @@
     - if current_agent.access_level != 'agent'
       #hide-menu.btn-header.pull-right
         %span
-          %a{:href => "javascript:void(0);", :"data-action" => "toggleMenu", :"data-original-title" => "Collapse Menu", :rel => "tooltip", :"data-placement" => "bottom"}
+          %a{href: "javascript:void(0);", rel: "tooltip", data: { action: "toggleMenu", original_title: "Collapse Menu", placement: "bottom" } }
             %i.fa.fa-reorder
     .btn-header.transparent.pull-right
       %span
-        = link_to signout_path, method: :delete, class: "btn btn-sm", :"data-original-title" => "Sign out", rel: "nofollow", :"data-placement" => "bottom" do
+        = link_to signout_path, method: :delete, class: "btn btn-sm", rel: "nofollow", data: { original_title: "Sign out", placement: "bottom" } do
           %i.fa.fa-sign-out
     - if current_agent.access_level == 'agent'
       .btn-header.transparent.pull-right
         %span
-          = link_to monitor_path, :class => "btn btn-sm", :"data-original-title" => "Chat Monitor", :rel => "tooltip", :"data-placement" => "bottom" do
+          = link_to monitor_path, :class => "btn btn-sm", :rel => "tooltip", data: { original_title: "Chat Monitor", placement: "bottom" } do
             %i.fa.fa-comments
     .btn-header.transparent.pull-right
       %span
-        = link_to edit_agent_path(current_agent), :class => "btn btn-sm", :"data-original-title" => "Your Profile", :rel => "tooltip", :"data-placement" => "bottom" do
+        = link_to edit_agent_path(current_agent), class: "btn btn-sm", rel: "tooltip", data: { original_title:  "Your Profile", placement: "bottom" } do
           %i.fa.fa-user
     .btn-header.transparent.pull-right
       %span
-        = link_to "#", :class => "btn btn-sm", :"data-original-title" => "Settings", :rel => "tooltip", :"data-placement" => "bottom" do
+        = link_to "#", class: "btn btn-sm", rel: "tooltip", data: {original_title: "Settings", placement: "bottom", toggle: "modal", target: "#modal-settings" } do
           %i.fa.fa-cog
 
     = render 'layouts/agent_status'

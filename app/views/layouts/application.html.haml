@@ -51,6 +51,8 @@
       #content
         = yield
 
+    = render partial: "home/settings", locals: { agent: current_agent}
+    
     = javascript_include_tag 'smartadmin.config'
     = javascript_include_tag 'smart-notification'
     = javascript_include_tag 'select2'
