@@ -139,38 +139,49 @@
     if ($("#no-chat-visitor-" + visitor.id).length > 0) {
       $("#visitor-detail-" + visitor.id).html(visitor.current_page);
     } else {
-      var visitor_location = "";
-      if ((visitor.city.length > 0) && (visitor.country_name.length > 0)) {
-        visitor_location = visitor.city + ', ' + visitor.country_name;
-      } else if ((visitor.city.length == 0) && (visitor.country_name.length > 0)) {
-        visitor_location = visitor.country_name;
-      } else if ((visitor.city.length > 0) && (visitor.country_name.length == 0)) {
-        visitor_location = visitor.city;
-      } else {
-        visitor_location = "Unknown";
+      if (visitor.status === "no_chat") {
+        var visitor_location = "";
+        if ((visitor.city.length > 0) && (visitor.country_name.length > 0)) {
+          visitor_location = visitor.city + ', ' + visitor.country_name;
+        } else if ((visitor.city.length == 0) && (visitor.country_name.length > 0)) {
+          visitor_location = visitor.country_name;
+        } else if ((visitor.city.length > 0) && (visitor.country_name.length == 0)) {
+          visitor_location = visitor.city;
+        } else {
+          visitor_location = "Unknown";
+        }
+
+        var visitor_content = '<div class="content">';
+        visitor_content += '<img src="/images/monitor/visitor-browsing.png" class="visitor-image">';
+        visitor_content += '<div class="visitor-location">' + visitor_location + '&nbsp;&nbsp;<img width="16px" height="16px" src="/images/flags/' + visitor.country_code + '.png" style="vertical-align: top;"></div>';
+        visitor_content += '<div class="visitor-detail" id="visitor-detail-' + visitor.id + '">' + visitor.current_page + '</div></div>';
+        visitor_content += '<div class="button"><a href="javascript:void(0);" id="invite_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs" style="float: right;"><i class="fa fa-external-link"></i> Invite</a></div>';
+
+        $('#visitor-container').append("<div class='visitor-snapshot' id='no-chat-visitor-" + visitor.id + "'>" + visitor_content + "</div>");
+
+        $('#invite_chat_' + visitor.id).click(function() {
+          if (ProvideChat.agent_availability == 'online') {
+            $(this).hide();
+            invite_chat($(this).data("visitor-id"));
+          } else if (ProvideChat.agent_availability == 'offline') {
+            swal({
+              title: "Unable to invite while offline",
+              text: "Please ensure you are online before inviting a visitor to chat.",
+              type: "error",
+              confirmButtonText: "Close"
+            });
+          }
+        });
+      } else if ((visitor.status === "chat_ended") || (visitor.status === "visitor_ended") || (visitor.status === "agent_ended")) {
+
+        var visitor_content = '<div class="content"><img src="/images/monitor/visitor-browsing.png" class="visitor-image">';
+        visitor_content += '<span class="visitor-name">' + visitor.name + '</span>&nbsp;&nbsp;';
+        visitor_content += '<span class="visitor-detail" id="visitor-detail-' + visitor.id + '">' + visitor.current_page + '</span>';
+        visitor_content += '<div class="visitor-detail" id="visitor-last-message-' + visitor.id + '">' + visitor.status_extended  + '</div></div>';
+
+        $('#visitor-container').append("<div class='visitor-snapshot' id='no-chat-visitor-" + visitor.id + "'>" + visitor_content + "</div>");
       }
 
-      var visitor_content = '<div class="content">';
-      visitor_content += '<img src="/images/monitor/visitor-browsing.png" class="visitor-image">';
-      visitor_content += '<div class="visitor-location">' + visitor_location + '&nbsp;&nbsp;<img width="16px" height="16px" src="/images/flags/' + visitor.country_code + '.png" style="vertical-align: top;"></div>';
-      visitor_content += '<div class="visitor-detail" id="visitor-detail-' + visitor.id + '">' + visitor.current_page + '</div></div>';
-      visitor_content += '<div class="button"><a href="javascript:void(0);" id="invite_chat_' + visitor.id + '" data-visitor-id="' + visitor.id + '" class="btn btn-default btn-xs" style="float: right;"><i class="fa fa-external-link"></i> Invite</a></div>';
-
-      $('#visitor-container').append("<div class='visitor-snapshot' id='no-chat-visitor-" + visitor.id + "'>" + visitor_content + "</div>");
-
-      $('#invite_chat_' + visitor.id).click(function() {
-        if (ProvideChat.agent_availability == 'online') {
-          $(this).hide();
-          invite_chat($(this).data("visitor-id"));
-        } else if (ProvideChat.agent_availability == 'offline') {
-          swal({
-            title: "Unable to invite while offline",
-            text: "Please ensure you are online before inviting a visitor to chat.",
-            type: "error",
-            confirmButtonText: "Close"
-          });
-        }
-      });
     }
   }
 
@@ -195,7 +206,7 @@
         $('#waiting-to-chat-container').find(".visitor-snapshot").remove();
         $('#visitor-container').find(".visitor-snapshot").remove();
       }
-      //console.log(results);
+      console.log(results);
       ProvideChat.agent_availability = results.agent_availability
 
       $.each(results.visitors, function(i, visitor) {
@@ -212,9 +223,16 @@
           updateWaitingToChat(visitor);
           waiting_to_chat++;
         }
-        else if (visitor.status === "no_chat") {
+        else if ((visitor.status === "no_chat") || (visitor.status === "chat_ended") || 
+                 (visitor.status === "visitor_ended") || (visitor.status === "agent_ended")) {
           updateNoChat(visitor);
           visitors++;
+        }
+      });
+
+      $.each(results.offsite, function(i, offsite) {
+        if ($("#no-chat-visitor-" + offsite.id).length > 0) {
+          $("#no-chat-visitor-" + offsite.id).remove();
         }
       });
 

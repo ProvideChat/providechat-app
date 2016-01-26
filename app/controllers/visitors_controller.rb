@@ -5,6 +5,7 @@ class VisitorsController < ApplicationController
   def index
     if params.key?(:current)
       @visitors = Visitor.current_visitors(current_agent)
+      @offsite = Visitor.recent_offsite_visitors(current_agent)
     else
       @visitors = Visitor.where(organization_id: current_agent.organization_id)
     end

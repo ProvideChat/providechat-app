@@ -1,7 +1,6 @@
 class Visitor < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
 
-  has_one :chat
   belongs_to :organization
   belongs_to :website
 
@@ -13,7 +12,8 @@ class Visitor < ActiveRecord::Base
   before_save :titleize_name
 
   def self.current_visitors(current_agent)
-    active_statuses = [ Visitor.statuses[:no_chat], Visitor.statuses[:waiting_to_chat], Visitor.statuses[:in_chat]]
+    active_statuses = [ Visitor.statuses[:no_chat], Visitor.statuses[:waiting_to_chat], Visitor.statuses[:in_chat],
+                        Visitor.statuses[:agent_ended], Visitor.statuses[:visitor_ended] ]
     websites = current_agent.websites.pluck(:id)
     Visitor.where("organization_id = ? AND status IN (?) AND website_id IN (?) AND last_ping > ?",
       current_agent.organization_id,
@@ -21,6 +21,24 @@ class Visitor < ActiveRecord::Base
       websites,
       2.minutes.ago
     )
+  end
+
+  def self.recent_offsite_visitors(current_agent)
+    websites = current_agent.websites.pluck(:id)
+    Visitor.where("organization_id = ? AND status = ? AND website_id IN (?) AND last_ping > ?",
+      current_agent.organization_id,
+      Visitor.statuses[:offsite],
+      websites,
+      5.minutes.ago
+    )
+  end
+
+  def chat
+    @chat ||= load_chat
+  end
+
+  def load_chat
+    chat_id > 0 ? Chat.find(chat_id) : Chat.new
   end
 
   def process_invitation
@@ -136,7 +154,8 @@ class Visitor < ActiveRecord::Base
 
     browser_fingerprint = Digest::MD5.hexdigest("#{ip_address.to_s}#{browser_name}#{browser_version.to_s}#{operating_system}#{screen_resolution}#{plugins}")
 
-    statuses = [ Visitor.statuses[:no_chat], Visitor.statuses[:waiting_to_chat], Visitor.statuses[:in_chat]]
+    statuses = [ Visitor.statuses[:no_chat], Visitor.statuses[:waiting_to_chat], Visitor.statuses[:in_chat],
+                 Visitor.statuses[:agent_ended], Visitor.statuses[:visitor_ended] ]
     # visitor = Visitor.find_by(:website_id => website.id, :browser_name => browser_name,
     #                          :browser_version => browser_version.to_s, :operating_system => operating_system,
     #                          :ip_address => ip_address, status: statuses) || Visitor.new
@@ -231,8 +250,10 @@ class Visitor < ActiveRecord::Base
       "Waiting for #{time_ago_in_words(self.chat.chat_requested, include_seconds: true)}"
     when "in_chat"
       "Chatting for #{time_ago_in_words(self.chat.chat_accepted, include_seconds: true)}"
-    when "chat_ended"
+    when "agent_ended"
       "Chat ended"
+    when "visitor_ended"
+      "Visitor ended chat"
     when "offsite"
       "Visitor has left site"
     end

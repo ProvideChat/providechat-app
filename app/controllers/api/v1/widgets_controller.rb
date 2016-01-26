@@ -47,7 +47,7 @@ module Api
             visitor.status = 'waiting_to_chat';
             visitor.chat_id = chat.id
             visitor.save
-            
+
             chat.visitor_id = visitor.id
             chat.save
 
@@ -244,7 +244,7 @@ module Api
                 params.key?(:transcript_email) && params[:transcript_email] != ''
               chat.email_transcript(params[:transcript_email])
             end
-            
+
             chat.end_chat('visitor_ended')
 
             response = { 'success' => 'true' }
@@ -337,7 +337,7 @@ module Api
 
               chat_id = 0
               chat_status = 'not_started'
-              if visitor.chat
+              if visitor.chat_id > 0
                 chat_id = visitor.chat.id
                 chat_status = visitor.chat.status
               end

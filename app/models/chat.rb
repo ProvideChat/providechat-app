@@ -50,6 +50,7 @@ class Chat < ActiveRecord::Base
       visitor.status = "offsite"
     end
 
+    visitor.chat_id = 0
     visitor.save
   end
 
