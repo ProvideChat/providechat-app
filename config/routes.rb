@@ -2,9 +2,6 @@ require 'api_constraints'
 
 Rails.application.routes.draw do
 
-  get "/404" => "errors#not_found"
-  get "/500" => "errors#internal_server_error"
-
   devise_for :admins
   devise_for :agents, path: 'auth', 
                controllers: {
@@ -62,4 +59,7 @@ Rails.application.routes.draw do
   authenticate :admin do
     mount Sidekiq::Web => 'sidekiq'
   end
+
+  get "/404" => "errors#not_found"
+  get "/500" => "errors#internal_server_error"
 end
