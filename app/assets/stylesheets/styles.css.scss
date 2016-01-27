@@ -183,6 +183,13 @@ input::-moz-focus-inner {
   cursor: pointer;
 }
 
+/* Modal style for chat transcripts */
+
+.chat-transcript-modal-body {
+  min-height: calc(80vh - 210px) !important;
+  max-height: calc(100vh - 210px) !important;
+  overflow-y: auto !important;
+}
 
 /* Colour picker mods */
 
