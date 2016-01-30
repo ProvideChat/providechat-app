@@ -100,5 +100,5 @@ Rails.application.configure do
       :exception_recipients => %w{derek@providechat.com}
     }
 
-  config.lograge.enabled = true
+  #config.lograge.enabled = true
 end
