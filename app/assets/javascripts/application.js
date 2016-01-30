@@ -30,5 +30,4 @@
 //= require sweetalert
 //= require providechat
 //= require subscriptions
-//= require jquery.bootstrap.wizard
-//= require wizard
+
