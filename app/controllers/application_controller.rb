@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  before_filter :verify_completed_setup
+  before_action :verify_completed_setup
 
   layout :layout_by_resource
 
@@ -33,10 +33,8 @@ class ApplicationController < ActionController::Base
   end
 
   def verify_completed_setup
-    if agent_signed_in?
-      unless current_agent.completed_setup || controller_name != 'AfterSignupController'
-        redirect_to edit_after_signup_path(current_agent)
-      end
+    if agent_signed_in? && current_agent.completed_setup == false
+      redirect_to edit_after_signup_path(current_agent) unless controller_name == 'after_signup'
     end
   end
 end
