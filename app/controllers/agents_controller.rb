@@ -1,7 +1,7 @@
 class AgentsController < ApplicationController
   before_action :authenticate_agent!
   before_action :set_agent, only: [:edit, :update, :destroy]
-  before_action :set_websites, only: [:edit, :new, :update, :create]
+  before_action :setup, only: [:edit, :new, :update, :create]
   before_action :validate_admin
 
   def index
@@ -35,6 +35,8 @@ class AgentsController < ApplicationController
       params[:agent].delete(:password)
       params[:agent].delete(:password_confirmation)
     end
+    @agent.websites.delete_all
+    @agent.departments.delete_all
 
     if @agent.update(agent_params)
       if current_agent.access_level == 'agent'
@@ -59,8 +61,9 @@ class AgentsController < ApplicationController
     @agent = Agent.find(params[:id])
   end
 
-  def set_websites
+  def setup
     @websites = Website.where(organization_id: current_agent.organization_id)
+    @departments = Department.where(organization_id: current_agent.organization_id)
   end
 
   def process_department_ids(department_ids)
@@ -74,9 +77,22 @@ class AgentsController < ApplicationController
 
   def agent_params
 
-    params[:agent][:department_ids] = process_department_ids(params[:agent][:department_ids]) if params[:agent][:department_ids]
+    params[:agent][:website_ids].delete("") if params[:agent][:website_ids]
+    params[:agent][:department_ids].delete("") if params[:agent][:department_ids]
 
-    logger.info "Department IDs (after): #{params[:agent][:department_ids]}";
+    # Remove any department IDs that belong to websites that the agent no longer
+    # is assigned to
+    if params[:agent][:department_ids]
+      department_ids = params[:agent][:department_ids].dup
+      agent_website_ids = params[:agent][:website_ids].dup
+      department_ids.each do |department_id|
+        department = Department.find(department_id.to_i)
+        params[:agent][:department_ids].delete(department_id.to_s) unless agent_website_ids.include?(department.website_id.to_s) 
+      end
+    end
+    
+    #params[:agent][:department_ids] = process_department_ids(params[:agent][:department_ids]) if params[:agent][:department_ids]
+    #logger.info "Department IDs (after): #{params[:agent][:department_ids]}";
 
     params.require(:agent).permit(:name, :display_name, :email, :title,
                                   :password, :password_confirmation,
