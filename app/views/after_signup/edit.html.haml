@@ -8,7 +8,7 @@
         .wizard-header
           %h3
             %b COMPLETE YOUR ACCOUNT SETUP
-            %br/
+            %br
             %small This information will finalize your account setup
         %ul.nav.nav-pills
           %li.active{style: "width: 25%;"}
@@ -30,16 +30,16 @@
                 .col-sm-5.col-sm-offset-1
                   .form-group
                     %label Enter Your password
-                    = f.password_field :password, class: "form-control", placeholder: "Your password", required: true
+                    = f.password_field :password, class: "form-control", placeholder: "Your password"
                 .col-sm-5
                   .form-group
                     %label Confirm Your password
-                    = f.password_field :password_confirmation, class: "form-control", placeholder: "Confirm password", required: true
+                    = f.password_field :password_confirmation, class: "form-control", placeholder: "Confirm password"
 
               .col-sm-5.col-sm-offset-1
                 .form-group
                   %label Your Name
-                  = f.text_field :name, class: "form-control", placeholder: "Your name", required: true
+                  = f.text_field :name, class: "form-control", placeholder: "Your name"
               .col-sm-5
                 .form-group
 
@@ -51,7 +51,7 @@
                   %label Web Address (URL)
                   .input-group
                     %span.input-group-addon https://
-                    = f.text_field :website_url, :class => "form-control url-field", required: true, value: @website.url
+                    = f.text_field :website_url, :class => "form-control url-field", value: @website.url
           #install-code.tab-pane
             %h4.info-text Install the Provide Chat Widget
             .row
@@ -71,13 +71,53 @@
             %input.btn.btn-next.btn-fill.btn-success.btn-wd.btn-sm{name: "next", type: "button", value: "Next"}
             = f.submit "finish", class: "btn btn-finish btn-fill btn-success btn-wd btn-sm", name: "finish", style: "display: none;", value: "Finish"
           .pull-left
-            %input.btn.btn-previous.btn-fill.btn-default.btn-wd.btn-sm.disabled{name: "previous", type: "button", value: "Previous"}
+            %input.btn.btn-previous.btn-fill.btn-default.btn-wd.btn-sm{name: "previous", type: "button", value: "Previous"}
           .clearfix
 
 :javascript
 
   $(document).ready(function() {
-
+    $('#wizard').bootstrapWizard({
+      'tabClass': 'nav nav-pills',
+      'nextSelector': '.btn-next',
+      'previousSelector': '.btn-previous',
+       
+       onInit : function(tab, navigation, index){
+          
+         //check number of tabs and fill the entire row
+         var $total = navigation.find('li').length;
+         $width = 100/$total;
+         
+         $display_width = $(document).width();
+         
+         if($display_width < 600 && $total > 3){
+           $width = 50;
+         }
+         
+         navigation.find('li').css('width',$width + '%');
+         return true;
+      },
+      onNext: function(tab, navigation, index){
+        return true;
+      },
+      onTabShow: function(tab, navigation, index) {
+          var $total = navigation.find('li').length;
+          var $current = index+1;
+          
+          var wizard = navigation.closest('#wizard');
+          
+          // If it's the last tab then hide the last button and show the finish instead
+          if($current >= $total) {
+              $(wizard).find('.btn-next').hide();
+              $(wizard).find('.btn-finish').show();
+          } else {
+              $(wizard).find('.btn-next').show();
+              $(wizard).find('.btn-finish').hide();
+              $(wizard).enable();
+          }
+      }      
+    });
+    /*
     var $validator = $("#after-signup-form").validate({
       highlight: function (element) {
         $(element).closest('.form-group').addClass('has-error');
@@ -91,4 +131,6 @@
         error.insertAfter(element);
       }
     });
+    */
   });
+

@@ -1,100 +1,69 @@
-searchVisible = 0;
-transparent = true;
-
 $(document).ready(function(){
-    /*  Activate the tooltips      */
-    $('[rel="tooltip"]').tooltip();
-      
-    $('.wizard-card').bootstrapWizard({
-        'tabClass': 'nav nav-pills',
-        'nextSelector': '.btn-next',
-        'previousSelector': '.btn-previous',
+  /*  Activate the tooltips      */
+  $('[rel="tooltip"]').tooltip();
+    
+  $('#wizard').bootstrapWizard({
+      'tabClass': 'nav nav-pills',
+      'nextSelector': '.btn-next',
+      'previousSelector': '.btn-previous',
+       
+       onInit : function(tab, navigation, index){
+          
+         //check number of tabs and fill the entire row
+         var $total = navigation.find('li').length;
+         $width = 100/$total;
          
-         onInit : function(tab, navigation, index){
-            
-           //check number of tabs and fill the entire row
-           var $total = navigation.find('li').length;
-           $width = 100/$total;
-           
-           $display_width = $(document).width();
-           
-           if($display_width < 600 && $total > 3){
-               $width = 50;
-           }
-           
-           navigation.find('li').css('width',$width + '%');
-           
-        },
-        onNext: function(tab, navigation, index){
-            if(index == 1){
-                return validateFirstStep();
-            } else if(index == 2){
-                return validateSecondStep();
-            } else if(index == 3){
-                return validateThirdStep();
-            } //etc. 
-              
-        },
-        onTabClick : function(tab, navigation, index){
-            // Disable the posibility to click on tabs
-            return false;
-        }, 
-        onTabShow: function(tab, navigation, index) {
-            var $total = navigation.find('li').length;
-            var $current = index+1;
-            
-            var wizard = navigation.closest('.wizard-card');
-            
-            // If it's the last tab then hide the last button and show the finish instead
-            if($current >= $total) {
-                $(wizard).find('.btn-next').hide();
-                $(wizard).find('.btn-finish').show();
-            } else {
-                $(wizard).find('.btn-next').show();
-                $(wizard).find('.btn-finish').hide();
-            }
+         $display_width = $(document).width();
+         
+         if($display_width < 600 && $total > 3){
+           $width = 50;
+         }
+         
+         navigation.find('li').css('width',$width + '%');
+      },
+      onNext: function(tab, navigation, index){
+        if(index == 1){
+            return validateFirstStep();
+        } else if(index == 2){
+            return validateSecondStep();
+        } else if(index == 3){
+          return validateThirdStep();
         }
-    });
-
-    // Prepare the preview for profile picture
-    $("#wizard-picture").change(function(){
-        readURL(this);
-    });
-    
-    $('[data-toggle="wizard-radio"]').click(function(){
-        wizard = $(this).closest('.wizard-card');
-        wizard.find('[data-toggle="wizard-radio"]').removeClass('active');
-        $(this).addClass('active');
-        $(wizard).find('[type="radio"]').removeAttr('checked');
-        $(this).find('[type="radio"]').attr('checked','true');
-    });
-    
-    $('[data-toggle="wizard-checkbox"]').click(function(){
-        if( $(this).hasClass('active')){
-            $(this).removeClass('active');
-            $(this).find('[type="checkbox"]').removeAttr('checked');
-        } else {
-            $(this).addClass('active');
-            $(this).find('[type="checkbox"]').attr('checked','true');
-        }
-    });
-    
-    $height = $(document).height();
-    $('.set-full-height').css('height',$height);
-    
-    
+      },
+      onTabClick : function(tab, navigation, index){
+        // Disable the posibility to click on tabs
+        return false;
+      }, 
+      onTabShow: function(tab, navigation, index) {
+          var $total = navigation.find('li').length;
+          var $current = index+1;
+          
+          var wizard = navigation.closest('#wizard');
+          
+          // If it's the last tab then hide the last button and show the finish instead
+          if($current >= $total) {
+              $(wizard).find('.btn-next').hide();
+              $(wizard).find('.btn-finish').show();
+          } else {
+              $(wizard).find('.btn-next').show();
+              $(wizard).find('.btn-finish').hide();
+              $(wizard).enable();
+          }
+      }
+  });
+  
+  $height = $(document).height();
+  $('.set-full-height').css('height',$height);
 });
 
 function validateFirstStep(){
     
-    $(".wizard-card form").validate({
-		rules: {
-			firstname: "required",
-			lastname: "required",
-			email: {
-				required: true,
-				email: true
-			}
+  $("#wizard form").validate({
+    /*
+	rules: {
+		"agent_password": "required",
+		"agent_password_confirmation": "required",
+    "agent_name": "required"
 			
 /*  other possible input validations
 			,username: {
@@ -117,12 +86,13 @@ function validateFirstStep(){
 			},
 			agree: "required"
 */			
-
+/*
 		},
 		messages: {
-			firstname: "Please enter your First Name",
-			lastname: "Please enter your Last Name",
-			email: "Please enter a valid email address",
+      "agent_password": "Please enter your password",
+      "agent_password_confirmation": "Please confirm your password",
+      "agent_name": "Please enter your name"
+      
 
 /*   other posible validation messages
 			username: {
@@ -143,12 +113,15 @@ function validateFirstStep(){
 			topic: "Please select at least 2 topics"
 */
 				
-		}
+		//}
 	}); 
 	
-	if(!$(".wizard-card form").valid()){
+	if(!$("#wizard form").valid()){
+    console.log("INVALID");
     	//form is invalid
-    	return false;
+    	//return false;
+	} else {
+    $('#wizard').bootstrapWizard('enable', 1);
 	}
 	
 	return true;
@@ -157,7 +130,7 @@ function validateFirstStep(){
 function validateSecondStep(){
    
     //code here for second step
-    $(".wizard-card form").validate({
+    $("#wizard form").validate({
 		rules: {
 			
 		},
@@ -166,7 +139,7 @@ function validateSecondStep(){
 		}
 	}); 
 	
-	if(!$(".wizard-card form").valid()){
+	if(!$("#wizard form").valid()){
     	console.log('invalid');
     	return false;
 	}
