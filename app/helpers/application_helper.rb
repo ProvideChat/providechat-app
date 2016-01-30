@@ -7,12 +7,14 @@ module ApplicationHelper
     action.include?(params[:action])
   end
 
-  def flash_class(level)
-    case level
-    when 'notice' then "info"
-    when 'success' then "success"
-    when 'error' then "danger"
-    when 'alert' then "warning"
-    end
+  BOOTSTRAP_FLASH_MSG = {
+    success: 'success',
+    error: 'danger',
+    alert: 'warning',
+    notice: 'info'
+  }
+
+  def flash_class(flash_type)
+    BOOTSTRAP_FLASH_MSG.fetch(flash_type.to_sym, '')
   end
 end
