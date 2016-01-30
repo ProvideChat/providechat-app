@@ -66,15 +66,6 @@ class AgentsController < ApplicationController
     @departments = Department.where(organization_id: current_agent.organization_id)
   end
 
-  def process_department_ids(department_ids)
-    if department_ids.include?(",")
-      department_array = department_ids.split(",")
-      department_array.delete_if{|department| department.include?(" ") }
-    else
-      ["#{department_ids}"]
-    end
-  end
-
   def agent_params
 
     params[:agent][:website_ids].delete("") if params[:agent][:website_ids]
@@ -90,9 +81,6 @@ class AgentsController < ApplicationController
         params[:agent][:department_ids].delete(department_id.to_s) unless agent_website_ids.include?(department.website_id.to_s) 
       end
     end
-    
-    #params[:agent][:department_ids] = process_department_ids(params[:agent][:department_ids]) if params[:agent][:department_ids]
-    #logger.info "Department IDs (after): #{params[:agent][:department_ids]}";
 
     params.require(:agent).permit(:name, :display_name, :email, :title,
                                   :password, :password_confirmation,

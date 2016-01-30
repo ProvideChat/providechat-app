@@ -107,63 +107,32 @@
     });
     
     $("#department-select").select2({
-        placeholder: "Departments",
-        multiple: true,
-        ajax: {
-          url: "/departments/",
-          dataType: 'json',
-          delay: 250,
-          data: function (params) {
-            var websites = [];
-            $('#websites-select :selected').each(function(i, selected){
-              websites[i] = $(selected).val();
-            });
-            return {
-              websites: websites
-            };
-          },
-          processResults: function (data, params) {
-            return {
-              results: $.map(data, function (item) {
-                return {
-                  id: item.id,
-                  text: item.website + ": " + item.name
-                }
-              })
-            };
-          }
+      placeholder: "Departments",
+      multiple: true,
+      ajax: {
+        url: "/departments/",
+        dataType: 'json',
+        delay: 250,
+        data: function (params) {
+          var websites = [];
+          $('#websites-select :selected').each(function(i, selected){
+            websites[i] = $(selected).val();
+          });
+          return {
+            websites: websites
+          };
         },
-        //dataAdapter: CustomData
-        /*
-        initSelection: function(element, callback) {
-          var result = [];
-          var ids = element.val().substring(1, element.val().length-1).replace(/\s+/g, '');
-          //console.log(element.val());
-          //console.log(ids.split(","));
-          var f = function(id) {
-            return $.ajax("/departments/" + id, {
-              dataType: 'json',
-              success: function(data) {
-                if (data.length > 0) {
-                  $.each(data, function(index, item) {
-                    result.push({id: item.id, text: item.website + ": " + item.name});
-                  });
-                } else {
-                  result.push(data.department);
-                }
+        processResults: function (data, params) {
+          return {
+            results: $.map(data, function (item) {
+              return {
+                id: item.id,
+                text: item.website + ": " + item.name
               }
             })
           };
-          var def = [];
-          $(ids.split(",")).each(function() {
-            def.push(f(this))
-          });
-          $.when.apply($, def).done(function() {
-            console.log(result);
-            callback(result);
-          });
         }
-        */
+      }
     });
 
     $('.name-field').qtip(
