@@ -3,7 +3,7 @@
 .after-signup
   .wizard-container
     #wizard.card.wizard-card.ct-wizard-blue
-      = form_for(@agent, :url => after_signup_path, :html => {:id => "after-signup-form"}) do |f|
+      = form_for(@agent, url: after_signup_path, html: {id: "after-signup-form"}) do |f|
         / You can switch "ct-wizard-azzure"  with one of the next bright colors: "ct-wizard-blue", "ct-wizard-green", "ct-wizard-orange", "ct-wizard-red"
         .wizard-header
           %h3
@@ -11,17 +11,17 @@
             %br/
             %small This information will finalize your account setup
         %ul.nav.nav-pills
-          %li.active{:style => "width: 25%;"}
-            %a{"aria-expanded" => "true", "data-toggle" => "tab", :href => "#agent"} Your Account
-          %li{:style => "width: 25%;"}
-            %a{"data-toggle" => "tab", :href => "#website"} Website
-          %li{:style => "width: 25%;"}
-            %a{"data-toggle" => "tab", :href => "#install-code"} Install Code
+          %li.active{style: "width: 25%;"}
+            %a{aria_expanded: "true", data_toggle: "tab", href: "#agent"} Account
+          %li{style:  "width: 25%;"}
+            %a{data_toggle: "tab", href: "#website"} Website
+          %li{style: "width: 25%;"}
+            %a{data_toggle: "tab", href: "#install-code"} Widget
         .tab-content
 
           #agent.tab-pane.active
 
-            = render "layouts/error_messages", :f => @agent
+            = render "layouts/error_messages", f: @agent
 
             .row
               .col-sm-12
@@ -38,8 +38,8 @@
 
               .col-sm-5.col-sm-offset-1
                 .form-group
-                  %label Your Full Name
-                  = f.text_field :name, class: "form-control", placeholder: "Your full name", required: true
+                  %label Your Name
+                  = f.text_field :name, class: "form-control", placeholder: "Your name", required: true
               .col-sm-5
                 .form-group
 
@@ -49,7 +49,9 @@
               .col-sm-8.col-sm-offset-2
                 .form-group
                   %label Web Address (URL)
-                  = f.text_field :website_url, :class => "form-control url-field", required: true, value: @website.url
+                  .input-group
+                    %span.input-group-addon https://
+                    = f.text_field :website_url, :class => "form-control url-field", required: true, value: @website.url
           #install-code.tab-pane
             %h4.info-text Install the Provide Chat Widget
             .row
@@ -66,10 +68,10 @@
 
         .wizard-footer
           .pull-right
-            %input.btn.btn-next.btn-fill.btn-success.btn-wd.btn-sm{:name => "next", :type => "button", :value => "Next"}/
+            %input.btn.btn-next.btn-fill.btn-success.btn-wd.btn-sm{name: "next", type: "button", value: "Next"}
             = f.submit "finish", class: "btn btn-finish btn-fill btn-success btn-wd btn-sm", name: "finish", style: "display: none;", value: "Finish"
           .pull-left
-            %input.btn.btn-previous.btn-fill.btn-default.btn-wd.btn-sm.disabled{:name => "previous", :type => "button", :value => "Previous"}/
+            %input.btn.btn-previous.btn-fill.btn-default.btn-wd.btn-sm.disabled{name: "previous", type: "button", value: "Previous"}
           .clearfix
 
 :javascript
@@ -78,13 +80,13 @@
 
     var $validator = $("#after-signup-form").validate({
       highlight: function (element) {
-        $(element).addClass('has-error');
+        $(element).closest('.form-group').addClass('has-error');
       },
       unhighlight: function (element) {
-        $(element).addClass('has-success');
+        $(element).closest('.form-group').addClass('has-success');
       },
-      errorElement: 'span',
-      errorClass: 'error-block',
+      errorElement: 'label',
+      errorClass: 'control-label',
       errorPlacement: function (error, element) {
         error.insertAfter(element);
       }
