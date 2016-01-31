@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151229001311) do
+ActiveRecord::Schema.define(version: 20160131222137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -203,6 +203,19 @@ ActiveRecord::Schema.define(version: 20151229001311) do
     t.datetime "updated_at",      null: false
   end
 
+  create_table "organization_ftp_servers", force: :cascade do |t|
+    t.integer  "organization_id"
+    t.string   "host_address"
+    t.string   "username"
+    t.string   "password"
+    t.string   "directory"
+    t.integer  "status"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "organization_ftp_servers", ["organization_id"], name: "index_organization_ftp_servers_on_organization_id", using: :btree
+
   create_table "organizations", force: :cascade do |t|
     t.integer  "account_type",           default: 0,  null: false
     t.integer  "payment_system",         default: 0
@@ -217,6 +230,7 @@ ActiveRecord::Schema.define(version: 20151229001311) do
     t.string   "stripe_customer_id"
     t.datetime "expiration_date"
     t.datetime "date_reminded"
+    t.integer  "setup_step",             default: 0
   end
 
   create_table "prechat_forms", force: :cascade do |t|
@@ -388,5 +402,6 @@ ActiveRecord::Schema.define(version: 20151229001311) do
 
   add_foreign_key "invoice_payments", "organizations"
   add_foreign_key "invoice_payments", "subscriptions"
+  add_foreign_key "organization_ftp_servers", "organizations"
   add_foreign_key "subscriptions", "organizations"
 end
