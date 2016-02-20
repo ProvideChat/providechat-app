@@ -15,10 +15,10 @@ Gem::Specification.new do |s|
   s.files = ["COPYING.txt", "History.txt"]
   s.homepage = "https://github.com/threedaymonk/htmlentities"
   s.licenses = ["MIT"]
-  s.rubygems_version = "2.4.5.1"
+  s.rubygems_version = "2.5.1"
   s.summary = "Encode/decode HTML entities"
 
-  s.installed_by_version = "2.4.5.1" if s.respond_to? :installed_by_version
+  s.installed_by_version = "2.5.1" if s.respond_to? :installed_by_version
 
   if s.respond_to? :specification_version then
     s.specification_version = 4

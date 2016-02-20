@@ -16,10 +16,10 @@ Gem::Specification.new do |s|
   s.files = ["ext/fast_stack/extconf.rb"]
   s.homepage = "https://github.com/SamSaffron/fast_stack"
   s.licenses = ["MIT"]
-  s.rubygems_version = "2.4.5.1"
+  s.rubygems_version = "2.5.1"
   s.summary = "Fast method for collecting stack traces in Ruby 2.1"
 
-  s.installed_by_version = "2.4.5.1" if s.respond_to? :installed_by_version
+  s.installed_by_version = "2.5.1" if s.respond_to? :installed_by_version
 
   if s.respond_to? :specification_version then
     s.specification_version = 4

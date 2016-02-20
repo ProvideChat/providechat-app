@@ -16,8 +16,8 @@ Gem::Specification.new do |s|
   s.homepage = "http://fastercsv.rubyforge.org"
   s.rdoc_options = ["--title", "FasterCSV Documentation", "--main", "README"]
   s.rubyforge_project = "fastercsv"
-  s.rubygems_version = "2.2.2"
+  s.rubygems_version = "2.5.1"
   s.summary = "FasterCSV is CSV, but faster, smaller, and cleaner."
 
-  s.installed_by_version = "2.2.2" if s.respond_to? :installed_by_version
+  s.installed_by_version = "2.5.1" if s.respond_to? :installed_by_version
 end

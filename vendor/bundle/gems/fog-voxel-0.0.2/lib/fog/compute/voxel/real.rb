@@ -1,6 +1,0 @@
-require 'fog/compute/voxel/real/devices_list'
-require 'fog/compute/voxel/real/devices_power'
-require 'fog/compute/voxel/real/images_list'
-require 'fog/compute/voxel/real/voxcloud_create'
-require 'fog/compute/voxel/real/voxcloud_delete'
-require 'fog/compute/voxel/real/voxcloud_status'

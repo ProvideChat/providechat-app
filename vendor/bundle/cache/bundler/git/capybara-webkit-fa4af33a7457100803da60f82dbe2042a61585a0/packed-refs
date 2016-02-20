@@ -2,10 +2,11 @@
 ccd4277605d5cc5eb3555af66135c9d13ea68518 refs/heads/1.5.x
 c9cf3cfcc2e50f11c1e60e18028412c2c8ba0786 refs/heads/benchmarks
 8e02b68b312e9314ca47ccda5efd84e88e4d583f refs/heads/coc
+d6c72bcd33fb9be77940eebe3b5149cb1fba13a1 refs/heads/jf-missing-ajax-status-on-empty-failed-requests
 6b6a2e10d34ce96223dd87ed65221017798e474e refs/heads/jf-patch-body-test
 a2952d5124776edc5d07198ca2ac79975cff2da3 refs/heads/jf-remove-deprecated-behavior
 798268f0db384e72a044118ada57566310db79da refs/heads/jf-support-fewer-capybara-versions
-e9bd20a184d7e3c3b1aeebdceeaa66b2905afca2 refs/heads/master
+5f08c1e92577d12a2771488c28c351c2300a60c8 refs/heads/master
 fc201479bcaafbeb9e7bebe72864e07e17c9e487 refs/heads/no-server
 226f34566a76e63f1e443e7535fb493d803a9b33 refs/heads/pause_and_show
 6e5d7939877041cd54b28def70322fd9c8e62899 refs/heads/remove-auto-screenshot
@@ -103,3 +104,5 @@ fa7bf996e8ca4b5b6d6b5de68cb18230acf2b4cf refs/tags/v1.5.1
 ^6c375e5dbfe82305468828a759aac5251315a040
 b5b0a8193072a12166646f68df28276bb076d32c refs/tags/v1.7.1
 ^e9bd20a184d7e3c3b1aeebdceeaa66b2905afca2
+601fbc818d231e5ee7a9891d6c47f5c054815ad1 refs/tags/v1.8.0
+^5f08c1e92577d12a2771488c28c351c2300a60c8

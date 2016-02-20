@@ -16,10 +16,10 @@ Gem::Specification.new do |s|
   s.homepage = "http://slim-lang.com/"
   s.licenses = ["MIT"]
   s.required_ruby_version = Gem::Requirement.new(">= 1.9.2")
-  s.rubygems_version = "2.4.5.1"
+  s.rubygems_version = "2.5.1"
   s.summary = "Slim is a template language."
 
-  s.installed_by_version = "2.4.5.1" if s.respond_to? :installed_by_version
+  s.installed_by_version = "2.5.1" if s.respond_to? :installed_by_version
 
   if s.respond_to? :specification_version then
     s.specification_version = 4

@@ -14,8 +14,8 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = ["LICENSE", "README.md", "TODO"]
   s.files = ["LICENSE", "README.md", "TODO"]
   s.homepage = "https://github.com/mbj/inflecto"
-  s.rubygems_version = "2.4.2"
+  s.rubygems_version = "2.5.1"
   s.summary = "Inflector for strings"
 
-  s.installed_by_version = "2.4.2" if s.respond_to? :installed_by_version
+  s.installed_by_version = "2.5.1" if s.respond_to? :installed_by_version
 end

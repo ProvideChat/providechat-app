@@ -13,10 +13,10 @@ Gem::Specification.new do |s|
   s.email = ["marcelo@mhfs.com.br"]
   s.homepage = "https://github.com/mhfs/devise-async/"
   s.licenses = ["MIT"]
-  s.rubygems_version = "2.4.5.1"
+  s.rubygems_version = "2.5.1"
   s.summary = "Devise Async provides an easy way to configure Devise to send its emails asynchronously using your preferred queuing backend. It supports Backburner, Resque, Sidekiq, Delayed::Job, QueueClassic, Que, Sucker Punch and Torquebox."
 
-  s.installed_by_version = "2.4.5.1" if s.respond_to? :installed_by_version
+  s.installed_by_version = "2.5.1" if s.respond_to? :installed_by_version
 
   if s.respond_to? :specification_version then
     s.specification_version = 4

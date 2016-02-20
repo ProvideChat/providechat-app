@@ -13,10 +13,10 @@ Gem::Specification.new do |s|
   s.email = "feedjira@gmail.com"
   s.homepage = "http://feedjira.com"
   s.licenses = ["MIT"]
-  s.rubygems_version = "2.4.5.1"
+  s.rubygems_version = "2.5.1"
   s.summary = "A feed fetching and parsing library"
 
-  s.installed_by_version = "2.4.5.1" if s.respond_to? :installed_by_version
+  s.installed_by_version = "2.5.1" if s.respond_to? :installed_by_version
 
   if s.respond_to? :specification_version then
     s.specification_version = 4
