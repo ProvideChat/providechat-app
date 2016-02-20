@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
   end
 
   def verify_completed_setup
-    if agent_signed_in? && current_agent.completed_setup == false
+    if agent_signed_in? && current_agent.organization.completed_setup == false
       redirect_to edit_after_signup_path(current_agent) unless controller_name == 'after_signup'
     end
   end
