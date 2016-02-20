@@ -21,7 +21,6 @@
  *= require styles
  *= require monitor
  *= require widget
- *= require gsdk-base
  *= require select2
  *= require_self
  */

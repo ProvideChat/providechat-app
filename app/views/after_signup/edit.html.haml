@@ -3,7 +3,7 @@
 .after-signup
   .wizard-container
     #wizard.card.wizard-card.ct-wizard-blue
-      = form_for(@agent, url: after_signup_path, html: {id: "after-signup-form"}) do |f|
+      = form_for(@agent, url: after_signup_path, html: {id: "after-signup-form", class: "form-horizontal"}) do |f|
         / You can switch "ct-wizard-azzure"  with one of the next bright colors: "ct-wizard-blue", "ct-wizard-green", "ct-wizard-orange", "ct-wizard-red"
         .wizard-header
           .img-header{style: "padding: 20px;"}
@@ -14,16 +14,17 @@
             %br
             %small This information will finalize your account setup
         %ul.nav.nav-pills
-          %li.active{style: "width: 33%;"}
-            %a{aria_expanded: "true", data_toggle: "tab", href: "#agent"} Account
-          %li{style:  "width: 33%;"}
-            %a{data_toggle: "tab", href: "#website"} Website
-          %li{style: "width: 34%;"}
-            %a{data_toggle: "tab", href: "#install-code"} Widget
+          %li{style: "width: 33%;", class: ("active" if @setup_step == 1)}
+            %a{aria_expanded: "true", data_toggle: "tab", href: "#agent"} Step 1: Account
+          %li{style:  "width: 33%;", class: ("active" if @setup_step == 2)}
+            %a{data_toggle: "tab", href: "#website"} Step 2: Website
+          %li{style: "width: 34%;", class: ("active" if @setup_step == 3)}
+            %a{data_toggle: "tab", href: "#install-code"} Step 3: Widget
         .tab-content
+          = f.hidden_field :setup_step, value: @setup_step
 
           - if @setup_step == 1
-            #agent.tab-pane.active
+            #agent.tab-pane{class: ("active" if @setup_step == 1)}
 
               = render "layouts/error_messages", f: @agent
 
@@ -36,16 +37,16 @@
 
                   %h4.info-text Let's start with your account details
                 - if @agent.has_no_password?
-                  .col-sm-5.col-sm-offset-1
+                  .col-sm-4.col-sm-offset-1
                     .form-group
                       %label Enter Your password
                       = f.password_field :password, class: "form-control", placeholder: "Your password"
-                  .col-sm-5
+                  .col-sm-4.col-sm-offset-1
                     .form-group
                       %label Confirm Your password
                       = f.password_field :password_confirmation, class: "form-control", placeholder: "Confirm password"
 
-                .col-sm-5.col-sm-offset-1
+                .col-sm-4.col-sm-offset-1
                   .form-group
                     %label Your Name
                     = f.text_field :name, class: "form-control", placeholder: "Your name"
@@ -53,22 +54,23 @@
                   .form-group
 
           - if @setup_step == 2
-            #website.tab-pane.active
+            #website.tab-pane{class: ("active" if @setup_step == 2)}
               %h4.info-text What website will you be installing Provide Chat on?
               .row
                 .col-sm-8.col-sm-offset-2
-                  .form-group.form-group-lg
+                  .form-group
                     %label Web Address (URL)
                     .input-group
                       %span.input-group-addon https://
-                      = f.text_field :website_url, :class => "form-control url-field input-lg", value: @website.url
+                      = f.text_field :website_url, :class => "form-control", value: (@website.url unless @website.nil?)
 
           - if @setup_step == 3
-            #install-code.tab-pane
+            #install-code.tab-pane{class: ("active" if @setup_step == 3)}
               %h4.info-text Install the Provide Chat Widget
               .row
                 .col-sm-10.col-sm-offset-1
-                  To install the Provide Chat Widget, paste this code (unaltered, in it’s entirety) on every page of your website just before the closing &lt;/body&gt; tag.
+                  .alert.alert-info
+                    To install the Provide Chat Widget, paste this code (unaltered, in it’s entirety) on every page of your website just before the closing &lt;/body&gt; tag.
 
               .code-container
                 .row
@@ -86,7 +88,7 @@
                 = f.submit "Finish", class: "btn btn-finish btn-fill btn-success btn-wd btn-sm", name: "finish", value: "Finish"
             - if @setup_step >= 2
               .pull-left
-                %input.btn.btn-previous.btn-fill.btn-default.btn-wd.btn-sm{name: "previous", type: "button", value: "Previous"}
+                = f.button "Previous", name: "previous_step", class: "btn btn-previous btn-fill btn-default btn-wd btn-sm", value: (@setup_step -1)
             .clearfix
 
 :javascript
