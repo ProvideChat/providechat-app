@@ -7,10 +7,8 @@ class RegistrationsController < Devise::RegistrationsController
     respond_with self.resource
     #resource.skip_confirmation_notification!
   end
-  
-  def create
-    
 
+  def create
     super
 
     if resource.errors.empty?
@@ -20,9 +18,9 @@ class RegistrationsController < Devise::RegistrationsController
       resource.access_level = 'superadmin'
       resource.organization_id = organization.id
       resource.skip_registation_validations = true
-      resource.remember_me = true      
+      resource.remember_me = true
       if resource.save! #(validate: false)
-        AgentMailer.welcome(resource.id).deliver_later
+        #AgentMailer.welcome(resource.id).deliver_later
         sign_in(resource, :bypass => true)
       end
     end
