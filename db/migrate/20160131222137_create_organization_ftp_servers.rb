@@ -6,6 +6,7 @@ class CreateOrganizationFtpServers < ActiveRecord::Migration
       t.string :username
       t.string :password
       t.string :directory
+      t.text :comments
       t.integer :status
 
       t.timestamps null: false

@@ -209,6 +209,7 @@ ActiveRecord::Schema.define(version: 20160131222137) do
     t.string   "username"
     t.string   "password"
     t.string   "directory"
+    t.text     "comments"
     t.integer  "status"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
