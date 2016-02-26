@@ -18,16 +18,17 @@
           .code-container
             .row
               .col-md-12
-                .pull-right
-                  %a{href: "#", id: "select-code"}> (select all)
-
                 %textarea#widget-code.codetext= render partial: "home/widget_include_code", locals: { organization_id: current_agent.organization_id }
 
+                .pull-right
+                  %a.btn.btn-default.btn-sm#copy-code{data: {clipboard_action: "copy", clipboard_target: "#widget-code"}}
+                    Copy to clipboard
+                    %i.fa.fa-files-o
             %hr
             .row
               .col-md-12
                 %a{href: "#", id: "email-code", "data-target": ".send-code-modal", "data-toggle": "modal"}
-                  Or you can send these instructions to your webmaster
+                  Send these instructions to your webmaster
                 .alert.alert-success#success_msg{style: "display: none;"} Email sent successfully
         - else
           .alert.alert-warning.no-margin.fade.in
@@ -35,45 +36,9 @@
             %br
             You have not yet added any websites, please #{link_to "add a website", new_website_path}.
 
-.modal.fade.send-code-modal{"aria-labelledby" => "mySmallModalLabel", :role => "dialog", :tabindex => "-1"}
-  .modal-dialog.modal-sm
-    .modal-content
-      .modal-header
-        %button{type: "button", class: "close", "data-dismiss": "modal", "aria-label": "close"}
-          %span{"aria-hidden": "true"} &times;
-        %h4 Email Widget Code
-      = form_tag(send_code_path, method: 'post', class: 'form-horizontal', remote: true, id: 'send-code-form') do
-        .modal-body
-          .alert.alert-danger#error_msg{style: "display: none;"} Error in sending email, please ensure email address is valid
-          .alert.alert-success#sending_msg{style: "display: none;"} Sending...
-          .form-group
-            %label.col-sm-4 Webmaster's Email
-            .col-sm-8
-              = text_field_tag 'webmaster_email', '', class: "form-control"
-        .modal-footer
-          .col-sm-offset-4.col-sm-8
-            = submit_tag "Send Widget Code", class: "btn btn-default"
+= render partial: "shared/send_email_to_webmaster"
 
 :javascript
   $(document).ready(function () {
-    $('#select-code').click(function() {
-      $('#widget-code').select();
-    });
-
-    $('#send-code-form').on('ajax:success', function(e, data, status, xhr) {
-      $('.send-code-modal').modal('hide');
-      $('#send-code-form').find('form input[type="text"]').val('');
-      $('#send-code-form input[type="submit"]').prop('disabled', false);
-      $('#error_msg').hide();
-      $('#sending_msg').hide();
-      $('#success_msg').fadeIn().delay(3000).fadeOut();
-    }).on('ajax:error', function(e, xhr, status, error) {
-      $('#sending_msg').hide();
-      $('#error_msg').fadeIn().delay(3000).fadeOut();
-      $('#send-code-form input[type="submit"]').prop('disabled', false);
-    }).on('ajax:send', function(xhr) {
-      $('#error_msg').hide();
-      $('#sending_msg').fadeIn();
-      $('#send-code-form input[type="submit"]').prop('disabled', true);
-    });
+    var clipboard = new Clipboard('#copy-code');
   });

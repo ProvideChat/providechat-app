@@ -18,45 +18,30 @@ class AfterSignupController < ApplicationController
     @agent = current_agent
     @organization = Organization.find(@agent.organization_id)
 
-    if @organization.completed_setup
-      redirect_to dashboard_path, notice: 'Your account has been successfully set up.'
-    end
-        
     case params[:agent][:setup_step].to_i
     when 1
       if process_step_one(@agent, params)
         @organization.setup_step = 2
-        @organization.save
       end
     when 2
       if process_step_two(@agent, params)
         @organization.setup_step = 3
-        @organization.save
       end
     when 3
-      if process_step_three(@agent, params)
+      if params[:finish] && process_step_three(@agent, params)
         @organization.completed_setup = true
-        @organization.save
-        #sign_in(@agent, :bypass => true)
       end
     end
 
-    #if @agent.update_attributes(agent_params) && @website.save
-    #  @agent.display_name = @agent.name
-    #  @agent.completed_setup = true
-    #  @agent.skip_confirmation!
-    #  @agent.websites << @website
-    #  if @agent.save
-    #    sign_in(@agent, :bypass => true)
-    #    redirect_to dashboard_path, notice: 'Your account has been successfully set up.'
-    #  else
-    #    render action: 'edit'
-    #  end
-    #else
-    #  render action: 'edit'
-    #end
-    params.key?(:previous_step) ? @setup_step = params[:previous_step].to_i : @setup_step = @organization.setup_step
-    render action: 'edit'
+    @organization.save
+
+    if @organization.completed_setup
+      redirect_to dashboard_path, notice: 'Your account has been successfully set up.'
+    else
+      params.key?(:previous_step) ? @setup_step = params[:previous_step].to_i : @setup_step = @organization.setup_step
+      @website = Website.find_or_initialize_by(organization_id: @organization.id)
+      render action: 'edit'
+    end
   end
 
   private
@@ -89,7 +74,7 @@ class AfterSignupController < ApplicationController
   end
 
   def process_step_two(agent, params)
-    website = Website.find_or_create_by(organization_id: agent.organization_id)
+    website = Website.find_or_initialize_by(organization_id: agent.organization_id)
     if params[:agent] && params[:agent][:website_url]
       website.url = params[:agent][:website_url]
       website.name = params[:agent][:website_url]
@@ -102,6 +87,16 @@ class AfterSignupController < ApplicationController
   end
 
   def process_step_three(agent, params)
+    if params[:agree_to_terms]
+      organization_ftp_server = OrganizationFtpServer.find_or_initialize_by(organization_id: agent.organization_id)
+      organization_ftp_server.host_address = params[:host_address]
+      organization_ftp_server.username = params[:username]
+      organization_ftp_server.password = params[:password]
+      organization_ftp_server.directory = params[:directory]
+      organization_ftp_server.comments = params[:comments]
+      organization_ftp_server.status = 'waiting_setup'
+      organization_ftp_server.save
+    end
     agent.completed_setup = true
     agent.save
   end

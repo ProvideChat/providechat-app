@@ -24,10 +24,12 @@
 //= require turbolinks
 //= require qtip2
 //= require qtip2_custom
+//= require clipboard
 //= require nprogress
 //= require nprogress-turbolinks
 //= require bootstrap-touchspin
 //= require sweetalert
 //= require providechat
+//= require center-modals
 //= require subscriptions
 

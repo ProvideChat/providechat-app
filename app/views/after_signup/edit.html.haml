@@ -22,12 +22,10 @@
             %a{data_toggle: "tab", href: "#install-code"} Step 3: Widget
         .tab-content
           = f.hidden_field :setup_step, value: @setup_step
+          = render "layouts/error_messages", f: @agent
 
           - if @setup_step == 1
             #agent.tab-pane{class: ("active" if @setup_step == 1)}
-
-              = render "layouts/error_messages", f: @agent
-
               .row
                 .col-sm-12
                   .alert.alert-info
@@ -40,18 +38,16 @@
                   .col-sm-4.col-sm-offset-1
                     .form-group
                       %label Enter Your password
-                      = f.password_field :password, class: "form-control", placeholder: "Your password"
+                      = f.password_field :password, class: "form-control", placeholder: "Your password", required: true
                   .col-sm-4.col-sm-offset-1
                     .form-group
                       %label Confirm Your password
-                      = f.password_field :password_confirmation, class: "form-control", placeholder: "Confirm password"
+                      = f.password_field :password_confirmation, class: "form-control", placeholder: "Confirm password", required: true
 
                 .col-sm-4.col-sm-offset-1
                   .form-group
                     %label Your Name
-                    = f.text_field :name, class: "form-control", placeholder: "Your name"
-                .col-sm-5
-                  .form-group
+                    = f.text_field :name, class: "form-control", placeholder: "Your name", required: true
 
           - if @setup_step == 2
             #website.tab-pane{class: ("active" if @setup_step == 2)}
@@ -62,24 +58,85 @@
                     %label Web Address (URL)
                     .input-group
                       %span.input-group-addon https://
-                      = f.text_field :website_url, :class => "form-control", value: (@website.url unless @website.nil?)
+                      = f.text_field :website_url, :class => "form-control", value: (@website.url unless @website.nil?), required: true
+              .row
+                .col-sm-8.col-sm-offset-2
+                  %small
+                    %span.label.label-info Multiple Websites?
+                    If you have more than one website that you would like to install Provide Chat on,
+                    don't worry you'll be able to do that later from the Dashboard.
+              .row
+                .col-xs-12
+                  &nbsp;
 
           - if @setup_step == 3
             #install-code.tab-pane{class: ("active" if @setup_step == 3)}
               %h4.info-text Install the Provide Chat Widget
               .row
-                .col-sm-10.col-sm-offset-1
+                .col-sm-12
                   .alert.alert-info
                     To install the Provide Chat Widget, paste this code (unaltered, in it’s entirety) on every page of your website just before the closing &lt;/body&gt; tag.
 
-              .code-container
-                .row
-                  .col-md-12
-                    .pull-right
-                      %a{href: "#", id: "select-code"}> (select all)
+              .row
+                .col-md-12
 
-                    %textarea#widget-code.codetext= render partial: "home/widget_include_code", locals: { organization_id: current_agent.organization_id }
+                  %textarea.widget-code.codetext#widget_code= render partial: "home/widget_include_code", locals: { organization_id: current_agent.organization_id }
+              .row
+                .col-md-6
+                  %a{href: "#", id: "email-code", "data-target": ".send-code-modal", "data-toggle": "modal"}
+                    Send code to webmaster
+                  .alert.alert-success#success_msg{style: "display: none;"} Email sent successfully
+                .col-md-6
+                  .pull-right
+                    %a.btn.btn-default.btn-sm#copy-code{data: {clipboard_action: "copy", clipboard_target: "#widget_code"}}
+                      Copy to clipboard
+                      %i.fa.fa-files-o
 
+              .row
+                .col-md-12
+                  %a.btn.btn-primary.btn-sm{role: "button", data: {toggle: "collapse"}, href:"#ftp_form", aria: {expanded:"false", controls:"ftp_form"}}
+                    Free widget installation?
+                  .collapse#ftp_form
+                    .well
+                      .alert.alert-warning
+                        We offer a free Widget Installation service for any basic HTML websites. We will install your widget
+                        for you on a single page of your website to help you get started. To request this service, please
+                        enter your FTP server credentials below and we will get in touch with you shortly to finalize
+                        the service.
+                      .row
+                        .col-sm-4.col-sm-offset-1
+                          .form-group
+                            %label FTP Host Address
+                            = text_field_tag 'host_address', "", class: "form-control", placeholder: "FTP Host Address"
+                        .col-sm-4.col-sm-offset-1
+                          .form-group
+                            %label FTP Username
+                            = text_field_tag :username, "", class: "form-control", placeholder: "FTP Username"
+                      .row
+                        .col-sm-4.col-sm-offset-1
+                          .form-group
+                            %label FTP Password
+                            = text_field_tag :password, "", class: "form-control", placeholder: "FTP Password"
+                        .col-sm-4.col-sm-offset-1
+                          .form-group
+                            %label Website Directory
+                            = text_field_tag :directory, "", class: "form-control", placeholder: "Website Directory"
+                      .row
+                        .col-sm-10.col-sm-offset-1
+                          .form-group
+                            %label Comments
+                            = text_area_tag :comments, "", class: "form-control"
+
+                      .row
+                        .col-sm-10.col-sm-offset-1
+                          .form-group
+                            %label
+                              = check_box_tag :agree_to_terms
+                              I agree with the 
+                              %a{href: "#", id: "terms-and-conditions", "data-target": ".terms-modal", "data-toggle": "modal"}
+                                Terms and Conditions
+                              of Provide Chat's free install service
+          %hr
           .wizard-footer
             .pull-right
               - if @setup_step <= 2
@@ -88,77 +145,55 @@
                 = f.submit "Finish", class: "btn btn-finish btn-fill btn-success btn-wd btn-sm", name: "finish", value: "Finish"
             - if @setup_step >= 2
               .pull-left
-                = f.button "Previous", name: "previous_step", class: "btn btn-previous btn-fill btn-default btn-wd btn-sm", value: (@setup_step -1)
+                = f.button "Previous", name: "previous_step", class: "btn btn-previous btn-fill btn-default btn-wd btn-sm cancel", value: (@setup_step -1)
             .clearfix
 
-:javascript
+= render partial: "shared/send_email_to_webmaster"
 
+
+.modal.fade.terms-modal{"aria-labelledby" => "Terms of Service", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button{type: "button", class: "close", "data-dismiss": "modal", "aria-label": "close"}
+          %span{"aria-hidden": "true"} &times;
+        %h4 Widget Free Install Terms of Service
+      .modal-body
+        %h4
+          SUPPORT DISCLAIMER
+        %p
+          Support is information or advice provided by Provide Chat Software Inc. through email or telephone. This can also include any software or any data file(s) installed or removed from specified computer servers by interactivetools.com Inc. at the customers request.
+
+        %h4
+          DISCLAIMER OF WARRANTY
+        %p
+          Support whether by email, telephone or through software installation is provided "as is" without warranty of any kind. While we are knowledgeable and skilled professionals, we cannot offer any guarantee as to the consequences of the Support provided. Should the Support cause damage or loss of any kind, Provide Chat Software Inc. shall not be held liable to you or any other person for indirect, special, punitive, incidental, or consequential damages of any character including damages for loss of goodwill, work stoppage, computer failure or malfunction, or any and all commercial damages or losses.
+      .modal-footer
+
+
+
+:javascript
   $(document).ready(function() {
-    /*
-    $('#wizard').bootstrapWizard({
-      'tabClass': 'nav nav-pills',
-      'nextSelector': '.btn-next',
-      'previousSelector': '.btn-previous',
-       
-       onInit : function(tab, navigation, index){
-          
-         //check number of tabs and fill the entire row
-         var $total = navigation.find('li').length;
-         $width = 100/$total;
-         
-         $display_width = $(document).width();
-         
-         if($display_width < 600 && $total > 3){
-           $width = 50;
-         }
-         
-         navigation.find('li').css('width',$width + '%');
-         return true;
-      },
-      onNext: function(tab, navigation, index){
-        return true;
-      },
-      onTabShow: function(tab, navigation, index) {
-          var $total = navigation.find('li').length;
-          var $current = index+1;
-          
-          var wizard = navigation.closest('#wizard');
-          
-          // If it's the last tab then hide the last button and show the finish instead
-          if($current >= $total) {
-              $(wizard).find('.btn-next').hide();
-              $(wizard).find('.btn-finish').show();
-          } else {
-              $(wizard).find('.btn-next').show();
-              $(wizard).find('.btn-finish').hide();
-              $(wizard).enable();
-          }
-      }      
-    });
-    */
+
+    var clipboard = new Clipboard('#copy-code');
+
     $("#after-signup-form").validate({
-    	rules: {
-    		"agent[password]": "required",
-    		"agent[password_confirmation]": "required",
-        "agent[name]": "required"
-      },
-      messages: {
-        "agent[password]": "Please enter your password",
-        "agent[password_confirmation]": "Please confirm your password",
-        "agent[name]": "Please enter your name"
-      },
       highlight: function (element) {
+        $(element).closest('.form-group').removeClass('has-success');
         $(element).closest('.form-group').addClass('has-error');
       },
       unhighlight: function (element) {
+        $(element).closest('.form-group').removeClass('has-error');
         $(element).closest('.form-group').addClass('has-success');
       },
-      errorElement: 'label',
-      errorClass: 'control-label',
+      errorElement: 'span',
+      errorClass: 'help-block',
       errorPlacement: function (error, element) {
-        error.insertAfter(element);
+        if (element.parent('.input-group').length) {
+          error.insertAfter(element.parent());
+        } else {
+          error.insertAfter(element);
+        }
       }
     });
   });
-
-
