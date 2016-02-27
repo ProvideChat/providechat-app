@@ -49,7 +49,7 @@ class Organization < ActiveRecord::Base
     organization.status = 'enabled'
     organization.payment_system = 'stripe'
     organization.trial_days = 14
-    organization.trial_period_end = 15.days.from_now
+    organization.trial_period_end = 14.days.from_now
     organization.completed_setup = false
     organization.setup_step = 1
     organization.save
