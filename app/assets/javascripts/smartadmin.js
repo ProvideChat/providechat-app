@@ -796,28 +796,7 @@ var calc_navbar_height = function() {
 		if ($.fn.slider) {
 			$('.slider').slider();
 		}
-	
-		/*
-		 * SELECT2 PLUGIN
-		 * Usage:
-		 * Dependency: js/plugin/select2/
-		 */
-		if ($.fn.select2) {
-			$('select.select2').each(function() {
-				var $this = $(this),
-					width = $this.attr('data-select-width') || '100%';
-				//, _showSearchInput = $this.attr('data-select-search') === 'true';
-				$this.select2({
-					//showSearchInput : _showSearchInput,
-					allowClear : true,
-					width : width
-				});
-
-				//clear memory reference
-				$this = null;
-			});
-		}
-	
+		
 		/*
 		 * MASKING
 		 * Dependency: js/plugin/masked-input/
@@ -1830,19 +1809,7 @@ var calc_navbar_height = function() {
 						} 
 					}
 
-					
-
 					// end destory all inline charts
-					
-					// destroy form controls: Datepicker, select2, autocomplete, mask, bootstrap slider
-					
-					if ( $.fn.select2 && $("#content select.select2")[0] ) {
-						$("#content select.select2").select2('destroy');
-						
-						if (debugState){
-							root.console.log("✔ Select2 destroyed!");
-						}
-					}
 					
 					if ( $.fn.mask && $('#content [data-mask]')[0] ) {
 						$('#content [data-mask]').unmask();

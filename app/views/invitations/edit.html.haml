@@ -4,7 +4,7 @@
     &nbsp;/&nbsp;
     Invitations for
     = form_tag(invitations_path, method: 'get', class: 'smart-form form-inline', id: 'edit_invitations', style: 'display: inline;') do
-      = select_tag "website_id", options_from_collection_for_select(@websites, "id", "url", @invitation.website_id), :class => "select2", :id => "website_id", :style => "max-width: 300px; margin-top: -5px;"
+      = select_tag "website_id", options_from_collection_for_select(@websites, "id", "url", @invitation.website_id), id: "website_id", class: "form-control select2 input-lg"
 
 = render partial: 'layouts/flash_messages', flash: flash
 
@@ -29,8 +29,18 @@
               = render 'invitation_widget'
 
 :javascript
-  $(function() {
+  function initialize_website_dropdown() {
+    $("#website_id").select2({theme: "bootstrap"});
+    
     $('#website_id').on ('change', function() {
       $('#edit_invitations').submit();
     });
+  }
+  
+  $( document ).ready(function() {
+    initialize_website_dropdown();
+  });
+
+  $(window).bind('page:change', function() {
+    initialize_website_dropdown();
   });

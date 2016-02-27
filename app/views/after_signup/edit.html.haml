@@ -4,7 +4,6 @@
   .wizard-container
     #wizard.card.wizard-card.ct-wizard-blue
       = form_for(@agent, url: after_signup_path, html: {id: "after-signup-form", class: "form-horizontal"}) do |f|
-        / You can switch "ct-wizard-azzure"  with one of the next bright colors: "ct-wizard-blue", "ct-wizard-green", "ct-wizard-orange", "ct-wizard-red"
         .wizard-header
           .img-header{style: "padding: 20px;"}
             =image_tag "logo-lg.png", class: "img-responsive center-block"
@@ -71,7 +70,7 @@
 
           - if @setup_step == 3
             #install-code.tab-pane{class: ("active" if @setup_step == 3)}
-              %h4.info-text Install the Provide Chat Widget
+              %h4.info-text Add this code to your website
               .row
                 .col-sm-12
                   .alert.alert-info

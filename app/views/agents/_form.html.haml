@@ -103,11 +103,13 @@
   function initialize() {
 
     $("#websites-select").select2({
-      placeholder: "Websites"
+      placeholder: "Websites",
+      theme: "bootstrap"
     });
     
     $("#department-select").select2({
       placeholder: "Departments",
+      theme: "bootstrap",
       multiple: true,
       ajax: {
         url: "/departments/",
