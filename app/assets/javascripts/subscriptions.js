@@ -1,7 +1,7 @@
 
 function calculate_total_price() {
   var agent_plan = $('#agent-plan').val();
-  if (agent_plan == "monthly-agent-19") {  
+  if (agent_plan == "monthly-agent-19") {
     $('#total-price').html( "$" + parseInt($('#agent-quantity').val(), 10) * 19 + " / month");
   } else if (agent_plan == "yearly-agent-180") {
     var total_cost = parseInt($('#agent-quantity').val(), 10) * 180;
@@ -20,7 +20,7 @@ function ready_payment() {
 
     return false;
   });
-    
+
   $('.spinner .btn:first-of-type').on('click', function() {
     $('.spinner input').val( parseInt($('.spinner input').val(), 10) + 1);
     calculate_total_price()
@@ -32,7 +32,7 @@ function ready_payment() {
   $('#agent-plan').change(function() {
     calculate_total_price();
   });
-  
+
   calculate_total_price();
 };
 

@@ -1,7 +1,7 @@
 = render 'layouts/page_header', :title => 'Modify your Provide Chat Subscription', :icon => 'fa-credit-card'
 
 .row
-  .col-xs-12
+  .col-xs-12.col-sm-8
 
     #modify-subscription-widget.jarviswidget{:role => "widget"}
       %header{:role => "heading"}
@@ -23,7 +23,7 @@
         %span.jarviswidget-loader
           %i.fa.fa-refresh.fa-spin
       %div{:role => "content"}
-        .widget-body.no-padding            
+        .widget-body.no-padding
           .tab-content.padding-10
             #hr1.tab-pane.fade.active.in
               = render "modify_plan"

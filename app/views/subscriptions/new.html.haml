@@ -25,17 +25,9 @@
 
             .form-group{style: "padding-top: 20px;"}
               %label.col-md-5.control-label= f.label :quantity, "Number of Agents"
-              .col-md-7
-                .form-inline
-                  .input-group.spinner
-                    %input.form-control{type: "text", value: "1", id: "agent-quantity", name: "quantity"}
-                    .input-group-btn-vertical
-                      %button.btn.btn-default{type: "button"}
-                        %i.fa.fa-caret-up
-                      %button.btn.btn-default{type: "button"}
-                        %i.fa.fa-caret-down
-                  &nbsp;
-                  agents
+              .col-md-5
+                .input-group
+                  %input.form-control{type: "text", value: "1", id: "agent-quantity", name: "quantity"}
                 .help-text{style: "font-size: 10px;"}
                   This is the number of agents that you want to purchase.
 
@@ -54,13 +46,13 @@
           .form-group
             %label.col-md-5.control-label{style: "font-size: 140%; font-weight: bold;"} Total Price
             .col-md-7
-              %div{:id => "total-price"} 
+              %div{:id => "total-price"}
 
           %br
           %br
-          
+
           .row
-            .col-xs-12.col-sm-10.col-sm-offset-1
+            .col-xs-12.col-sm-8.col-sm-offset-2
               .panel.panel-default
                 .panel-heading
                   %h3.panel-title
@@ -103,3 +95,9 @@
           .widget-footer
             = f.submit "Start Subscription", :class => "btn btn-success btn-lg"
 
+
+:javascript
+  $("#agent-quantity").TouchSpin({
+    min: 1,
+    postfix: 'agents'
+  });
