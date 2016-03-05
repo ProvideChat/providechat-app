@@ -30,6 +30,6 @@
 //= require bootstrap-touchspin
 //= require sweetalert
 //= require providechat
-//= require center-modals
+
 //= require subscriptions
 

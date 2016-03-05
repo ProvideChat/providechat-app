@@ -70,62 +70,91 @@
 
           - if @setup_step == 3
             #install-code.tab-pane{class: ("active" if @setup_step == 3)}
-              %h4.info-text Add this code to your website
-              .row
-                .col-sm-12
-                  .alert.alert-info
-                    To install the Provide Chat Widget, paste this code (unaltered, in it’s entirety) on every page of your website just before the closing &lt;/body&gt; tag.
+              %h4.info-text
+                To finish this set up you're going to have to add a few lines of JavaScript to your website's source code. How would you like to add this code?
+          
+              #accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
+                .panel.panel-default
+                  #headingOne.panel-heading{:role => "tab"}
+                    %h5.panel-title
+                      %a{"aria-controls" => "collapseOne", "aria-expanded" => "true", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseOne", :role => "button"}
+                        Do it myself? Just copy and paste
+                  #collapseOne.panel-collapse.collapse{"aria-labelledby" => "headingOne", :role => "tabpanel"}
+                    .panel-body
+                      .alert.alert-info
+                        To install the Provide Chat Widget, paste this code (unaltered, in it’s entirety) on every page of your website just before the closing &lt;/body&gt; tag.
+          
+                      %textarea.widget-code.codetext#widget_code= render partial: "home/widget_include_code", locals: { organization_id: current_agent.organization_id }
 
-              .row
-                .col-md-12
+                      .pull-right
+                        %a.btn.btn-default.btn-sm#copy-code{data: {clipboard_action: "copy", clipboard_target: "#widget_code"}}
+                          Copy to clipboard
+                          %i.fa.fa-files-o
 
-                  %textarea.widget-code.codetext#widget_code= render partial: "home/widget_include_code", locals: { organization_id: current_agent.organization_id }
-              .row
-                .col-md-6
-                  %a{href: "#", id: "email-code", "data-target": ".send-code-modal", "data-toggle": "modal"}
-                    Send code to webmaster
-                  .alert.alert-success#success_msg{style: "display: none;"} Email sent successfully
-                .col-md-6
-                  .pull-right
-                    %a.btn.btn-default.btn-sm#copy-code{data: {clipboard_action: "copy", clipboard_target: "#widget_code"}}
-                      Copy to clipboard
-                      %i.fa.fa-files-o
+                .panel.panel-default
+                  #headingTwo.panel-heading{role: "tab"}
+                    %h5.panel-title
+                      %a{"aria-controls" => "collapseTwo", "aria-expanded" => "true", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseTwo", :role => "button"}
+                        Send the code to my webmaster and have them do it for me.
+                  #collapseTwo.panel-collapse.collapse{"aria-labelledby" => "headingTwo", :role => "tabpanel"}
+                    .panel-body
+                      = form_tag(send_code_path, method: 'post', class: 'form-horizontal', remote: true, id: 'send-code-form') do
+                        .modal-body
+                          .alert.alert-danger#error_msg{style: "display: none;"} Error in sending email, please ensure email address is valid
+                          .alert.alert-success#sending_msg{style: "display: none;"} Sending...
+                          .form-group
+                            %label.col-sm-4 Webmaster's Email
+                            .col-sm-8
+                              = text_field_tag 'webmaster_email', '', class: "form-control"
+                        .modal-footer
+                          .col-sm-offset-4.col-sm-8
+                            = submit_tag "Send Widget Code", class: "btn btn-default"
 
-              .row
-                .col-md-12
-                  %a.btn.btn-primary.btn-sm{role: "button", data: {toggle: "collapse"}, href:"#ftp_form", aria: {expanded:"false", controls:"ftp_form"}}
-                    Free widget installation?
-                  .collapse#ftp_form
-                    .well
+                .panel.panel-default
+                  #headingThree.panel-heading{:role => "tab"}
+                    %h5.panel-title
+                      %a{"aria-controls" => "collapseThree", "aria-expanded" => "true", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseThree", :role => "button"}
+                        Send the code to my webmaster and have them do it for me.
+                  #collapseThree.panel-collapse.collapse{"aria-labelledby" => "headingThree", :role => "tabpanel"}
+                    .panel-body
                       .alert.alert-warning
-                        We offer a free Widget Installation service for any basic HTML websites. We will install your widget
-                        for you on a single page of your website to help you get started. To request this service, please
-                        enter your FTP server credentials below and we will get in touch with you shortly to finalize
-                        the service.
+                        We offer a free Widget Installation service for any basic HTML websites. We will 
+                        install your widget for you on a single page of your website to help you get 
+                        started. To request this service, please enter your FTP server credentials 
+                        below and we will get in touch with you shortly to finalize the service.
                       .row
-                        .col-sm-4.col-sm-offset-1
+                        .col-sm-10.col-sm-offset-1
                           .form-group
                             %label FTP Host Address
                             = text_field_tag 'host_address', "", class: "form-control", placeholder: "FTP Host Address"
+                            %p.help-block
+                              .small
+                                %strong What is the FTP Hostname?
+                                This is usually a domain address like ftp.yoursite.com or an IP address such as 123.465.78.90. If you don't know the address your hosting provider will be able give it to you.
+                      .row
                         .col-sm-4.col-sm-offset-1
                           .form-group
                             %label FTP Username
                             = text_field_tag :username, "", class: "form-control", placeholder: "FTP Username"
-                      .row
                         .col-sm-4.col-sm-offset-1
                           .form-group
                             %label FTP Password
-                            = text_field_tag :password, "", class: "form-control", placeholder: "FTP Password"
-                        .col-sm-4.col-sm-offset-1
+                            = password_field_tag :password, "", class: "form-control", placeholder: "FTP Password"
+                      .row
+                        .col-sm-10.col-sm-offset-1
                           .form-group
-                            %label Website Directory
+                            %label Website Subfolder
                             = text_field_tag :directory, "", class: "form-control", placeholder: "Website Directory"
+                            %p.help-block
+                              .small
+                                %strong What is the Website Subfolder?
+                                If you website is not installed in the root of your FTP site, please put the subfolder
+                                where your website is installed so we can find it after we log in.
                       .row
                         .col-sm-10.col-sm-offset-1
                           .form-group
                             %label Comments
                             = text_area_tag :comments, "", class: "form-control"
-
                       .row
                         .col-sm-10.col-sm-offset-1
                           .form-group
@@ -146,9 +175,6 @@
               .pull-left
                 = f.button "Previous", name: "previous_step", class: "btn btn-previous btn-fill btn-default btn-wd btn-sm cancel", value: (@setup_step -1)
             .clearfix
-
-= render partial: "shared/send_email_to_webmaster"
-
 
 .modal.fade.terms-modal{"aria-labelledby" => "Terms of Service", :role => "dialog", :tabindex => "-1"}
   .modal-dialog
@@ -194,5 +220,22 @@
           error.insertAfter(element);
         }
       }
+    });
+    
+    $('#send-code-form').on('ajax:success', function(e, data, status, xhr) {
+      $('.send-code-modal').modal('hide');
+      $('#send-code-form').find('form input[type="text"]').val('');
+      $('#send-code-form input[type="submit"]').prop('disabled', false);
+      $('#error_msg').hide();
+      $('#sending_msg').hide();
+      $('#success_msg').fadeIn().delay(3000).fadeOut();
+    }).on('ajax:error', function(e, xhr, status, error) {
+      $('#sending_msg').hide();
+      $('#error_msg').fadeIn().delay(3000).fadeOut();
+      $('#send-code-form input[type="submit"]').prop('disabled', false);
+    }).on('ajax:send', function(xhr) {
+      $('#error_msg').hide();
+      $('#sending_msg').fadeIn();
+      $('#send-code-form input[type="submit"]').prop('disabled', true);
     });
   });
