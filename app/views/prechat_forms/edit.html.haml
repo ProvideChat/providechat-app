@@ -1,10 +1,14 @@
 .col-md-12
-  %h1.page-title.txt-color-blueDark
+  %h1.page-title.txt-color-blueDark{style: "float: left;"}
     Chat Widget
     &nbsp;/&nbsp;
     Pre-chat Survey for
-    = form_tag(prechat_forms_path, method: 'get', class: 'smart-form form-inline', id: 'edit_prechat_form', style: 'display: inline;') do
-      = select_tag "website_id", options_from_collection_for_select(@websites, "id", "url", @prechat_form.website_id), id: "website_id", class: "form-control select2 input-lg"
+  = form_tag(prechat_forms_path, method: 'get', class: 'form-inline', 
+      id: 'edit_prechat_form', style: 'display: inline; padding-left: 8px;') do
+    .form-group
+      = select_tag "website_id", 
+        options_from_collection_for_select(@websites, "id", "url", @prechat_form.website_id), 
+        id: "website_id", class: "form-control website-select"
         
 = render partial: 'layouts/flash_messages', flash: flash
 
@@ -30,8 +34,6 @@
 
 :javascript
   function initialize_website_dropdown() {
-    $("#website_id").select2({theme: "bootstrap"});
-    
     $('#website_id').on ('change', function() {
       $('#edit_prechat_form').submit();
     });

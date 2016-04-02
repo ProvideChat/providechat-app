@@ -205,6 +205,18 @@ input::-moz-focus-inner {
   height: 32px;
 }
 
+.website-select {
+  font-family: "Open Sans", Arial, Helvetica, Sans-Serif;
+  font-weight: 300;
+  background-color: #f1f1f1;
+  letter-spacing: -1px;
+  font-size: 24px;
+  color: #4c4f53 !important;
+  height: 38px;
+  padding-right: 8px;
+  margin-top: 6px;
+}
+
 .widget-preview-container {
   width: 390px; 
   margin-left: auto; 
