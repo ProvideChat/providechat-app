@@ -1,14 +1,21 @@
-%h2 Resend confirmation instructions
+.well.no-padding
 
-= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
-  = devise_error_messages!
+  = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, class: 'smart-form client-form' }) do |f|
+    %header
+      Resend confirmation instructions
 
-  %div
-    = f.label :email
-    %br
-    = f.email_field :email, autofocus: true
+    %fieldset
+      %section
+        = render "layouts/flash_messages"
+        = devise_error_messages!
 
-  %div
-    = f.submit "Resend confirmation instructions"
+      %section
+        %label.input
+          Email
+          = f.email_field :email, autofocus: true, class: 'email-field', placeholder: 'Email Address'
 
-= render "devise/shared/links"
+      %section
+        = f.submit "Resend confirmation instructions", class: "btn btn-primary btn-lg"
+
+    %footer
+      = render "devise/shared/links"

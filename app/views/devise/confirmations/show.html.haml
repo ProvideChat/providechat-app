@@ -1,20 +1,27 @@
 - provide(:title, 'Confirm your account')
 
-%section.content
-  %section.authentication
-    %h1 Confirm your account
+.well.no-padding
+  = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: {class: 'smart-form client-form'}) do |f|
+    %header
+      %h1 Confirm your account
     %fieldset
-      You're almost done! Now create a password to securely access your account.
-
-      = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name)) do |f|
-
+      %section
+        = render "layouts/flash_messages"
         = devise_error_messages!
-        = f.input :password, required: true
-        = f.input :password_confirmation, required: true
-        = f.input :confirmation_token, as: :hidden, value: @original_token
 
-        .actions
-          = f.button :submit, "Set Password"
+      %section
+        %label.input
+          = f.password_field :password, required: true, class: "password-field"
+ 
+      %section
+        %label.input
+          = f.password_field :password_confirmation, required: true
 
-      %p
-        = link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name)
+      = f.hidden_field :confirmation_token, value: @original_token
+
+      %section
+        = button_tag type: :submit, class: "btn btn-primary" do
+          Set Password
+
+   %footer 
+      = link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name)
