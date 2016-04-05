@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery-ui
 //= require jquery.ui.touch-punch
@@ -30,6 +31,7 @@
 //= require bootstrap-touchspin
 //= require sweetalert
 //= require providechat
+//= require remodal
 
 //= require subscriptions
 

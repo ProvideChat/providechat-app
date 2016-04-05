@@ -23,5 +23,7 @@
  *= require widget
  *= require select2
  *= require select2-bootstrap
+ *= require remodal
+ *= require remodal-theme
  *= require_self
  */
