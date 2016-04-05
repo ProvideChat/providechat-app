@@ -44,6 +44,40 @@ class AfterSignupController < ApplicationController
     end
   end
 
+  def send_code
+    logger.info params
+
+    if (params.key?(:webmaster_email) && valid_email?(params[:webmaster_email]))
+      logger.info "Send email..."
+      webmaster_email = params[:webmaster_email]
+      SendCodeMailer.send_code(current_agent.organization_id, webmaster_email, current_agent.name).deliver_later
+      head :ok
+    else
+      logger.info "Not sending email..."
+      render json: { status: :unprocessable_entity }
+    end
+  end
+
+  def add_ftp_server
+    logger.info params
+
+    if params.has_key?(:agree_to_terms) && params[:agree_to_terms] == "Yes"
+      organization_ftp_server = OrganizationFtpServer.find_or_initialize_by(organization_id: current_agent.organization_id)
+      organization_ftp_server.host_address = params[:host_address]
+      organization_ftp_server.username = params[:username]
+      organization_ftp_server.password = params[:password]
+      organization_ftp_server.directory = params[:directory]
+      organization_ftp_server.comments = params[:comments]
+      organization_ftp_server.status = 'waiting_setup'
+      organization_ftp_server.save
+
+      head :ok 
+    else
+      render json: { status: :unprocessable_entity }
+    end
+  end
+
+
   private
 
   def agent_params
@@ -54,6 +88,10 @@ class AfterSignupController < ApplicationController
     unless current_agent.access_level == 'superadmin'
       redirect_to dashboard_path
     end
+  end
+
+  def valid_email?(email)
+    email =~ /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   end
 
   def validate_setup_incomplete

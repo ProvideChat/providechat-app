@@ -22,24 +22,11 @@ class HomeController < ApplicationController
     @websites = Website.where(organization_id: current_agent.organization_id)
   end
 
-  def send_code
-    if (params.key?(:webmaster_email) && valid_email?(params[:webmaster_email]))
-      webmaster_email = params[:webmaster_email]
-      SendCodeMailer.send_code(current_agent.organization_id, webmaster_email, current_agent.name).deliver_later
-      head :ok
-    else
-      render status: :unprocessable_entity
-    end
-  end
 
   def contact
   end
 
   private
-
-  def valid_email?(email)
-    email =~ /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  end
 
   def validate_admin
     if current_agent.access_level == 'agent'

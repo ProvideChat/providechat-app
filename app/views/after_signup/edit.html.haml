@@ -3,27 +3,28 @@
 .after-signup
   .wizard-container
     #wizard.card.wizard-card.ct-wizard-blue
-      = form_for(@agent, url: after_signup_path, html: {id: "after-signup-form", class: "form-horizontal"}) do |f|
-        .wizard-header
-          .img-header{style: "padding: 20px;"}
-            =image_tag "logo-lg.png", class: "img-responsive center-block"
-            .clearfix
-          %h3
-            %b COMPLETE YOUR ACCOUNT SETUP
-            %br
-            %small This information will finalize your account setup
-        %ul.nav.nav-pills
-          %li{style: "width: 33%;", class: ("active" if @setup_step == 1)}
-            %a{aria_expanded: "true", data_toggle: "tab", href: "#agent"} Step 1: Account
-          %li{style:  "width: 33%;", class: ("active" if @setup_step == 2)}
-            %a{data_toggle: "tab", href: "#website"} Step 2: Website
-          %li{style: "width: 34%;", class: ("active" if @setup_step == 3)}
-            %a{data_toggle: "tab", href: "#install-code"} Step 3: Widget
-        .tab-content
-          = f.hidden_field :setup_step, value: @setup_step
-          = render "layouts/error_messages", f: @agent
+      .wizard-header
+        .img-header{style: "padding: 20px;"}
+          =image_tag "logo-lg.png", class: "img-responsive center-block"
+          .clearfix
+        %h3
+          %b COMPLETE YOUR ACCOUNT SETUP
+          %br
+          %small This information will finalize your account setup
+      %ul.nav.nav-pills
+        %li{style: "width: 33%;", class: ("active" if @setup_step == 1)}
+          %a{aria_expanded: "true", data_toggle: "tab", href: "#agent"} Step 1: Account
+        %li{style:  "width: 33%;", class: ("active" if @setup_step == 2)}
+          %a{data_toggle: "tab", href: "#website"} Step 2: Website
+        %li{style: "width: 34%;", class: ("active" if @setup_step == 3)}
+          %a{data_toggle: "tab", href: "#install-code"} Step 3: Widget
+      .tab-content
+        = render "layouts/error_messages", f: @agent
 
-          - if @setup_step == 1
+        - if @setup_step == 1
+          = form_for(@agent, url: after_signup_path, html: {id: "after-signup-form", class: "form-horizontal"}) do |f|
+            = f.hidden_field :setup_step, value: @setup_step
+
             #agent.tab-pane{class: ("active" if @setup_step == 1)}
               .row
                 .col-sm-12
@@ -33,22 +34,32 @@
                     %strong This shouldn't take longer than a couple minutes.
 
                   %h4.info-text Let's start with your account details
-                - if @agent.has_no_password?
+                - if @agent.has_no_password? || @agent.errors.include?(:password) || @agent.errors.include?(:password_confirmation)
+                  .row
+                    .col-sm-4.col-sm-offset-1
+                      .form-group
+                        %label Enter Your password
+                        = f.password_field :password, class: "form-control", placeholder: "Your password", required: true, minlength: 8
+                    .col-sm-4.col-sm-offset-1
+                      .form-group
+                        %label Confirm Your password
+                        = f.password_field :password_confirmation, class: "form-control", placeholder: "Confirm password", required: true, minlength: 8
+
+                .row
                   .col-sm-4.col-sm-offset-1
                     .form-group
-                      %label Enter Your password
-                      = f.password_field :password, class: "form-control", placeholder: "Your password", required: true
-                  .col-sm-4.col-sm-offset-1
-                    .form-group
-                      %label Confirm Your password
-                      = f.password_field :password_confirmation, class: "form-control", placeholder: "Confirm password", required: true
+                      %label Your Name
+                      = f.text_field :name, class: "form-control", placeholder: "Your name", required: true
+            %hr
+            .wizard-footer
+              .pull-right
+                = f.submit "Next", class: "btn btn-next btn-fill btn-success btn-wd btn-sm", name: "next", value: "Next"
+              .clearfix
+       
+        - if @setup_step == 2
+          = form_for(@agent, url: after_signup_path, html: {id: "after-signup-form", class: "form-horizontal"}) do |f|
+            = f.hidden_field :setup_step, value: @setup_step
 
-                .col-sm-4.col-sm-offset-1
-                  .form-group
-                    %label Your Name
-                    = f.text_field :name, class: "form-control", placeholder: "Your name", required: true
-
-          - if @setup_step == 2
             #website.tab-pane{class: ("active" if @setup_step == 2)}
               %h4.info-text What website will you be installing Provide Chat on?
               .row
@@ -68,65 +79,75 @@
                 .col-xs-12
                   &nbsp;
 
-          - if @setup_step == 3
-            #install-code.tab-pane{class: ("active" if @setup_step == 3)}
-              %h4.info-text
-                To finish this set up you're going to have to add a few lines of JavaScript to your website's source code. How would you like to add this code?
-          
-              #accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
-                .panel.panel-default
-                  #headingOne.panel-heading{:role => "tab"}
-                    %h5.panel-title
-                      %a{"aria-controls" => "collapseOne", "aria-expanded" => "true", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseOne", :role => "button"}
-                        Do it myself? Just copy and paste
-                  #collapseOne.panel-collapse.collapse{"aria-labelledby" => "headingOne", :role => "tabpanel"}
-                    .panel-body
-                      .alert.alert-info
-                        To install the Provide Chat Widget, paste this code (unaltered, in it’s entirety) on every page of your website just before the closing &lt;/body&gt; tag.
-          
-                      %textarea.widget-code.codetext#widget_code= render partial: "home/widget_include_code", locals: { organization_id: current_agent.organization_id }
+          %hr
+          .wizard-footer
+            .pull-right
+              = f.submit "Next", class: "btn btn-next btn-fill btn-success btn-wd btn-sm", name: "next", value: "Next"
+            .pull-left
+              = f.button "Previous", name: "previous_step", class: "btn btn-previous btn-fill btn-default btn-wd btn-sm cancel", value: (@setup_step -1)
+            .clearfix
 
-                      .pull-right
-                        %a.btn.btn-default.btn-sm#copy-code{data: {clipboard_action: "copy", clipboard_target: "#widget_code"}}
-                          Copy to clipboard
-                          %i.fa.fa-files-o
+        - if @setup_step == 3
+          #install-code.tab-pane{class: ("active" if @setup_step == 3)}
+            %h4.info-text
+              To finish this set up you're going to have to add a few lines of JavaScript to your website's source code. How would you like to add this code?
+        
+            #accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
+              .panel.panel-default
+                #headingOne.panel-heading{:role => "tab"}
+                  %h5.panel-title
+                    %a{"aria-controls" => "collapseOne", "aria-expanded" => "true", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseOne", :role => "button"}
+                      Do it myself? Just copy and paste
+                #collapseOne.panel-collapse.collapse{"aria-labelledby" => "headingOne", :role => "tabpanel"}
+                  .panel-body
+                    .alert.alert-info
+                      To install the Provide Chat Widget, paste this code (unaltered, in it’s entirety) on every page of your website just before the closing &lt;/body&gt; tag.
+        
+                    %textarea.widget-code.codetext#widget_code= render partial: "home/widget_include_code", locals: { organization_id: current_agent.organization_id }
 
-                .panel.panel-default
-                  #headingTwo.panel-heading{role: "tab"}
-                    %h5.panel-title
-                      %a{"aria-controls" => "collapseTwo", "aria-expanded" => "true", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseTwo", :role => "button"}
-                        Send the code to my webmaster and have them do it for me.
-                  #collapseTwo.panel-collapse.collapse{"aria-labelledby" => "headingTwo", :role => "tabpanel"}
-                    .panel-body
-                      = form_tag(send_code_path, method: 'post', class: 'form-horizontal', remote: true, id: 'send-code-form') do
-                        .modal-body
-                          .alert.alert-danger#error_msg{style: "display: none;"} Error in sending email, please ensure email address is valid
-                          .alert.alert-success#sending_msg{style: "display: none;"} Sending...
-                          .form-group
-                            %label.col-sm-4 Webmaster's Email
-                            .col-sm-8
-                              = text_field_tag 'webmaster_email', '', class: "form-control"
-                        .modal-footer
-                          .col-sm-offset-4.col-sm-8
-                            = submit_tag "Send Widget Code", class: "btn btn-default"
+                    .pull-right
+                      %a.btn.btn-default.btn-sm#copy-code{data: {clipboard_action: "copy", clipboard_target: "#widget_code"}}
+                        Copy to clipboard
+                        %i.fa.fa-files-o
 
-                .panel.panel-default
-                  #headingThree.panel-heading{:role => "tab"}
-                    %h5.panel-title
-                      %a{"aria-controls" => "collapseThree", "aria-expanded" => "true", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseThree", :role => "button"}
-                        Send the code to my webmaster and have them do it for me.
-                  #collapseThree.panel-collapse.collapse{"aria-labelledby" => "headingThree", :role => "tabpanel"}
-                    .panel-body
-                      .alert.alert-warning
-                        We offer a free Widget Installation service for any basic HTML websites. We will 
-                        install your widget for you on a single page of your website to help you get 
-                        started. To request this service, please enter your FTP server credentials 
-                        below and we will get in touch with you shortly to finalize the service.
+              .panel.panel-default
+                #headingTwo.panel-heading{role: "tab"}
+                  %h5.panel-title
+                    %a{"aria-controls" => "collapseTwo", "aria-expanded" => "true", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseTwo", :role => "button"}
+                      Send the code to my webmaster and have them do it for me.
+                #collapseTwo.panel-collapse.collapse{"aria-labelledby" => "headingTwo", :role => "tabpanel"}
+                  .panel-body
+                    .alert.alert-success#send_code_success{style: "display: none;"} Code was sent to your webmaster.
+                    = form_tag(send_code_path, method: :post, remote: true, class: 'form-horizontal', id: 'send-code-form') do
+                      .alert.alert-danger#code_error_msg{style: "display: none;"} Error in sending email, please ensure email address is valid
+                      .alert.alert-success#code_sending_msg{style: "display: none;"} Sending...
+                      .form-group
+                        %label.col-sm-4 Webmaster's Email
+                        .col-sm-8
+                          = text_field_tag 'webmaster_email', '', class: "form-control", required: true
+                      .col-sm-offset-4.col-sm-8
+                        = submit_tag "Send Widget Code", class: "btn btn-default"
+
+              .panel.panel-default
+                #headingThree.panel-heading{:role => "tab"}
+                  %h5.panel-title
+                    %a{"aria-controls" => "collapseThree", "aria-expanded" => "true", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseThree", :role => "button"}
+                      Have you set it up for me? You just need FTP.
+                #collapseThree.panel-collapse.collapse{"aria-labelledby" => "headingThree", :role => "tabpanel"}
+                  .panel-body
+                    .alert.alert-warning#ftp_info
+                      We offer a free Widget Installation service for any basic HTML websites. We will 
+                      install your widget for you on a single page of your website to help you get 
+                      started. To request this service, please enter your FTP server credentials 
+                      below and we will get in touch with you shortly to finalize the service.
+
+                    .alert.alert-success#ftp_success{style: "display: none;"} Your FTP details have been saved and we will get back to you within the next couple days regarding installation.
+                    = form_tag(add_ftp_server_path, method: 'post', remote: true, class: 'form-horizontal', id: 'add-ftp-form') do
                       .row
                         .col-sm-10.col-sm-offset-1
                           .form-group
                             %label FTP Host Address
-                            = text_field_tag 'host_address', "", class: "form-control", placeholder: "FTP Host Address"
+                            = text_field_tag 'host_address', "", class: "form-control", placeholder: "FTP Host Address", required: true
                             %p.help-block
                               .small
                                 %strong What is the FTP Hostname?
@@ -135,11 +156,11 @@
                         .col-sm-4.col-sm-offset-1
                           .form-group
                             %label FTP Username
-                            = text_field_tag :username, "", class: "form-control", placeholder: "FTP Username"
+                            = text_field_tag :username, "", class: "form-control", placeholder: "FTP Username", required: true
                         .col-sm-4.col-sm-offset-1
                           .form-group
                             %label FTP Password
-                            = password_field_tag :password, "", class: "form-control", placeholder: "FTP Password"
+                            = password_field_tag :password, "", class: "form-control", placeholder: "FTP Password", required: true
                       .row
                         .col-sm-10.col-sm-offset-1
                           .form-group
@@ -159,50 +180,54 @@
                         .col-sm-10.col-sm-offset-1
                           .form-group
                             %label
-                              = check_box_tag :agree_to_terms
+                              = check_box_tag :agree_to_terms, "Yes", false, required: true
                               I agree with the 
-                              %a{href: "#", id: "terms-and-conditions", "data-target": ".terms-modal", "data-toggle": "modal"}
+                              %a{href: "#terms-modal"}
                                 Terms and Conditions
                               of Provide Chat's free install service
-          %hr
-          .wizard-footer
-            .pull-right
-              - if @setup_step <= 2
-                = f.submit "Next", class: "btn btn-next btn-fill btn-success btn-wd btn-sm", name: "next", value: "Next"
-              - if @setup_step == 3
-                = f.submit "Finish", class: "btn btn-finish btn-fill btn-success btn-wd btn-sm", name: "finish", value: "Finish"
-            - if @setup_step >= 2
-              .pull-left
-                = f.button "Previous", name: "previous_step", class: "btn btn-previous btn-fill btn-default btn-wd btn-sm cancel", value: (@setup_step -1)
-            .clearfix
+                      .row
+                        .col-sm-offset-4.col-sm-8
+                          = submit_tag "Save FTP Details", class: "btn btn-default"
 
-.modal.fade.terms-modal{"aria-labelledby" => "Terms of Service", :role => "dialog", :tabindex => "-1"}
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %button{type: "button", class: "close", "data-dismiss": "modal", "aria-label": "close"}
-          %span{"aria-hidden": "true"} &times;
-        %h4 Widget Free Install Terms of Service
-      .modal-body
-        %h4
-          SUPPORT DISCLAIMER
-        %p
-          Support is information or advice provided by Provide Chat Software Inc. through email or telephone. This can also include any software or any data file(s) installed or removed from specified computer servers by interactivetools.com Inc. at the customers request.
+                  %hr
+                  = form_for(@agent, url: after_signup_path, html: {id: "after-signup-form", class: "form-horizontal"}) do |f|
+                    = f.hidden_field :setup_step, value: @setup_step
+                  
+                    .wizard-footer
+                      .pull-right
+                        - if @setup_step <= 2
+                          = f.submit "Next", class: "btn btn-next btn-fill btn-success btn-wd btn-sm", name: "next", value: "Next"
+                        - if @setup_step == 3
+                          = f.submit "Finish", class: "btn btn-finish btn-fill btn-success btn-wd btn-sm", name: "finish", value: "Finish"
+                      - if @setup_step >= 2
+                        .pull-left
+                          = f.button "Previous", name: "previous_step", class: "btn btn-previous btn-fill btn-default btn-wd btn-sm cancel", value: (@setup_step -1)
+                      .clearfix
 
-        %h4
-          DISCLAIMER OF WARRANTY
-        %p
-          Support whether by email, telephone or through software installation is provided "as is" without warranty of any kind. While we are knowledgeable and skilled professionals, we cannot offer any guarantee as to the consequences of the Support provided. Should the Support cause damage or loss of any kind, Provide Chat Software Inc. shall not be held liable to you or any other person for indirect, special, punitive, incidental, or consequential damages of any character including damages for loss of goodwill, work stoppage, computer failure or malfunction, or any and all commercial damages or losses.
-      .modal-footer
+.remodal{"data-remodal-id" => "terms-modal"}
+  %button.remodal-close{"data-remodal-action" => "close"}
+  %h1 Widget Free Install Terms of Service
 
+  %h3
+    SUPPORT DISCLAIMER
+  %p
+    Support is information or advice provided by Provide Chat Software Inc. through email or telephone. This can also include any software or any data file(s) installed or removed from specified computer servers by interactivetools.com Inc. at the customers request.
 
+  %h3
+    DISCLAIMER OF WARRANTY
+  %p
+    Support whether by email, telephone or through software installation is provided "as is" without warranty of any kind. While we are knowledgeable and skilled professionals, we cannot offer any guarantee as to the consequences of the Support provided. Should the Support cause damage or loss of any kind, Provide Chat Software Inc. shall not be held liable to you or any other person for indirect, special, punitive, incidental, or consequential damages of any character including damages for loss of goodwill, work stoppage, computer failure or malfunction, or any and all commercial damages or losses.
+
+  %hr
+
+  %button.remodal-confirm{"data-remodal-action" => "confirm"} Okay
 
 :javascript
   $(document).ready(function() {
 
     var clipboard = new Clipboard('#copy-code');
 
-    $("#after-signup-form").validate({
+    validation = {
       highlight: function (element) {
         $(element).closest('.form-group').removeClass('has-success');
         $(element).closest('.form-group').addClass('has-error');
@@ -220,22 +245,44 @@
           error.insertAfter(element);
         }
       }
+    }
+
+    $("#after-signup-form").validate(validation);
+    $("#send-code-form").validate(validation);
+    $("#add-ftp-form").validate(validation);
+
+    $('#add-ftp-form').on('ajax:success', function(e, data, status, xhr) {
+      $('#add-ftp-form').slideUp();
+      $('#add-ftp-form input[type="submit"]').prop('disabled', false);
+      $('#ftp_error_msg').hide();
+      $('#ftp_sending_msg').hide();
+      $('#ftp_success').fadeIn();
+      $('#ftp_info').fadeOut();
+    }).on('ajax:error', function(e, xhr, status, error) {
+      $('#ftp_sending_msg').hide();
+      $('#ftp_error_msg').fadeIn().delay(3000).fadeOut();
+      $('#add-ftp-form input[type="submit"]').prop('disabled', false);
+    }).on('ajax:send', function(xhr) {
+      $('#ftp_error_msg').hide();
+      $('#ftp_sending_msg').fadeIn();
+      $('#add-ftp-form input[type="submit"]').prop('disabled', true);
     });
-    
+
     $('#send-code-form').on('ajax:success', function(e, data, status, xhr) {
-      $('.send-code-modal').modal('hide');
+      console.log(xhr);
+      $('#send-code-form').slideUp();
       $('#send-code-form').find('form input[type="text"]').val('');
       $('#send-code-form input[type="submit"]').prop('disabled', false);
-      $('#error_msg').hide();
-      $('#sending_msg').hide();
-      $('#success_msg').fadeIn().delay(3000).fadeOut();
+      $('#code_error_msg').hide();
+      $('#code_sending_msg').hide();
+      $('#send_code_success').fadeIn();
     }).on('ajax:error', function(e, xhr, status, error) {
-      $('#sending_msg').hide();
-      $('#error_msg').fadeIn().delay(3000).fadeOut();
+      $('#code_sending_msg').hide();
+      $('#code_error_msg').fadeIn().delay(3000).fadeOut();
       $('#send-code-form input[type="submit"]').prop('disabled', false);
     }).on('ajax:send', function(xhr) {
-      $('#error_msg').hide();
-      $('#sending_msg').fadeIn();
+      $('#code_error_msg').hide();
+      $('#code_sending_msg').fadeIn();
       $('#send-code-form input[type="submit"]').prop('disabled', true);
     });
   });
