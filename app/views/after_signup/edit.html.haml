@@ -79,13 +79,13 @@
                 .col-xs-12
                   &nbsp;
 
-          %hr
-          .wizard-footer
-            .pull-right
-              = f.submit "Next", class: "btn btn-next btn-fill btn-success btn-wd btn-sm", name: "next", value: "Next"
-            .pull-left
-              = f.button "Previous", name: "previous_step", class: "btn btn-previous btn-fill btn-default btn-wd btn-sm cancel", value: (@setup_step -1)
-            .clearfix
+            %hr
+            .wizard-footer
+              .pull-right
+                = f.submit "Next", class: "btn btn-next btn-fill btn-success btn-wd btn-sm", name: "next", value: "Next"
+              .pull-left
+                = f.button "Previous", name: "previous_step", class: "btn btn-previous btn-fill btn-default btn-wd btn-sm cancel", value: (@setup_step -1)
+              .clearfix
 
         - if @setup_step == 3
           #install-code.tab-pane{class: ("active" if @setup_step == 3)}
