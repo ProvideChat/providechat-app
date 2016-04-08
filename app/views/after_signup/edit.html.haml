@@ -141,7 +141,12 @@
                       started. To request this service, please enter your FTP server credentials 
                       below and we will get in touch with you shortly to finalize the service.
 
-                    .alert.alert-success#ftp_success{style: "display: none;"} Your FTP details have been saved and we will get back to you within the next couple days regarding installation.
+                    .alert.alert-success#ftp_success{style: "display: none;"} 
+                      Thank you for requesting a free Widget Installation. We 
+                      will be in touch with you shortly. For now, feel free 
+                      to click Finish in the bottom right and start exploring 
+                      your Provide Chat account.
+
                     = form_tag(add_ftp_server_path, method: 'post', remote: true, class: 'form-horizontal', id: 'add-ftp-form') do
                       .row
                         .col-sm-10.col-sm-offset-1
@@ -164,13 +169,17 @@
                       .row
                         .col-sm-10.col-sm-offset-1
                           .form-group
-                            %label Website Subfolder
-                            = text_field_tag :directory, "", class: "form-control", placeholder: "Website Directory"
+                            %label Web Root Folder
+                            = text_field_tag :directory, "", class: "form-control", placeholder: "Web Root Folder"
                             %p.help-block
                               .small
-                                %strong What is the Website Subfolder?
-                                If you website is not installed in the root of your FTP site, please put the subfolder
-                                where your website is installed so we can find it after we log in.
+                                %strong What is the web root folder?
+                                A web root folder is a folder in your web 
+                                hosting server that holds all of the files 
+                                that make up your actual website. Think of 
+                                it as the top-level folder of your whole 
+                                website. Common names are /public_html, 
+                                \/www, /httpdocs, /html, /public, or /web .
                       .row
                         .col-sm-10.col-sm-offset-1
                           .form-group
@@ -189,20 +198,20 @@
                         .col-sm-offset-4.col-sm-8
                           = submit_tag "Save FTP Details", class: "btn btn-default"
 
-                  %hr
-                  = form_for(@agent, url: after_signup_path, html: {id: "after-signup-form", class: "form-horizontal"}) do |f|
-                    = f.hidden_field :setup_step, value: @setup_step
-                  
-                    .wizard-footer
-                      .pull-right
-                        - if @setup_step <= 2
-                          = f.submit "Next", class: "btn btn-next btn-fill btn-success btn-wd btn-sm", name: "next", value: "Next"
-                        - if @setup_step == 3
-                          = f.submit "Finish", class: "btn btn-finish btn-fill btn-success btn-wd btn-sm", name: "finish", value: "Finish"
-                      - if @setup_step >= 2
-                        .pull-left
-                          = f.button "Previous", name: "previous_step", class: "btn btn-previous btn-fill btn-default btn-wd btn-sm cancel", value: (@setup_step -1)
-                      .clearfix
+            %hr
+            = form_for(@agent, url: after_signup_path, html: {id: "after-signup-form", class: "form-horizontal"}) do |f|
+              = f.hidden_field :setup_step, value: @setup_step
+            
+              .wizard-footer
+                .pull-right
+                  - if @setup_step <= 2
+                    = f.submit "Next", class: "btn btn-next btn-fill btn-success btn-wd btn-sm", name: "next", value: "Next"
+                  - if @setup_step == 3
+                    = f.submit "Finish", class: "btn btn-finish btn-fill btn-success btn-wd btn-sm", name: "finish", value: "Finish"
+                - if @setup_step >= 2
+                  .pull-left
+                    = f.button "Previous", name: "previous_step", class: "btn btn-previous btn-fill btn-default btn-wd btn-sm cancel", value: (@setup_step -1)
+                .clearfix
 
 .remodal{"data-remodal-id" => "terms-modal"}
   %button.remodal-close{"data-remodal-action" => "close"}
@@ -211,7 +220,7 @@
   %h3
     SUPPORT DISCLAIMER
   %p
-    Support is information or advice provided by Provide Chat Software Inc. through email or telephone. This can also include any software or any data file(s) installed or removed from specified computer servers by interactivetools.com Inc. at the customers request.
+    Support is information or advice provided by Provide Chat Software Inc. through email or telephone. This can also include any software or any data file(s) installed or removed from specified computer servers by providechat.com at the customers request.
 
   %h3
     DISCLAIMER OF WARRANTY
