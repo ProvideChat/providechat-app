@@ -33,7 +33,6 @@
         .help-text{:style => "font-size: 10px;"}
           You can change the color of the widget to match your website's look and feel.
 
-            
     .form-group
       %label.col-md-3.control-label
       .col-md-9
@@ -41,7 +40,7 @@
           %label
             = f.check_box :display_logo, :id => 'display_logo'
             Display logo in widget
-          
+
         .form-group{:id => 'logo-upload', :style => 'margin: 10px 20px;'}
           - if @chat_widget.logo?
             = image_tag(@chat_widget.logo_url)
@@ -54,7 +53,7 @@
           .help-text{style: "font-size: 10px;"}
             Logo dimensions should be 60 x 60 pixels
           = f.hidden_field :logo_cache
-        
+
         .checkbox
           %label
             = f.check_box :display_agent_avatar
@@ -69,7 +68,7 @@
     = f.submit "Cancel", :class => "btn btn-default", :name => "cancel_changes", data: { confirm: 'Are you sure you want to cancel your current changes?' }
     = f.submit "Reset Defaults", :class => "btn btn-danger", :name => "restore_defaults", data: { confirm: 'Are you sure you want to reset the chat widget to default settings?' }
   %hr/
-  
+
 :javascript
   function initialize_colourpicker() {
     $('select[name="chat_widget[color]"]').colourPicker({
@@ -79,23 +78,23 @@
       speed: 0
     });
   }
-  
+
   function logo_upload() {
     if ($('#display_logo').is(':checked')) {
       $("#logo-upload").show();
     } else {
       $("#logo-upload").hide();
     }
-    
+
     $('#display_logo').click(function() {
       if( $(this).is(':checked')) {
         $("#logo-upload").show();
       } else {
         $("#logo-upload").hide();
       }
-    }); 
+    });
   }
-  
+
   function initialize_qtip() {
     $('.online-titlebar').qtip(
       default_style('When the widget is collapsed and your agents are online, this is the message that will appear in the titlebar.', '.online-titlebar')
@@ -117,14 +116,8 @@
       on_focus_style('The logo you upload here will be displayed in the header of the chat widget.', '.logo-field')
     );
   }
-    
+
   $( document ).ready(function() {
-    initialize_qtip();
-    initialize_colourpicker();
-    logo_upload();
-  });
-  
-  $(window).bind('page:change', function() {
     initialize_qtip();
     initialize_colourpicker();
     logo_upload();

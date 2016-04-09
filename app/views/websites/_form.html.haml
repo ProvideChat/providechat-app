@@ -41,13 +41,8 @@
     $('.email-field').qtip(
       default_style("This is the email that any offline messages will be redirected to if your visitor didn't select a Department, or you do not have any departments.", '.email-field')
     );
-
   }
 
   $( document ).ready(function() {
-    initialize_qtip();
-  });
-
-  $(window).bind('page:change', function() {
     initialize_qtip();
   });

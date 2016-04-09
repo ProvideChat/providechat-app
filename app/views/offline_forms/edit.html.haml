@@ -37,7 +37,7 @@
       %h4.alert-heading No websites configured yet!
       You have no yet added any websites, please #{link_to "add a website", new_website_path}
       to customize the offline chat form for that website.
-        
+
 :javascript
   function initialize_website_dropdown() {
     $('#website_id').on ('change', function() {
@@ -46,9 +46,5 @@
   }
 
   $( document ).ready(function() {
-    initialize_website_dropdown();
-  });
-
-  $(window).bind('page:change', function() {
     initialize_website_dropdown();
   });

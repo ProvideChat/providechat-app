@@ -20,7 +20,7 @@
       .form-group
         %label.col-md-4.control-label Website
         .col-md-8
-          = f.select :website_id, @websites.collect {|x| [x.name, x.id]}, {}, {:style => "width:100%", :class  => "select2" }
+          = f.select :website_id, @websites.collect {|x| [x.name, x.id]}, {}, {style: "width:100%", id: "websites-select"  }
           .help-text{style: "font-size: 10px;"}
             This department will be available on this website
 
@@ -51,8 +51,9 @@
 
   $( document ).ready(function() {
     initialize_qtip();
-  });
 
-  $(window).bind('page:change', function() {
-    initialize_qtip();
+    $("#websites-select").select2({
+      placeholder: "Websites",
+      theme: "bootstrap"
+    });
   });

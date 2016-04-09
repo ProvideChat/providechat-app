@@ -52,7 +52,7 @@
       default_style('This is your visitors email address, you can search for all previous chats that they had using this email address.', '.email-field')
     );
   }
-  
+
   function initialize_datepicker() {
     $("#from-date").datepicker()
       .on('changeDate', function() {
@@ -76,9 +76,9 @@
   $( document ).ready(function() {
     initialize_qtip();
     initialize_datepicker();
+
+    $(".select2").select2({
+      theme: "bootstrap"
+    });
   });
 
-  $(window).bind('page:change', function() {
-    initialize_qtip();
-    initialize_datepicker();
-  });

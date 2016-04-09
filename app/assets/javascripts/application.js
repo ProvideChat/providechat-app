@@ -32,6 +32,12 @@
 //= require sweetalert
 //= require providechat
 //= require remodal
+  
+//= require 'smartadmin.config'
+//= require 'smart-notification'
+//= require 'select2'
+//= require 'smartadmin'
+//= require 'monitor'
 
 //= require subscriptions
 

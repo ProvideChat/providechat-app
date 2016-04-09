@@ -51,12 +51,6 @@
         = yield
 
     = render partial: "home/settings", locals: { agent: current_agent}
-    
-    = javascript_include_tag 'smartadmin.config'
-    = javascript_include_tag 'smart-notification'
-    = javascript_include_tag 'select2'
-    = javascript_include_tag 'smartadmin'
-    = javascript_include_tag 'monitor'
 
     :javascript
       function initialize_nprogress() {
@@ -67,15 +61,10 @@
         });
       }
 
-      $(document).ready(function() {
+      $(function () {
         pageSetUp();
         initialize_nprogress();
-        ProvideChat.init (#{current_agent.id}, "#{current_agent.display_name}", "#{current_agent.availability}", #{current_agent.organization_id});
-      });
-
-      $(window).bind('page:change', function() {
-        pageSetUp();
-        initialize_nprogress();
+        console.log("initialize");
         ProvideChat.init (#{current_agent.id}, "#{current_agent.display_name}", "#{current_agent.availability}", #{current_agent.organization_id});
       });
 
