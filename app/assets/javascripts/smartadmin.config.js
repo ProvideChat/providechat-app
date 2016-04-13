@@ -26,10 +26,14 @@
  * email: info@myorange.ca
  * =======================================================================
  *
- * GLOBAL ROOT (DO NOT CHANGE)
  */
-	$.root_ = $('body');
-
+/*
+ * APP CONFIGURATION (HTML/AJAX/PHP Versions ONLY)
+ * Description: Enable / disable certain theme features here
+ * GLOBAL: Your left nav in your app will no longer fire ajax calls, set
+ * it to false for HTML version
+ */
+	$.navAsAjax = false;
 /*
  * GLOBAL: Sound Config (define sound path, enable or disable all sounds)
  */
@@ -125,7 +129,5 @@
 /*
  * END APP.CONFIG
  */
-
-
 
 

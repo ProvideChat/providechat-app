@@ -8,12 +8,6 @@
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
  * =======================================================================
- * SmartAdmin is FULLY owned and LICENSED by MYORANGE INC.
- * This script may NOT be RESOLD or REDISTRUBUTED under any
- * circumstances (this extends the use of public repositories, which is
- * absolutely NOT ALLOWED under any circumstances), and is only to be used
- * with this purchased copy of SmartAdmin Template
- * =======================================================================`
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
@@ -26,7 +20,7 @@
  * author             : Sunny (@bootstraphunt)
  * email              : info@myorange.ca
  * legal notice       : This script is part of a theme sold by
- *                      https://wrapbootstrap.com/?ref=myorange
+ *                      bootstraphunter.com
  *
  * =======================================================================
  * INDEX (Note: line numbers for index items may not be up to date):
@@ -113,7 +107,7 @@ var calc_navbar_height = function() {
 /*
  * DETECT MOBILE DEVICES
  * Description: Detects mobile device - if any of the listed device is
- * detected a class is inserted to $.root_ and the variable thisDevice
+ * detected a class is inserted to $('body') and the variable thisDevice
  * is decleard. (so far this is covering most hand held devices)
  */
 	ismobile = (/iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase())),
@@ -137,22 +131,21 @@ var calc_navbar_height = function() {
 
 			if (!ismobile) {
 				// Desktop
-				$.root_.addClass("desktop-detected");
+				$('body').addClass("desktop-detected");
 				thisDevice = "desktop";
 				return false;
 			} else {
 				// Mobile
-				$.root_.addClass("mobile-detected");
+				$('body').addClass("mobile-detected");
 				thisDevice = "mobile";
 
 				if (fastClick) {
 					// Removes the tap delay in idevices
 					// dependency: js/plugin/fastclick/fastclick.js
-					$.root_.addClass("needsclick");
+					$('body').addClass("needsclick");
 					FastClick.attach(document.body);
 					return false;
 				}
-
 			}
 
 		};
@@ -164,9 +157,9 @@ var calc_navbar_height = function() {
 		 */
 		app.menuPos = function() {
 
-		 	if ($.root_.hasClass("menu-on-top") || localStorage.getItem('sm-setmenu')=='top' ) {
+		 	if ($('body').hasClass("menu-on-top") || localStorage.getItem('sm-setmenu')=='top' ) {
 		 		topmenu = true;
-		 		$.root_.addClass("menu-on-top");
+		 		$('body').addClass("menu-on-top");
 		 	}
 		};
 		/* ~ END: CHECK MOBILE DEVICE */
@@ -189,7 +182,7 @@ var calc_navbar_height = function() {
 
 					}, function(ButtonPressed) {
 						if (ButtonPressed == "Yes") {
-							$.root_.addClass('animated fadeOutUp');
+							$('body').addClass('animated fadeOutUp');
 							setTimeout(logout, 1000);
 						}
 					});
@@ -218,9 +211,9 @@ var calc_navbar_height = function() {
 			    // LAUNCH FULLSCREEN
 			    launchFullscreen: function(element){
 
-					if (!$.root_.hasClass("full-screen")) {
+					if (!$('body').hasClass("full-screen")) {
 
-						$.root_.addClass("full-screen");
+						$('body').addClass("full-screen");
 
 						if (element.requestFullscreen) {
 							element.requestFullscreen();
@@ -234,7 +227,7 @@ var calc_navbar_height = function() {
 
 					} else {
 
-						$.root_.removeClass("full-screen");
+						$('body').removeClass("full-screen");
 
 						if (document.exitFullscreen) {
 							document.exitFullscreen();
@@ -250,9 +243,9 @@ var calc_navbar_height = function() {
 
 			   // MINIFY MENU
 			    minifyMenu: function($this){
-			    	if (!$.root_.hasClass("menu-on-top")){
-						$.root_.toggleClass("minified");
-						$.root_.removeClass("hidden-menu");
+			    	if (!$('body').hasClass("menu-on-top")){
+						$('body').toggleClass("minified");
+						$('body').removeClass("hidden-menu");
 						$('html').removeClass("hidden-menu-mobile-lock");
 						$this.effect("highlight", {}, 500);
 					}
@@ -260,16 +253,16 @@ var calc_navbar_height = function() {
 
 			    // TOGGLE MENU
 			    toggleMenu: function(){
-			    	if (!$.root_.hasClass("menu-on-top")){
+			    	if (!$('body').hasClass("menu-on-top")){
 						$('html').toggleClass("hidden-menu-mobile-lock");
-						$.root_.toggleClass("hidden-menu");
-						$.root_.removeClass("minified");
-			    	//} else if ( $.root_.hasClass("menu-on-top") && $.root_.hasClass("mobile-view-activated") ) {
+						$('body').toggleClass("hidden-menu");
+						$('body').removeClass("minified");
+			    	//} else if ( $('body').hasClass("menu-on-top") && $('body').hasClass("mobile-view-activated") ) {
 			    	// suggested fix from Christian Jäger
-			    	} else if ( $.root_.hasClass("menu-on-top") && $(window).width() < 979 ) {
+			    	} else if ( $('body').hasClass("menu-on-top") && $(window).width() < 979 ) {
 			    		$('html').toggleClass("hidden-menu-mobile-lock");
-						$.root_.toggleClass("hidden-menu");
-						$.root_.removeClass("minified");
+						$('body').toggleClass("hidden-menu");
+						$('body').removeClass("minified");
 			    	}
 			    },
 
@@ -302,7 +295,7 @@ var calc_navbar_height = function() {
 						shortcut_dropdown.animate({
 							height : "hide"
 						}, 300, "easeOutCirc");
-						$.root_.removeClass('shortcut-on');
+						$('body').removeClass('shortcut-on');
 
 					}
 
@@ -311,14 +304,14 @@ var calc_navbar_height = function() {
 						shortcut_dropdown.animate({
 							height : "show"
 						}, 200, "easeOutCirc");
-						$.root_.addClass('shortcut-on');
+						$('body').addClass('shortcut-on');
 					}
 
 			    }
 
 			};
 
-			$.root_.on('click', '[data-action="userLogout"]', function(e) {
+			$('body').on('click', '[data-action="userLogout"]', function(e) {
 				var $this = $(this);
 				smartActions.userLogout($this);
 				e.preventDefault();
@@ -331,7 +324,7 @@ var calc_navbar_height = function() {
 			/*
 			 * BUTTON ACTIONS
 			 */
-			$.root_.on('click', '[data-action="resetWidgets"]', function(e) {
+			$('body').on('click', '[data-action="resetWidgets"]', function(e) {
 				var $this = $(this);
 				smartActions.resetWidgets($this);
 				e.preventDefault();
@@ -340,12 +333,12 @@ var calc_navbar_height = function() {
 				$this = null;
 			});
 
-			$.root_.on('click', '[data-action="launchFullscreen"]', function(e) {
+			$('body').on('click', '[data-action="launchFullscreen"]', function(e) {
 				smartActions.launchFullscreen(document.documentElement);
 				e.preventDefault();
 			});
 
-			$.root_.on('click', '[data-action="minifyMenu"]', function(e) {
+			$('body').on('click', '[data-action="minifyMenu"]', function(e) {
 				var $this = $(this);
 				smartActions.minifyMenu($this);
 				e.preventDefault();
@@ -354,12 +347,12 @@ var calc_navbar_height = function() {
 				$this = null;
 			});
 
-			$.root_.on('click', '[data-action="toggleMenu"]', function(e) {
+			$('body').on('click', '[data-action="toggleMenu"]', function(e) {
 				smartActions.toggleMenu();
 				e.preventDefault();
 			});
 
-			$.root_.on('click', '[data-action="toggleShortcut"]', function(e) {
+			$('body').on('click', '[data-action="toggleShortcut"]', function(e) {
 				smartActions.toggleShortcut();
 				e.preventDefault();
 			});
@@ -405,11 +398,11 @@ var calc_navbar_height = function() {
 
 			// SHOW & HIDE MOBILE SEARCH FIELD
 			$('#search-mobile').click(function() {
-				$.root_.addClass('search-mobile');
+				$('body').addClass('search-mobile');
 			});
 
 			$('#cancel-search-js').click(function() {
-				$.root_.removeClass('search-mobile');
+				$('body').removeClass('search-mobile');
 			});
 
 			// ACTIVITY
@@ -491,10 +484,10 @@ var calc_navbar_height = function() {
 		app.mobileCheckActivation = function(){
 
 			if ($(window).width() < 979) {
-				$.root_.addClass('mobile-view-activated');
-				$.root_.removeClass('minified');
-			} else if ($.root_.hasClass('mobile-view-activated')) {
-				$.root_.removeClass('mobile-view-activated');
+				$('body').addClass('mobile-view-activated');
+				$('body').removeClass('minified');
+			} else if ($('body').hasClass('mobile-view-activated')) {
+				$('body').removeClass('mobile-view-activated');
 			}
 
 			if (debugState){
@@ -798,6 +791,27 @@ var calc_navbar_height = function() {
 		}
 
 		/*
+		 * SELECT2 PLUGIN
+		 * Usage:
+		 * Dependency: js/plugin/select2/
+		 */
+		if ($.fn.select2) {
+			$('select.select2').each(function() {
+				var $this = $(this),
+					width = $this.attr('data-select-width') || '100%';
+				//, _showSearchInput = $this.attr('data-select-search') === 'true';
+				$this.select2({
+					//showSearchInput : _showSearchInput,
+					allowClear : true,
+					width : width
+				});
+
+				//clear memory reference
+				$this = null;
+			});
+		}
+
+		/*
 		 * MASKING
 		 * Dependency: js/plugin/masked-input/
 		 */
@@ -875,6 +889,481 @@ var calc_navbar_height = function() {
 	}
 /* ~ END: INITIALIZE FORMS */
 
+/*
+ * INITIALIZE CHARTS
+ * Description: Sparklines, PieCharts
+ */
+	function runAllCharts() {
+		/*
+		 * SPARKLINES
+		 * DEPENDENCY: js/plugins/sparkline/jquery.sparkline.min.js
+		 * See usage example below...
+		 */
+
+		/* Usage:
+		 * 		<div class="sparkline-line txt-color-blue" data-fill-color="transparent" data-sparkline-height="26px">
+		 *			5,6,7,9,9,5,9,6,5,6,6,7,7,6,7,8,9,7
+		 *		</div>
+		 */
+
+		if ($.fn.sparkline) {
+
+			// variable declearations:
+
+			var barColor,
+			    sparklineHeight,
+			    sparklineBarWidth,
+			    sparklineBarSpacing,
+			    sparklineNegBarColor,
+			    sparklineStackedColor,
+			    thisLineColor,
+			    thisLineWidth,
+			    thisFill,
+			    thisSpotColor,
+			    thisMinSpotColor,
+			    thisMaxSpotColor,
+			    thishighlightSpotColor,
+			    thisHighlightLineColor,
+			    thisSpotRadius,
+				pieColors,
+			    pieWidthHeight,
+			    pieBorderColor,
+			    pieOffset,
+			 	thisBoxWidth,
+			    thisBoxHeight,
+			    thisBoxRaw,
+			    thisBoxTarget,
+			    thisBoxMin,
+			    thisBoxMax,
+			    thisShowOutlier,
+			    thisIQR,
+			    thisBoxSpotRadius,
+			    thisBoxLineColor,
+			    thisBoxFillColor,
+			    thisBoxWhisColor,
+			    thisBoxOutlineColor,
+			    thisBoxOutlineFill,
+			    thisBoxMedianColor,
+			    thisBoxTargetColor,
+				thisBulletHeight,
+			    thisBulletWidth,
+			    thisBulletColor,
+			    thisBulletPerformanceColor,
+			    thisBulletRangeColors,
+				thisDiscreteHeight,
+			    thisDiscreteWidth,
+			    thisDiscreteLineColor,
+			    thisDiscreteLineHeight,
+			    thisDiscreteThrushold,
+			    thisDiscreteThrusholdColor,
+				thisTristateHeight,
+			    thisTristatePosBarColor,
+			    thisTristateNegBarColor,
+			    thisTristateZeroBarColor,
+			    thisTristateBarWidth,
+			    thisTristateBarSpacing,
+			    thisZeroAxis,
+			    thisBarColor,
+			    sparklineWidth,
+			    sparklineValue,
+			    sparklineValueSpots1,
+			    sparklineValueSpots2,
+			    thisLineWidth1,
+			    thisLineWidth2,
+			    thisLineColor1,
+			    thisLineColor2,
+			    thisSpotRadius1,
+			    thisSpotRadius2,
+			    thisMinSpotColor1,
+			    thisMaxSpotColor1,
+			    thisMinSpotColor2,
+			    thisMaxSpotColor2,
+			    thishighlightSpotColor1,
+			    thisHighlightLineColor1,
+			    thishighlightSpotColor2,
+			    thisFillColor1,
+			    thisFillColor2;
+
+			$('.sparkline:not(:has(>canvas))').each(function() {
+				var $this = $(this),
+					sparklineType = $this.data('sparkline-type') || 'bar';
+
+				// BAR CHART
+				if (sparklineType == 'bar') {
+
+						barColor = $this.data('sparkline-bar-color') || $this.css('color') || '#0000f0';
+					    sparklineHeight = $this.data('sparkline-height') || '26px';
+					    sparklineBarWidth = $this.data('sparkline-barwidth') || 5;
+					    sparklineBarSpacing = $this.data('sparkline-barspacing') || 2;
+					    sparklineNegBarColor = $this.data('sparkline-negbar-color') || '#A90329';
+					    sparklineStackedColor = $this.data('sparkline-barstacked-color') || ["#A90329", "#0099c6", "#98AA56", "#da532c", "#4490B1", "#6E9461", "#990099", "#B4CAD3"];
+
+					$this.sparkline('html', {
+						barColor : barColor,
+						type : sparklineType,
+						height : sparklineHeight,
+						barWidth : sparklineBarWidth,
+						barSpacing : sparklineBarSpacing,
+						stackedBarColor : sparklineStackedColor,
+						negBarColor : sparklineNegBarColor,
+						zeroAxis : 'false'
+					});
+
+					$this = null;
+
+				}
+
+				// LINE CHART
+				if (sparklineType == 'line') {
+
+						sparklineHeight = $this.data('sparkline-height') || '20px';
+					    sparklineWidth = $this.data('sparkline-width') || '90px';
+					    thisLineColor = $this.data('sparkline-line-color') || $this.css('color') || '#0000f0';
+					    thisLineWidth = $this.data('sparkline-line-width') || 1;
+					    thisFill = $this.data('fill-color') || '#c0d0f0';
+					    thisSpotColor = $this.data('sparkline-spot-color') || '#f08000';
+					    thisMinSpotColor = $this.data('sparkline-minspot-color') || '#ed1c24';
+					    thisMaxSpotColor = $this.data('sparkline-maxspot-color') || '#f08000';
+					    thishighlightSpotColor = $this.data('sparkline-highlightspot-color') || '#50f050';
+					    thisHighlightLineColor = $this.data('sparkline-highlightline-color') || 'f02020';
+					    thisSpotRadius = $this.data('sparkline-spotradius') || 1.5;
+						thisChartMinYRange = $this.data('sparkline-min-y') || 'undefined';
+						thisChartMaxYRange = $this.data('sparkline-max-y') || 'undefined';
+						thisChartMinXRange = $this.data('sparkline-min-x') || 'undefined';
+						thisChartMaxXRange = $this.data('sparkline-max-x') || 'undefined';
+						thisMinNormValue = $this.data('min-val') || 'undefined';
+						thisMaxNormValue = $this.data('max-val') || 'undefined';
+						thisNormColor =  $this.data('norm-color') || '#c0c0c0';
+						thisDrawNormalOnTop = $this.data('draw-normal') || false;
+
+					$this.sparkline('html', {
+						type : 'line',
+						width : sparklineWidth,
+						height : sparklineHeight,
+						lineWidth : thisLineWidth,
+						lineColor : thisLineColor,
+						fillColor : thisFill,
+						spotColor : thisSpotColor,
+						minSpotColor : thisMinSpotColor,
+						maxSpotColor : thisMaxSpotColor,
+						highlightSpotColor : thishighlightSpotColor,
+						highlightLineColor : thisHighlightLineColor,
+						spotRadius : thisSpotRadius,
+						chartRangeMin : thisChartMinYRange,
+						chartRangeMax : thisChartMaxYRange,
+						chartRangeMinX : thisChartMinXRange,
+						chartRangeMaxX : thisChartMaxXRange,
+						normalRangeMin : thisMinNormValue,
+						normalRangeMax : thisMaxNormValue,
+						normalRangeColor : thisNormColor,
+						drawNormalOnTop : thisDrawNormalOnTop
+
+					});
+
+					$this = null;
+
+				}
+
+				// PIE CHART
+				if (sparklineType == 'pie') {
+
+						pieColors = $this.data('sparkline-piecolor') || ["#B4CAD3", "#4490B1", "#98AA56", "#da532c","#6E9461", "#0099c6", "#990099", "#717D8A"];
+					    pieWidthHeight = $this.data('sparkline-piesize') || 90;
+					    pieBorderColor = $this.data('border-color') || '#45494C';
+					    pieOffset = $this.data('sparkline-offset') || 0;
+
+					$this.sparkline('html', {
+						type : 'pie',
+						width : pieWidthHeight,
+						height : pieWidthHeight,
+						tooltipFormat : '<span style="color: {{color}}">&#9679;</span> ({{percent.1}}%)',
+						sliceColors : pieColors,
+						borderWidth : 1,
+						offset : pieOffset,
+						borderColor : pieBorderColor
+					});
+
+					$this = null;
+
+				}
+
+				// BOX PLOT
+				if (sparklineType == 'box') {
+
+						thisBoxWidth = $this.data('sparkline-width') || 'auto';
+					    thisBoxHeight = $this.data('sparkline-height') || 'auto';
+					    thisBoxRaw = $this.data('sparkline-boxraw') || false;
+					    thisBoxTarget = $this.data('sparkline-targetval') || 'undefined';
+					    thisBoxMin = $this.data('sparkline-min') || 'undefined';
+					    thisBoxMax = $this.data('sparkline-max') || 'undefined';
+					    thisShowOutlier = $this.data('sparkline-showoutlier') || true;
+					    thisIQR = $this.data('sparkline-outlier-iqr') || 1.5;
+					    thisBoxSpotRadius = $this.data('sparkline-spotradius') || 1.5;
+					    thisBoxLineColor = $this.css('color') || '#000000';
+					    thisBoxFillColor = $this.data('fill-color') || '#c0d0f0';
+					    thisBoxWhisColor = $this.data('sparkline-whis-color') || '#000000';
+					    thisBoxOutlineColor = $this.data('sparkline-outline-color') || '#303030';
+					    thisBoxOutlineFill = $this.data('sparkline-outlinefill-color') || '#f0f0f0';
+					    thisBoxMedianColor = $this.data('sparkline-outlinemedian-color') || '#f00000';
+					    thisBoxTargetColor = $this.data('sparkline-outlinetarget-color') || '#40a020';
+
+					$this.sparkline('html', {
+						type : 'box',
+						width : thisBoxWidth,
+						height : thisBoxHeight,
+						raw : thisBoxRaw,
+						target : thisBoxTarget,
+						minValue : thisBoxMin,
+						maxValue : thisBoxMax,
+						showOutliers : thisShowOutlier,
+						outlierIQR : thisIQR,
+						spotRadius : thisBoxSpotRadius,
+						boxLineColor : thisBoxLineColor,
+						boxFillColor : thisBoxFillColor,
+						whiskerColor : thisBoxWhisColor,
+						outlierLineColor : thisBoxOutlineColor,
+						outlierFillColor : thisBoxOutlineFill,
+						medianColor : thisBoxMedianColor,
+						targetColor : thisBoxTargetColor
+
+					});
+
+					$this = null;
+
+				}
+
+				// BULLET
+				if (sparklineType == 'bullet') {
+
+					var thisBulletHeight = $this.data('sparkline-height') || 'auto';
+					    thisBulletWidth = $this.data('sparkline-width') || 2;
+					    thisBulletColor = $this.data('sparkline-bullet-color') || '#ed1c24';
+					    thisBulletPerformanceColor = $this.data('sparkline-performance-color') || '#3030f0';
+					    thisBulletRangeColors = $this.data('sparkline-bulletrange-color') || ["#d3dafe", "#a8b6ff", "#7f94ff"];
+
+					$this.sparkline('html', {
+
+						type : 'bullet',
+						height : thisBulletHeight,
+						targetWidth : thisBulletWidth,
+						targetColor : thisBulletColor,
+						performanceColor : thisBulletPerformanceColor,
+						rangeColors : thisBulletRangeColors
+
+					});
+
+					$this = null;
+
+				}
+
+				// DISCRETE
+				if (sparklineType == 'discrete') {
+
+					 	thisDiscreteHeight = $this.data('sparkline-height') || 26;
+					    thisDiscreteWidth = $this.data('sparkline-width') || 50;
+					    thisDiscreteLineColor = $this.css('color');
+					    thisDiscreteLineHeight = $this.data('sparkline-line-height') || 5;
+					    thisDiscreteThrushold = $this.data('sparkline-threshold') || 'undefined';
+					    thisDiscreteThrusholdColor = $this.data('sparkline-threshold-color') || '#ed1c24';
+
+					$this.sparkline('html', {
+
+						type : 'discrete',
+						width : thisDiscreteWidth,
+						height : thisDiscreteHeight,
+						lineColor : thisDiscreteLineColor,
+						lineHeight : thisDiscreteLineHeight,
+						thresholdValue : thisDiscreteThrushold,
+						thresholdColor : thisDiscreteThrusholdColor
+
+					});
+
+					$this = null;
+
+				}
+
+				// TRISTATE
+				if (sparklineType == 'tristate') {
+
+					 	thisTristateHeight = $this.data('sparkline-height') || 26;
+					    thisTristatePosBarColor = $this.data('sparkline-posbar-color') || '#60f060';
+					    thisTristateNegBarColor = $this.data('sparkline-negbar-color') || '#f04040';
+					    thisTristateZeroBarColor = $this.data('sparkline-zerobar-color') || '#909090';
+					    thisTristateBarWidth = $this.data('sparkline-barwidth') || 5;
+					    thisTristateBarSpacing = $this.data('sparkline-barspacing') || 2;
+					    thisZeroAxis = $this.data('sparkline-zeroaxis') || false;
+
+					$this.sparkline('html', {
+
+						type : 'tristate',
+						height : thisTristateHeight,
+						posBarColor : thisBarColor,
+						negBarColor : thisTristateNegBarColor,
+						zeroBarColor : thisTristateZeroBarColor,
+						barWidth : thisTristateBarWidth,
+						barSpacing : thisTristateBarSpacing,
+						zeroAxis : thisZeroAxis
+
+					});
+
+					$this = null;
+
+				}
+
+				//COMPOSITE: BAR
+				if (sparklineType == 'compositebar') {
+
+				 	sparklineHeight = $this.data('sparkline-height') || '20px';
+				    sparklineWidth = $this.data('sparkline-width') || '100%';
+				    sparklineBarWidth = $this.data('sparkline-barwidth') || 3;
+				    thisLineWidth = $this.data('sparkline-line-width') || 1;
+				    thisLineColor = $this.data('data-sparkline-linecolor') || '#ed1c24';
+				    thisBarColor = $this.data('data-sparkline-barcolor') || '#333333';
+
+					$this.sparkline($this.data('sparkline-bar-val'), {
+
+						type : 'bar',
+						width : sparklineWidth,
+						height : sparklineHeight,
+						barColor : thisBarColor,
+						barWidth : sparklineBarWidth
+						//barSpacing: 5
+
+					});
+
+					$this.sparkline($this.data('sparkline-line-val'), {
+
+						width : sparklineWidth,
+						height : sparklineHeight,
+						lineColor : thisLineColor,
+						lineWidth : thisLineWidth,
+						composite : true,
+						fillColor : false
+
+					});
+
+					$this = null;
+
+				}
+
+				//COMPOSITE: LINE
+				if (sparklineType == 'compositeline') {
+
+						sparklineHeight = $this.data('sparkline-height') || '20px';
+					    sparklineWidth = $this.data('sparkline-width') || '90px';
+					    sparklineValue = $this.data('sparkline-bar-val');
+					    sparklineValueSpots1 = $this.data('sparkline-bar-val-spots-top') || null;
+					    sparklineValueSpots2 = $this.data('sparkline-bar-val-spots-bottom') || null;
+					    thisLineWidth1 = $this.data('sparkline-line-width-top') || 1;
+					    thisLineWidth2 = $this.data('sparkline-line-width-bottom') || 1;
+					    thisLineColor1 = $this.data('sparkline-color-top') || '#333333';
+					    thisLineColor2 = $this.data('sparkline-color-bottom') || '#ed1c24';
+					    thisSpotRadius1 = $this.data('sparkline-spotradius-top') || 1.5;
+					    thisSpotRadius2 = $this.data('sparkline-spotradius-bottom') || thisSpotRadius1;
+					    thisSpotColor = $this.data('sparkline-spot-color') || '#f08000';
+					    thisMinSpotColor1 = $this.data('sparkline-minspot-color-top') || '#ed1c24';
+					    thisMaxSpotColor1 = $this.data('sparkline-maxspot-color-top') || '#f08000';
+					    thisMinSpotColor2 = $this.data('sparkline-minspot-color-bottom') || thisMinSpotColor1;
+					    thisMaxSpotColor2 = $this.data('sparkline-maxspot-color-bottom') || thisMaxSpotColor1;
+					    thishighlightSpotColor1 = $this.data('sparkline-highlightspot-color-top') || '#50f050';
+					    thisHighlightLineColor1 = $this.data('sparkline-highlightline-color-top') || '#f02020';
+					    thishighlightSpotColor2 = $this.data('sparkline-highlightspot-color-bottom') ||
+					        thishighlightSpotColor1;
+					    thisHighlightLineColor2 = $this.data('sparkline-highlightline-color-bottom') ||
+					        thisHighlightLineColor1;
+					    thisFillColor1 = $this.data('sparkline-fillcolor-top') || 'transparent';
+					    thisFillColor2 = $this.data('sparkline-fillcolor-bottom') || 'transparent';
+
+					$this.sparkline(sparklineValue, {
+
+						type : 'line',
+						spotRadius : thisSpotRadius1,
+
+						spotColor : thisSpotColor,
+						minSpotColor : thisMinSpotColor1,
+						maxSpotColor : thisMaxSpotColor1,
+						highlightSpotColor : thishighlightSpotColor1,
+						highlightLineColor : thisHighlightLineColor1,
+
+						valueSpots : sparklineValueSpots1,
+
+						lineWidth : thisLineWidth1,
+						width : sparklineWidth,
+						height : sparklineHeight,
+						lineColor : thisLineColor1,
+						fillColor : thisFillColor1
+
+					});
+
+					$this.sparkline($this.data('sparkline-line-val'), {
+
+						type : 'line',
+						spotRadius : thisSpotRadius2,
+
+						spotColor : thisSpotColor,
+						minSpotColor : thisMinSpotColor2,
+						maxSpotColor : thisMaxSpotColor2,
+						highlightSpotColor : thishighlightSpotColor2,
+						highlightLineColor : thisHighlightLineColor2,
+
+						valueSpots : sparklineValueSpots2,
+
+						lineWidth : thisLineWidth2,
+						width : sparklineWidth,
+						height : sparklineHeight,
+						lineColor : thisLineColor2,
+						composite : true,
+						fillColor : thisFillColor2
+
+					});
+
+					$this = null;
+
+				}
+
+			});
+
+		}// end if
+
+		/*
+		 * EASY PIE CHARTS
+		 * DEPENDENCY: js/plugins/easy-pie-chart/jquery.easy-pie-chart.min.js
+		 * Usage: <div class="easy-pie-chart txt-color-orangeDark" data-pie-percent="33" data-pie-size="72" data-size="72">
+		 *			<span class="percent percent-sign">35</span>
+		 * 	  	  </div>
+		 */
+
+		if ($.fn.easyPieChart) {
+
+			$('.easy-pie-chart').each(function() {
+				var $this = $(this),
+					barColor = $this.css('color') || $this.data('pie-color'),
+				    trackColor = $this.data('pie-track-color') || 'rgba(0,0,0,0.04)',
+				    size = parseInt($this.data('pie-size')) || 25;
+
+				$this.easyPieChart({
+
+					barColor : barColor,
+					trackColor : trackColor,
+					scaleColor : false,
+					lineCap : 'butt',
+					lineWidth : parseInt(size / 8.5),
+					animate : 1500,
+					rotate : -90,
+					size : size,
+					onStep: function(from, to, percent) {
+            			$(this.el).find('.percent').text(Math.round(percent));
+        			}
+
+				});
+
+				$this = null;
+			});
+
+		} // end if
+
+	}
+/* ~ END: INITIALIZE CHARTS */
 
 /*
  * INITIALIZE JARVIS WIDGETS
@@ -952,9 +1441,13 @@ var calc_navbar_height = function() {
 				},
 				rtl : false, // best not to toggle this!
 				onChange : function() {
+
 				},
 				onSave : function() {
+
 				},
+				ajaxnav : $.navAsAjax // declears how the localstorage should be saved (HTML or AJAX Version)
+
 			});
 
 		}
@@ -971,6 +1464,28 @@ var calc_navbar_height = function() {
 
 	}
 /* ~ END: INITIALIZE JARVIS WIDGETS */
+
+/*
+ * GOOGLE MAPS
+ * description: Append google maps to head dynamically (only execute for ajax version)
+ * Loads at the begining for ajax pages
+ */
+	if ($.navAsAjax || $(".google_maps")){
+		var gMapsLoaded = false;
+		window.gMapsCallback = function() {
+			gMapsLoaded = true;
+			$(window).trigger('gMapsLoaded');
+		};
+		window.loadGoogleMaps = function() {
+			if (gMapsLoaded)
+				return window.gMapsCallback();
+			var script_tag = document.createElement('script');
+			script_tag.setAttribute("type", "text/javascript");
+			script_tag.setAttribute("src", "http://maps.google.com/maps/api/js?sensor=false&callback=gMapsCallback");
+			(document.getElementsByTagName("head")[0] || document.documentElement).appendChild(script_tag);
+		};
+	}
+/* ~ END: GOOGLE MAPS */
 
 /*
  * LOAD SCRIPTS
@@ -1013,6 +1528,415 @@ var calc_navbar_height = function() {
 /* ~ END: LOAD SCRIPTS */
 
 /*
+* APP AJAX REQUEST SETUP
+* Description: Executes and fetches all ajax requests also
+* updates naivgation elements to active
+*/
+	if($.navAsAjax) {
+	    // fire this on page load if nav exists
+	    if ($('nav').length) {
+		    checkURL();
+	    }
+
+	    $(document).on('click', 'nav a[href!="#"]', function(e) {
+		    e.preventDefault();
+		    var $this = $(e.currentTarget);
+
+		    // if parent is not active then get hash, or else page is assumed to be loaded
+			if (!$this.parent().hasClass("active") && !$this.attr('target')) {
+
+			    // update window with hash
+			    // you could also do here:  thisDevice === "mobile" - and save a little more memory
+
+			    if ($('body').hasClass('mobile-view-activated')) {
+				    $('body').removeClass('hidden-menu');
+				    $('html').removeClass("hidden-menu-mobile-lock");
+				    window.setTimeout(function() {
+						if (window.location.search) {
+							window.location.href =
+								window.location.href.replace(window.location.search, '')
+									.replace(window.location.hash, '') + '#' + $this.attr('href');
+						} else {
+							window.location.hash = $this.attr('href');
+						}
+				    }, 150);
+				    // it may not need this delay...
+			    } else {
+					if (window.location.search) {
+						window.location.href =
+							window.location.href.replace(window.location.search, '')
+								.replace(window.location.hash, '') + '#' + $this.attr('href');
+					} else {
+						window.location.hash = $this.attr('href');
+					}
+			    }
+
+			    // clear DOM reference
+			    // $this = null;
+		    }
+
+	    });
+
+	    // fire links with targets on different window
+	    $(document).on('click', 'nav a[target="_blank"]', function(e) {
+		    e.preventDefault();
+		    var $this = $(e.currentTarget);
+
+		    window.open($this.attr('href'));
+	    });
+
+	    // fire links with targets on same window
+	    $(document).on('click', 'nav a[target="_top"]', function(e) {
+		    e.preventDefault();
+		    var $this = $(e.currentTarget);
+
+		    window.location = ($this.attr('href'));
+	    });
+
+	    // all links with hash tags are ignored
+	    $(document).on('click', 'nav a[href="#"]', function(e) {
+		    e.preventDefault();
+	    });
+
+	    // DO on hash change
+	    $(window).on('hashchange', function() {
+		    checkURL();
+	    });
+	}
+/*
+ * CHECK TO SEE IF URL EXISTS
+ */
+	function checkURL() {
+
+		//get the url by removing the hash
+		//var url = location.hash.replace(/^#/, '');
+		var url = location.href.split('#').splice(1).join('#');
+		//BEGIN: IE11 Work Around
+		if (!url) {
+
+			try {
+				var documentUrl = window.document.URL;
+				if (documentUrl) {
+					if (documentUrl.indexOf('#', 0) > 0 && documentUrl.indexOf('#', 0) < (documentUrl.length + 1)) {
+						url = documentUrl.substring(documentUrl.indexOf('#', 0) + 1);
+
+					}
+
+				}
+
+			} catch (err) {}
+		}
+		//END: IE11 Work Around
+
+		container = $('#content');
+		// Do this if url exists (for page refresh, etc...)
+		if (url) {
+			// remove all active class
+			$('nav li.active').removeClass("active");
+			// match the url and add the active class
+			$('nav li:has(a[href="' + url + '"])').addClass("active");
+			var title = ($('nav a[href="' + url + '"]').attr('title'));
+
+			// change page title from global var
+			document.title = (title || document.title);
+
+			// debugState
+			if (debugState){
+				root.console.log("Page title: %c " + document.title, debugStyle_green);
+			}
+
+			// parse url to jquery
+			loadURL(url + location.search, container);
+
+		} else {
+
+			// grab the first URL from nav
+			var $this = $('nav > ul > li:first-child > a[href!="#"]');
+
+			//update hash
+			window.location.hash = $this.attr('href');
+
+			//clear dom reference
+			$this = null;
+
+		}
+
+	}
+/*
+ * LOAD AJAX PAGES
+ */
+	function loadURL(url, container) {
+
+		// debugState
+		if (debugState){
+			root.root.console.log("Loading URL: %c" + url, debugStyle);
+		}
+
+		$.ajax({
+			type : "GET",
+			url : url,
+			dataType : 'html',
+			cache : true, // (warning: setting it to false will cause a timestamp and will call the request twice)
+			beforeSend : function() {
+
+				//IE11 bug fix for googlemaps (delete all google map instances)
+				//check if the page is ajax = true, has google map class and the container is #content
+				if ($.navAsAjax && $(".google_maps")[0] && (container[0] == $("#content")[0]) ) {
+
+					// target gmaps if any on page
+					var collection = $(".google_maps"),
+						i = 0;
+					// run for each	map
+					collection.each(function() {
+					    i ++;
+					    // get map id from class elements
+					    var divDealerMap = document.getElementById(this.id);
+
+					    if(i == collection.length + 1) {
+						    // "callback"
+						} else {
+							// destroy every map found
+							if (divDealerMap) divDealerMap.parentNode.removeChild(divDealerMap);
+
+							// debugState
+							if (debugState){
+								root.console.log("Destroying maps.........%c" + this.id, debugStyle_warning);
+							}
+						}
+					});
+
+					// debugState
+					if (debugState){
+						root.console.log("✔ Google map instances nuked!!!");
+					}
+
+				} //end fix
+
+				// destroy all datatable instances
+				if ( $.navAsAjax && $('.dataTables_wrapper')[0] && (container[0] == $("#content")[0]) ) {
+
+					var tables = $.fn.dataTable.fnTables(true);
+					$(tables).each(function () {
+
+						if($(this).find('.details-control').length != 0) {
+							$(this).find('*').addBack().off().remove();
+							$(this).dataTable().fnDestroy();
+						} else {
+							$(this).dataTable().fnDestroy();
+						}
+
+					});
+
+					// debugState
+					if (debugState){
+						root.console.log("✔ Datatable instances nuked!!!");
+					}
+				}
+				// end destroy
+
+				// pop intervals (destroys jarviswidget related intervals)
+				if ( $.navAsAjax && $.intervalArr.length > 0 && (container[0] == $("#content")[0]) && enableJarvisWidgets ) {
+
+					while($.intervalArr.length > 0)
+	        			clearInterval($.intervalArr.pop());
+	        			// debugState
+						if (debugState){
+							root.console.log("✔ All JarvisWidget intervals cleared");
+						}
+
+				}
+				// end pop intervals
+
+				// destroy all widget instances
+				if ( $.navAsAjax && (container[0] == $("#content")[0]) && enableJarvisWidgets && $("#widget-grid")[0] ) {
+
+					$("#widget-grid").jarvisWidgets('destroy');
+					// debugState
+					if (debugState){
+						root.console.log("✔ JarvisWidgets destroyed");
+					}
+
+				}
+				// end destroy all widgets
+
+				// cluster destroy: destroy other instances that could be on the page
+				// this runs a script in the current loaded page before fetching the new page
+				if ( $.navAsAjax && (container[0] == $("#content")[0]) ) {
+
+					/*
+					 * The following elements should be removed, if they have been created:
+					 *
+					 *	colorList
+					 *	icon
+					 *	picker
+					 *	inline
+					 *	And unbind events from elements:
+					 *
+					 *	icon
+					 *	picker
+					 *	inline
+					 *	especially $(document).on('mousedown')
+					 *	It will be much easier to add namespace to plugin events and then unbind using selected namespace.
+					 *
+					 *	See also:
+					 *
+					 *	http://f6design.com/journal/2012/05/06/a-jquery-plugin-boilerplate/
+					 *	http://keith-wood.name/pluginFramework.html
+					 */
+
+					// this function is below the pagefunction for all pages that has instances
+
+					if (typeof pagedestroy == 'function') {
+
+					  try {
+						    pagedestroy();
+
+						    if (debugState){
+								root.console.log("✔ Pagedestroy()");
+						   }
+						}
+						catch(err) {
+						   pagedestroy = undefined;
+
+						   if (debugState){
+								root.console.log("! Pagedestroy() Catch Error");
+						   }
+					  }
+
+					}
+
+					// destroy all inline charts
+
+					if ( $.fn.sparkline && $("#content .sparkline")[0] ) {
+						$("#content .sparkline").sparkline( 'destroy' );
+
+						if (debugState){
+							root.console.log("✔ Sparkline Charts destroyed!");
+						}
+					}
+
+					if ( $.fn.easyPieChart && $("#content .easy-pie-chart")[0] ) {
+						$("#content .easy-pie-chart").easyPieChart( 'destroy' );
+
+						if (debugState){
+							root.console.log("✔ EasyPieChart Charts destroyed!");
+						}
+					}
+
+
+
+					// end destory all inline charts
+
+					// destroy form controls: Datepicker, select2, autocomplete, mask, bootstrap slider
+
+					if ( $.fn.select2 && $("#content select.select2")[0] ) {
+						$("#content select.select2").select2('destroy');
+
+						if (debugState){
+							root.console.log("✔ Select2 destroyed!");
+						}
+					}
+
+					if ( $.fn.mask && $('#content [data-mask]')[0] ) {
+						$('#content [data-mask]').unmask();
+
+						if (debugState){
+							root.console.log("✔ Input Mask destroyed!");
+						}
+					}
+
+					if ( $.fn.datepicker && $('#content .datepicker')[0] ) {
+						$('#content .datepicker').off();
+						$('#content .datepicker').remove();
+
+						if (debugState){
+							root.console.log("✔ Datepicker destroyed!");
+						}
+					}
+
+					if ( $.fn.slider && $('#content .slider')[0] ) {
+						$('#content .slider').off();
+						$('#content .slider').remove();
+
+						if (debugState){
+							root.console.log("✔ Bootstrap Slider destroyed!");
+						}
+					}
+
+					// end destroy form controls
+
+
+				}
+				// end cluster destroy
+
+				// empty container and var to start garbage collection (frees memory)
+				pagefunction = null;
+				container.removeData().html("");
+
+				// place cog
+				container.html('<h1 class="ajax-loading-animation"><i class="fa fa-cog fa-spin"></i> Loading...</h1>');
+
+				// Only draw breadcrumb if it is main content material
+				if (container[0] == $("#content")[0]) {
+
+					// clear everything else except these key DOM elements
+					// we do this because sometime plugins will leave dynamic elements behind
+					$('body').find('> *').filter(':not(' + ignore_key_elms + ')').empty().remove();
+
+					// draw breadcrumb
+					drawBreadCrumb();
+
+					// scroll up
+					$("html").animate({
+						scrollTop : 0
+					}, "fast");
+				}
+				// end if
+			},
+			success : function(data) {
+
+				// dump data to container
+				container.css({
+					opacity : '0.0'
+				}).html(data).delay(50).animate({
+					opacity : '1.0'
+				}, 300);
+
+				// clear data var
+				data = null;
+				container = null;
+			},
+			error : function(xhr, status, thrownError, error) {
+				container.html('<h4 class="ajax-loading-error"><i class="fa fa-warning txt-color-orangeDark"></i> Error requesting <span class="txt-color-red">' + url + '</span>: ' + xhr.status + ' <span style="text-transform: capitalize;">'  + thrownError + '</span></h4>');
+			},
+			async : true
+		});
+
+	}
+/*
+ * UPDATE BREADCRUMB
+ */
+	function drawBreadCrumb(opt_breadCrumbs) {
+		var a = $("nav li.active > a"),
+			b = a.length;
+
+		bread_crumb.empty(),
+		bread_crumb.append($("<li>Home</li>")), a.each(function() {
+			bread_crumb.append($("<li></li>").html($.trim($(this).clone().children(".badge").remove().end().text()))), --b || (document.title = bread_crumb.find("li:last-child").text())
+		});
+
+		// Push breadcrumb manually -> drawBreadCrumb(["Users", "John Doe"]);
+		// Credits: Philip Whitt | philip.whitt@sbcglobal.net
+		if (opt_breadCrumbs != undefined) {
+			$.each(opt_breadCrumbs, function(index, value) {
+				bread_crumb.append($("<li></li>").html(value));
+				document.title = bread_crumb.find("li:last-child").text();
+			});
+		}
+	}
+/* ~ END: APP AJAX REQUEST SETUP */
+
+/*
  * PAGE SETUP
  * Description: fire certain scripts that run through the page
  * to check for form elements, tooltip activation, popovers, etc...
@@ -1036,6 +1960,9 @@ var calc_navbar_height = function() {
 			// setup widgets
 			setup_widgets_desktop();
 
+			// activate inline charts
+			runAllCharts();
+
 			// run form elements
 			runAllForms();
 
@@ -1050,6 +1977,9 @@ var calc_navbar_height = function() {
 			$("[rel=popover-hover], [data-rel=popover-hover]").popover({
 				trigger : "hover"
 			});
+
+			// activate inline charts
+			runAllCharts();
 
 			// setup widgets
 			setup_widgets_mobile();
@@ -1076,6 +2006,15 @@ var calc_navbar_height = function() {
 		});
 	});
 /* ~ END: ONE POP OVER THEORY */
+
+/*
+ * DELETE MODEL DATA ON HIDDEN
+ * Clears the model data once it is hidden, this way you do not create duplicated data on multiple modals
+ */
+	$('body').on('hidden.bs.modal', '.modal', function () {
+	  $(this).removeData('bs.modal');
+	});
+/* ~ END: DELETE MODEL DATA ON HIDDEN */
 
 /*
  * HELPFUL FUNCTIONS

@@ -1,18 +1,13 @@
 /*
- Copyright 2013 - SmartAdmin Template
+ Copyright 2015 - SmartAdmin Template
+ 
+ This script is a modified version of : MetroNotification
+ Plugin name was adjusted with the permission of its author to blend in with the theme
+ Original URL: http://codecanyon.net/item/metro-notifications/3903495
 
- * This script is part of an item on wrapbootstrap.com
- * https://wrapbootstrap.com/user/myorange
- *
  * ************************************************************* *
  * For more information please contact info@myorange.ca
  * ************************************************************* */
-
-// These gets defined in app.config.js
-// Sound path
-//$.sound_path = "sound/";
-// Sound on = true / false
-//$.sound_on = true; 
 
 jQuery(document).ready(function () {
 

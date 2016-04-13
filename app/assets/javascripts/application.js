@@ -14,6 +14,7 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery-ui
+//= require smartadmin.config
 //= require jquery.ui.touch-punch
 //= require bootstrap
 //= require bootstrap-datepicker
@@ -32,12 +33,9 @@
 //= require sweetalert
 //= require providechat
 //= require remodal
-  
-//= require 'smartadmin.config'
-//= require 'smart-notification'
-//= require 'select2'
-//= require 'smartadmin'
-//= require 'monitor'
 
+//= require smart-notification
+//= require select2
+//= require monitor
 //= require subscriptions
-
+//= require smartadmin
