@@ -107,7 +107,7 @@ class AfterSignupController < ApplicationController
     if agent.update_attributes(agent_params)
       agent.display_name = @agent.name
       agent.save
-      sign_in(agent, :bypass => true)
+      sign_in :agent, agent, :bypass => true
     end
   end
 
