@@ -44,6 +44,8 @@ gem 'whenever', require: false
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-sweetalert'
+  gem 'rails-assets-moment'
+  gem 'rails-assets-moment-timezone'
 end
 
 group :development  do

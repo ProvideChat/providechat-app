@@ -33,6 +33,8 @@
 //= require sweetalert
 //= require providechat
 //= require remodal
+//= require moment
+//= require moment-timezone
 
 //= require smart-notification
 //= require select2
