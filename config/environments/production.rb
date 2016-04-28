@@ -86,7 +86,7 @@ Rails.application.configure do
     :user_name =>           ENV['AWS_SMTP_USERNAME'],
     :password =>            ENV['AWS_SMTP_PASSWORD'],
     :domain =>              'providechat.com',
-    :authentication =>      :login
+    :authentication =>      :login,
     :port =>                '465',
     :enable_starttls_auto => true
   }
