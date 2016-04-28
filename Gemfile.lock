@@ -361,9 +361,6 @@ GEM
     mail_form (1.5.1)
       actionmailer (>= 3.2, < 5)
       activemodel (>= 3.2, < 5)
-    mandrill-api (1.0.53)
-      excon (>= 0.16.0, < 1.0)
-      json (>= 1.7.7, < 2.0)
     method_source (0.8.2)
     mime-types (2.99.1)
     mini_magick (4.0.4)
@@ -620,7 +617,6 @@ DEPENDENCIES
   launchy
   local_time
   mail_form
-  mandrill-api
   mini_magick (~> 4.0.0.rc)
   net-ssh
   nprogress-rails

@@ -25,7 +25,6 @@ gem 'local_time'
 #gem 'lograge'
 gem 'pg'
 gem 'mail_form'
-gem 'mandrill-api'
 gem 'mini_magick', '~> 4.0.0.rc'
 gem "net-ssh"
 gem 'nprogress-rails'
