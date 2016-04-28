@@ -81,22 +81,21 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  #config.action_mailer.default_url_options = { :host => "providechat.com" }
-
   ActionMailer::Base.smtp_settings = {
-    :port =>           '587',
-    :address =>        'smtp.mandrillapp.com',
-    :user_name =>      ENV['MANDRILL_USERNAME'],
-    :password =>       ENV['MANDRILL_APIKEY'],
-    :domain =>         'providechat.com',
-    :authentication => :plain
+    :address =>             ENV['AWS_SMTP_HOST'],
+    :user_name =>           ENV['AWS_SMTP_USERNAME'],
+    :password =>            ENV['AWS_SMTP_PASSWORD'],
+    :domain =>              'providechat.com',
+    :authentication =>      :login
+    :port =>                '465',
+    :enable_starttls_auto => true
   }
   ActionMailer::Base.delivery_method = :smtp
 
   config.middleware.use ExceptionNotification::Rack,
     :email => {
       :email_prefix => "[Provide Chat Exception] ",
-      :sender_address => %{"notifier" <derek@providechat.com>},
+      :sender_address => %{"notifier" <noreply@providechat.com>},
       :exception_recipients => %w{derek@providechat.com}
     }
 
