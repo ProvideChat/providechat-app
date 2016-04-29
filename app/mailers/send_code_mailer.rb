@@ -1,4 +1,4 @@
-class SendCodeMailer < BaseMandrillMailer
+class SendCodeMailer < ApplicationMailer
   def send_code(organization_id, webmaster_email, agent_name)
     require 'htmlentities'
 

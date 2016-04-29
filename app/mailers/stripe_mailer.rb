@@ -1,5 +1,4 @@
-class StripeMailer < ActionMailer::Base
-  default from: 'you@example.com'
+class StripeMailer < ApplicationMailer
 
   def admin_dispute_created(charge)
     @charge = charge

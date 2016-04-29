@@ -230,8 +230,7 @@ module Api
             chat_id = params[:chat_id]
 
             if params.key?(:transcript_email) && params[:transcript_email] != ''
-              chat = Chat.find(chat_id)
-              chat.email_transcript(params[:transcript_email])
+              ChatMailer.email_transcript(chat_id, params[:transcript_email])
             end
 
             response = { 'success' => 'true' }
@@ -242,7 +241,7 @@ module Api
             chat = Chat.find(chat_id)
             if params.key?(:enable_email_transcript) && params[:enable_email_transcript] == 'true' &&
                 params.key?(:transcript_email) && params[:transcript_email] != ''
-              chat.email_transcript(params[:transcript_email])
+              ChatMailer.email_transcript(chat_id, params[:transcript_email])
             end
 
             chat.end_chat('visitor_ended')

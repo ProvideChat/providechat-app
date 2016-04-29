@@ -63,45 +63,6 @@ class Chat < ActiveRecord::Base
     end
   end
 
-  def email_transcript(transcript_email)
-    require 'mandrill'
-
-    if self.chat_messages.count > 0
-      text_msg = "Your ticket ID for this chat is #{self.ticket_id}, "
-      text_msg += "please keep this ID handy for next time when you chat with an agent\n\n"
-      self.chat_messages.each do |chat_message|
-        text_msg += " - #{chat_message.user_name}: #{chat_message.message}\n\n"
-      end
-
-      html_msg = "<html><p>Your ticket ID for this chat is #{self.ticket_id}, "
-      html_msg += "please keep this ID handy for next time when you chat with an agent</p><hr>"
-      last_user_name = ""
-      self.chat_messages.each do |chat_message|
-        if chat_message.user_name != last_user_name
-          html_msg += "<br><strong>#{chat_message.user_name}:</strong><br>"
-        end
-        html_msg += "#{chat_message.message}<br>"
-        last_user_name = chat_message.user_name
-      end
-      html_msg += "<hr><p>Thanks for using Provide Chat! "
-      html_msg += "Learn more at <a href='http://providechat.com'>providechat.com</a></p></html>"
-
-      m = Mandrill::API.new
-      message = {
-        subject: "(#{self.website.url} - Chat Ticket ID #{self.ticket_id})",
-        from_name: "Provide Chat",
-        text: text_msg,
-        to: [{
-          email: transcript_email,
-          name: self.visitor_name
-        }],
-        html: html_msg,
-        from_email: "info@providechat.com"
-      }
-      m.messages.send message
-    end
-  end
-
   protected
 
   def titleize_visitor_name

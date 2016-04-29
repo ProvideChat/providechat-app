@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    meta content='text/html; charset=UTF-8' http-equiv='Content-Type'
+  body
+    h1 Your Provide Chat Transcript
+
+    p 
+      | Your ticket ID for this chat is #{self.ticket_id}, 
+      | please keep this ID handy for next time when you chat with an agent
+    
+    hr
+
+    = @html_transcript
+
+    hr
+    
+    p Thanks for using Provide Chat!
+    p
+      | Learn more at 
+      a href='http://providechat.com' providechat.com
