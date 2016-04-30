@@ -34,6 +34,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'sidekiq'
 gem 'sidekiq-client-cli'
 gem 'sinatra', :require => nil
+gem 'slim'
 gem 'stackprof'
 gem 'stripe', '~> 1.31.0'
 gem 'stripe_event'

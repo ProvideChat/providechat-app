@@ -641,6 +641,7 @@ DEPENDENCIES
   sidekiq
   sidekiq-client-cli
   sinatra
+  slim
   stackprof
   stripe (~> 1.31.0)
   stripe-ruby-mock
@@ -652,5 +653,8 @@ DEPENDENCIES
   webmock
   whenever
 
+RUBY VERSION
+   ruby 2.3.1p112
+
 BUNDLED WITH
-   1.11.2
+   1.12.0
