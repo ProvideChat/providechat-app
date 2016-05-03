@@ -3,7 +3,7 @@ require 'net/smtp'
 module Net
   class SMTP
     def tls?
-      true
+      Rails.env.production? ? true : false
     end
   end
 end
