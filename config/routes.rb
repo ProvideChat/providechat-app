@@ -58,9 +58,9 @@ Rails.application.routes.draw do
 
   # Sidekiq monitoring
   require 'sidekiq/web'
-  authenticate :admin do
+  #authenticate :admin do
     mount Sidekiq::Web => 'sidekiq'
-  end
+  #end
 
   get "/404" => "errors#not_found"
   get "/500" => "errors#internal_server_error"

@@ -1,3 +1,43 @@
-%hmtl
-  %body
-    = yield
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Provide Chat Software
+    = stylesheet_link_tag "mailer"
+
+  %body{:leftmargin => "0", :marginheight => "0", :marginwidth => "0", :offset => "0", :topmargin => "0"}
+    %center
+      %table#bodyTable{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :height => "100%", :width => "100%"}
+        %tr
+          %td#bodyCell{:align => "center", :valign => "top"}
+
+            %table#templateContainer{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+              %tr
+                %td{:align => "center", :valign => "top"}
+                  / BEGIN HEADER //
+                  %table#templateHeader{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                    %tr
+                      %td.headerContent{:valign => "top"}
+                        = email_image_tag "logo-mailer.png", id: "headerImage", style: "max-width:600px;"
+                  / // END HEADER
+              %tr
+                %td{:align => "center", :valign => "top"}
+                  / BEGIN BODY //
+                  %table#templateBody{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                    %tr
+                      %td.bodyContent{"mc:edit" => "body_content", :valign => "top"}
+                        = yield
+              %tr
+                %td{:align => "center", :valign => "top"}
+                  / BEGIN FOOTER //
+                  %table#templateFooter{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                    %tr
+                      %td.footerContent{"mc:edit" => "footer_content00", :valign => "top"}
+                        %a{:href => "https://twitter.com/providechat"}> Follow on Twitter
+                        %a{:href => "https://www.facebook.com/Provide-Chat-Live-Chat-Software-212422568833377/?fref=nf"}> Friend on Facebook
+                    %tr
+                      %td.footerContent{"mc:edit" => "footer_content01", :style => "padding-top:0;", :valign => "top"}
+                        %em Copyright © #{Time.now.year} Provide Chat Software, All rights reserved.
+
+                  / // END FOOTER
+            / // END TEMPLATE

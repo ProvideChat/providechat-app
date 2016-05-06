@@ -10,9 +10,7 @@
     every page of your website just before the closing &lt;/body&gt; tag:
     </p>
 
-    <pre><code>
-<%=raw @widget_code_encoded %>
-    </code></pre>
+    <pre><code><%= raw simple_format(@widget_code_encoded) %></code></pre>
 
     <p>Cheers,</p>
     <p>
