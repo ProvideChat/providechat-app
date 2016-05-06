@@ -56,7 +56,7 @@ group :development  do
   gem 'rails_best_practices'
   gem 'rack-mini-profiler', require: false
 
-  gem 'capistrano', '~> 3.4.0', require: false
+  gem 'capistrano', '~> 3.5.0', require: false
   gem 'capistrano-bundler',     require: false
   gem 'capistrano-rails',       require: false
   gem 'capistrano-rbenv',       require: false
