@@ -76,10 +76,6 @@ class AfterSignupController < ApplicationController
     end
   end
 
-  def valid_email?(email)
-    email =~ /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  end
-
   def validate_setup_incomplete
     unless current_agent.organization.completed_setup == false
       redirect_to dashboard_path
