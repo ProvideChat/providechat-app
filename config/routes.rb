@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   get 'dashboard', to: 'home#dashboard', as: 'dashboard'
   get 'code', to: 'home#code', as: 'code'
 
-  post 'send_code', to: 'after_signup#send_code', as: 'send_code'
+  post 'send_code', to: 'send_code#show', as: 'send_code'
   post "add_ftp_server", to: "after_signup#add_ftp_server", as: "add_ftp_server"
 
   get 'documentation/start', to: 'documentation#start', as: 'doc_start'

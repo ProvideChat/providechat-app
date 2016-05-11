@@ -45,20 +45,6 @@ class AfterSignupController < ApplicationController
     end
   end
 
-  def send_code
-    logger.info params
-
-    if (params.key?(:webmaster_email) && valid_email?(params[:webmaster_email]))
-      logger.info "Send email..."
-      webmaster_email = params[:webmaster_email]
-      SendCodeMailer.send_code(current_agent.organization_id, webmaster_email, current_agent.name).deliver_later
-      head :ok
-    else
-      logger.info "Not sending email..."
-      render json: { status: :unprocessable_entity }
-    end
-  end
-
   def add_ftp_server
     logger.info params
 
@@ -77,7 +63,6 @@ class AfterSignupController < ApplicationController
       render json: { status: :unprocessable_entity }
     end
   end
-
 
   private
 
