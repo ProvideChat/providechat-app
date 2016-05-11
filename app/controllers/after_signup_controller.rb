@@ -36,6 +36,7 @@ class AfterSignupController < ApplicationController
     @organization.save
 
     if @organization.completed_setup
+      AdminMailer.onboarding_completed(@agent.id).deliver_later
       redirect_to dashboard_path, notice: 'Your account has been successfully set up.'
     else
       params.key?(:previous_step) ? @setup_step = params[:previous_step].to_i : @setup_step = @organization.setup_step

@@ -19,8 +19,8 @@ class RegistrationsController < Devise::RegistrationsController
       resource.organization_id = organization.id
       resource.skip_registation_validations = true
       resource.remember_me = true
-      if resource.save! #(validate: false)
-        #AgentMailer.welcome(resource.id).deliver_later
+      if resource.save!
+        AdminMailer.onboarding_started(resource.id).deliver_later
         sign_in(resource, :bypass => true)
       end
     end
