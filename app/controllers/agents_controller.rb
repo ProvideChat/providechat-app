@@ -87,7 +87,7 @@ class AgentsController < ApplicationController
 
     params.require(:agent).permit(:name, :display_name, :email, :title,
                                   :password, :password_confirmation,
-                                  :access_level, :availability,
+                                  :access_level, :availability, :time_zone,
                                   :active_chat_sound, :background_chat_sound,
                                   :visitor_arrived_sound, :avatar,
                                   :remove_avatar, :avatar_cache,

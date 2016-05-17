@@ -59,6 +59,13 @@
               = f.select :access_level, [["Agent", "agent"], ["Admin", "admin"]], {include_blank: "-- Select Account Type --"}, {class: "form-control access-field"}
               %span{class:"input-group-addon"}
                 %i{class:"icon-append fa fa-question-circle"}
+ 
+    .form-group
+      %label.col-md-4.control-label= f.label :time_zone
+      .col-md-8
+        .input-group
+          = f.time_zone_select :time_zone, ActiveSupport::TimeZone.all.sort, {}, class: "form-control"
+ 
     .form-group
       %label.col-md-4.control-label= f.label "Photo"
       .col-md-8
@@ -101,6 +108,11 @@
 :javascript
 
   function initialize() {
+
+    $("#agent_time_zone").select2({
+      placeholder: "Time Zone",
+      theme: "bootstrap"
+    });
 
     $("#websites-select").select2({
       placeholder: "Websites",
