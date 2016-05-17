@@ -9,6 +9,9 @@ class AgentsController < ApplicationController
   end
 
   def new
+    unless current_agent.organization.can_create_agents
+      redirect_to agents_url, flash: { error: "You need to upgrade to add more agents" }
+    end
     @agent = Agent.new
   end
 

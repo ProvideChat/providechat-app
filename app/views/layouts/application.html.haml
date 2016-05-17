@@ -48,7 +48,8 @@
 
     %div{role: "main", id: current_agent.access_level == 'agent' ? 'main-agent' : 'main'}
       #content
-        = yield
+        %section#widget-grid
+          = yield
 
     = render partial: "home/settings", locals: { agent: current_agent}
 

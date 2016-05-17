@@ -1,7 +1,9 @@
 = render 'layouts/page_header', :title => 'Settings', :icon => 'fa-cog', :subpage => 'General Settings'
 
 .col-sm-12.col-md-8.col-lg-7
-  #wid-id-0.jarviswidget.jarviswidget-color-darken
+  #general-settings.jarviswidget.jarviswidget-color-darken{data: {widget_editbutton: "false",
+     widget_fullscreenbutton: "false", widget_colorbutton: "false",
+     widget_deletebutton: "false", widget_togglebutton: "false"}}
     %header
       %span.widget-icon
         %i.fa.fa-cog
@@ -9,7 +11,5 @@
       %span.jarviswidget-loader
         %i.fa.fa-refresh.fa-spin
     %div{:role => "content"}
-      .jarviswidget-editbox
-        / This area used as dropdown edit box
       .widget-body
         = render 'form'

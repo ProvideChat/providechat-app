@@ -14,7 +14,9 @@
 
 - if @prechat_form
   .col-sm-12
-    #wid-id-0.jarviswidget.jarviswidget-color-darken{"data-widget-colorbutton" => "false", "data-widget-custombutton" => "false", "data-widget-editbutton" => "false"}
+    #prechat-survey.jarviswidget.jarviswidget-color-darken{data: {widget_editbutton: "false",
+     widget_fullscreenbutton: "false", widget_colorbutton: "false",
+     widget_deletebutton: "false", widget_togglebutton: "false"}}
       %header
         %span.widget-icon
           %i.fa.fa-toggle-up

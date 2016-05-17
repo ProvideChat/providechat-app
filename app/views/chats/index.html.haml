@@ -1,11 +1,13 @@
 = render 'layouts/page_header', :title => 'Chat Transcripts', :icon => 'fa-file-text-o'
 
 %article.col-sm-10.col-md-10.col-lg-8
-  .jarviswidget.jarviswidget-color-blueDark
-    %header
+  .jarviswidget.jarviswidget-color-darken{data: {widget_editbutton: "false", widget_colorbutton: "false", widget_deletebutton: "false", widget_fullscreenbutton: "false"}}
+    %header{role: "heading"}
       %span.widget-icon
         %i.fa.fa-search
       %h2 Search Chat Transcripts
+      %span.jarviswidget-loader
+        %i.fa.fa-refresh.fa-spin
     %div
       .widget-body.no-padding
         .alert.alert-info.no-margin.fade.in

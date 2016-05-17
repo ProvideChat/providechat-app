@@ -40,4 +40,5 @@
 //= require select2
 //= require monitor
 //= require subscriptions
+//= require jarvis.widget
 //= require smartadmin
