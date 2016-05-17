@@ -63,6 +63,14 @@ class Chat < ActiveRecord::Base
     end
   end
 
+  def chat_accepted_status(agent)
+    if chat_accepted 
+      chat_accepted.in_time_zone(agent.time_zone).strftime('%b %e/%Y at %l:%M %p')
+    else
+      "Not accepted (Requested #{chat_requested.in_time_zone(agent.time_zone).strftime('%b %e/%Y at %l:%M %p')})"
+    end
+  end
+
   protected
 
   def titleize_visitor_name

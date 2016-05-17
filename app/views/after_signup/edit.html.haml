@@ -24,6 +24,7 @@
         - if @setup_step == 1
           = form_for(@agent, url: after_signup_path, html: {id: "after-signup-form", class: "form-horizontal"}) do |f|
             = f.hidden_field :setup_step, value: @setup_step
+            = f.hidden_field :time_zone, value: "UTC"
 
             #agent.tab-pane{class: ("active" if @setup_step == 1)}
               .row
@@ -233,6 +234,8 @@
 
 :javascript
   $(document).ready(function() {
+
+    $('#agent_time_zone').set_timezone();
 
     var clipboard = new Clipboard('#copy-code');
 

@@ -3,6 +3,7 @@
   %td= chat.agent ? chat.agent.name : 'None'
   %td= chat.website.url
   %td= chat.visitor_name.empty? ? 'Not specified': chat.visitor_name
-  %td= chat.chat_accepted ? local_time(chat.chat_accepted, '%b %e/%y %l:%M %p') : "Not accepted #{local_time(chat.chat_requested, '%b %e/%Y %l:%M %p')}".html_safe
+  %td= chat.chat_accepted_status(current_agent) 
   %td= chat.department ? chat.department.name : 'Any Department'
+  %td= link_to "View", chat, data: { toggle: "modal", target: "#ajax-modal" }, remote: true, class: "btn btn-default btn-sm"
 

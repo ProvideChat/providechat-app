@@ -67,7 +67,7 @@ class AfterSignupController < ApplicationController
   private
 
   def agent_params
-    params.require(:agent).permit(:name, :password, :password_confirmation, :website_url)
+    params.require(:agent).permit(:name, :password, :password_confirmation, :website_url, :time_zone)
   end
 
   def validate_superadmin

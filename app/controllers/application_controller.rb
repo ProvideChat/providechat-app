@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :verify_completed_setup
+  around_action :set_time_zone, if: :current_agent
 
   layout :layout_by_resource
 
@@ -36,5 +37,11 @@ class ApplicationController < ActionController::Base
     if agent_signed_in? && current_agent.organization.completed_setup == false
       redirect_to edit_after_signup_path(current_agent) unless controller_name == 'after_signup'
     end
+  end
+
+  private
+
+  def set_time_zone(&block)
+    Time.use_zone(current_agent.time_zone, &block)
   end
 end
