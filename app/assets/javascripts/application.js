@@ -33,8 +33,8 @@
 //= require sweetalert
 //= require providechat
 //= require remodal
-//= require moment
-//= require moment-timezone
+//= require detect_timezone
+//= require jquery.detect_timezone
 
 //= require smart-notification
 //= require select2

@@ -121,6 +121,8 @@ GEM
     dante (0.2.0)
     database_cleaner (1.5.3)
     debug_inspector (0.0.2)
+    detect_timezone_rails (0.0.5)
+      railties (>= 3.1)
     devise (3.5.9)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -350,8 +352,6 @@ GEM
       rb-fsevent (~> 0.9, >= 0.9.7)
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
-    local_time (1.0.3)
-      coffee-rails
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     lumberjack (1.0.10)
@@ -424,9 +424,6 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.2.6)
       sprockets-rails
-    rails-assets-moment (2.13.0)
-    rails-assets-moment-timezone (0.5.3)
-      rails-assets-moment (>= 2.6.0)
     rails-assets-sweetalert (1.1.3)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
@@ -596,6 +593,7 @@ DEPENDENCIES
   carrierwave
   coffee-rails (~> 4.1.0)
   database_cleaner
+  detect_timezone_rails
   devise
   devise-async
   dotenv-rails
@@ -616,7 +614,6 @@ DEPENDENCIES
   jquery-ui-rails
   json
   launchy
-  local_time
   mail_form
   mini_magick (~> 4.0.0.rc)
   net-ssh
@@ -633,8 +630,6 @@ DEPENDENCIES
   quiet_assets
   rack-mini-profiler
   rails (= 4.2.6)
-  rails-assets-moment!
-  rails-assets-moment-timezone!
   rails-assets-sweetalert!
   rails_best_practices
   rspec-rails

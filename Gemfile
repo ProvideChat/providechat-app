@@ -9,6 +9,7 @@ gem 'carrierwave'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'devise'
 gem 'devise-async'
+gem 'detect_timezone_rails'
 gem 'draper', '~> 1.3'
 gem 'exception_notification'
 gem 'feedjira'
@@ -21,7 +22,6 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-turbolinks'
 gem 'json'
-gem 'local_time'
 #gem 'lograge'
 gem 'pg'
 gem 'mail_form'
@@ -46,8 +46,6 @@ gem 'whenever', require: false
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-sweetalert'
-  gem 'rails-assets-moment'
-  gem 'rails-assets-moment-timezone'
 end
 
 group :development  do
