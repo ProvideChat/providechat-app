@@ -361,7 +361,7 @@ GEM
       actionmailer (>= 3.2, < 5)
       activemodel (>= 3.2, < 5)
     method_source (0.8.2)
-    mime-types (2.99.1)
+    mime-types (2.99.2)
     mimemagic (0.3.1)
     mini_magick (4.0.4)
     mini_portile2 (2.0.0)
@@ -530,8 +530,7 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     stackprof (0.2.9)
-    stripe (1.31.0)
-      json (~> 1.8.1)
+    stripe (1.43.0)
       rest-client (~> 1.4)
     stripe-ruby-mock (2.2.3)
       dante (>= 0.2.0)
@@ -641,7 +640,7 @@ DEPENDENCIES
   sinatra
   slim
   stackprof
-  stripe (~> 1.31.0)
+  stripe (~> 1.43)
   stripe-ruby-mock
   stripe_event
   timecop

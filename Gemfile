@@ -38,7 +38,7 @@ gem 'sidekiq-client-cli'
 gem 'sinatra', :require => nil
 gem 'slim'
 gem 'stackprof'
-gem 'stripe', '~> 1.31.0'
+gem 'stripe', '~> 1.43'
 gem 'stripe_event'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
