@@ -71,4 +71,31 @@ class Organization < ActiveRecord::Base
 
   def process_offline_msg(website_id, name, email, department, message)
   end
+
+  def self.delete_with_cascade(organization_id)
+    organization = Organization.find(organization)
+
+    if organization
+      Agent.where(organization_id: organization_id).delete_all
+      Department.where(organization_id: organization_id).delete_all
+
+      Chat.where(organization_id: organization_id).each do |chat|
+        ChatMessage.where(chat_id: chat.id).delete_all
+        chat.delete
+      end
+
+      Invitation.where(organization_id: organization_id).delete_all
+      InvoicePayment.where(organization_id: organization_id).delete_all
+
+      OfflineForm.where(organization_id: organization_id).delete_all
+      OfflineMessage.where(organization_id: organization_id).delete_all
+      OrganizationFtpServer.where(organization_id: organization_id).delete_all
+      PrechatForm.where(organization_id: organization_id).delete_all
+      RapidResponse.where(organization_id: organization_id).delete_all
+      Subscription.where(organization_id: organization_id).delete_all
+      VisitorArchive.where(organization_id: organization_id).delete_all
+      Visitor.where(organization_id: organization_id).delete_all
+      Website.where(organization_id: organization_id).delete_all
+    end 
+  end
 end
