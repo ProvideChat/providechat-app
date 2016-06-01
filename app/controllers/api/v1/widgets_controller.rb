@@ -13,7 +13,7 @@ module Api
         method = params[:method]
         org_id = params[:org_id]
 
-        organization = Organization.find(org_id)
+        organization = Organization.where(id: org_id).first
 
         if organization
           website = organization.validate_widget_website(request.env['HTTP_REFERER'])
