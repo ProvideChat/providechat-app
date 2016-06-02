@@ -73,7 +73,7 @@ class Organization < ActiveRecord::Base
   end
 
   def self.delete_with_cascade(organization_id)
-    organization = Organization.find(organization)
+    organization = Organization.find(organization_id)
 
     if organization
       Agent.where(organization_id: organization_id).delete_all
@@ -96,6 +96,8 @@ class Organization < ActiveRecord::Base
       VisitorArchive.where(organization_id: organization_id).delete_all
       Visitor.where(organization_id: organization_id).delete_all
       Website.where(organization_id: organization_id).delete_all
+
+      Organization.delete(organization_id)
     end 
   end
 end
