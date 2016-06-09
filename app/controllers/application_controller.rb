@@ -14,7 +14,9 @@ class ApplicationController < ActionController::Base
   end
 
   def layout_by_resource
-    if devise_controller? #&& resource_name == :agent && action_name == 'new'
+    if devise_controller? && resource_name == :admin
+      "admin"
+    elsif devise_controller? #&& resource_name == :agent && action_name == 'new'
       "devise"
     else
       "application"
@@ -22,7 +24,9 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    if resource.completed_setup
+    if resource.class.name == 'Admin'
+      rails_admin_path
+    elsif resource.completed_setup
       dashboard_path
     else
       edit_after_signup_path(resource)

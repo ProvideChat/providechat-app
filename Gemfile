@@ -31,6 +31,7 @@ gem 'nokogiri'
 gem 'nprogress-rails'
 gem 'paper_trail', '~> 4.0.0.beta'
 gem 'premailer-rails'
+gem 'rails_admin'
 gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'sidekiq'

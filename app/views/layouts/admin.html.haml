@@ -1,0 +1,41 @@
+!!! 5
+%html{lang: "en"}
+  %head
+    %title Provide Chat App
+
+    %meta{charset: "utf-8"}
+    %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}
+    %meta{name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'}
+    %meta{name: "description", content: "Provide Chat Application"}
+    %meta{name: "author", content: "Provide Chat software"}
+
+    = favicon_link_tag 'favicon.ico'
+
+    = stylesheet_link_tag "bootstrap"
+    = stylesheet_link_tag "smartadmin-production-plugins"
+    = stylesheet_link_tag "smartadmin-production"
+    = stylesheet_link_tag    "application", media: "all"
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+
+    / HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
+    /[if lt IE 9]
+      %script{:type => "text/javascript", :src => "https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"}
+      %script{:type => "text/javascript", :src => "https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"}
+
+    %link{href: "https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700", rel: "stylesheet"}
+
+    = javascript_include_tag 'modernizr'
+
+  %body{:class => "animated fadeInDown"}
+
+    %header#header{:class => "login-header"}
+      #logo-group
+        %span#logo
+          = image_tag "logo.png", alt: "Provide Chat"
+
+    #content.container
+      .row
+        .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
+          = yield
+

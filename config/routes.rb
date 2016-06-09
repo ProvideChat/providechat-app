@@ -2,12 +2,14 @@ require 'api_constraints'
 
 Rails.application.routes.draw do
 
-  devise_for :admins
   devise_for :agents, path: 'auth', 
                controllers: {
                  registrations: "registrations",
                  confirmations: 'confirmations'
                }
+
+  mount RailsAdmin::Engine => '/manage', as: 'rails_admin'
+  devise_for :admins, path: 'admin'
 
   resources :after_signup, only: [:edit, :update]
   resources :contact_forms, only: [:new, :create]
