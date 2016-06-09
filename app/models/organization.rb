@@ -13,7 +13,7 @@ class Organization < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
 
   enum payment_system: [:stripe, :paypal]
-  enum account_type: [:trial, :paid, :free]
+  enum account_type: [:trial, :paid, :free, :master]
   enum status: [:disabled, :enabled]
 
   def validate_widget_website(http_referrer)
