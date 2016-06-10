@@ -25,7 +25,6 @@ class CreateVisitors < ActiveRecord::Migration
       t.string :browser_version, :default => ''
       t.string :operating_system, :default => ''
       t.string :screen_resolution, :default => ''
-      t.string :smart_invite_status, :default => ''
       t.string :operator_invite, :default => ''
       t.string :ip_address, :default => ''
       t.string :latitude, :default => ''

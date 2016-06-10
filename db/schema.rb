@@ -210,6 +210,7 @@ ActiveRecord::Schema.define(version: 20160604045523) do
     t.string   "username"
     t.string   "password"
     t.string   "directory"
+    t.text     "comments"
     t.integer  "status"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
@@ -218,15 +219,15 @@ ActiveRecord::Schema.define(version: 20160604045523) do
   add_index "organization_ftp_servers", ["organization_id"], name: "index_organization_ftp_servers_on_organization_id", using: :btree
 
   create_table "organizations", force: :cascade do |t|
-    t.integer  "account_type",           default: 0,  null: false
+    t.integer  "account_type",           default: 0,     null: false
     t.integer  "payment_system",         default: 0
     t.integer  "agent_session_timeout",  default: 30
     t.integer  "agent_response_timeout", default: 2
-    t.boolean  "completed_setup"
-    t.integer  "status"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.integer  "trial_days",             default: 14, null: false
+    t.boolean  "completed_setup",        default: false
+    t.integer  "status",                 default: 0
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.integer  "trial_days",             default: 14,    null: false
     t.datetime "trial_period_end"
     t.string   "stripe_customer_id"
     t.datetime "expiration_date"
@@ -359,7 +360,7 @@ ActiveRecord::Schema.define(version: 20160604045523) do
     t.string   "email",               default: ""
     t.string   "department",          default: ""
     t.string   "question",            default: ""
-    t.string   "smart_invite_status", default: ""
+    t.integer  "smart_invite_status", default: 0
     t.integer  "agent_invite_status", default: 0
     t.integer  "invite_agent_id",     default: 0
     t.datetime "last_ping"
