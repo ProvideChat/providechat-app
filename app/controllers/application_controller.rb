@@ -24,11 +24,12 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
+    Rails.logger.info "Resource class name: #{resource.class.name}"
     if resource.class.name == 'Admin'
       rails_admin_path
-    elsif resource.completed_setup
+    elsif resource.class.name =='Agent' && resource.organization.completed_setup
       dashboard_path
-    else
+    elsif resource.class.name == 'Agent' && resource.organization.completed_setup == false
       edit_after_signup_path(resource)
     end
   end
