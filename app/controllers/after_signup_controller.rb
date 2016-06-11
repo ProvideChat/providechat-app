@@ -117,8 +117,6 @@ class AfterSignupController < ApplicationController
       organization_ftp_server.status = 'waiting_setup'
       organization_ftp_server.save
     end
-    agent.completed_setup = true
-    agent.save
   end
 
 end

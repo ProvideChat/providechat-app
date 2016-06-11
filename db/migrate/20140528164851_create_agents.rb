@@ -12,7 +12,6 @@ class CreateAgents < ActiveRecord::Migration
       t.boolean :active_chat_sound,       default: true
       t.boolean :background_chat_sound,   default: true
       t.boolean :visitor_arrived_sound,   default: true
-      t.boolean :completed_setup,         default: false
       t.string :avatar
       t.integer :status,                  default: 0
 

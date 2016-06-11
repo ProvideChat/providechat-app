@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(version: 20160604045523) do
     t.boolean  "active_chat_sound",      default: true
     t.boolean  "background_chat_sound",  default: true
     t.boolean  "visitor_arrived_sound",  default: true
-    t.boolean  "completed_setup",        default: false
     t.string   "avatar"
     t.integer  "status",                 default: 0
     t.string   "reset_password_token"
