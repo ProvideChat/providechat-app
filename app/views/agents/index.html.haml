@@ -30,6 +30,8 @@
             - elsif current_agent.organization.account_type == 'paid'
               Agents are the foundation of your Provide Chat system. Your current subscription level can have up to 
               #{current_agent.organization.subscription.quantity} agents.
+            - elsif current_agent.organization.account_type == 'master'
+              Agents are the foundation of your Provide Chat system. Your current subscription level has no agent limit.
         %table.table.table-bordered
           %thead
             %tr

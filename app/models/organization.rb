@@ -38,6 +38,8 @@ class Organization < ActiveRecord::Base
       else
         false
       end
+    when "master"
+      true
     end
   end
 

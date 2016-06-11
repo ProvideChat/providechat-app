@@ -36,6 +36,8 @@
             - elsif current_agent.organization.account_type == 'paid'
               You are currently using #{current_agent.organization.agents.count} of 
               #{current_agent.organization.subscription.quantity} available agents.
+            - elsif current_agent.organization.account_type == 'master'
+              You have unlimited agents
 
 .clearfix
 
@@ -106,6 +108,14 @@
               %p
                 To unlock multiple chats or to add multiple agents, start your 
                 subscription today.
+
+          - elsif current_agent.organization.account_type == 'master'
+            .col-xs-2
+              = image_tag 'icons/subscribed.png', class: "dashboard-icon"
+            .col-xs-10
+              .alert.alert-info
+                %h4 You have a master account with unlimited agents.
+                %br
 
         .widget-footer
           .pull-right
