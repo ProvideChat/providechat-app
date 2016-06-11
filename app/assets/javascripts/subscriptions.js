@@ -10,7 +10,7 @@ function calculate_total_price() {
   }
 }
 
-function ready_payment() {
+$(document).ready(function() {
   $('#payment-form').submit(function(event) {
     var $form = $(this);
 
@@ -21,23 +21,16 @@ function ready_payment() {
     return false;
   });
 
-  $('.spinner .btn:first-of-type').on('click', function() {
-    $('.spinner input').val( parseInt($('.spinner input').val(), 10) + 1);
-    calculate_total_price()
-  });
-  $('.spinner .btn:last-of-type').on('click', function() {
-    $('.spinner input').val( parseInt($('.spinner input').val(), 10) - 1);
+  $('#agent-quantity').change(function() {
     calculate_total_price();
   });
+
   $('#agent-plan').change(function() {
     calculate_total_price();
   });
 
   calculate_total_price();
-};
-
-$(document).ready(ready_payment);
-$(document).on('page:load', ready_payment);
+});
 
 function stripeResponseHandler(status, response) {
   var $form = $('#payment-form');

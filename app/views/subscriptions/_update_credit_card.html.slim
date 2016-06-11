@@ -1,0 +1,47 @@
+= form_for @subscription, html: { id: 'payment-form' } do |f|
+  = render "layouts/error_messages", :f => @subscription
+  = f.hidden_field "action", value: "update-card"
+
+  tab-pane.fade.active.in
+    h4.alert.alert-warning
+      Update Your Credit Card
+
+  .row
+    .col-xs-12.col-sm-10.col-sm-offset-1.col-md-6.col-md-offset-3
+      .panel.panel-default
+        .panel-heading
+          h3.panel-title
+            img.pull-right src="http://i76.imgup.net/accepted_c22e0.png"
+            | Payment
+            br
+            | Details
+
+        .panel-body
+          .row
+            .col-xs-12
+              .form-group
+                label for="cardNumber" CARD NUMBER
+                .input-group
+                  input.form-control autofocus="" data-stripe="number" name="cardNumber" placeholder="Valid Card Number" required="" type="text"
+                  span.input-group-addon
+                    i.fa.fa-credit-card
+          .row
+            .col-xs-7.col-md-7
+              .form-group
+                .col-xs-12
+                  label for="expMonth" EXPIRATION DATE
+                .col-xs-6.col-lg-6.pl-ziro
+                  input.form-control data-stripe="exp_month" name="expMonth" placeholder="MM" required="" type="text"
+                .col-xs-6.col-lg-6.pl-ziro
+                  input.form-control data-stripe="exp_year" name="expYear" placeholder="YY" :required="" type="text"
+            .col-xs-5.col-md-5.pull-right
+              .form-group
+                label for="cvCode" CV CODE
+                input.form-control data-stripe="cvc" name="cvCode" placeholder="CV" required="" type="password"
+
+          .alert.alert-danger.fade.in id="payment-error-box" style="display: none;"
+            strong Error:
+            .payment-error-msg
+
+        .panel-footer
+          = f.submit "Update Credit Card", class: "btn btn-success"

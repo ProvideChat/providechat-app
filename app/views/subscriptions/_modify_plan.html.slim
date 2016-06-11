@@ -1,0 +1,54 @@
+= form_for @subscription, html: { id: 'subscription-form' } do |f|
+  = render "layouts/error_messages", :f => @subscription
+
+  = f.hidden_field "action", value: "update-subscription"
+  .tab-pane.fade.active.in
+    h4.alert.alert-warning
+      Modify Your Subcription Plan
+
+  .row
+    .col-xs-12.col-sm-10.col-sm-offset-1
+      .panel.panel-default
+        .panel-heading
+          h3.panel-title
+            | Your Plan Details
+        .panel-body
+          fieldset
+            .row
+              .form-group
+                label.col-md-4.control-label Billing Email Address
+                .col-md-5
+                  input.form-control name="email_address" size="30" type="email" value=current_agent.email
+                  .help-text style="font-size: 10px;"
+                    | This is the billing email address that will be receiving invoices
+            .row
+              .form-group
+                label.col-md-4.control-label= f.label :quantity, "Number of Agents"
+                .col-md-4
+                  .input-group
+                    input.form-control type="text" value="#{@subscription.quantity}" id="agent-quantity" name="quantity"
+                  .help-text{style: "font-size: 10px;"}
+                    | This is the number of agents in your subscription. Each agent is $15/month.
+            .row
+              .form-group style="padding-top: 8px;"
+                label.col-md-4.control-label Payment Cycle
+                .col-md-5
+                  label
+                    = select_tag "plan", options_for_select([["Yearly", "yearly-agent-180"], ["Monthly", "monthly-agent-19"]], @subscription.plan_id), id: "agent-plan", class: "form-control"
+                  .help-text style="font-size: 10px;"
+                    | You save $4/agent each month on a yearly payment cycle
+
+          br
+          .form-group
+            label.col-md-4.control-label style="font-size: 140%; font-weight: bold;" Total Price
+            .col-md-7
+              #total-price style="font-size: 140%; font-weight: bold;"
+
+        .panel-footer
+          = f.submit "Update Subscription", class: "btn btn-success", data: {disable_with: "Submitting..."}
+
+javascript:
+  $("#agent-quantity").TouchSpin({
+    min: 1,
+    postfix: 'agents'
+  });
