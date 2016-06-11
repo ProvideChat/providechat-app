@@ -28,7 +28,7 @@ class AfterSignupController < ApplicationController
         @organization.setup_step = 3
       end
     when 3
-      if params[:finish] && process_step_three(@agent, params)
+      if params[:finish]
         @organization.completed_setup = true
       end
     end
@@ -46,7 +46,6 @@ class AfterSignupController < ApplicationController
   end
 
   def add_ftp_server
-    logger.info params
 
     if params.has_key?(:agree_to_terms) && params[:agree_to_terms] == "Yes"
       organization_ftp_server = OrganizationFtpServer.find_or_initialize_by(organization_id: current_agent.organization_id)
@@ -105,18 +104,4 @@ class AfterSignupController < ApplicationController
       agent.save
     end
   end
-
-  def process_step_three(agent, params)
-    if params[:agree_to_terms]
-      organization_ftp_server = OrganizationFtpServer.find_or_initialize_by(organization_id: agent.organization_id)
-      organization_ftp_server.host_address = params[:host_address]
-      organization_ftp_server.username = params[:username]
-      organization_ftp_server.password = params[:password]
-      organization_ftp_server.directory = params[:directory]
-      organization_ftp_server.comments = params[:comments]
-      organization_ftp_server.status = 'waiting_setup'
-      organization_ftp_server.save
-    end
-  end
-
 end
