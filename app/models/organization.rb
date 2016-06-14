@@ -19,11 +19,15 @@ class Organization < ActiveRecord::Base
   def validate_widget_website(http_referrer)
 
     require 'uri'
-    uri = URI(http_referrer)
+    if http_referrer.is_a? String
+      uri = URI(http_referrer)
 
-    logger.info "Validating Widget, HTTP_REFERER: #{http_referrer}"
+      logger.info "Validating Widget, HTTP_REFERER: #{http_referrer}"
 
-    website = Website.find_by(organization_id: self.id, url: uri.host)
+      Website.find_by(organization_id: self.id, url: uri.host)
+    else
+      nil
+    end
   end
 
   def can_create_agents
