@@ -1,5 +1,5 @@
 class CreateSubscription
-  def self.call(organization, quantity, plan, email_address, token)
+  def self.call(organization, quantity, plan, email_address, token, coupon_code)
     subscription = Subscription.new(
       quantity: quantity,
       plan_id: plan,
@@ -23,7 +23,8 @@ class CreateSubscription
       else
         customer = Stripe::Customer.retrieve(organization.stripe_customer_id)
         stripe_sub = customer.subscriptions.create(
-          plan: plan
+          plan: plan,
+          coupon: coupon_code
         )
         organization.account_type = "paid"
         organization.save!
@@ -42,6 +43,7 @@ class CreateSubscription
       
       subscription.save!
     rescue Stripe::StripeError => e
+      Rails.logger.info "STRIPE ERROR: #{e.message}"
       subscription.errors[:base] << e.message
     end
 

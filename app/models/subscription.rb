@@ -15,4 +15,8 @@ class Subscription < ActiveRecord::Base
       "#{self.term_cost} / year"
     end
   end
+
+  def next_payment
+    Time.at(current_period_end).strftime("%A %e, %Y")
+  end
 end

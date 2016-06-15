@@ -97,7 +97,7 @@
                 %p
                   You are charged $#{current_agent.organization.subscription.cost_description}. 
                   Your next payment is scheduled for 
-                  #{current_agent.organization.subscription.current_period_end}.
+                  #{current_agent.organization.subscription.next_payment}.
 
           - elsif current_agent.organization.account_type == 'free'
             .col-xs-2

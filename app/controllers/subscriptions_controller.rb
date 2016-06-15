@@ -9,15 +9,13 @@ class SubscriptionsController < ApplicationController
   end
 
   def create
-    # Get the credit card details submitted by the form
-    token = params[:stripeToken]
-    
     @subscription = CreateSubscription.call(
       current_agent.organization,
       params[:quantity],
       params[:plan],
       params[:email_address],
-      params[:stripeToken]
+      params[:stripeToken],
+      params[:couponCode]
     )
     if @subscription.errors.blank?
       flash[:notice] = 'Thank you for subscribing to Provide Chat.'
