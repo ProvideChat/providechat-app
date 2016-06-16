@@ -4,6 +4,9 @@ class CreateInvoicePayments < ActiveRecord::Migration
       t.string :stripe_id
       t.integer :amount
       t.integer :fee_amount
+      t.string :currency
+      t.boolean :discount
+      t.string :coupon
       t.references :organization, index: true, foreign_key: true
       t.references :subscription, index: true, foreign_key: true
 

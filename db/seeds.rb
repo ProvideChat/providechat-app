@@ -9,13 +9,9 @@
 organization = Organization.create( payment_system: "stripe", status: "enabled", account_type: "master", trial_period_end: 15.days.ago, completed_setup: true )
 organization.save!
 
-subscription = Subscription.create(organization_id: organization.id, quantity: 3)
-subscription.save!
+Agent.create( name: "Derek Barber", display_name: "Derek", title: "Support Hero", organization_id: organization.id, access_level: "superadmin", email: "derek@providechat.com", password: "password", password_confirmation: "password", status: "enabled")
 
-agent = Agent.create( name: "Derek Barber", display_name: "Derek", title: "Support Hero", organization_id: organization.id, access_level: "superadmin", email: "derek@providechat.com", password: "password", password_confirmation: "password", status: "enabled")
-agent.save!
-
-admin = Admin.create(email: "derek@providechat.com", password: "password", password_confirmation: "password")
+Admin.create(email: "derek@providechat.com", password: "password", password_confirmation: "password")
 
 #website = Website.create( organization: organization.id, url: "http://www.providechat.dev", name: "Provide Chat", email: "derek@smartsettle.com")
 

@@ -166,6 +166,9 @@ ActiveRecord::Schema.define(version: 20160604045523) do
     t.string   "stripe_id"
     t.integer  "amount"
     t.integer  "fee_amount"
+    t.string   "currency"
+    t.boolean  "discount"
+    t.string   "coupon"
     t.integer  "organization_id"
     t.integer  "subscription_id"
     t.datetime "created_at",      null: false
@@ -272,16 +275,16 @@ ActiveRecord::Schema.define(version: 20160604045523) do
 
   create_table "subscriptions", force: :cascade do |t|
     t.integer  "organization_id"
-    t.string   "stripe_id"
-    t.integer  "quantity"
+    t.string   "stripe_id",                        null: false
+    t.integer  "quantity",             default: 1, null: false
     t.datetime "active_until"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
     t.string   "plan_id"
     t.string   "interval"
     t.integer  "amount"
     t.datetime "current_period_end"
     t.datetime "current_period_start"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
   add_index "subscriptions", ["organization_id"], name: "index_subscriptions_on_organization_id", using: :btree
