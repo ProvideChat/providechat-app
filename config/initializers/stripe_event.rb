@@ -21,7 +21,7 @@ StripeEvent.configure do |events|
     invoice_sub = invoice.lines.data.select { |i| i.type == 'subscription' }.first.id
     subscription = Subscription.find_by(stripe_id: invoice_sub)
 
-    charge = invoice.charge
+    charge = Stripe::Charge.retrieve(invoice.charge)
 
     balance_txn = Stripe::BalanceTransaction.retrieve(charge.balance_transaction)
 
