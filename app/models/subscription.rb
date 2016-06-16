@@ -17,6 +17,6 @@ class Subscription < ActiveRecord::Base
   end
 
   def next_payment
-    Time.at(current_period_end).strftime("%A %e, %Y")
+    Time.at(current_period_end).strftime("%B %e, %Y")
   end
 end

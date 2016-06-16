@@ -95,9 +95,11 @@
                 %h4 You have an active subscription of #{current_agent.organization.subscription.quantity} agents.
                 %br
                 %p
-                  You are charged $#{current_agent.organization.subscription.cost_description}. 
-                  Your next payment is scheduled for 
-                  #{current_agent.organization.subscription.next_payment}.
+                  - if current_agent.organization.subscription.interval == 'month'
+                    You are on our monthly payment plan.
+                  - elsif current_agent.organization.subscription.interval == 'year'
+                    You are on our yearly payment plan.
+                  Your next payment is scheduled for #{current_agent.organization.subscription.next_payment}.
 
           - elsif current_agent.organization.account_type == 'free'
             .col-xs-2
