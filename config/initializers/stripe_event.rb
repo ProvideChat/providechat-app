@@ -17,7 +17,7 @@ StripeEvent.configure do |events|
   
   events.subscribe('invoice.payment_succeeded') do |event|
     invoice = event.data.object
-    user = User.find_by(stripe_id: invoice.customer)
+    organization = Organization.find_by(stripe_customer_id: invoice.customer)
     invoice_sub = invoice.lines.data.select { |i| i.type == 'subscription' }.first.id
     subscription = Subscription.find_by(stripe_id: invoice_sub)
 
@@ -29,8 +29,10 @@ StripeEvent.configure do |events|
       stripe_id: invoice.id,
       amount: invoice.total,
       fee_amount: balance_txn.fee,
-      user_id: user.id,
-      subscription_id: subscription.id
+      organization_id: organization.id,
+      subscription_id: subscription.id,
+      currency: invoice.currency,
+      discount: invoice.discount
     )
   end
 end
