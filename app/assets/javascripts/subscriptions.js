@@ -1,14 +1,18 @@
 
-function calculate_total_price() {
-  var total_price = 0;
-  var agent_plan = $('#agent-plan').val();
-  if (agent_plan == "monthly-agent-19") {
-    total_price = parseInt($('#agent-quantity').val(), 10) * 19;
-  } else if (agent_plan == "yearly-agent-180") {
-    total_cost = parseInt($('#agent-quantity').val(), 10) * 180;
-  }
+function monthly_price() {
+  return parseInt($('#agent-quantity').val(), 10) * 19;
+}
 
-  return total_cost;
+function yearly_price() {
+  return parseInt($('#agent-quantity').val(), 10) * 180;
+}
+
+function calculate_total_price(agent_plan) {
+  if (agent_plan === "monthly-agent-19") {
+    return monthly_price();
+  } else if (agent_plan === "yearly-agent-180") {
+    return yearly_price();
+  }
 }
 
 function calculate_total_savings() {
@@ -22,17 +26,17 @@ function calculate_total_savings() {
 function display_total_price() {
   var agent_plan = $('#agent-plan').val();
   if (agent_plan == "monthly-agent-19") {
-    $('#total-price').html( "$" + calculate_total_price() + " / month");
+    $('#total-price').html( "$" + monthly_price() + " / month");
   } else if (agent_plan == "yearly-agent-180") {
     var total_savings = parseInt($('#agent-quantity').val(), 10) *  48;
-    $('#total-price').html( "$" + calculate_total_price() + " / year <small><i>(Save $" + total_savings + "/year)</i></small>");
+    $('#total-price').html( "$" + yearly_price() + " / year <small><i>(Save $" + total_savings + "/year)</i></small>");
   }
 }
 
 function calculate_coupon_price(coupon) {
 
   var agent_plan = $('#agent-plan').val();
-  var coupon_price = calculate_total_price();
+  var coupon_price = calculate_total_price(agent_plan);
 
   if (coupon.valid === false) {
     $('#coupon-code-msg').html("<span class='label label-warning'>Sorry, this coupon code is no longer valid</span>");
@@ -46,9 +50,9 @@ function calculate_coupon_price(coupon) {
         $('#coupon-code-msg').html("<span class='label label-info'>Coupon code applied: $" + coupon.amount_off + " off</span>");
 
         if (agent_plan == "monthly-agent-19") {
-          $('#coupon-price').html( "$" + (calculate_total_price() - coupon.amount_off) + " / month <small><i>(for your first month)</i></small>");
+          $('#coupon-price').html( "$" + (monthly_price() - coupon.amount_off) + " / month <small><i>(for your first month)</i></small>");
         } else if (agent_plan == "yearly-agent-180") {
-          $('#coupon-price').html( "$" + (calculate_total_price() - coupon.amount_off) + " / year <small><i>(for your first year)</i></small>");
+          $('#coupon-price').html( "$" + (yearly_price() - coupon.amount_off) + " / year <small><i>(for your first year)</i></small>");
         }
       }
 
@@ -58,17 +62,17 @@ function calculate_coupon_price(coupon) {
         $('#coupon-code-msg').html("<span class='label label-info'>Coupon code applied: " + coupon.percent_off + "% for " + coupon.duration_in_months + " months</span>");
 
         if (agent_plan == "monthly-agent-19") {
-          $('#coupon-price').html( "$" + (calculate_total_price() * (coupon.percent_off/100)) + " / month <small><i>(for first " + coupon_duration_in_months + " months)</i></small>");
+          $('#coupon-price').html( "$" + (monthly_price() * (coupon.percent_off/100)) + " / month <small><i>(for first " + coupon_duration_in_months + " months)</i></small>");
         } else if (agent_plan == "yearly-agent-180") {
-          $('#coupon-price').html( "$" + (calculate_total_price() * (coupon.percent_off/100)) + " / year <small><i>(for your first year)</i></small>");
+          $('#coupon-price').html( "$" + (yearly_price() * (coupon.percent_off/100)) + " / year <small><i>(for your first year)</i></small>");
         }
       } else {
         $('#coupon-code-msg').html("<span class='label label-info'>Coupon code applied: " + coupon.percent_off + "% off</span>");
 
         if (agent_plan == "monthly-agent-19") {
-          $('#coupon-price').html( "$" + (calculate_total_price() * (coupon.percent_off/100)) + " / month <small><i>(for your first month)</i></small>");
+          $('#coupon-price').html( "$" + (monthly_price() * (coupon.percent_off/100)) + " / month <small><i>(for your first month)</i></small>");
         } else if (agent_plan == "yearly-agent-180") {
-          $('#coupon-price').html( "$" + (calculate_total_price() * (coupon.percent_off/100)) + " / year <small><i>(for your first year)</i></small>");
+          $('#coupon-price').html( "$" + (yearly_price() * (coupon.percent_off/100)) + " / year <small><i>(for your first year)</i></small>");
         }
       }
     }
