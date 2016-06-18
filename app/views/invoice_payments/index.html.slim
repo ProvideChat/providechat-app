@@ -1,0 +1,23 @@
+table.table.table-striped
+  thead
+    th Transaction Id
+    th Date
+    th Amount
+    th Agents
+    th Term
+    th Discount?
+    td
+  tbody
+    - @invoice_payments.each do |invoice_payment|
+      tr
+        td=invoice_payment.id
+        td=invoice_payment.created_at
+        td=invoice_payment.amount
+        td=invoice_payment.quantity
+        td=invoice_payment.interval
+        td=invoice_payment.discount
+        td=link_to "View Receipt", invoice_payment
+
+
+
+

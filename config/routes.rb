@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :visitors
   resources :departments
   resources :chats, only: [:index, :show]
+  resources :invoice_payments, only: [:index, :show]
   resources :websites, only: [:index, :new, :edit, :create, :update, :destroy]
   resources :agents, only: [:index, :new, :edit, :create, :update, :destroy]
   resources :rapid_responses, only: [:index, :new, :edit, :create, :update, :destroy]
