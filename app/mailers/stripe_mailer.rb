@@ -15,8 +15,8 @@ class StripeMailer < ApplicationMailer
 
   def receipt(charge)
     @charge = charge
-    @organization = Organization.find_by(stripe_customer_id: @charge.customer)
-    @agent = @organization.find_by(organization_id: @organization.id, access_level: Agent.access_levels[:superadmin])
+    @organization = Organization.find_by!(stripe_customer_id: @charge.customer)
+    @agent = Agent.find_by!(organization_id: @organization.id, access_level: Agent.access_levels[:superadmin])
     mail(to: @agent.email, subject: "Thanks for subscribing to Provide Chat!")
   end
 
