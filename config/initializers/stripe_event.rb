@@ -15,6 +15,16 @@ StripeEvent.configure do |events|
     StripeMailer.admin_charge_succeeded(charge).deliver
   end
   
+  events.subscribe 'subscription.created' do |event|
+    subscription = event.data.object
+    StripeMailer.admin_subscription_created(subscription).deliver
+  end
+
+  events.subscribe 'subscription.deleted' do |event|
+    subscription = event.data.object
+    StripeMailer.admin_subscription_deleted(subscription).deliver
+  end
+
   events.subscribe('invoice.payment_succeeded') do |event|
     invoice = event.data.object
     organization = Organization.find_by(stripe_customer_id: invoice.customer)

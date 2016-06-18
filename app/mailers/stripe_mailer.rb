@@ -13,6 +13,16 @@ class StripeMailer < ApplicationMailer
     mail(to: 'derek@providechat.com', subject: 'Woo! Charge Succeeded!')
   end
 
+  def admin_subscription_created(subscription)
+    @subscription = subscription
+    mail(to: 'derek@providechat.com', subject: 'Woo! New Subscription Started!')
+  end
+
+  def admin_subscription_deleted(subscription)
+    @subscription = subscription
+    mail(to: 'derek@providechat.com', subject: 'Subscription has been cancelled')
+  end
+
   def receipt(charge)
     @charge = charge
     @organization = Organization.find_by!(stripe_customer_id: @charge.customer)
