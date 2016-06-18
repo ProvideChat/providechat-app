@@ -163,16 +163,18 @@ ActiveRecord::Schema.define(version: 20160604045523) do
   end
 
   create_table "invoice_payments", force: :cascade do |t|
-    t.string   "stripe_id"
-    t.integer  "amount"
+    t.string   "stripe_id",                   null: false
+    t.integer  "amount",          default: 0, null: false
     t.integer  "fee_amount"
+    t.integer  "quantity",        default: 1, null: false
+    t.string   "interval"
     t.string   "currency"
     t.boolean  "discount"
     t.string   "coupon"
     t.integer  "organization_id"
     t.integer  "subscription_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   add_index "invoice_payments", ["organization_id"], name: "index_invoice_payments_on_organization_id", using: :btree
@@ -283,6 +285,7 @@ ActiveRecord::Schema.define(version: 20160604045523) do
     t.integer  "amount"
     t.datetime "current_period_end"
     t.datetime "current_period_start"
+    t.datetime "billing_start"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
@@ -416,7 +419,6 @@ ActiveRecord::Schema.define(version: 20160604045523) do
   add_index "websites", ["organization_id"], name: "index_websites_on_organization_id", using: :btree
 
   add_foreign_key "invoice_payments", "organizations"
-  add_foreign_key "invoice_payments", "subscriptions"
   add_foreign_key "organization_ftp_servers", "organizations"
   add_foreign_key "subscriptions", "organizations"
 end

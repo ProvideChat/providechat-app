@@ -10,6 +10,7 @@ class CreateSubscriptions < ActiveRecord::Migration
       t.integer :amount
       t.timestamp :current_period_end
       t.timestamp :current_period_start
+      t.timestamp :billing_start
 
       t.timestamps null: false
     end
