@@ -22,10 +22,16 @@ class CreateSubscription
         stripe_sub = customer.subscriptions.first
       else
         customer = Stripe::Customer.retrieve(organization.stripe_customer_id)
-        stripe_sub = customer.subscriptions.create(
-          plan: plan,
-          coupon: coupon_code
-        )
+        if coupon_code.blank?
+          stripe_sub = customer.subscriptions.create(
+            plan: plan
+          )
+        else
+          stripe_sub = customer.subscriptions.create(
+            plan: plan,
+            coupon: coupon_code
+          )
+        end
         organization.account_type = "paid"
         organization.save!
       end
