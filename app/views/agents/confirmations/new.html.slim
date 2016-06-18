@@ -1,21 +1,21 @@
 .well.no-padding
 
   = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, class: 'smart-form client-form' }) do |f|
-    %header
-      Resend confirmation instructions
+    header
+      | Resend confirmation instructions
 
-    %fieldset
-      %section
+    fieldset
+      section
         = render "layouts/flash_messages"
         = devise_error_messages!
 
-      %section
-        %label.input
-          Email
+      section
+        label.input
+          | Email
           = f.email_field :email, autofocus: true, class: 'email-field', placeholder: 'Email Address'
 
-      %section
+      section
         = f.submit "Resend confirmation instructions", class: "btn btn-primary btn-lg"
 
-    %footer
-      = render "devise/shared/links"
+    footer
+      = render "agents/shared/links"
