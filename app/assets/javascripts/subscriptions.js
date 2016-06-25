@@ -109,14 +109,14 @@ function apply_coupon() {
       {
         $("#apply-coupon").attr('disabled', false);
         $("#coupon-code").val('');
-        $('#coupon-code-msg').html("<span class='label label-warning'>Coupon code valid only for monthly plan</span>");
+        $('#coupon-code-msg').html("<span class='label label-warning'>Coupon code valid only for monthly plans</span>");
         display_total_price();
       } 
       else if (($('#agent-plan').val() === 'monthly-agent-19') && (data.coupon.duration === 'once') && (data.coupon.amount_off > 0))
       {
         $("#apply-coupon").attr('disabled', false);
         $("#coupon-code").val('');
-        $('#coupon-code-msg').html("<span class='label label-warning'>Coupon code valid only for monthly plan</span>");
+        $('#coupon-code-msg').html("<span class='label label-warning'>Coupon code valid only for yearly plans</span>");
         display_total_price();
       } 
       else 
