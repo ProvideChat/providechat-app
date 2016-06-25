@@ -40,7 +40,7 @@ class CreateSubscription
       subscription.current_period_end = Time.at(stripe_sub.current_period_end)
       subscription.current_period_start = Time.at(stripe_sub.current_period_start)
       subscription.stripe_id = stripe_sub.id
-      subsciption.coupon = coupon_code unless coupon_code.blank?
+      subscription.coupon = coupon_code unless coupon_code.blank?
 
       if (subscription.interval == "year")
         subscription.active_until = 1.year.from_now
