@@ -73,6 +73,15 @@ function calculate_percent_off(agent_plan, coupon) {
     } else if (agent_plan == "yearly-agent-180") {
       $('#coupon-price').html( "$" + (yearly_price() * ((100-coupon.percent_off)/100)).toFixed(2) + " / year <small><i>(for first " + coupon.duration_in_months + " months)</i></small>");
     }
+  }
+  else if (coupon.duration === "forever") {
+    $('#coupon-code-msg').html("<span class='label label-info'>Coupon code applied: " + coupon.percent_off + "% forever</span>");
+
+    if (agent_plan == "monthly-agent-19") {
+      $('#coupon-price').html( "$" + (monthly_price() * ((100-coupon.percent_off)/100)).toFixed(2) + " / month <small><i>(for unlimited period)</i></small>");
+    } else if (agent_plan == "yearly-agent-180") {
+      $('#coupon-price').html( "$" + (yearly_price() * ((100-coupon.percent_off)/100)).toFixed(2) + " / year <small><i>(for unlimited period)</i></small>");
+    }
   } else {
     $('#coupon-code-msg').html("<span class='label label-info'>Coupon code applied: " + coupon.percent_off + "% off</span>");
 
