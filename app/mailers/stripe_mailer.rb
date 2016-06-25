@@ -1,7 +1,4 @@
 class StripeMailer < ApplicationMailer
-  add_template_helper EmailHelper
-
-  default from: 'noreply@providechat.com'
 
   def admin_dispute_created(charge)
     @charge = charge
