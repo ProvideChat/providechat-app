@@ -33,11 +33,13 @@
           .pull-right
             - if current_agent.organization.account_type == 'trial' || current_agent.organization.account_type == 'free'
               You are currently using your maximum available agents.
-            - elsif current_agent.organization.account_type == 'paid'
+            - elsif current_agent.organization.account_type == 'paid' && current_agent.organization.subscription
               You are currently using #{current_agent.organization.agents.count} of 
               #{current_agent.organization.subscription.quantity} available agents.
             - elsif current_agent.organization.account_type == 'master'
               You have unlimited agents
+            - else
+              You are currently using your maximum available agents.
 
 .clearfix
 
@@ -89,7 +91,7 @@
                     Click the button below to start your paid subscription, otherwise your 
                     account will downgrade to the free version once the trial period expires.
    
-            - elsif current_agent.organization.account_type == 'paid'
+            - elsif current_agent.organization.account_type == 'paid' && current_agent.organization.subscription
               .col-xs-2
                 = image_tag 'icons/subscribed.png', class: "dashboard-icon"
               .col-xs-10
