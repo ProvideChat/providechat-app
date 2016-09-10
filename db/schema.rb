@@ -283,6 +283,7 @@ ActiveRecord::Schema.define(version: 20160604045523) do
     t.string   "plan_id"
     t.string   "interval"
     t.integer  "amount"
+    t.string   "coupon"
     t.datetime "current_period_end"
     t.datetime "current_period_start"
     t.datetime "billing_start"

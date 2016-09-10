@@ -8,6 +8,7 @@ class CreateSubscriptions < ActiveRecord::Migration
       t.string :plan_id
       t.string :interval
       t.integer :amount
+      t.string :coupon
       t.timestamp :current_period_end
       t.timestamp :current_period_start
       t.timestamp :billing_start
