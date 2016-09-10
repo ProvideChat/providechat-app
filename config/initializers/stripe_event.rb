@@ -6,23 +6,23 @@ end
 
 StripeEvent.configure do |events|
   events.subscribe 'charge.dispute.created' do |event|
-    StripeMailer.admin_dispute_created(event.data.object).deliver_later
+    StripeAdminMailer.dispute_created(event.data.object).deliver_later
   end
   
   events.subscribe 'charge.succeeded' do |event|
     charge = event.data.object
-    StripeMailer.receipt(charge).deliver
-    StripeMailer.admin_charge_succeeded(charge).deliver
+    StripeUserMailer.receipt(charge).deliver
+    StripeAdminMailer.charge_succeeded(charge).deliver
   end
   
-  events.subscribe 'subscription.created' do |event|
+  events.subscribe 'customer.subscription.created' do |event|
     subscription = event.data.object
-    StripeMailer.admin_subscription_created(subscription).deliver
+    StripeAdminMailer.subscription_created(subscription).deliver
   end
 
-  events.subscribe 'subscription.deleted' do |event|
+  events.subscribe 'customer.subscription.deleted' do |event|
     subscription = event.data.object
-    StripeMailer.admin_subscription_deleted(subscription).deliver
+    StripeAdminMailer.subscription_deleted(subscription).deliver
   end
 
   events.subscribe('invoice.payment_succeeded') do |event|

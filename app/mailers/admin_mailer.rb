@@ -1,7 +1,7 @@
 class AdminMailer < ApplicationMailer
-  layout 'mailer'
 
-  default from: 'noreply@providechat.com'
+  layout 'basic_mailer'
+
   default to: 'sales@providechat.com'
 
   def onboarding_started(agent_id)
