@@ -1,5 +1,5 @@
 class DepartmentsController < ApplicationController
-  before_action :authenticate_agent!
+  before_action :authenticate_agent!, raise: false
   before_action :set_department, only: [:edit, :update, :destroy, :show]
   before_action :set_websites, only: [:edit, :new, :create]
   before_action :validate_admin

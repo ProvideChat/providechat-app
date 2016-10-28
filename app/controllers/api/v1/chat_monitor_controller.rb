@@ -5,12 +5,12 @@ module Api
       include ActionView::Helpers::SanitizeHelper
 
       skip_before_action :verify_authenticity_token
-      before_action :authenticate_agent!
+      before_action :authenticate_agent!, raise: false
 
       respond_to :json
 
       def update
-        chat_id = params[:id]
+        #chat_id = params[:id]
 
         method = params[:method]
         org_id = current_agent.organization_id
@@ -23,9 +23,9 @@ module Api
           when "accept_chat"
 
           else
-            response = { 'success' => 'false' }
+            #response = { 'success' => 'false' }
           end
-          end
+        end
         respond_with Agent.update(params[:id], agent_params)
       end
 

@@ -1,5 +1,5 @@
 class OfflineFormsController < ApplicationController
-  before_action :authenticate_agent!
+  before_action :authenticate_agent!, raise: false
 
   def index
     params.key?(:website_id) ? website_id = params[:website_id] : website_id = Website.where(organization_id: current_agent.organization_id).first

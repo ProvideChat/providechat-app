@@ -1,6 +1,5 @@
 class AfterSignupController < ApplicationController
-
-  before_filter :authenticate_agent!
+  before_filter :authenticate_agent!, raise: false
   before_filter :validate_superadmin
   before_filter :validate_setup_incomplete
 

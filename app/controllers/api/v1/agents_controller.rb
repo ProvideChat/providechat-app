@@ -2,7 +2,7 @@ module Api
   module V1
     class AgentsController < ApplicationController
       skip_before_action :verify_authenticity_token
-      before_action :authenticate_agent!
+      before_action :authenticate_agent!, raise: false
 
       respond_to :json
 

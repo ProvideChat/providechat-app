@@ -1,5 +1,5 @@
 class ContactFormsController < ApplicationController
-  skip_before_filter :verify_authenticity_token, :only => :create
+  skip_before_filter :verify_authenticity_token, raise: false, only: :create
   layout 'devise'
 
   def new

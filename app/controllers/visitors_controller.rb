@@ -1,5 +1,5 @@
 class VisitorsController < ApplicationController
-  before_action :authenticate_agent!
+  before_action :authenticate_agent!, raise: false
   before_action :set_visitor, only: [:show, :edit, :update, :destroy]
 
   def index

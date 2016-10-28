@@ -1,5 +1,5 @@
 class SettingsController < ApplicationController
-  before_action :authenticate_agent!
+  before_action :authenticate_agent!, raise: false
 
   respond_to :json
 

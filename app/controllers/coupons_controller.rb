@@ -1,5 +1,5 @@
 class CouponsController < ApplicationController
-  before_action :authenticate_agent!
+  before_action :authenticate_agent!, raise: false
 
   def show
     coupon = params[:id]

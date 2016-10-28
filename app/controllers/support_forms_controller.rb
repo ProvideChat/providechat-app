@@ -1,5 +1,5 @@
 class SupportFormsController < ApplicationController
-  before_action :authenticate_agent!
+  before_action :authenticate_agent!, raise: false
 
   def new
     @support_form = SupportForm.new

@@ -1,5 +1,5 @@
 class AgentsController < ApplicationController
-  before_action :authenticate_agent!
+  before_action :authenticate_agent!, raise: false
   before_action :set_agent, only: [:edit, :update, :destroy]
   before_action :setup, only: [:edit, :new, :update, :create]
   before_action :validate_admin

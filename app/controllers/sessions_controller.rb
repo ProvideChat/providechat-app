@@ -1,6 +1,6 @@
 class SessionsController < Devise::SessionsController
-  before_filter :before_login, :only => :create
-  after_filter :after_login, :only => :create
+  before_filter :before_login, only: :create
+  after_filter :after_login, only: :create
 
   def destroy
     current_agent.availability = Agent.availabilities[:offline]

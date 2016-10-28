@@ -1,6 +1,5 @@
 class SendCodeController < ApplicationController
-
-  before_filter :authenticate_agent!
+  before_filter :authenticate_agent!, raise: false
 
   def show
     Rails.logger.info params

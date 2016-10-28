@@ -1,5 +1,5 @@
 class PrechatFormsController < ApplicationController
-  before_action :authenticate_agent!
+  before_action :authenticate_agent!, raise: false
   before_action :validate_admin
 
   def index

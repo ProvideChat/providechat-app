@@ -2,17 +2,14 @@ source 'https://rubygems.org'
 
 ruby '2.3.1'
 
-gem 'rails', '4.2.6'
+gem 'rails', '5.0.0.1'
 
-gem 'ancestry'
-gem 'carrierwave'
-gem 'coffee-rails', '~> 4.1.0'
+gem 'carrierwave', '>= 1.0.0.beta', '< 2.0'
+gem 'coffee-rails', '~> 4.2'
 gem 'devise'
-gem 'devise-async'
 gem 'detect_timezone_rails'
 gem 'docverter'
-gem 'draper', '~> 1.3'
-gem 'exception_notification'
+#gem 'draper', '~> 1.3'
 gem 'feedjira'
 gem 'fog'
 gem 'font-awesome-rails'
@@ -25,24 +22,25 @@ gem 'jquery-turbolinks'
 gem 'json'
 #gem 'lograge'
 gem 'pg'
-gem 'mail_form'
+#gem 'mail_form'
 gem 'mini_magick', '~> 4.0.0.rc'
 gem "net-ssh"
 gem 'nokogiri'
 gem 'nprogress-rails'
 gem 'paper_trail', '~> 4.0.0.beta'
 gem 'premailer-rails'
-gem 'rails_admin'
+gem 'rails_admin', '>= 1.0.0.rc'
+gem 'remotipart', github: 'mshibuya/remotipart'
 gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'sidekiq'
 gem 'sidekiq-client-cli'
-gem 'sinatra', :require => nil
+gem 'sinatra', github: 'sinatra', require: false
 gem 'slim'
 gem 'stackprof'
 gem 'stripe', '~> 1.43'
 gem 'stripe_event'
-gem 'turbolinks'
+gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 gem 'whenever', require: false
 
@@ -52,8 +50,8 @@ end
 
 group :development  do
   gem "flamegraph"
-  gem 'quiet_assets'
-  gem 'rails_best_practices'
+  #gem 'quiet_assets'
+  #gem 'rails_best_practices'
   gem 'rack-mini-profiler', require: false
 
   gem 'capistrano', '~> 3.5.0', require: false
@@ -85,7 +83,7 @@ group :test, :development do
   gem 'stripe-ruby-mock'
   #gem 'spring'
   #gem 'spring-commands-rspec'
-  gem 'web-console', '~> 2.0'
+  gem 'web-console'
 end
 
 group :test do

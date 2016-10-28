@@ -6,7 +6,6 @@ class LogoUploader < CarrierWave::Uploader::Base
 
   storage :fog
 
-  include CarrierWave::MimeTypes
   process :set_content_type
 
   # Provide a default URL as a default if there hasn't been a file uploaded:

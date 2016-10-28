@@ -8,7 +8,7 @@ class Agent < ActiveRecord::Base
   enum availability: [:offline, :online]
   enum status: [:disabled, :enabled]
 
-  devise :database_authenticatable, :registerable, :confirmable, :async,
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
          :timeoutable
 
@@ -92,5 +92,9 @@ class Agent < ActiveRecord::Base
 
   def self.for_organization(organization_id)
     Agent.where(organization_id: organization_id).order("name ASC")
+  end
+
+  def send_devise_notification(notification, *args)
+    devise_mailer.send(notification, self, *args).deliver_later
   end
 end

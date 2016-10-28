@@ -1,5 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
-  skip_before_filter :verify_authenticity_token, :only => :create
+  skip_before_filter :verify_authenticity_token, only: :create
 
   def new
     build_resource({})
@@ -9,19 +9,19 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
-    super
+    super do |resource|
+      if resource.errors.empty?
+        organization = Organization.create_default_organization
 
-    if resource.errors.empty?
-      organization = Organization.create_default_organization
-
-      resource.title = 'Support Hero'
-      resource.access_level = 'superadmin'
-      resource.organization_id = organization.id
-      resource.skip_registation_validations = true
-      resource.remember_me = true
-      if resource.save!
-        AdminMailer.onboarding_started(resource.id).deliver_later
-        sign_in(resource, :bypass => true)
+        resource.title = 'Support Hero'
+        resource.access_level = 'superadmin'
+        resource.organization_id = organization.id
+        resource.skip_registation_validations = true
+        #resource.remember_me = true
+        if resource.save!
+          AdminMailer.onboarding_started(resource.id).deliver_later
+          sign_in(resource, :bypass => true)
+        end
       end
     end
   end
