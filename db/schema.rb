@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -32,10 +31,9 @@ ActiveRecord::Schema.define(version: 20160604045523) do
     t.datetime "locked_at"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.index ["email"], name: "index_admins_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
-  add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
 
   create_table "agents", force: :cascade do |t|
     t.integer  "organization_id"
@@ -67,26 +65,23 @@ ActiveRecord::Schema.define(version: 20160604045523) do
     t.datetime "updated_at",                             null: false
     t.datetime "last_seen_at"
     t.string   "time_zone",              default: "UTC"
+    t.index ["confirmation_token"], name: "index_agents_on_confirmation_token", unique: true, using: :btree
+    t.index ["email"], name: "index_agents_on_email", unique: true, using: :btree
+    t.index ["organization_id"], name: "index_agents_on_organization_id", using: :btree
+    t.index ["reset_password_token"], name: "index_agents_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "agents", ["confirmation_token"], name: "index_agents_on_confirmation_token", unique: true, using: :btree
-  add_index "agents", ["email"], name: "index_agents_on_email", unique: true, using: :btree
-  add_index "agents", ["organization_id"], name: "index_agents_on_organization_id", using: :btree
-  add_index "agents", ["reset_password_token"], name: "index_agents_on_reset_password_token", unique: true, using: :btree
 
   create_table "agents_departments", id: false, force: :cascade do |t|
     t.integer "agent_id",      null: false
     t.integer "department_id", null: false
+    t.index ["agent_id", "department_id"], name: "index_agents_departments_on_agent_id_and_department_id", using: :btree
   end
-
-  add_index "agents_departments", ["agent_id", "department_id"], name: "index_agents_departments_on_agent_id_and_department_id", using: :btree
 
   create_table "agents_websites", id: false, force: :cascade do |t|
     t.integer "agent_id",   null: false
     t.integer "website_id", null: false
+    t.index ["agent_id", "website_id"], name: "index_agents_websites_on_agent_id_and_website_id", using: :btree
   end
-
-  add_index "agents_websites", ["agent_id", "website_id"], name: "index_agents_websites_on_agent_id_and_website_id", using: :btree
 
   create_table "chat_messages", force: :cascade do |t|
     t.integer  "chat_id"
@@ -133,10 +128,9 @@ ActiveRecord::Schema.define(version: 20160604045523) do
     t.integer  "status"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.index ["organization_id"], name: "index_chats_on_organization_id", using: :btree
+    t.index ["website_id"], name: "index_chats_on_website_id", using: :btree
   end
-
-  add_index "chats", ["organization_id"], name: "index_chats_on_organization_id", using: :btree
-  add_index "chats", ["website_id"], name: "index_chats_on_website_id", using: :btree
 
   create_table "departments", force: :cascade do |t|
     t.integer  "organization_id"
@@ -145,9 +139,8 @@ ActiveRecord::Schema.define(version: 20160604045523) do
     t.integer  "website_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.index ["organization_id"], name: "index_departments_on_organization_id", using: :btree
   end
-
-  add_index "departments", ["organization_id"], name: "index_departments_on_organization_id", using: :btree
 
   create_table "invitations", force: :cascade do |t|
     t.integer  "organization_id"
@@ -175,10 +168,9 @@ ActiveRecord::Schema.define(version: 20160604045523) do
     t.integer  "subscription_id"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.index ["organization_id"], name: "index_invoice_payments_on_organization_id", using: :btree
+    t.index ["subscription_id"], name: "index_invoice_payments_on_subscription_id", using: :btree
   end
-
-  add_index "invoice_payments", ["organization_id"], name: "index_invoice_payments_on_organization_id", using: :btree
-  add_index "invoice_payments", ["subscription_id"], name: "index_invoice_payments_on_subscription_id", using: :btree
 
   create_table "offline_forms", force: :cascade do |t|
     t.integer  "organization_id"
@@ -218,9 +210,8 @@ ActiveRecord::Schema.define(version: 20160604045523) do
     t.integer  "status"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.index ["organization_id"], name: "index_organization_ftp_servers_on_organization_id", using: :btree
   end
-
-  add_index "organization_ftp_servers", ["organization_id"], name: "index_organization_ftp_servers_on_organization_id", using: :btree
 
   create_table "organizations", force: :cascade do |t|
     t.integer  "account_type",           default: 0,     null: false
@@ -263,11 +254,10 @@ ActiveRecord::Schema.define(version: 20160604045523) do
     t.string   "ancestry"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.index ["ancestry"], name: "index_rapid_responses_on_ancestry", using: :btree
+    t.index ["organization_id"], name: "index_rapid_responses_on_organization_id", using: :btree
+    t.index ["website_id"], name: "index_rapid_responses_on_website_id", using: :btree
   end
-
-  add_index "rapid_responses", ["ancestry"], name: "index_rapid_responses_on_ancestry", using: :btree
-  add_index "rapid_responses", ["organization_id"], name: "index_rapid_responses_on_organization_id", using: :btree
-  add_index "rapid_responses", ["website_id"], name: "index_rapid_responses_on_website_id", using: :btree
 
   create_table "stripe_webhooks", force: :cascade do |t|
     t.string   "stripe_id"
@@ -289,18 +279,16 @@ ActiveRecord::Schema.define(version: 20160604045523) do
     t.datetime "billing_start"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.index ["organization_id"], name: "index_subscriptions_on_organization_id", using: :btree
   end
-
-  add_index "subscriptions", ["organization_id"], name: "index_subscriptions_on_organization_id", using: :btree
 
   create_table "version_associations", force: :cascade do |t|
     t.integer "version_id"
     t.string  "foreign_key_name", null: false
     t.integer "foreign_key_id"
+    t.index ["foreign_key_name", "foreign_key_id"], name: "index_version_associations_on_foreign_key", using: :btree
+    t.index ["version_id"], name: "index_version_associations_on_version_id", using: :btree
   end
-
-  add_index "version_associations", ["foreign_key_name", "foreign_key_id"], name: "index_version_associations_on_foreign_key", using: :btree
-  add_index "version_associations", ["version_id"], name: "index_version_associations_on_version_id", using: :btree
 
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",      null: false
@@ -311,10 +299,9 @@ ActiveRecord::Schema.define(version: 20160604045523) do
     t.datetime "created_at"
     t.text     "object_changes"
     t.integer  "transaction_id"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
+    t.index ["transaction_id"], name: "index_versions_on_transaction_id", using: :btree
   end
-
-  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
-  add_index "versions", ["transaction_id"], name: "index_versions_on_transaction_id", using: :btree
 
   create_table "visitor_archives", force: :cascade do |t|
     t.integer  "organization_id"
@@ -354,9 +341,8 @@ ActiveRecord::Schema.define(version: 20160604045523) do
     t.integer  "status"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.index ["organization_id"], name: "index_visitor_archives_on_organization_id", using: :btree
   end
-
-  add_index "visitor_archives", ["organization_id"], name: "index_visitor_archives_on_organization_id", using: :btree
 
   create_table "visitors", force: :cascade do |t|
     t.integer  "organization_id"
@@ -399,11 +385,10 @@ ActiveRecord::Schema.define(version: 20160604045523) do
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.string   "browser_fingerprint"
+    t.index ["browser_fingerprint"], name: "index_visitors_on_browser_fingerprint", using: :btree
+    t.index ["organization_id"], name: "index_visitors_on_organization_id", using: :btree
+    t.index ["website_id"], name: "index_visitors_on_website_id", using: :btree
   end
-
-  add_index "visitors", ["browser_fingerprint"], name: "index_visitors_on_browser_fingerprint", using: :btree
-  add_index "visitors", ["organization_id"], name: "index_visitors_on_organization_id", using: :btree
-  add_index "visitors", ["website_id"], name: "index_visitors_on_website_id", using: :btree
 
   create_table "websites", force: :cascade do |t|
     t.integer  "organization_id"
@@ -415,9 +400,8 @@ ActiveRecord::Schema.define(version: 20160604045523) do
     t.string   "smart_invite_mode"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.index ["organization_id"], name: "index_websites_on_organization_id", using: :btree
   end
-
-  add_index "websites", ["organization_id"], name: "index_websites_on_organization_id", using: :btree
 
   add_foreign_key "invoice_payments", "organizations"
   add_foreign_key "organization_ftp_servers", "organizations"
