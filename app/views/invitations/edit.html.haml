@@ -35,13 +35,14 @@
             .col-sm-12.col-md-7.col-lg-6
               = render 'invitation_widget'
 
-:javascript
-  function initialize_website_dropdown() {
-    $('#website_id').on ('change', function() {
-      $('#edit_invitations').submit();
-    });
-  }
+-content_for :scripts do
+  :javascript
+    function initialize_website_dropdown() {
+      $('#website_id').on ('change', function() {
+        $('#edit_invitations').submit();
+      });
+    }
 
-  $( document ).ready(function() {
-    initialize_website_dropdown();
-  });
+    $( document ).ready(function() {
+      initialize_website_dropdown();
+    });

@@ -62,63 +62,64 @@
           %label
             = f.check_box :hide_when_offline
             Hide widget when all operators are offline
-  %hr/
+  %hr
   %footer
     = f.submit "Apply Changes", :class => "btn btn-primary", :name => "save_changes"
     = f.submit "Cancel", :class => "btn btn-default", :name => "cancel_changes", data: { confirm: 'Are you sure you want to cancel your current changes?' }
     = f.submit "Reset Defaults", :class => "btn btn-danger", :name => "restore_defaults", data: { confirm: 'Are you sure you want to reset the chat widget to default settings?' }
-  %hr/
+  %hr
 
-:javascript
-  function initialize_colourpicker() {
-    $('select[name="chat_widget[color]"]').colourPicker({
-      ico: '#{image_path "color-picker.png"}',
-      title: false,
-      inputBG: true,
-      speed: 0
-    });
-  }
-
-  function logo_upload() {
-    if ($('#display_logo').is(':checked')) {
-      $("#logo-upload").show();
-    } else {
-      $("#logo-upload").hide();
+- content_for :scripts do
+  :javascript
+    function initialize_colourpicker() {
+      $('select[name="chat_widget[color]"]').colourPicker({
+        ico: '#{image_path "color-picker.png"}',
+        title: false,
+        inputBG: true,
+        speed: 0
+      });
     }
 
-    $('#display_logo').click(function() {
-      if( $(this).is(':checked')) {
+    function logo_upload() {
+      if ($('#display_logo').is(':checked')) {
         $("#logo-upload").show();
       } else {
         $("#logo-upload").hide();
       }
+
+      $('#display_logo').click(function() {
+        if( $(this).is(':checked')) {
+          $("#logo-upload").show();
+        } else {
+          $("#logo-upload").hide();
+        }
+      });
+    }
+
+    function initialize_qtip() {
+      $('.online-titlebar').qtip(
+        default_style('When the widget is collapsed and your agents are online, this is the message that will appear in the titlebar.', '.online-titlebar')
+      );
+
+      $('.offline-titlebar').qtip(
+        default_style('When the widget is collapsed and your agents are offline, this is the message that will appear in the titlebar.', '.offline-titlebar')
+      );
+
+      $('.open-titlebar').qtip(
+        default_style('When the widget is open, this is the message that will appear in the titlebar.', '.open-titlebar')
+      );
+
+      $('.widget-color').qtip(
+        default_style('You can change the color of the widget to match the look and feel of your website.', '.widget-color')
+      );
+
+      $('.photo-field').qtip(
+        on_focus_style('The logo you upload here will be displayed in the header of the chat widget.', '.logo-field')
+      );
+    }
+
+    $( document ).ready(function() {
+      initialize_qtip();
+      initialize_colourpicker();
+      logo_upload();
     });
-  }
-
-  function initialize_qtip() {
-    $('.online-titlebar').qtip(
-      default_style('When the widget is collapsed and your agents are online, this is the message that will appear in the titlebar.', '.online-titlebar')
-    );
-
-    $('.offline-titlebar').qtip(
-      default_style('When the widget is collapsed and your agents are offline, this is the message that will appear in the titlebar.', '.offline-titlebar')
-    );
-
-    $('.open-titlebar').qtip(
-      default_style('When the widget is open, this is the message that will appear in the titlebar.', '.open-titlebar')
-    );
-
-    $('.widget-color').qtip(
-      default_style('You can change the color of the widget to match the look and feel of your website.', '.widget-color')
-    );
-
-    $('.photo-field').qtip(
-      on_focus_style('The logo you upload here will be displayed in the header of the chat widget.', '.logo-field')
-    );
-  }
-
-  $( document ).ready(function() {
-    initialize_qtip();
-    initialize_colourpicker();
-    logo_upload();
-  });

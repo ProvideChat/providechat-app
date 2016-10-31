@@ -42,43 +42,44 @@
   .widget-footer
     = submit_tag "Search", :class => "btn btn-primary"
 
-:javascript
-  function initialize_qtip() {
-    $('.ticket-field').qtip(
-      default_style('This is the Ticket ID provided to you by your visitor. You can use this to reference a chat from them.', '.ticket-field')
-    );
+- content_for :scripts do
+  :javascript
+    function initialize_qtip() {
+      $('.ticket-field').qtip(
+        default_style('This is the Ticket ID provided to you by your visitor. You can use this to reference a chat from them.', '.ticket-field')
+      );
 
-    $('.email-field').qtip(
-      default_style('This is your visitors email address, you can search for all previous chats that they had using this email address.', '.email-field')
-    );
-  }
+      $('.email-field').qtip(
+        default_style('This is your visitors email address, you can search for all previous chats that they had using this email address.', '.email-field')
+      );
+    }
 
-  function initialize_datepicker() {
-    $("#from-date").datepicker()
-      .on('changeDate', function() {
-        $(this).datepicker('hide');
+    function initialize_datepicker() {
+      $("#from-date").datepicker()
+        .on('changeDate', function() {
+          $(this).datepicker('hide');
+        });
+
+      $("#to-date").datepicker()
+        .on('changeDate', function() {
+          $(this).datepicker('hide');
+        });
+
+      $('#from-date-icon').click(function() {
+        $("#from-date").datepicker('show');
       });
 
-    $("#to-date").datepicker()
-      .on('changeDate', function() {
-        $(this).datepicker('hide');
+      $('#to-date-icon').click(function() {
+        $("#to-date").datepicker('show');
       });
+    }
 
-    $('#from-date-icon').click(function() {
-      $("#from-date").datepicker('show');
+    $( document ).ready(function() {
+      initialize_qtip();
+      initialize_datepicker();
+
+      $(".select2").select2({
+        theme: "bootstrap"
+      });
     });
-
-    $('#to-date-icon').click(function() {
-      $("#to-date").datepicker('show');
-    });
-  }
-
-  $( document ).ready(function() {
-    initialize_qtip();
-    initialize_datepicker();
-
-    $(".select2").select2({
-      theme: "bootstrap"
-    });
-  });
 

@@ -40,13 +40,14 @@
       You have no yet added any websites, please #{link_to "add a website", new_website_path}
       to customize the offline chat form for that website.
 
-:javascript
-  function initialize_website_dropdown() {
-    $('#website_id').on ('change', function() {
-      $('#edit_offline_form').submit();
-    });
-  }
+-content_for :scripts do
+  :javascript
+    function initialize_website_dropdown() {
+      $('#website_id').on ('change', function() {
+        $('#edit_offline_form').submit();
+      });
+    }
 
-  $( document ).ready(function() {
-    initialize_website_dropdown();
-  });
+    $( document ).ready(function() {
+      initialize_website_dropdown();
+    });

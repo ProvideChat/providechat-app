@@ -95,9 +95,10 @@
           .widget-footer
             = f.submit "Start Subscription", class: "btn btn-success btn-lg", data: { disable_with: "Processing..." }
 
-javascript:
-  $("#agent-quantity").TouchSpin({
-    min: 1,
-    postfix: 'agents'
-  });
+-content_for :scripts do
+  javascript:
+    $("#agent-quantity").TouchSpin({
+      min: 1,
+      postfix: 'agents'
+    });
 

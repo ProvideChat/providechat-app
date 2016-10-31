@@ -1,4 +1,4 @@
-= form_for(@website, :html => {class: 'form-horizontal'}) do |f|
+= form_for(@website, html: {class: 'form-horizontal'}) do |f|
   = render "layouts/error_messages", :f => @website
   %fieldset
     .form-group
@@ -27,22 +27,22 @@
     = link_to "Back", websites_path, :class => "btn btn-default"
     = f.submit @website.new_record? ? "Add Website" : "Update Website", :class => "btn btn-primary"
 
+-content_for :scripts do
+  :javascript
+    function initialize_qtip() {
+      $('.name-field').qtip(
+        default_style('This is the name of your website (e.g. Provide Chat).', '.name-field')
+      );
 
-:javascript
-  function initialize_qtip() {
-    $('.name-field').qtip(
-      default_style('This is the name of your website (e.g. Provide Chat).', '.name-field')
-    );
+      $('.url-field').qtip(
+        default_style("This is your website's address or URL (e.g. www.providechat.com).", '.url-field')
+      );
 
-    $('.url-field').qtip(
-      default_style("This is your website's address or URL (e.g. www.providechat.com).", '.url-field')
-    );
+      $('.email-field').qtip(
+        default_style("This is the email that any offline messages will be redirected to if your visitor didn't select a Department, or you do not have any departments.", '.email-field')
+      );
+    }
 
-    $('.email-field').qtip(
-      default_style("This is the email that any offline messages will be redirected to if your visitor didn't select a Department, or you do not have any departments.", '.email-field')
-    );
-  }
-
-  $( document ).ready(function() {
-    initialize_qtip();
-  });
+    $( document ).ready(function() {
+      initialize_qtip();
+    });

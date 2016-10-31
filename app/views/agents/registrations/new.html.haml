@@ -23,13 +23,14 @@
       Already have a Provide Chat Account?
       = link_to "Sign in >>", new_session_path(resource_name)
 
-:javascript
-  function initialize_qtip() {
-    $('.email-field').qtip(
-      no_icon_style('Please enter email address', '.name-field')
-    );
-  }
+- content_for :scripts do
+  :javascript
+    function initialize_qtip() {
+      $('.email-field').qtip(
+        no_icon_style('Please enter email address', '.name-field')
+      );
+    }
 
-  $( document ).ready(function() {
-    initialize_qtip();
-  });
+    $( document ).ready(function() {
+      initialize_qtip();
+    });

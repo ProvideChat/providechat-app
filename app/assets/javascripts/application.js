@@ -11,34 +11,41 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery-ui
-//= require smartadmin.config
+
+//= require app.config
+
 //= require jquery.ui.touch-punch
-//= require bootstrap
+
+//= require bootstrap/bootstrap
 //= require bootstrap-datepicker
+
+//= require notification/SmartNotification
+//= require smartwidgets/jarvis.widget
+
 //= require fastclick
 //= require jquery.mb.browser.js
 //= require jquery.colorpicker
 //= require jquery.nestable
 //= require jquery.validate
-//= require turbolinks
 //= require qtip2
 //= require qtip2_custom
 //= require clipboard
+
 //= require nprogress
 //= require nprogress-turbolinks
 //= require bootstrap-touchspin
 //= require sweetalert
-//= require providechat
+
 //= require remodal
 //= require detect_timezone
 //= require jquery.detect_timezone
 
-//= require smart-notification
 //= require select2
+
+//= require providechat
 //= require monitor
 //= require subscriptions
-//= require jarvis.widget
-//= require smartadmin
+
+//= require app

@@ -22,56 +22,57 @@
           %i.fa.fa-circle.txt-color-red
           &nbsp; Offline
 
-:javascript
-  $(document).ready(function() {
+- content_for :scripts do
+  :javascript
+    $(document).ready(function() {
 
-    function get_agent_availability() {
-      $.ajax({
-        type: "GET",
-        contentType: "application/json; charset=utf-8",
-        url: "/api/agents/#{current_agent.id}",
-        dataType: "json",
-        success: function(data, status, xhr) {
-          if (data.availability === 'online') {
-            $('#agent-status').html('<i class="fa fa-circle txt-color-green"></i>&nbsp; <span style="color: #356e35; font-weight: bold;">You are Online</span> &nbsp;<i class="fa fa-angle-down"></i>');
-            $('#agent-online').addClass('active');
-            $('#agent-offline').removeClass('active');
-          } else {
-            $('#agent-status').html('<i class="fa fa-circle txt-color-red"></i>&nbsp; <span style="color: #a90329; font-weight: bold;">You are Offline</span> &nbsp;<i class="fa fa-angle-down"></i>');
-            $('#agent-offline').addClass('active');
-            $('#agent-online').removeClass('active');
+      function get_agent_availability() {
+        $.ajax({
+          type: "GET",
+          contentType: "application/json; charset=utf-8",
+          url: "/api/agents/#{current_agent.id}",
+          dataType: "json",
+          success: function(data, status, xhr) {
+            if (data.availability === 'online') {
+              $('#agent-status').html('<i class="fa fa-circle txt-color-green"></i>&nbsp; <span style="color: #356e35; font-weight: bold;">You are Online</span> &nbsp;<i class="fa fa-angle-down"></i>');
+              $('#agent-online').addClass('active');
+              $('#agent-offline').removeClass('active');
+            } else {
+              $('#agent-status').html('<i class="fa fa-circle txt-color-red"></i>&nbsp; <span style="color: #a90329; font-weight: bold;">You are Offline</span> &nbsp;<i class="fa fa-angle-down"></i>');
+              $('#agent-offline').addClass('active');
+              $('#agent-online').removeClass('active');
+            }
           }
-        }
-      });
-    }
-
-    setInterval(function(){get_agent_availability();}, 30000);
-
-    function update_agent_availability(status) {
-      $.ajax({
-        type: "PUT",
-        contentType: "application/json; charset=utf-8",
-        url: "/api/agents/#{current_agent.id}",
-        dataType: "json",
-        data: JSON.stringify({agent: {availability: status}, id: #{current_agent.id}}),
-      });
-    }
-
-    $(".js-status-update a").click(function() {
-      var selText = $(this).text();
-      var status = $(this).data('status');
-      var $this = $(this);
-      $this.parents('.btn-group').find('.dropdown-toggle').html(selText + ' <span class="caret"></span>');
-      $this.parents('.dropdown-menu').find('li').removeClass('active');
-      if (status === 'online') {
-        $('#agent-status').html('<i class="fa fa-circle txt-color-green"></i>&nbsp; <span style="color: #356e35; font-weight: bold;">You are Online</span> &nbsp;<i class="fa fa-angle-down"></i>');
-        update_agent_availability('online');
-        ProvideChat.agent_availability = 'online';
-      } else if (status === 'offline') {
-        $('#agent-status').html('<i class="fa fa-circle txt-color-red"></i>&nbsp; <span style="color: #a90329; font-weight: bold;">You are Offline</span> &nbsp;<i class="fa fa-angle-down"></i>');
-        update_agent_availability('offline');
-        ProvideChat.agent_availability = 'offline';
+        });
       }
-      $this.parent().addClass('active');
+
+      setInterval(function(){get_agent_availability();}, 30000);
+
+      function update_agent_availability(status) {
+        $.ajax({
+          type: "PUT",
+          contentType: "application/json; charset=utf-8",
+          url: "/api/agents/#{current_agent.id}",
+          dataType: "json",
+          data: JSON.stringify({agent: {availability: status}, id: #{current_agent.id}}),
+        });
+      }
+
+      $(".js-status-update a").click(function() {
+        var selText = $(this).text();
+        var status = $(this).data('status');
+        var $this = $(this);
+        $this.parents('.btn-group').find('.dropdown-toggle').html(selText + ' <span class="caret"></span>');
+        $this.parents('.dropdown-menu').find('li').removeClass('active');
+        if (status === 'online') {
+          $('#agent-status').html('<i class="fa fa-circle txt-color-green"></i>&nbsp; <span style="color: #356e35; font-weight: bold;">You are Online</span> &nbsp;<i class="fa fa-angle-down"></i>');
+          update_agent_availability('online');
+          ProvideChat.agent_availability = 'online';
+        } else if (status === 'offline') {
+          $('#agent-status').html('<i class="fa fa-circle txt-color-red"></i>&nbsp; <span style="color: #a90329; font-weight: bold;">You are Offline</span> &nbsp;<i class="fa fa-angle-down"></i>');
+          update_agent_availability('offline');
+          ProvideChat.agent_availability = 'offline';
+        }
+        $this.parent().addClass('active');
+      });
     });
-  });

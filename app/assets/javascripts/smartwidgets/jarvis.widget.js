@@ -9,7 +9,7 @@
  * included in all copies or substantial portions of the Software.
  * =======================================================================
  * JarvisWidget is FULLY owned and LICENSED by MYORANGE INC.
- * This script may NOT be RESOLD or REDISTRUBUTED under any
+ * This script may NOT be RESOLD or REDISTRUBUTED on its own under any
  * circumstances, and is only to be used with this purchased
  * copy of SmartAdmin Template.
  * =======================================================================

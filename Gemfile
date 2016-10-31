@@ -11,17 +11,16 @@ gem 'detect_timezone_rails'
 gem 'docverter'
 gem 'feedjira'
 gem 'fog'
-gem 'font-awesome-rails'
 gem 'haml'
 gem 'htmlentities'
 gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'jquery-turbolinks'
+#gem 'jquery-turbolinks'
 gem 'json'
 #gem 'lograge'
 gem 'pg'
-#gem 'mail_form'
+gem 'mail_form'
 gem 'mini_magick', '~> 4.5', '>= 4.5.1'
 gem "net-ssh"
 gem 'nokogiri'
@@ -39,7 +38,7 @@ gem 'slim'
 gem 'stackprof'
 gem 'stripe', '~> 1.56'
 gem 'stripe_event'
-gem 'turbolinks', '~> 5'
+#gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 gem 'whenever', require: false
 
@@ -49,8 +48,7 @@ end
 
 group :development  do
   gem "flamegraph"
-  #gem 'quiet_assets'
-  #gem 'rails_best_practices'
+
   gem 'rack-mini-profiler', require: false
 
   gem 'capistrano', '~> 3.5.0', require: false
@@ -73,6 +71,9 @@ group :test, :development do
   gem 'factory_girl_rails'
   gem 'guard-rspec'
   gem 'rspec-rails'
+
+  gem 'rubocop', require: false
+  gem 'rails_best_practices'
 
   gem 'pry'
   gem 'pry-rescue'

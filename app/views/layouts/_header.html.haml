@@ -28,7 +28,8 @@
 
     = render 'layouts/agent_status'
 
-:javascript
-  $(function() {
-    $('a[rel="nofollow"]').tooltip();
-  });
+- content_for :scripts do
+  :javascript
+    $(function() {
+      $('a[rel="nofollow"]').tooltip();
+    });

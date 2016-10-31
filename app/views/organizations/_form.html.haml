@@ -26,17 +26,18 @@
   .widget-footer
     = f.submit "Save Settings", :class => "btn btn-primary"
 
-:javascript
-  $( document ).ready(function() {
-    $("#organization_agent_session_timeout").TouchSpin({
-      min: 1,
-      step: 1,
-      max: 90
-    });
+-content_for :scripts do
+  :javascript
+    $( document ).ready(function() {
+      $("#organization_agent_session_timeout").TouchSpin({
+        min: 1,
+        step: 1,
+        max: 90
+      });
 
-    $("#organization_agent_response_timeout").TouchSpin({
-      min: 1,
-      step: 1,
-      max: 15
+      $("#organization_agent_response_timeout").TouchSpin({
+        min: 1,
+        step: 1,
+        max: 15
+      });
     });
-  });

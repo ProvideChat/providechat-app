@@ -34,26 +34,28 @@
     You have not yet added any websites, please #{link_to "add a website", new_website_path}
     in order to manage departments.
 
-:javascript
-  function initialize_qtip() {
-    $('.name-field').qtip(
-      default_style('This is the name of the department.', '.name-field')
-    );
+- content_for :scripts do
 
-    $('.email-field').qtip(
-      default_style('When all agents are offline, visitors can still send you a message through email. If they select this department, it gets sent to this email address.', '.email-field')
-    );
+  :javascript
+    function initialize_qtip() {
+      $('.name-field').qtip(
+        default_style('This is the name of the department.', '.name-field')
+      );
 
-    $('.website-field').qtip(
-      default_style('The website this department will be available for.', '.website-field')
-    );
-  }
+      $('.email-field').qtip(
+        default_style('When all agents are offline, visitors can still send you a message through email. If they select this department, it gets sent to this email address.', '.email-field')
+      );
 
-  $( document ).ready(function() {
-    initialize_qtip();
+      $('.website-field').qtip(
+        default_style('The website this department will be available for.', '.website-field')
+      );
+    }
 
-    $("#websites-select").select2({
-      placeholder: "Websites",
-      theme: "bootstrap"
+    $( document ).ready(function() {
+      initialize_qtip();
+
+      $("#websites-select").select2({
+        placeholder: "Websites",
+        theme: "bootstrap"
+      });
     });
-  });

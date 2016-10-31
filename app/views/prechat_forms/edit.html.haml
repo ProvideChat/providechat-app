@@ -34,14 +34,15 @@
             .col-sm-12.col-md-7.col-lg-6
               = render 'pre_chat'
 
-:javascript
-  function initialize_website_dropdown() {
-    $('#website_id').on ('change', function() {
-      $('#edit_prechat_form').submit();
-    });
-  }
+-content_for :scripts do
+  :javascript
+    function initialize_website_dropdown() {
+      $('#website_id').on ('change', function() {
+        $('#edit_prechat_form').submit();
+      });
+    }
 
-  $( document ).ready(function() {
-    initialize_website_dropdown();
-  });
+    $( document ).ready(function() {
+      initialize_website_dropdown();
+    });
 

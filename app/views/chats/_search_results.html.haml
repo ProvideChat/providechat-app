@@ -38,11 +38,10 @@
       .modal-footer
         %button.btn{"data-dismiss" => "modal", :type => "button"} Close
 
-:javascript
-
-  $('tr').click( function() {
-    //window.location = $(this).find('a').attr('href');
-    $(this).find('a').click();
-  });
+- content_for :scripts do
+  :javascript
+    $('tr').click( function() {
+      $(this).find('a').click();
+    });
 
 

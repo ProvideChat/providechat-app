@@ -17,23 +17,24 @@
           .col-sm-offset-4.col-sm-8
             = submit_tag "Send Widget Code", class: "btn btn-default"
 
-:javascript
-  $(document).ready(function () {
+-content_for :scripts do
+  :javascript
+    $(document).ready(function () {
 
-    $('#send-code-form').on('ajax:success', function(e, data, status, xhr) {
-      $('.send-code-modal').modal('hide');
-      $('#send-code-form').find('form input[type="text"]').val('');
-      $('#send-code-form input[type="submit"]').prop('disabled', false);
-      $('#error_msg').hide();
-      $('#sending_msg').hide();
-      $('#success_msg').fadeIn().delay(3000).fadeOut();
-    }).on('ajax:error', function(e, xhr, status, error) {
-      $('#sending_msg').hide();
-      $('#error_msg').fadeIn().delay(3000).fadeOut();
-      $('#send-code-form input[type="submit"]').prop('disabled', false);
-    }).on('ajax:send', function(xhr) {
-      $('#error_msg').hide();
-      $('#sending_msg').fadeIn();
-      $('#send-code-form input[type="submit"]').prop('disabled', true);
+      $('#send-code-form').on('ajax:success', function(e, data, status, xhr) {
+        $('.send-code-modal').modal('hide');
+        $('#send-code-form').find('form input[type="text"]').val('');
+        $('#send-code-form input[type="submit"]').prop('disabled', false);
+        $('#error_msg').hide();
+        $('#sending_msg').hide();
+        $('#success_msg').fadeIn().delay(3000).fadeOut();
+      }).on('ajax:error', function(e, xhr, status, error) {
+        $('#sending_msg').hide();
+        $('#error_msg').fadeIn().delay(3000).fadeOut();
+        $('#send-code-form input[type="submit"]').prop('disabled', false);
+      }).on('ajax:send', function(xhr) {
+        $('#error_msg').hide();
+        $('#sending_msg').fadeIn();
+        $('#send-code-form input[type="submit"]').prop('disabled', true);
+      });
     });
-  });

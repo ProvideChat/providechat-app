@@ -47,8 +47,9 @@
         .panel-footer
           = f.submit "Update Subscription", class: "btn btn-success", data: {disable_with: "Submitting..."}
 
-javascript:
-  $("#agent-quantity").TouchSpin({
-    min: 1,
-    postfix: 'agents'
-  });
+-content_for :scripts do
+  javascript:
+    $("#agent-quantity").TouchSpin({
+      min: 1,
+      postfix: 'agents'
+    });

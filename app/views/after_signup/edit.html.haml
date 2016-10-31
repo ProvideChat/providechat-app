@@ -232,69 +232,70 @@
 
   %button.remodal-confirm{"data-remodal-action" => "confirm"} Okay
 
-:javascript
-  $(document).ready(function() {
+- content_for :scripts do
+  :javascript
+    $(document).ready(function() {
 
-    $('#agent_time_zone').set_timezone();
+      $('#agent_time_zone').set_timezone();
 
-    var clipboard = new Clipboard('#copy-code');
+      var clipboard = new Clipboard('#copy-code');
 
-    validation = {
-      highlight: function (element) {
-        $(element).closest('.form-group').removeClass('has-success');
-        $(element).closest('.form-group').addClass('has-error');
-      },
-      unhighlight: function (element) {
-        $(element).closest('.form-group').removeClass('has-error');
-        $(element).closest('.form-group').addClass('has-success');
-      },
-      errorElement: 'span',
-      errorClass: 'help-block',
-      errorPlacement: function (error, element) {
-        if (element.parent('.input-group').length) {
-          error.insertAfter(element.parent());
-        } else {
-          error.insertAfter(element);
+      validation = {
+        highlight: function (element) {
+          $(element).closest('.form-group').removeClass('has-success');
+          $(element).closest('.form-group').addClass('has-error');
+        },
+        unhighlight: function (element) {
+          $(element).closest('.form-group').removeClass('has-error');
+          $(element).closest('.form-group').addClass('has-success');
+        },
+        errorElement: 'span',
+        errorClass: 'help-block',
+        errorPlacement: function (error, element) {
+          if (element.parent('.input-group').length) {
+            error.insertAfter(element.parent());
+          } else {
+            error.insertAfter(element);
+          }
         }
       }
-    }
 
-    $("#after-signup-form").validate(validation);
-    $("#send-code-form").validate(validation);
-    $("#add-ftp-form").validate(validation);
+      $("#after-signup-form").validate(validation);
+      $("#send-code-form").validate(validation);
+      $("#add-ftp-form").validate(validation);
 
-    $('#add-ftp-form').on('ajax:success', function(e, data, status, xhr) {
-      $('#add-ftp-form').slideUp();
-      $('#add-ftp-form input[type="submit"]').prop('disabled', false);
-      $('#ftp_error_msg').hide();
-      $('#ftp_sending_msg').hide();
-      $('#ftp_success').fadeIn();
-      $('#ftp_info').fadeOut();
-    }).on('ajax:error', function(e, xhr, status, error) {
-      $('#ftp_sending_msg').hide();
-      $('#ftp_error_msg').fadeIn().delay(3000).fadeOut();
-      $('#add-ftp-form input[type="submit"]').prop('disabled', false);
-    }).on('ajax:send', function(xhr) {
-      $('#ftp_error_msg').hide();
-      $('#ftp_sending_msg').fadeIn();
-      $('#add-ftp-form input[type="submit"]').prop('disabled', true);
+      $('#add-ftp-form').on('ajax:success', function(e, data, status, xhr) {
+        $('#add-ftp-form').slideUp();
+        $('#add-ftp-form input[type="submit"]').prop('disabled', false);
+        $('#ftp_error_msg').hide();
+        $('#ftp_sending_msg').hide();
+        $('#ftp_success').fadeIn();
+        $('#ftp_info').fadeOut();
+      }).on('ajax:error', function(e, xhr, status, error) {
+        $('#ftp_sending_msg').hide();
+        $('#ftp_error_msg').fadeIn().delay(3000).fadeOut();
+        $('#add-ftp-form input[type="submit"]').prop('disabled', false);
+      }).on('ajax:send', function(xhr) {
+        $('#ftp_error_msg').hide();
+        $('#ftp_sending_msg').fadeIn();
+        $('#add-ftp-form input[type="submit"]').prop('disabled', true);
+      });
+
+      $('#send-code-form').on('ajax:success', function(e, data, status, xhr) {
+        console.log(xhr);
+        $('#send-code-form').slideUp();
+        $('#send-code-form').find('form input[type="text"]').val('');
+        $('#send-code-form input[type="submit"]').prop('disabled', false);
+        $('#code_error_msg').hide();
+        $('#code_sending_msg').hide();
+        $('#send_code_success').fadeIn();
+      }).on('ajax:error', function(e, xhr, status, error) {
+        $('#code_sending_msg').hide();
+        $('#code_error_msg').fadeIn().delay(3000).fadeOut();
+        $('#send-code-form input[type="submit"]').prop('disabled', false);
+      }).on('ajax:send', function(xhr) {
+        $('#code_error_msg').hide();
+        $('#code_sending_msg').fadeIn();
+        $('#send-code-form input[type="submit"]').prop('disabled', true);
+      });
     });
-
-    $('#send-code-form').on('ajax:success', function(e, data, status, xhr) {
-      console.log(xhr);
-      $('#send-code-form').slideUp();
-      $('#send-code-form').find('form input[type="text"]').val('');
-      $('#send-code-form input[type="submit"]').prop('disabled', false);
-      $('#code_error_msg').hide();
-      $('#code_sending_msg').hide();
-      $('#send_code_success').fadeIn();
-    }).on('ajax:error', function(e, xhr, status, error) {
-      $('#code_sending_msg').hide();
-      $('#code_error_msg').fadeIn().delay(3000).fadeOut();
-      $('#send-code-form input[type="submit"]').prop('disabled', false);
-    }).on('ajax:send', function(xhr) {
-      $('#code_error_msg').hide();
-      $('#code_sending_msg').fadeIn();
-      $('#send-code-form input[type="submit"]').prop('disabled', true);
-    });
-  });

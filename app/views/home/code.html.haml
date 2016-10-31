@@ -41,7 +41,8 @@
 
 = render partial: "shared/send_email_to_webmaster"
 
-:javascript
-  $(document).ready(function () {
-    var clipboard = new Clipboard('#copy-code');
-  });
+- content_for :scripts do
+  :javascript
+    $(document).ready(function () {
+      var clipboard = new Clipboard('#copy-code');
+    });
