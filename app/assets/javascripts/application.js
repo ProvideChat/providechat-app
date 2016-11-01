@@ -16,35 +16,29 @@
 
 //= require app.config
 
-//= require jquery.ui.touch-punch
-
 //= require bootstrap/bootstrap
-//= require bootstrap-datepicker
-
 //= require notification/SmartNotification
 //= require smartwidgets/jarvis.widget
 
-//= require fastclick
-//= require jquery.mb.browser.js
-//= require jquery.colorpicker
-//= require jquery.nestable
-//= require jquery.validate
-//= require qtip2
-//= require qtip2_custom
-//= require clipboard
+//= require plugin/fastclick/fastclick
+//= require plugin/bootstrap-datepicker/bootstrap-datepicker
+//= require plugin/msie-fix/jquery.mb.browser.js
+//= require plugin/jquery-colorpicker/jquery.colorpicker
+//= require plugin/jquery-nestable/jquery.nestable
+//= require plugin/jquery-validate/jquery.validate
+//= require plugin/qtip2/qtip2
+//= require plugin/qtip2/qtip2_custom
+//= require plugin/clipboard/clipboard
+//= require plugin/jquery-touch/jquery.ui.touch-punch
+//= require plugin/bootstrap-touchspin/bootstrap-touchspin
+//= require plugin/remodal/remodal
+//= require plugin/select2/select2
+//= require plugin/pace/pace
 
-//= require nprogress
-//= require nprogress-turbolinks
-//= require bootstrap-touchspin
 //= require sweetalert
-
-//= require remodal
 //= require detect_timezone
 //= require jquery.detect_timezone
 
-//= require select2
-
-//= require providechat
 //= require monitor
 //= require subscriptions
 

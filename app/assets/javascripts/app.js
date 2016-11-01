@@ -1460,9 +1460,6 @@ var calc_navbar_height = function() {
 			// setup widgets
 			setup_widgets_desktop();
 		
-			// activate inline charts
-			runAllCharts();
-		
 			// run form elements
 			runAllForms();
 	

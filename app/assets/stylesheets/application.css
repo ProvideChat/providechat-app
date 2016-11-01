@@ -17,19 +17,20 @@
  *= require smartadmin-production
  *= require smartadmin-skins
  
- *= require bootstrap-datepicker
- *= require jquery.colorpicker
- *= require qtip2
- *= require nprogress
- *= require nprogress-bootstrap
  *= require sweetalert
- *= require bootstrap-touchspin
+
+ *= require plugin/bootstrap-datepicker
+ *= require plugin/jquery.colorpicker
+ *= require plugin/qtip2
+ *= require plugin/bootstrap-touchspin/bootstrap-touchspin
+ *= require plugin/select2/select2
+ *= require plugin/select2/select2-bootstrap
+ *= require plugin/remodal/remodal
+ *= require plugin/remodal/remodal-theme
+ *= require plugin/pace/pace
+
  *= require styles
  *= require monitor
  *= require widget
- *= require select2
- *= require select2-bootstrap
- *= require remodal
- *= require remodal-theme
  *= require_self
  */

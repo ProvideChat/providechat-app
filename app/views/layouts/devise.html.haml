@@ -52,17 +52,18 @@
               %i.fa.fa-paper-plane
               &nbsp;Contact Us
 
-    #content.container
-      .row
-        .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
-          = yield
+    #main
+      #content.container
+        .row
+          .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
+            = yield
 
-      .row
-        .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
-          .alert.alert-info
-            %h4 Are you a Provide Chat Classic user?
-            %p
-              = link_to "Click here to sign in to Provide Chat Classic", "http://www.providechat.com/dashboard"
+        .row
+          .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
+            .alert.alert-info
+              %h4 Are you a Provide Chat Classic user?
+              %p
+                = link_to "Click here to sign in to Provide Chat Classic", "http://www.providechat.com/dashboard"
 
     #termsModal.modal.fade{"aria-hidden": "true", "aria-labelledby": "TermsOfService", tabindex: "-1"}
       .modal-dialog
@@ -75,7 +76,3 @@
 
     = yield(:scripts).present? ? yield(:scripts) : render(partial: 'layouts/scripts')
 
-    :javascript
-      jQuery(document).ready(function() {
-        runAllForms();
-      });
