@@ -4,7 +4,7 @@ class InvitationsController < ApplicationController
   before_action :validate_admin
 
   def index
-    params.key?(:website_id) ? website_id = params[:website_id] : website_id = Website.where(organization_id: current_agent.organization_id).first
+    params.key?(:website_id) ? website_id = params[:website_id] : website_id = Website.where(organization_id: current_agent.organization_id).first.id
 
     return unless website_id
     @invitation = Invitation.find_by(website_id: website_id)
