@@ -328,11 +328,11 @@ module Api
 
           when "initialize"
             session = JSON.parse(params[:session])
-            logger.debug "SESSION DETAILS: #{session}"
+            #Rails.logger.info "SESSION DETAILS: #{session}"
             visitor = Visitor.process_session(org_id, website, session)
 
             if visitor
-              chat_widget = ChatWidget.find_by(:website_id => visitor.website.id)
+              chat_widget = ChatWidget.find_by(website_id: visitor.website.id)
 
               chat_id = 0
               chat_status = 'not_started'
@@ -341,8 +341,8 @@ module Api
                 chat_status = visitor.chat.status
               end
 
-              response = { 'success' => 'true', 'visitor_id' => visitor.id, 'website_id' => visitor.website.id,
-                           'agent_status' => organization.agent_status(website.id),
+              response = { 'success' => 'true', 'visitor_id' => visitor.id, 'website_id' => visitor.website_id,
+                           'agent_status' => organization.agent_status(visitor.website_id),
                            'agent_response_timeout' => organization.agent_response_timeout,
                            'chat_id' => chat_id, 'chat_status' => chat_status, 'visitor_name' => visitor.name,
                            'visitor_email' => visitor.email, 'online_message' => chat_widget.online_message,
