@@ -19,6 +19,8 @@ class WebsitesController < ApplicationController
     @website.organization_id = current_agent.organization_id
 
     if @website.save
+      @website.assign_to_agents
+
       redirect_to websites_path,
                   flash: { success: 'Website was successfully created.' }
     else

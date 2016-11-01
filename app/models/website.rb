@@ -36,6 +36,13 @@ class Website < ActiveRecord::Base
     end
   end
 
+  def assign_to_agents
+    Agent.where(organization_id: self.organization_id).each do |agent|
+      agent.websites << self
+      agent.save
+    end
+  end
+
   protected
 
   def smart_url_update
