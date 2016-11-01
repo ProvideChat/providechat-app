@@ -5,7 +5,7 @@ set :application, 'providechat-app'
 set :deploy_user, 'deploy'
 
 set :scm, :git
-set :repo_url, 'git@derekbarber.bitbucket:providechat/providechat-app'
+set :repo_url, 'git@bitbucket.org:providechat/providechat-app'
 
 set :rbenv_path, '$HOME/.rbenv'
 
