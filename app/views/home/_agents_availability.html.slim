@@ -1,0 +1,12 @@
+table.table.table-bordered
+  thead
+    tr
+      th Name
+      th Current Availability
+  tbody
+    - agents.each do |agent|
+      tr
+        td= link_to agent.name, edit_agent_path(agent)
+        td
+          label class=(agent.availability == 'online' ? 'label label-success' : 'label label-danger')
+            = agent.availability.titleize

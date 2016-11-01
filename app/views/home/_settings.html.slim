@@ -1,46 +1,46 @@
-.modal.fade{role: "dialog", tabindex: "-1", id: "modal-settings"}
+.modal.fade#modal-settings role="dialog" tabindex="-1"
   .modal-dialog
     .modal-content
       = form_for(agent, url: setting_path(agent), html: {id: "agent-settings", class: 'form-horizontal', multipart: true}, remote: true) do |f|
-      
         .modal-header
-          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-            %span{"aria-hidden" => "true"} ×
-          %h4.modal-title Settings
+          button.close aria-label="Close" data-dismiss="modal" type="button"
+            span aria-hidden="true" ×
+          h4.modal-title Settings
         .modal-body
-          .alert.alert-danger{id: "settings-error", style: "display: none;"}
-            %p Error updating settings, please contact support.
-          .alert.alert-success{id: "settings-success", style: "display: none;"}
-            %p Settings were updated successfully.
+          .alert.alert-danger#settings-error style="display: none;"
+            p Error updating settings, please contact support.
+          .alert.alert-success#settings-success style="display: none;"
+            p Settings were updated successfully.
           
-          %h4
-            %i.fa.fa-volume-up
-            &nbsp;Alert me with a sound when:
-          %fieldset
+          h4
+            i.fa.fa-volume-up
+            | &nbsp;Alert me with a sound when:
+          fieldset
             .form-group
               .col-sm-8.col-sm-offset-1.col-xs-12.col-xs-offset-0
                 .input-group
                   .checkbox
                     = f.label :active_chat_sound do
                       = f.check_box :active_chat_sound
-                      A new message arrives in the selected chat
+                      | A new message arrives in the selected chat
                 .input-group
                   .checkbox
                     = f.label :background_chat_sound do
                       = f.check_box :background_chat_sound
-                      A new message arrives in a background chat
+                      | A new message arrives in a background chat
                 .input-group
                   .checkbox
                     = f.label :visitor_arrived_sound do
                       = f.check_box :visitor_arrived_sound
-                      A new visitor arrives on the website
+                      | A new visitor arrives on the website
 
         .modal-footer
-          %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
+          button.btn.btn-default data-dismiss="modal" type="button" Close
           = f.submit "Save changes", class: "btn btn-primary"
 
 - content_for :scripts do
-  :javascript
+
+  javascript:
     $("#agent-settings").on("ajax:success", function(e, data, status, xhr) {
       $("#settings-error").hide();
       return $("#settings-success").fadeIn().delay(2000).fadeOut();
