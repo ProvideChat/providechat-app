@@ -1,0 +1,10 @@
+.col-sm-12
+  - flash.each do |name, msg| 
+    - if flash_class(name.to_s).length > 0 
+      div class="alert alert-#{flash_class(name.to_s)} alert-dismissible fade in" role="alert"
+        button type="button" class="close" data-dismiss="alert" aria-label="Close"
+          span aria-hidden="true" &times;
+        i class="fa-fw fa fa-#{flash_class(name.to_s)}"
+        | &nbsp;
+        strong= msg 
+
