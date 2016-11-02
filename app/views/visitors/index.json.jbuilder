@@ -4,7 +4,7 @@ json.visitors @visitors do |visitor|
   if visitor.chat_id > 0
     json.chat visitor.chat
     json.agent visitor.chat.agent
-    json.last_message visitor.chat.last_message(visitor.name)
+    json.last_message visitor.chat.last_message(visitor.id)
   end
   json.time_since_created time_ago_in_words(visitor.created_at)
   json.url visitor_url(visitor, format: :json)

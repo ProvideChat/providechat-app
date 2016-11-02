@@ -3,7 +3,7 @@ json.visitor do
   if @visitor.chat
     json.chat @visitor.chat
     json.agent @visitor.chat.agent
-    json.last_message @visitor.chat.last_message(@visitor.name)
+    json.last_message @visitor.chat.last_message(@visitor.id)
     json.time_waiting_to_chat time_ago_in_words(@visitor.chat.chat_requested, include_seconds: true) if @visitor.chat.chat_requested
     json.time_in_chat time_ago_in_words(@visitor.chat.chat_accepted, include_seconds: true) if @visitor.chat.chat_accepted
     json.time_since_chat time_ago_in_words(@visitor.chat.chat_ended, include_seconds: true) if @visitor.chat.chat_ended
