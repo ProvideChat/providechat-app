@@ -1,0 +1,5 @@
+export const SET_CHAT_FILTER = 'SET_CHAT_FILTER';
+export const ACCEPT_CHAT  = 'ACCEPT_CHAT';
+export const CANCEL_CHAT = 'CANCEL_CHAT';
+export const INVITE_VISITOR = 'INVITE_VISITOR';
+export const SET_ACTIVITIES = 'SET_ACTIVITIES';

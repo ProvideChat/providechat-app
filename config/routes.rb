@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :support_forms, only: [:new, :create]
 
   resources :visitors
+  resources :activities, only: [:index]
   resources :departments
   resources :chats, only: [:index, :show]
   resources :invoice_payments, only: [:index, :show]

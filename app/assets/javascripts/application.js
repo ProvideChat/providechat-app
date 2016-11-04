@@ -42,4 +42,6 @@
 //= require monitor
 //= require subscriptions
 
+//= require generated/client-bundle
+
 //= require app

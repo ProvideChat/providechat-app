@@ -1,0 +1,101 @@
+- if current_agent.access_level == 'agent' 
+  = render partial: 'layouts/flash_messages', flash: flash 
+- else 
+  = render 'layouts/page_header', :title => 'Chat Monitor', :icon => 'fa-comments' 
+
+.col-sm-12.col-md-4
+  - props = JSON.parse("{\"agentId\": #{current_agent.id}, \"activities\": #{raw(render(template: 'activities/index.json.jbuilder'))}}") 
+  = client('ActivitySection', 'cs', props) 
+
+/
+  .jarviswidget id="your-chats" data-widget-editbutton="false"\
+                                data-widget-fullscreenbutton="false" \
+                                data-widget-colorbutton="false" \
+                                data-widget-deletebutton="false"\
+                                data-widget-togglebutton="false"
+/
+    header role="heading"
+      h2 Current Activity 
+      .widget-toolbar
+        .btn-group
+					button id="filter-results" class="btn dropdown-toggle btn-xs btn-default" data-toggle="dropdown"
+            | Filter Results 
+            i class="fa fa-caret-down"
+					ul class="dropdown-menu pull-right filter-result-update"
+						li
+							a href="javascript:void(0);" data-filter="mine" My Chats
+						li
+							a href="javascript:void(0);" data-filter="all" All Chats
+/
+    div role="content"
+      div class="widget-body no-padding"
+        div class="people-container"
+          div class="people-header" Current Chats
+          div id="current-chat-container" class="custom-scroll"
+            = image_tag "select2-spinner.gif", :id => "current-chat-loading" 
+            div id="no-current-chats-msg" class="chat-container-status" No current chats
+          div class="people-header" Waiting to Chat
+          div id="waiting-to-chat-container" class="custom-scroll"
+            = image_tag "select2-spinner.gif", :id => "waiting-to-chat-loading" 
+            div id="no-waiting-chats-msg" class="chat-container-status" No one is currently waiting to chat
+          div class="people-header" Visitors
+          div id="visitor-container" class="custom-scroll"
+            = image_tag "select2-spinner.gif", :id => "no-chat-loading" 
+            div id="no-visitor-msg" class="chat-container-status" No current visitors
+
+div class="col-sm-12 col-md-8"
+  div id="no-active-chat" class="no-chats"
+    div { class="jarviswidget" id="your-chats" data-widget-editbutton="false" 
+                                            data-widget-colorbutton="false" 
+                                            data-widget-deletebutton="false"
+                                            data-widget-togglebutton="false" }
+
+      header role="heading"
+        span class="widget-icon" 
+          i class="fa fa-comments"
+        h2 No Active Chats
+
+      div role="content"
+        div class="widget-body widget-hide-overflow"
+          div class="no-chats"
+            div class="alert alert-info alert-block"
+              h4 class="alert-heading" No Active Chats
+              | Go grab a coffee and relax, you have no active chats at this time.
+
+  div id="active-chat-tabs" style="display: none;"
+    div class="tab-pane active" id="hr1"
+      div class="tabbable tabs-below" id="tabs"
+        div class="tab-content"
+
+        ul class="nav nav-tabs"
+
+div style="display: none;"
+  div id="confirmCloseTab" title="Close this chat tab?"
+    p
+      span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"
+      | Are you sure you want to close this chat tab?  
+      b Warning: if this chat is active, closing the tab will cancel the chat.
+
+  div id="confirmInvite" title="Invite selected visitor?"
+    p
+      span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"
+      | Are you sure you want to send this website visitor a chat invitation popup?
+
+  div id="chat-invite-unavailable" title="Chat Invite Unavailable"
+    p
+      | Only paid accounts have access to the chat invitation features.  Please upgrade your 
+      | account to access this and many more features.
+
+div id="audio-settings-dialog" title="Audio Settings" class="ui-dialog" style="display: none;"
+	form
+    h5 Alert me with a sound when:
+    p style="padding-left: 10px;"
+      label for="active_chat_sound" A new message arrives in the selected chat
+      input type="checkbox" name="active_chat_sound" id="active_chat_sound" class="text ui-widget-content ui-corner-all"
+    p style="padding-left: 10px;"
+      label for="background_chat_sound" A new message arrives in a background chat
+      input type="checkbox" name="background_chat_sound" id="background_chat_sound"  class="checkbox ui-widget-content ui-corner-all"
+    p style="padding-left: 10px;"
+      label for="visitor_arrived_sound" A new visitor arrives on the website
+      input type="checkbox" name="visitor_arrived_sound" id="visitor_arrived_sound"  class="checkbox ui-widget-content ui-corner-all"
+
