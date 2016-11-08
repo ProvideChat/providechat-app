@@ -18,20 +18,12 @@ class Waiting extends React.Component{
   }
 
   onAcceptChat() {
-    this.setState({isReplying: !this.state.isReplying});
-  }
-
-  onUpvote(event) {
-    this.props.actions.upvoteComment(this.props.restaurantId, this.props);
-  }
-
-  onCommentSubmitted(event) {
-    this.setState({isReplying: false });
+    ProvideChat.initiate_accept_chat(this.props.id);
   }
 
   render() {
     return (
-      <div>
+      <div className="visitor-snapshot">
         <div className="content">
           <img src="/images/monitor/waiting-to-chat.png" className="visitor-image" />
           <span className="visitor-name">{ this.props.name }</span>&nbsp;&nbsp;
@@ -41,7 +33,7 @@ class Waiting extends React.Component{
           <div className="visitor-detail">{ this.props.last_message }</div>
         </div>
         <div className="button">
-          <a onClick={this.onAcceptChat.bind(this)} className="btn btn-default btn-xs" style="float: right;">
+          <a onClick={this.onAcceptChat.bind(this)} className="btn btn-default btn-xs pull-right">
             <i className="fa fa-comments-o"></i> Accept
           </a>
         </div>

@@ -26,7 +26,7 @@ class ActivityContainer extends Component {
   }
 
   render() {
-    const { visitors, waiting, chats, actions, agentId } = this.props;
+    const { offsite, visitors, waiting, chats, actions, agentId } = this.props;
 
     return (
       <div className="jarviswidget" id="your-chats" data-widget-editbutton="false" 
@@ -49,7 +49,7 @@ class ActivityContainer extends Component {
 
               <WaitingList agentId={agentId} actions={actions} waiting_list={waiting} />
 
-              <VisitorList agentId={agentId} actions={actions} visitors={visitors} />
+              <VisitorList agentId={agentId} actions={actions} visitors={visitors} offsite={offsite} />
 
             </div>
           </div>
@@ -64,7 +64,8 @@ function mapStateToProps(state) {
   return ({
     chats: state.activities.chats,
     waiting: state.activities.waiting,
-    visitors: state.activities.visitors
+    visitors: state.activities.visitors,
+    offsite: state.activities.offsite
   });
 }
 

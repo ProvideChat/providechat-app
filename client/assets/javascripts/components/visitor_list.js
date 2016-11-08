@@ -11,15 +11,28 @@ class VisitorList extends React.Component {
     }
   }
 
+  componentDidMount() {
+    console.log("VISITOR LIST PROPS");
+    console.log(this.props);
+  }
+
   render() {
-    const { visitors, agentId, actions } = this.props;
+    const { offsite, visitors, agentId, actions } = this.props;
 
     return (
       <div>
         <div className="people-header">Visitors</div>
         <div id="visitor-container" className="custom-scroll">
-          <div id="no-visitor-msg" className="chat-container-status">No current visitors</div>
+          {visitors.length === 0 &&
+            <div id="no-visitor-msg" className="chat-container-status">No current visitors</div>}
           {visitors.map( visitor => {
+            return (<Visitor
+              key={visitor.id}
+              {...this.props}
+              {...visitor}
+              />)
+          })}
+          {offsite.map( visitor => {
             return (<Visitor
               key={visitor.id}
               {...this.props}

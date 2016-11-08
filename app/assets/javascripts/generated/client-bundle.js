@@ -20650,6 +20650,7 @@
 	    key: 'render',
 	    value: function render() {
 	      var _props = this.props;
+	      var offsite = _props.offsite;
 	      var visitors = _props.visitors;
 	      var waiting = _props.waiting;
 	      var chats = _props.chats;
@@ -20688,7 +20689,7 @@
 	              { className: 'people-container' },
 	              _react2['default'].createElement(_chat_list2['default'], { agentId: agentId, actions: actions, chats: chats }),
 	              _react2['default'].createElement(_waiting_list2['default'], { agentId: agentId, actions: actions, waiting_list: waiting }),
-	              _react2['default'].createElement(_visitor_list2['default'], { agentId: agentId, actions: actions, visitors: visitors })
+	              _react2['default'].createElement(_visitor_list2['default'], { agentId: agentId, actions: actions, visitors: visitors, offsite: offsite })
 	            )
 	          )
 	        )
@@ -20704,7 +20705,8 @@
 	  return {
 	    chats: state.activities.chats,
 	    waiting: state.activities.waiting,
-	    visitors: state.activities.visitors
+	    visitors: state.activities.visitors,
+	    offsite: state.activities.offsite
 	  };
 	}
 
@@ -21978,7 +21980,7 @@
 	        _react2['default'].createElement(
 	          'div',
 	          { id: 'current-chat-container', className: 'custom-scroll' },
-	          _react2['default'].createElement(
+	          chats.length === 0 && _react2['default'].createElement(
 	            'div',
 	            { id: 'no-current-chats-msg', className: 'chat-container-status' },
 	            'No current chats'
@@ -22065,19 +22067,20 @@
 	  }, {
 	    key: 'onUpvote',
 	    value: function onUpvote(event) {
-	      this.props.actions.upvoteComment(this.props.restaurantId, this.props);
+	      //this.props.actions.upvoteComment(this.props.restaurantId, this.props);
 	    }
 	  }, {
 	    key: 'onViewChat',
 	    value: function onViewChat(event) {
-	      this.setState({ isReplying: false });
+	      ProvideChat.add_new_tab(this.props.id, this.props.visitor_id, this.props.visitor_name, this.props.status);
+	      //this.setState({isReplying: false });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2['default'].createElement(
 	        'div',
-	        null,
+	        { className: 'visitor-snapshot' },
 	        _react2['default'].createElement(
 	          'div',
 	          { className: 'content' },
@@ -22085,7 +22088,7 @@
 	          _react2['default'].createElement(
 	            'span',
 	            { className: 'visitor-name' },
-	            this.props.name
+	            this.props.visitor_name
 	          ),
 	          '  ',
 	          _react2['default'].createElement(
@@ -39204,11 +39207,18 @@
 	  }
 
 	  _createClass(VisitorList, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      console.log("VISITOR LIST PROPS");
+	      console.log(this.props);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this = this;
 
 	      var _props = this.props;
+	      var offsite = _props.offsite;
 	      var visitors = _props.visitors;
 	      var agentId = _props.agentId;
 	      var actions = _props.actions;
@@ -39224,12 +39234,17 @@
 	        _react2['default'].createElement(
 	          'div',
 	          { id: 'visitor-container', className: 'custom-scroll' },
-	          _react2['default'].createElement(
+	          visitors.length === 0 && _react2['default'].createElement(
 	            'div',
 	            { id: 'no-visitor-msg', className: 'chat-container-status' },
 	            'No current visitors'
 	          ),
 	          visitors.map(function (visitor) {
+	            return _react2['default'].createElement(_visitor2['default'], _extends({
+	              key: visitor.id
+	            }, _this.props, visitor));
+	          }),
+	          offsite.map(function (visitor) {
 	            return _react2['default'].createElement(_visitor2['default'], _extends({
 	              key: visitor.id
 	            }, _this.props, visitor));
@@ -39304,55 +39319,41 @@
 	  }
 
 	  _createClass(Visitor, [{
-	    key: 'onToggleReply',
-	    value: function onToggleReply() {
-	      this.setState({ isReplying: !this.state.isReplying });
-	    }
-	  }, {
-	    key: 'onInvite',
-	    value: function onInvite(event) {
-	      this.props.actions.upvoteComment(this.props.restaurantId, this.props);
-	    }
-	  }, {
-	    key: 'onCommentSubmitted',
-	    value: function onCommentSubmitted(event) {
-	      this.setState({ isReplying: false });
+	    key: 'onInviteChat',
+	    value: function onInviteChat(event) {
+	      ProvideChat.initiate_invitation(this.props.id);
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2['default'].createElement(
 	        'div',
-	        null,
+	        { className: 'visitor-snapshot' },
 	        _react2['default'].createElement(
 	          'div',
 	          { className: 'content' },
 	          _react2['default'].createElement('img', { src: '/images/monitor/current-chat.png', className: 'visitor-image' }),
 	          _react2['default'].createElement(
-	            'span',
-	            { className: 'visitor-name' },
-	            this.props.name
-	          ),
-	          '  ',
-	          _react2['default'].createElement(
-	            'span',
-	            { className: 'visitor-detail' },
-	            this.props.status_extended
-	          ),
-	          _react2['default'].createElement(
 	            'div',
+	            { className: 'visitor-location' },
+	            this.props.location,
+	            '  ',
+	            _react2['default'].createElement('img', { src: '/images/flags/' + this.props.country_code + '.png', className: 'visitor-flag' })
+	          ),
+	          _react2['default'].createElement(
+	            'span',
 	            { className: 'visitor-detail' },
-	            this.props.last_message
+	            this.props.current_page
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        this.props.status === "no_chat" && _react2['default'].createElement(
 	          'div',
 	          { className: 'button' },
 	          _react2['default'].createElement(
 	            'a',
-	            { onClick: this.viewChat.bind(this), className: 'btn btn-default btn-xs', style: 'float: right;' },
-	            _react2['default'].createElement('i', { className: 'fa fa-user' }),
-	            ' View'
+	            { onClick: this.onInviteChat.bind(this), className: 'btn btn-default btn-xs pull-right' },
+	            _react2['default'].createElement('i', { className: 'fa fa-external-link' }),
+	            ' Invite'
 	          )
 	        )
 	      );
@@ -39435,7 +39436,7 @@
 	        _react2['default'].createElement(
 	          'div',
 	          { id: 'waiting-to-chat-container', className: 'custom-scroll' },
-	          _react2['default'].createElement(
+	          waiting_list.length === 0 && _react2['default'].createElement(
 	            'div',
 	            { id: 'no-waiting-chats-msg', className: 'chat-container-status' },
 	            'No one is currently waiting to chat'
@@ -39517,24 +39518,14 @@
 	  _createClass(Waiting, [{
 	    key: 'onAcceptChat',
 	    value: function onAcceptChat() {
-	      this.setState({ isReplying: !this.state.isReplying });
-	    }
-	  }, {
-	    key: 'onUpvote',
-	    value: function onUpvote(event) {
-	      this.props.actions.upvoteComment(this.props.restaurantId, this.props);
-	    }
-	  }, {
-	    key: 'onCommentSubmitted',
-	    value: function onCommentSubmitted(event) {
-	      this.setState({ isReplying: false });
+	      ProvideChat.initiate_accept_chat(this.props.id);
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2['default'].createElement(
 	        'div',
-	        null,
+	        { className: 'visitor-snapshot' },
 	        _react2['default'].createElement(
 	          'div',
 	          { className: 'content' },
@@ -39561,7 +39552,7 @@
 	          { className: 'button' },
 	          _react2['default'].createElement(
 	            'a',
-	            { onClick: this.onAcceptChat.bind(this), className: 'btn btn-default btn-xs', style: 'float: right;' },
+	            { onClick: this.onAcceptChat.bind(this), className: 'btn btn-default btn-xs pull-right' },
 	            _react2['default'].createElement('i', { className: 'fa fa-comments-o' }),
 	            ' Accept'
 	          )
@@ -39732,6 +39723,8 @@
 	function watch(agentId) {
 	  return function (dispatch) {
 	    _api2['default'].get('/activities').then(function (activities) {
+	      console.log("ACTIVITIES");
+	      console.log(activities);
 	      dispatch({
 	        type: _actionTypes.SET_ACTIVITIES,
 	        activities: activities
@@ -41584,15 +41577,14 @@
 
 	function _interopRequire(obj) { return obj && obj.__esModule ? obj['default'] : obj; }
 
-	var _activities = __webpack_require__(198);
+	var _activities = __webpack_require__(197);
 
 	exports.activities = _interopRequire(_activities);
 
 	//export { default as active_chats } from './active_chats';
 
 /***/ },
-/* 197 */,
-/* 198 */
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

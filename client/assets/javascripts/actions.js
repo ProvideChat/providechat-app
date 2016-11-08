@@ -32,6 +32,8 @@ export function acceptChat(agentId, params) {
 export function watch(agentId) {
   return dispatch => {
     Api.get('/activities').then( activities => {
+      console.log("ACTIVITIES");
+      console.log(activities);
       dispatch({
         type: SET_ACTIVITIES,
         activities: activities

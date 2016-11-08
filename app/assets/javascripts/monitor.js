@@ -31,13 +31,13 @@
       ProvideChat.agent_availability = agent_availability;
       ProvideChat.organization_id = organization_id;
 
-      updateVisitors();
+      //updateVisitors();
 
-      ProvideChat.visitorTimer = setInterval(function(){updateVisitors();}, 3000);
+      //ProvideChat.visitorTimer = setInterval(function(){updateVisitors();}, 3000);
       ProvideChat.chatQueueTimer = setInterval(function(){sendChatMessageQueue();}, 3000);
       ProvideChat.initialized = true;
 
-      bind_filter_results_button();
+      //bind_filter_results_button();
     }
   };
 
@@ -64,9 +64,9 @@
       $('#current-chat-container').append("<div id='in-chat-visitor-" + visitor.id + "' class='visitor-snapshot'>" + visitor_content + "</div>");
 
       $('#view_visitor_' + visitor.id).click(function() {
-        add_new_tab ($(this).data("chat-id"), $(this).data("visitor-id"), $(this).data("visitor-name"), $(this).data("chat-status"));
+        self.add_new_tab ($(this).data("chat-id"), $(this).data("visitor-id"), $(this).data("visitor-name"), $(this).data("chat-status"));
       });
-      add_new_tab (visitor.chat_id, visitor.id, visitor.name, visitor.chat.status);
+      self.add_new_tab (visitor.chat_id, visitor.id, visitor.name, visitor.chat.status);
     }
   }
 
@@ -113,17 +113,7 @@
         $('#waiting-to-chat-container').append("<div class='visitor-snapshot' id='waiting-to-chat-visitor-" + visitor.id + "'>" + visitor_content + "</div>");
 
         $('#accept_chat_' + visitor.id).click(function() {
-          if (ProvideChat.agent_availability == 'online') {
-            $(this).hide();
-            accept_chat($(this).data("visitor-id"));
-          } else if (ProvideChat.agent_availability == 'offline') {
-            swal({
-              title: "Unable to accept chat while offline",
-              text: "Please ensure you are online before accepting a chat.",
-              type: "error",
-              confirmButtonText: "Close"
-            });
-          }
+          self.initiate_accept_chat($(this).data("visitor-id"));
         });
       }
     } else { // if not on the chat monitor
@@ -131,6 +121,21 @@
         waitingToChatAlert();
         ProvideChat.visitorWaitingTimer = setInterval(function(){waitingToChatAlert();}, 12000);
       }
+    }
+  }
+
+  ProvideChat.initiate_accept_chat = function(visitor_id) {
+
+    if (ProvideChat.agent_availability == 'online') {
+      $(this).hide();
+      accept_chat(visitor_id);
+    } else if (ProvideChat.agent_availability == 'offline') {
+      swal({
+        title: "Unable to accept chat while offline",
+        text: "Please ensure you are online before accepting a chat.",
+        type: "error",
+        confirmButtonText: "Close"
+      });
     }
   }
 
@@ -160,17 +165,7 @@
         $('#visitor-container').append("<div class='visitor-snapshot' id='no-chat-visitor-" + visitor.id + "'>" + visitor_content + "</div>");
 
         $('#invite_chat_' + visitor.id).click(function() {
-          if (ProvideChat.agent_availability == 'online') {
-            $(this).hide();
-            invite_chat($(this).data("visitor-id"));
-          } else if (ProvideChat.agent_availability == 'offline') {
-            swal({
-              title: "Unable to invite while offline",
-              text: "Please ensure you are online before inviting a visitor to chat.",
-              type: "error",
-              confirmButtonText: "Close"
-            });
-          }
+          self.initiate_invitation($(this).data("visitor-id"));
         });
       } else if ((visitor.status === "chat_ended") || (visitor.status === "visitor_ended") || (visitor.status === "agent_ended")) {
 
@@ -182,6 +177,21 @@
         $('#visitor-container').append("<div class='visitor-snapshot' id='no-chat-visitor-" + visitor.id + "'>" + visitor_content + "</div>");
       }
 
+    }
+  }
+
+  ProvideChat.initiate_invitation = function(visitor_id) {
+
+    if (ProvideChat.agent_availability == 'online') {
+      $(this).hide();
+      invite_chat(visitor_id);
+    } else if (ProvideChat.agent_availability == 'offline') {
+      swal({
+        title: "Unable to invite while offline",
+        text: "Please ensure you are online before inviting a visitor to chat.",
+        type: "error",
+        confirmButtonText: "Close"
+      });
     }
   }
 
@@ -382,7 +392,7 @@
     });
   }
 
-  function add_new_tab(chat_id, visitor_id, visitor_name, chat_status) {
+  ProvideChat.add_new_tab = function(chat_id, visitor_id, visitor_name, chat_status) {
 
     if ($("#chat_tab_" + chat_id).length === 0) {
 
@@ -414,6 +424,8 @@
         ProvideChat.numChats++;
 
         viewVisitor(response.visitor_id);
+        console.log("Loading TAB");
+        console.log(response);
 
         if (response.chat_status == 'in_progress') {
 

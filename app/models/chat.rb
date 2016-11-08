@@ -30,6 +30,12 @@ class Chat < ActiveRecord::Base
     chats
   end
 
+  def self.current_chats(organization_id, agent_id, filter_by_agent = false)
+    chats = Chat.where(organization_id: organization_id, status: Chat.statuses[:in_progress])
+    chats = chats.where(agent_id: agent_id) if filter_by_agent
+    chats
+  end
+
   def ticket_id
     created_at.to_i.to_s[-6, 6] + id.to_s
   end

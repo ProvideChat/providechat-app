@@ -34,7 +34,8 @@ class ChatList extends React.Component {
       <div>
         <div className="people-header">Current Chats</div>
         <div id="current-chat-container" className="custom-scroll">
-          <div id="no-current-chats-msg" className="chat-container-status">No current chats</div>
+          {chats.length === 0 &&
+            <div id="no-current-chats-msg" className="chat-container-status">No current chats</div>}
           {chats.map( chat => {
             return (<Chat
               key={chat.id}

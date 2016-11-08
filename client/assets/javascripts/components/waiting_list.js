@@ -23,7 +23,8 @@ class WaitingList extends React.Component {
       <div>
         <div className="people-header">Waiting to Chat</div>
         <div id="waiting-to-chat-container" className="custom-scroll">
-          <div id="no-waiting-chats-msg" className="chat-container-status">No one is currently waiting to chat</div>
+          {waiting_list.length === 0 &&
+            <div id="no-waiting-chats-msg" className="chat-container-status">No one is currently waiting to chat</div>}
           {waiting_list.map( waiting => {
             return (<Waiting
               key={waiting.id}

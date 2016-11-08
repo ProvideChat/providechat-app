@@ -22,19 +22,20 @@ class Chat extends React.Component{
   }
 
   onUpvote(event) {
-    this.props.actions.upvoteComment(this.props.restaurantId, this.props);
+    //this.props.actions.upvoteComment(this.props.restaurantId, this.props);
   }
 
   onViewChat(event) {
-    this.setState({isReplying: false });
+    ProvideChat.add_new_tab(this.props.id, this.props.visitor_id, this.props.visitor_name, this.props.status);
+    //this.setState({isReplying: false });
   }
 
   render() {
     return (
-      <div>
+      <div className="visitor-snapshot">
         <div className="content">
           <img src="/images/monitor/current-chat.png" className="visitor-image" />
-          <span className="visitor-name">{ this.props.name }</span>&nbsp;&nbsp;
+          <span className="visitor-name">{ this.props.visitor_name }</span>&nbsp;&nbsp;
           <span className="visitor-detail">
             { this.props.status_extended }
           </span>

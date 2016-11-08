@@ -17,34 +17,29 @@ class Visitor extends React.Component{
     this.state = { isReplying: false }
   }
 
-  onToggleReply() {
-    this.setState({isReplying: !this.state.isReplying});
-  }
-
-  onInvite(event) {
-    this.props.actions.upvoteComment(this.props.restaurantId, this.props);
-  }
-
-  onCommentSubmitted(event) {
-    this.setState({isReplying: false });
+  onInviteChat(event) {
+    ProvideChat.initiate_invitation(this.props.id);
   }
 
   render() {
     return (
-      <div>
+      <div className="visitor-snapshot">
         <div className="content">
           <img src="/images/monitor/current-chat.png" className="visitor-image" />
-          <span className="visitor-name">{ this.props.name }</span>&nbsp;&nbsp;
+          <div className="visitor-location">
+            { this.props.location }&nbsp;&nbsp;
+            <img src={ '/images/flags/' + this.props.country_code + '.png' } className="visitor-flag" />
+          </div>
           <span className="visitor-detail">
-            { this.props.status_extended }
+            { this.props.current_page }
           </span>
-          <div className="visitor-detail">{ this.props.last_message }</div>
         </div>
-        <div className="button">
-          <a onClick={this.viewChat.bind(this)} className="btn btn-default btn-xs" style="float: right;">
-            <i className="fa fa-user"></i> View
-          </a>
-        </div>
+        {this.props.status === "no_chat" &&
+          <div className="button">
+            <a onClick={this.onInviteChat.bind(this)} className="btn btn-default btn-xs pull-right">
+              <i className="fa fa-external-link"></i> Invite
+            </a>
+          </div>}
       </div>
     );
   }

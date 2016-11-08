@@ -40,7 +40,6 @@
   font-style: oblique;
   padding-left: 8px;
   padding-top: 6px;
-  display: none;
 }
 
 .visitor-snapshot {
@@ -84,6 +83,12 @@
 .visitor-detail {
   color: #999999;
   font-size: .7em;
+}
+
+.visitor-flag {
+  width: 16px;
+  height: 16px;
+  vertical-align: top;
 }
 
 /* Big Box Notification Styles */

@@ -259,6 +259,18 @@ class Visitor < ActiveRecord::Base
     end
   end
 
+  def location
+    if (city.length > 0) && (country_name.length > 0)
+      "#{city}, #{country_name}"
+    elsif (city.length == 0) && (country_name.length > 0)
+      country_name
+    elsif (city.length > 0) && (country_name.length == 0)
+      city
+    else
+      "Unknown"
+    end
+  end
+  
   protected
 
   def titleize_name
