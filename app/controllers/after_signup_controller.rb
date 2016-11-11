@@ -87,8 +87,9 @@ class AfterSignupController < ApplicationController
     if agent.update_attributes(agent_params)
       agent.display_name = @agent.name
       agent.save
-      sign_in :agent, agent, :bypass => true
+      #sign_in :agent, agent, :bypass => true
     end
+    sign_in :agent, agent, :bypass => true if agent
   end
 
   def process_step_two(agent, params)
@@ -101,7 +102,7 @@ class AfterSignupController < ApplicationController
     if website.save
       agent.websites << website
       agent.save
-      sign_in :agent, agent, :bypass => true
     end
+    sign_in :agent, agent, :bypass => true if agent
   end
 end
