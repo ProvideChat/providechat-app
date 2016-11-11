@@ -119,7 +119,7 @@
                 #collapseTwo.panel-collapse.collapse{"aria-labelledby" => "headingTwo", :role => "tabpanel"}
                   .panel-body
                     .alert.alert-success#send_code_success{style: "display: none;"} Code was sent to your webmaster.
-                    = form_tag(send_code_path, method: :post, remote: true, class: 'form-horizontal', id: 'send-code-form') do
+                    = form_tag(send_code_path, method: 'post', class: 'form-horizontal', remote: true, id: 'send-code-form', format: 'json') do
                       .alert.alert-danger#code_error_msg{style: "display: none;"} Error in sending email, please ensure email address is valid
                       .alert.alert-success#code_sending_msg{style: "display: none;"} Sending...
                       .form-group
@@ -282,7 +282,7 @@
       });
 
       $('#send-code-form').on('ajax:success', function(e, data, status, xhr) {
-        console.log(xhr);
+        //console.log(xhr);
         $('#send-code-form').slideUp();
         $('#send-code-form').find('form input[type="text"]').val('');
         $('#send-code-form input[type="submit"]').prop('disabled', false);
