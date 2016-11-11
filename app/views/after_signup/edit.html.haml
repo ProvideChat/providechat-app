@@ -17,7 +17,7 @@
         %li{style:  "width: 33%;", class: ("active" if @setup_step == 2)}
           %a{data_toggle: "tab", href: "#website"} Step 2: Website
         %li{style: "width: 34%;", class: ("active" if @setup_step == 3)}
-          %a{data_toggle: "tab", href: "#install-code"} Step 3: Widget
+          %a{data_toggle: "tab", href: "#install-code"} Step 3: Install
       .tab-content
         = render "layouts/error_messages", f: @agent
 
@@ -137,15 +137,14 @@
                 #collapseThree.panel-collapse.collapse{"aria-labelledby" => "headingThree", :role => "tabpanel"}
                   .panel-body
                     .alert.alert-warning#ftp_info
-                      We offer a free Widget Installation service for any basic HTML websites. We will 
-                      install your widget for you on a single page of your website to help you get 
-                      started. To request this service, please enter your FTP server credentials 
-                      below and we will get in touch with you shortly to finalize the service.
+                      We offer a free installation service for any basic HTML websites. We will install 
+                      Provide Chat for you on a single page of your website to help you get started. To 
+                      request this service, please enter your FTP server credentials below and we will 
+                      get in touch with you shortly to finalize the service.
 
                     .alert.alert-success#ftp_success{style: "display: none;"} 
-                      Thank you for requesting a free Widget Installation. We 
-                      will be in touch with you shortly. For now, feel free 
-                      to click Finish in the bottom right and start exploring 
+                      Thank you for requesting our free installation server. We will be in touch with 
+                      shortly. For now, feel free to click Finish in the bottom right and start exploring 
                       your Provide Chat account.
 
                     = form_tag(add_ftp_server_path, method: 'post', remote: true, class: 'form-horizontal', id: 'add-ftp-form') do
@@ -157,7 +156,8 @@
                             %p.help-block
                               .small
                                 %strong What is the FTP Hostname?
-                                This is usually a domain address like ftp.yoursite.com or an IP address such as 123.465.78.90. If you don't know the address your hosting provider will be able give it to you.
+                                This is usually a domain address like ftp.yoursite.com or an IP address such as 
+                                123.465.78.90. If you don't know the address your hosting provider will be able give it to you.
                       .row
                         .col-sm-4.col-sm-offset-1
                           .form-group
@@ -175,12 +175,9 @@
                             %p.help-block
                               .small
                                 %strong What is the web root folder?
-                                A web root folder is a folder in your web 
-                                hosting server that holds all of the files 
-                                that make up your actual website. Think of 
-                                it as the top-level folder of your whole 
-                                website. Common names are /public_html, 
-                                \/www, /httpdocs, /html, /public, or /web .
+                                A web root folder is a folder in your web hosting server that holds all of the files 
+                                that make up your actual website. Think of it as the top-level folder of your whole 
+                                website. Common names are /public_html, /www, /httpdocs, /html, /public, or /web.
                       .row
                         .col-sm-10.col-sm-offset-1
                           .form-group
@@ -213,24 +210,6 @@
                   .pull-left
                     = f.button "Previous", name: "previous_step", class: "btn btn-previous btn-fill btn-default btn-wd btn-sm cancel", value: (@setup_step -1)
                 .clearfix
-
-.remodal{"data-remodal-id" => "terms-modal"}
-  %button.remodal-close{"data-remodal-action" => "close"}
-  %h1 Widget Free Install Terms of Service
-
-  %h3
-    SUPPORT DISCLAIMER
-  %p
-    Support is information or advice provided by Provide Chat through email or telephone. This can also include any software or any data file(s) installed or removed from specified computer servers by providechat.com at the customers request.
-
-  %h3
-    DISCLAIMER OF WARRANTY
-  %p
-    Support whether by email, telephone or through software installation is provided "as is" without warranty of any kind. While we are knowledgeable and skilled professionals, we cannot offer any guarantee as to the consequences of the Support provided. Should the Support cause damage or loss of any kind, Provide Chat shall not be held liable to you or any other person for indirect, special, punitive, incidental, or consequential damages of any character including damages for loss of goodwill, work stoppage, computer failure or malfunction, or any and all commercial damages or losses.
-
-  %hr
-
-  %button.remodal-confirm{"data-remodal-action" => "confirm"} Okay
 
 - content_for :scripts do
   :javascript
