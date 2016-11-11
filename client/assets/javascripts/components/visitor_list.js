@@ -11,10 +11,12 @@ class VisitorList extends React.Component {
     }
   }
 
+  /*
   componentDidMount() {
     console.log("VISITOR LIST PROPS");
     console.log(this.props);
   }
+  */
 
   render() {
     const { offsite, visitors, agentId, actions } = this.props;

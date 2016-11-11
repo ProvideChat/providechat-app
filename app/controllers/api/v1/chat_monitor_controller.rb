@@ -17,7 +17,7 @@ module Api
 
         if @organization = Organization.find_by_id(org_id)
 
-          logger.debug "METHOD: #{method}"
+          #logger.debug "METHOD: #{method}"
 
           case method
           when "accept_chat"
@@ -36,7 +36,7 @@ module Api
 
         if @organization = Organization.find_by_id(org_id)
 
-          logger.info "METHOD: #{method}"
+          #logger.info "METHOD: #{method}"
 
           case method
           when "accept_chat"
@@ -47,9 +47,8 @@ module Api
             agent = Agent.find(agent_id)
             if agent.organization.account_type == 'free' && 
                 agent.chats.where(status: Chat.statuses[:in_progress]).count >= 1
-                
               visitor = Visitor.find(visitor_id)
-              
+
               chat = Chat.find(visitor.chat.id)
               chat.agent_id = agent_id
               chat.status = 'agent_timeout'
@@ -81,6 +80,7 @@ module Api
                 'chat_id' => chat.id,
                 'visitor_id' => visitor_id,
                 'visitor_name' => chat.visitor_name,
+                'chat_status' => chat.status,
                 'status' => 'accepted'
               }
             end

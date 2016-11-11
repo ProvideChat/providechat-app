@@ -11,12 +11,12 @@ class ChatList extends React.Component {
     }
   }
 
+  /*
   componentDidMount() {
     console.log("CHAT LIST PROPS");
     console.log(this.props);
   }
 
-  /*
   chatsFiltered(chats, agentId) {
     return _.chain(chats)
       //.select(c => { return c && c.parent_id === parentId; })

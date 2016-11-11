@@ -216,7 +216,7 @@
         $('#waiting-to-chat-container').find(".visitor-snapshot").remove();
         $('#visitor-container').find(".visitor-snapshot").remove();
       }
-      console.log(results);
+      //console.log(results);
       ProvideChat.agent_availability = results.agent_availability
 
       $.each(results.visitors, function(i, visitor) {
@@ -381,6 +381,7 @@
     $.getJSON("/api/chat_monitor.json", json_data, function (response) {
       if ((response.status == 'accepted') && (response.chat_id > 0)) {
         ProvideChat.activeChatId = response.chat_id;
+        ProvideChat.add_new_tab(response.chat_id, response.visitor_id, response.visitor_name, response.chat_status);
       } else if (response.status == 'max_chats') {
         swal({
           title: "Max chat limit",
@@ -424,8 +425,8 @@
         ProvideChat.numChats++;
 
         viewVisitor(response.visitor_id);
-        console.log("Loading TAB");
-        console.log(response);
+        //console.log("Loading TAB");
+        //console.log(response);
 
         if (response.chat_status == 'in_progress') {
 
@@ -496,7 +497,7 @@
 
     $.getJSON("/api/chat_monitor.json", json_data, function (response) {
 
-      console.log(response);
+      //console.log(response);
 
       var chat_id = response.chat_id;
 
@@ -540,7 +541,7 @@
 
     $.getJSON("/api/chat_monitor.json", json_data, function (response) {
 
-      console.log(response);
+      //console.log(response);
 
       var chatText = '';
       var newMessageAlert = false;
@@ -559,7 +560,7 @@
 
         $.each(response.messages, function(count, message) {
 
-          console.log("Message Obj: " + message);
+          //console.log("Message Obj: " + message);
           chatText += get_chat_message(chat_id, message);
 
           if (message.sender === "visitor") {
@@ -582,7 +583,7 @@
 
         chatText = '<hr><div class="announcement">' + end_message + '</div>';
 
-        console.log("ChatID: " + chat_id + ", Clearing Interval ID: " + ProvideChat.chatTimer[chat_id]);
+        //console.log("ChatID: " + chat_id + ", Clearing Interval ID: " + ProvideChat.chatTimer[chat_id]);
         clearInterval(ProvideChat.chatTimer[chat_id]);
         clearInterval(ProvideChat.keypressStatusTimer[chat_id]);
         $('#typing-notification-' + chat_id).html ('');
@@ -622,7 +623,7 @@
       chat_message += '<div class="' + message.sender + '-name">' + message.user_name  + '</div> ' + message.message + '</div></div>';
     }
 
-    console.log("Chat Message: " + chat_message);
+    //console.log("Chat Message: " + chat_message);
     ProvideChat.last_message_id[chat_id] = message.id;
     ProvideChat.last_sender[chat_id] = message.sender;
 

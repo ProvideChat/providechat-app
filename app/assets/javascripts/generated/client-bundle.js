@@ -21941,14 +21941,14 @@
 	  }
 
 	  _createClass(ChatList, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
+	    key: 'render',
+
+	    /*
+	    componentDidMount() {
 	      console.log("CHAT LIST PROPS");
 	      console.log(this.props);
 	    }
-
-	    /*
-	    chatsFiltered(chats, agentId) {
+	     chatsFiltered(chats, agentId) {
 	      return _.chain(chats)
 	        //.select(c => { return c && c.parent_id === parentId; })
 	        //  .sortBy('rank')
@@ -21957,8 +21957,6 @@
 	    }
 	    */
 
-	  }, {
-	    key: 'render',
 	    value: function render() {
 	      var _this = this;
 
@@ -39207,13 +39205,15 @@
 	  }
 
 	  _createClass(VisitorList, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
+	    key: 'render',
+
+	    /*
+	    componentDidMount() {
 	      console.log("VISITOR LIST PROPS");
 	      console.log(this.props);
 	    }
-	  }, {
-	    key: 'render',
+	    */
+
 	    value: function render() {
 	      var _this = this;
 
@@ -39410,13 +39410,15 @@
 	  }
 
 	  _createClass(WaitingList, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
+	    key: 'render',
+
+	    /*
+	    componentDidMount() {
 	      console.log("WAITING LIST PROPS");
 	      console.log(this.props);
 	    }
-	  }, {
-	    key: 'render',
+	    */
+
 	    value: function render() {
 	      var _this = this;
 

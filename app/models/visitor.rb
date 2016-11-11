@@ -11,13 +11,27 @@ class Visitor < ActiveRecord::Base
 
   before_save :titleize_name
 
+  VISITOR_STATUSES = [ 
+    Visitor.statuses[:no_chat], 
+    Visitor.statuses[:agent_ended], 
+    Visitor.statuses[:visitor_ended] 
+  ]
+
   def self.current_visitors(current_agent)
-    active_statuses = [ Visitor.statuses[:no_chat], Visitor.statuses[:waiting_to_chat], Visitor.statuses[:in_chat],
-                        Visitor.statuses[:agent_ended], Visitor.statuses[:visitor_ended] ]
     websites = current_agent.websites.pluck(:id)
     Visitor.where("organization_id = ? AND status IN (?) AND website_id IN (?) AND last_ping > ?",
       current_agent.organization_id,
-      active_statuses,
+      Visitor::VISITOR_STATUSES,
+      websites,
+      2.minutes.ago
+    )
+  end
+
+  def self.current_waiting(current_agent)
+    websites = current_agent.websites.pluck(:id)
+    Visitor.where("organization_id = ? AND status = ? AND website_id IN (?) AND last_ping > ?",
+      current_agent.organization_id,
+      Visitor.statuses[:waiting_to_chat], 
       websites,
       2.minutes.ago
     )
@@ -96,7 +110,7 @@ class Visitor < ActiveRecord::Base
     # "location"=>{"longitude"=>-123.1333, "latitude"=>49.25, "asn"=>"AS852", "offset"=>"-7", "ip"=>"154.20.236.47", "area_code"=>"0", "continent_code"=>"NA", "dma_code"=>"0", "city"=>"Vancouver", "timezone"=>"America/Vancouver", "region"=>"British Columbia", "country_code"=>"CA", "isp"=>"TELUS Communications Inc.", "country"=>"Canada", "country_code3"=>"CAN", "region_code"=>"BC"}, "location_provider"=>"Telize"}
 
     #Rails.logger.debug "current_session.visits: #{session['current_session']['visits']}"
-    Rails.logger.info session
+    #Rails.logger.info session
 
     #remote_addr = session['']
     current_visits = session['current_session']['visits']

@@ -11,10 +11,12 @@ class WaitingList extends React.Component {
     }
   }
 
+  /*
   componentDidMount() {
     console.log("WAITING LIST PROPS");
     console.log(this.props);
   }
+  */
 
   render() {
     const { waiting_list, agentId, actions } = this.props;
