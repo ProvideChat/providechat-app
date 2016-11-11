@@ -891,9 +891,6 @@ label{
     left: -10000px;
     z-index: -1;
 }
-.wizard-card .btn-finish{
-    display: none;
-}
 
 .wizard-card .description{
     color: #999999;
