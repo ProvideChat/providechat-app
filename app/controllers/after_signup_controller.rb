@@ -101,6 +101,7 @@ class AfterSignupController < ApplicationController
     if website.save
       agent.websites << website
       agent.save
+      sign_in :agent, agent, :bypass => true
     end
   end
 end
