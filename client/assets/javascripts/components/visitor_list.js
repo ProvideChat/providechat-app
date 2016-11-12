@@ -25,7 +25,7 @@ class VisitorList extends React.Component {
       <div>
         <div className="people-header">Visitors</div>
         <div id="visitor-container" className="custom-scroll">
-          {visitors.length === 0 &&
+          {visitors.length === 0 && offsite.length === 0 &&
             <div id="no-visitor-msg" className="chat-container-status">No current visitors</div>}
           {visitors.map( visitor => {
             return (<Visitor
