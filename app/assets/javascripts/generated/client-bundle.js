@@ -39234,7 +39234,7 @@
 	        _react2['default'].createElement(
 	          'div',
 	          { id: 'visitor-container', className: 'custom-scroll' },
-	          visitors.length === 0 && _react2['default'].createElement(
+	          visitors.length === 0 && offsite.length === 0 && _react2['default'].createElement(
 	            'div',
 	            { id: 'no-visitor-msg', className: 'chat-container-status' },
 	            'No current visitors'
