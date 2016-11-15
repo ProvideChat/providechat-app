@@ -344,3 +344,11 @@ input::-moz-focus-inner {
     font-weight: bold;
   }
 }
+
+/* Honeypot */
+.form-group {
+  &.honeypot {
+    position: absolute;
+    left: -9999px;
+  }
+}

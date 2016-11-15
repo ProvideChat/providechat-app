@@ -9,6 +9,9 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
+    # honeypot trap
+    redirect_to root_url if params[:content].present?
+
     super do |resource|
       if resource.errors.empty?
         organization = Organization.create_default_organization
