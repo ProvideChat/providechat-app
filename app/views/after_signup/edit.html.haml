@@ -69,7 +69,7 @@
                     %label Web Address (URL)
                     .input-group
                       %span.input-group-addon http://
-                      = f.text_field :website_url, :class => "form-control", value: (@website.url unless @website.nil?), required: true
+                      = f.text_field :website_url, class: "form-control", value: (@website.url unless @website.nil?), required: true
               .row
                 .col-sm-8.col-sm-offset-2
                   %small
