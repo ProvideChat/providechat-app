@@ -8,7 +8,8 @@ class ContactForm < MailForm::Base
     {
       subject: "Provide Chat Contact Form",
       to: "sales@providechat.com",
-      from: %("#{name}" <#{email}>)
+      from: "noreply@providechat.com",
+      reply_to: %("#{name}" <#{email}>)
     }
   end
 end
