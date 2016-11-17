@@ -10,6 +10,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'devise'
 gem 'detect_timezone_rails'
 gem 'docverter'
+gem 'exception_notification'
 gem 'feedjira'
 gem 'fog'
 gem "foreman"

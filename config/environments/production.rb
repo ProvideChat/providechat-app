@@ -95,6 +95,12 @@ Rails.application.configure do
   }
   ActionMailer::Base.delivery_method = :smtp
 
+  Rails.application.config.middleware.use ExceptionNotification::Rack,
+    :email => {
+      :email_prefix => "[EXCEPTION] ",
+      :sender_address => %{"Provide Chat Notifier" <noreply@providechat.com>},
+      :exception_recipients => %w{support@providechat.com}
+  }
 end
 
 Rails.application.routes.default_url_options[:host] = 'app.providechat.com'
