@@ -1,9 +1,10 @@
 source 'https://rubygems.org'
 
-ruby '2.3.1'
+ruby '2.3.2'
 
 gem 'rails', '5.0.0.1'
 
+gem 'airbrake', '~> 5.0'
 gem 'carrierwave', '>= 1.0.0.beta', '< 2.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise'
