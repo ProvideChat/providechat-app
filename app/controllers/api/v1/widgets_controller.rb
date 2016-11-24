@@ -249,7 +249,7 @@ module Api
             response = { 'success' => 'true' }
 
           when "get_pre_chat"
-            pre_chat_form = PrechatForm.find_by(:website_id => website.id)
+            pre_chat_form = PrechatForm.find_by(website_id: website.id)
             response = {
               'html' => render_to_string(
                 partial: 'pre_chat.html.erb',
@@ -267,8 +267,8 @@ module Api
             visitor.process_invitation
 
             agent = Agent.find(visitor.invite_agent_id)
-            invitation = Invitation.find_by(:website_id => website.id)
-            chat_widget = ChatWidget.find_by(:website_id => website.id)
+            invitation = Invitation.find_by(website_id: website.id)
+            chat_widget = ChatWidget.find_by(website_id: website.id)
 
             response = {
               'html' => render_to_string(
@@ -283,7 +283,7 @@ module Api
             }
 
           when "get_in_chat"
-            chat_widget = ChatWidget.find_by(:website_id => website.id)
+            chat_widget = ChatWidget.find_by(website_id: website.id)
             response = {
               'html' => render_to_string(
                 partial: 'chat_widget.html.erb',
@@ -293,7 +293,7 @@ module Api
             }
 
           when "get_offline"
-            offline_form = OfflineForm.find_by(:website_id => website.id)
+            offline_form = OfflineForm.find_by(website_id: website.id)
             response = {
               'html' => render_to_string(
                 partial: 'offline_form.html.erb',
