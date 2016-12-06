@@ -5,6 +5,9 @@
 #
 
 class StripeUserMailer < ApplicationMailer
+  layout 'mailer'
+
+  default from: 'noreply@providechat.com'
 
   def receipt(charge)
     @charge = charge

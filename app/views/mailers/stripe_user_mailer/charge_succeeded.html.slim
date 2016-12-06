@@ -1,0 +1,20 @@
+h3 Thank you for starting a Provide Chat Subscription
+
+p
+  ' You have been charged for the following amount:
+  = @sale.amount
+
+p
+  ' You can view details of your sale here:
+  = link_to @sale.guid, sale_url(@sale)
+
+p
+  ' Please contact us if you have any questions or concerns.
+
+p
+  ' Sincerely,
+  br
+  ' Luke Holzken
+  br
+  ' Provide Chat Software
+
