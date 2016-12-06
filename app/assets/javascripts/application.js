@@ -31,7 +31,6 @@
 //= require plugin/clipboard/clipboard
 //= require plugin/jquery-touch/jquery.ui.touch-punch
 //= require plugin/bootstrap-touchspin/bootstrap-touchspin
-//= require plugin/remodal/remodal
 //= require plugin/select2/select2
 //= require plugin/pace/pace
 

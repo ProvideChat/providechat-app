@@ -189,9 +189,13 @@
                             %label
                               = check_box_tag :agree_to_terms, "Yes", false, required: true
                               I agree with the 
-                              %a{href: "#terms-modal"}
+                              %a{type: "button", data: {toggle: 'collapse', target: '#install_terms'}}
                                 Terms and Conditions
                               of Provide Chat's free install service
+                          .collapse#install_terms
+                            .well
+                              = render partial: 'install_terms'
+
                       .row
                         .col-sm-offset-4.col-sm-8
                           = submit_tag "Save FTP Details", class: "btn btn-default"
