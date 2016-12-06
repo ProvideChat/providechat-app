@@ -56,6 +56,7 @@ class AfterSignupController < ApplicationController
       organization_ftp_server.status = 'waiting_setup'
       organization_ftp_server.save
 
+      AdminMailer.ftp_info_submitted(current_agent.id).deliver_later
       head :ok 
     else
       render json: { status: :unprocessable_entity }
