@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
-ruby '2.3.3'
+ruby '2.4.1'
 
-gem 'rails', '5.0.0.1'
+gem 'rails', '5.1.3'
 
-gem 'airbrake', '~> 5.0'
-gem 'carrierwave', '>= 1.0.0.beta', '< 2.0'
+gem 'airbrake', '~> 6.2'
+gem 'carrierwave', '~> 1.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise'
 gem 'detect_timezone_rails'
@@ -16,7 +16,7 @@ gem 'fog'
 gem "foreman"
 gem 'haml'
 gem 'htmlentities'
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'json'
@@ -65,7 +65,7 @@ group :test, :development do
   gem 'brakeman', require: false
   gem 'byebug'
   gem 'capybara'
-  gem 'capybara-webkit', '~> 1.11', '>= 1.11.1'
+  gem 'capybara-webkit'
   gem 'capybara-email'
   gem 'dotenv-rails'
   gem 'factory_girl_rails'
@@ -92,7 +92,6 @@ group :test do
   gem 'launchy'
   gem 'shoulda-matchers'
   gem "timecop"
-  gem "webmock"
 end
 
 gem 'puma'
