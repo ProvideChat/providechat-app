@@ -1,7 +1,7 @@
 class AfterSignupController < ApplicationController
-  before_filter :authenticate_agent!, raise: false
-  before_filter :validate_superadmin
-  before_filter :validate_setup_incomplete
+  before_action :authenticate_agent!, raise: false
+  before_action :validate_superadmin
+  before_action :validate_setup_incomplete
 
   layout 'after_signup'
 
@@ -19,17 +19,11 @@ class AfterSignupController < ApplicationController
 
     case params[:agent][:setup_step].to_i
     when 1
-      if process_step_one(@agent, params)
-        @organization.setup_step = 2
-      end
+      @organization.setup_step = 2 if process_step_one(@agent, params)
     when 2
-      if process_step_two(@agent, params)
-        @organization.setup_step = 3
-      end
+      @organization.setup_step = 3 if process_step_two(@agent, params)
     when 3
-      if params[:finish]
-        @organization.completed_setup = true
-      end
+      @organization.completed_setup = true if params[:finish]
     end
 
     @organization.save
