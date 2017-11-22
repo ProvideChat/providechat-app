@@ -6,7 +6,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
 
   storage :fog
 
-  process :set_content_type
+  #process :set_content_type
 
   #def store_dir
   #  "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
@@ -23,7 +23,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
     '/images/silhouette.png'
   end
 
-  process :resize_to_fit => [60, 60]
+  process resize_to_fit: [60, 60]
 
   # Process files as they are uploaded:
   #process :scale => [200, 300]
