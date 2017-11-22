@@ -16,8 +16,8 @@
  *= require smartadmin-production-plugins
  *= require smartadmin-production
  *= require smartadmin-skins
- 
- *= require sweetalert
+
+ *= require sweetalert2
 
  *= require plugin/bootstrap-datepicker
  *= require plugin/jquery.colorpicker

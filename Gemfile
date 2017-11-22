@@ -39,12 +39,9 @@ gem 'slim'
 gem 'stackprof'
 gem 'stripe', '~> 1.56'
 gem 'stripe_event'
+gem 'rails-assets-sweetalert2', source: 'https://rails-assets.org'
 gem 'uglifier', '>= 1.3.0'
 gem 'whenever', require: false
-
-source 'https://rails-assets.org' do
-  gem 'rails-assets-sweetalert'
-end
 
 group :development  do
   gem "flamegraph"
@@ -58,7 +55,7 @@ group :development  do
   gem 'capistrano3-puma',       require: false
 end
 
-group :test, :development do 
+group :test, :development do
   gem 'annotate'
   gem 'binding_of_caller'
   gem 'bundler-audit'
@@ -95,4 +92,3 @@ group :test do
 end
 
 gem 'puma'
-

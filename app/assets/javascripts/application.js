@@ -34,7 +34,7 @@
 //= require plugin/select2/select2
 //= require plugin/pace/pace
 
-//= require sweetalert
+//= require sweetalert2
 //= require detect_timezone
 //= require jquery.detect_timezone
 
