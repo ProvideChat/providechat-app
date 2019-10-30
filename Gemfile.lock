@@ -159,7 +159,7 @@ GEM
       faraday_middleware (>= 0.9)
       loofah (>= 2.0)
       sax-machine (>= 1.0)
-    ffi (1.9.18)
+    ffi (1.11.1)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
     flamegraph (0.9.5)
