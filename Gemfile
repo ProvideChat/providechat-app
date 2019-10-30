@@ -22,7 +22,7 @@ gem 'jquery-ui-rails'
 gem 'json'
 gem 'pg'
 gem 'mail_form'
-gem 'mini_magick', '~> 4.5', '>= 4.5.1'
+gem 'mini_magick', '~> 4.9'
 gem "net-ssh"
 gem 'nokogiri'
 gem 'nprogress-rails'
