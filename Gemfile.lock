@@ -92,9 +92,6 @@ GEM
     capybara-email (2.5.0)
       capybara (~> 2.4)
       mail
-    capybara-webkit (1.1.0)
-      capybara (~> 2.0, >= 2.0.2)
-      json
     carrierwave (1.2.1)
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
@@ -638,7 +635,6 @@ DEPENDENCIES
   capistrano3-puma
   capybara
   capybara-email
-  capybara-webkit
   carrierwave (~> 1.0)
   coffee-rails (~> 4.2)
   database_cleaner
@@ -699,7 +695,7 @@ DEPENDENCIES
   whenever
 
 RUBY VERSION
-   ruby 2.4.1p111
+   ruby 2.6.4p104
 
 BUNDLED WITH
-   1.16.0
+   1.17.2

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.4.1'
+ruby '2.6.4'
 
 gem 'rails', '5.1.3'
 
@@ -62,7 +62,7 @@ group :test, :development do
   gem 'brakeman', require: false
   gem 'byebug'
   gem 'capybara'
-  gem 'capybara-webkit'
+  #gem 'capybara-webkit'
   gem 'capybara-email'
   gem 'dotenv-rails'
   gem 'factory_girl_rails'
