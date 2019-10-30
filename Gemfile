@@ -28,7 +28,7 @@ gem 'nokogiri'
 gem 'nprogress-rails'
 gem 'paper_trail'
 gem 'premailer-rails'
-gem 'rails_admin', '~> 1.0'
+gem 'rails_admin', '~> 1.3'
 gem 'remotipart', '~> 1.3', '>= 1.3.1'
 gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
