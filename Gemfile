@@ -34,7 +34,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'sidekiq'
 gem 'sidekiq-client-cli'
-gem 'sinatra', '~> 2.0.0.beta2'
+gem 'sinatra', '~> 2.0.2'
 gem 'slim'
 gem 'stackprof'
 gem 'stripe', '~> 1.56'
