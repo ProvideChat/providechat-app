@@ -5,7 +5,7 @@ describe "Agent Authentication" do
   subject { page }
 
   describe "for non-signed-in agents" do
-    let(:agent) { FactoryGirl.create(:agent) }
+    let(:agent) { FactoryBot.create(:agent) }
 
     describe "when attempting to visit" do
       describe "the edit page" do
@@ -23,7 +23,7 @@ describe "Agent Authentication" do
   end
 
   describe "for signed-in agents" do
-    let(:agent) { FactoryGirl.create(:agent) }
+    let(:agent) { FactoryBot.create(:agent) }
     before { sign_in agent }
 
     describe "when attempting to visit" do
