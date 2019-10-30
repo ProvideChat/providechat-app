@@ -55,6 +55,8 @@ group :development do
   gem 'capistrano-rails',       require: false
   gem 'capistrano-rbenv',       require: false
   gem 'capistrano3-puma',       require: false
+
+  gem 'web-console'
 end
 
 group :test, :development do
@@ -67,7 +69,7 @@ group :test, :development do
   # gem 'capybara-webkit'
   gem 'capybara-email'
   gem 'dotenv-rails'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'guard-rspec'
   gem 'rspec-rails'
 
@@ -82,7 +84,6 @@ group :test, :development do
   gem 'stripe-ruby-mock'
   # gem 'spring'
   # gem 'spring-commands-rspec'
-  gem 'web-console'
 end
 
 group :test do
