@@ -20,7 +20,7 @@
     "es6-promise": "*",
     "loader-utils": "^0.2.7",
     "lodash": "*",
-    "react": "^0.13.3",
+    "react": "^16.13.1",
     "redux-thunk": "*",
     "redux": "2.0.0",
     "react-redux": "2.1.1",
