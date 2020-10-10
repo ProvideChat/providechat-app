@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 ruby '2.7.1'
 
-gem 'rails', '5.2.3'
+gem 'rails', '5.2.4.4'
 
 gem 'airbrake', '~> 6.2'
 gem 'carrierwave', '~> 2.0'
