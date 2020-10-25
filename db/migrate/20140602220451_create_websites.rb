@@ -1,4 +1,4 @@
-class CreateWebsites < ActiveRecord::Migration
+class CreateWebsites < ActiveRecord::Migration[4.2]
   def change
     create_table :websites do |t|
       t.integer :organization_id

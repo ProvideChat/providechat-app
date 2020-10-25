@@ -1,4 +1,4 @@
-class CreatePrechatForms < ActiveRecord::Migration
+class CreatePrechatForms < ActiveRecord::Migration[4.2]
   def change
     create_table :prechat_forms do |t|
       t.integer :organization_id
