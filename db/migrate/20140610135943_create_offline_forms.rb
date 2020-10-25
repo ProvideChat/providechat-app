@@ -1,4 +1,4 @@
-class CreateOfflineForms < ActiveRecord::Migration
+class CreateOfflineForms < ActiveRecord::Migration[4.2]
   def change
     create_table :offline_forms do |t|
       t.integer :organization_id

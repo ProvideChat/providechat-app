@@ -1,4 +1,4 @@
-class CreateOrganizationFtpServers < ActiveRecord::Migration
+class CreateOrganizationFtpServers < ActiveRecord::Migration[4.2]
   def change
     create_table :organization_ftp_servers do |t|
       t.references :organization, index: true, foreign_key: true

@@ -1,4 +1,4 @@
-class CreateChatWidgets < ActiveRecord::Migration
+class CreateChatWidgets < ActiveRecord::Migration[4.2]
   def change
     create_table :chat_widgets do |t|
       t.integer :organization_id

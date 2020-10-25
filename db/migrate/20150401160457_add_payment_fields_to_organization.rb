@@ -1,4 +1,4 @@
-class AddPaymentFieldsToOrganization < ActiveRecord::Migration
+class AddPaymentFieldsToOrganization < ActiveRecord::Migration[4.2]
   def change
     add_column :organizations, :trial_days, :integer, :default => 14, :null => false
     add_column :organizations, :trial_period_end, :timestamp

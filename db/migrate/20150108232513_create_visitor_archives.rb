@@ -1,4 +1,4 @@
-class CreateVisitorArchives < ActiveRecord::Migration
+class CreateVisitorArchives < ActiveRecord::Migration[4.2]
   def change
     create_table :visitor_archives do |t|
       t.integer :organization_id

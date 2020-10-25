@@ -1,4 +1,4 @@
-class CreateOfflineMessages < ActiveRecord::Migration
+class CreateOfflineMessages < ActiveRecord::Migration[4.2]
   def change
     create_table :offline_messages do |t|
       t.integer :organization_id
