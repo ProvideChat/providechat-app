@@ -11,7 +11,7 @@ module Api
         @agent.last_seen_at = DateTime.now
         @agent.save
 
-        render json: {'availability':@agent.availability}
+        render json: {'availability': @agent.availability}
       end
 
       def update

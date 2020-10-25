@@ -1,15 +1,14 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe "organizations/new" do
   before(:each) do
     assign(:organization, stub_model(Organization,
-      :name => "MyString",
-      :email => "MyString",
-      :widget_installed => "MyString",
-      :default_department => 1,
-      :edition => "MyString",
-      :payment_system => "MyString"
-    ).as_new_record)
+      name: "MyString",
+      email: "MyString",
+      widget_installed: "MyString",
+      default_department: 1,
+      edition: "MyString",
+      payment_system: "MyString").as_new_record)
   end
 
   it "renders new organization form" do

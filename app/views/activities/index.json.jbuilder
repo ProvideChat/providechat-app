@@ -21,7 +21,7 @@ json.waiting @waiting do |visitor|
   json.url visitor_url(visitor, format: :json)
 end
 json.chats @chats do |chat|
-  json.extract! chat, :id, :organization_id, :website_id, :visitor_id, :agent_id, :agent_typing, :visitor_typing, :chat_requested, 
+  json.extract! chat, :id, :organization_id, :website_id, :visitor_id, :agent_id, :agent_typing, :visitor_typing, :chat_requested,
     :chat_accepted, :chat_ended, :visitor_name, :visitor_email, :visitor_department, :visitor_question, :status
   json.last_message chat.last_message(chat.visitor_id)
   json.time_since_created time_ago_in_words(chat.created_at)

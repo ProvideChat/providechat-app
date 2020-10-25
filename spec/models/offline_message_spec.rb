@@ -1,5 +1,5 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe OfflineMessage, :type => :model do
+RSpec.describe OfflineMessage, type: :model do
   it { should belong_to(:organization) }
 end

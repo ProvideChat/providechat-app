@@ -4,7 +4,7 @@ class InvitationsController < ApplicationController
   before_action :validate_admin
 
   def index
-    params.key?(:website_id) ? website_id = params[:website_id] : website_id = Website.where(organization_id: current_agent.organization_id).first.id
+    website_id = params.key?(:website_id) ? params[:website_id] : Website.where(organization_id: current_agent.organization_id).first.id
 
     return unless website_id
     @invitation = Invitation.find_by(website_id: website_id)
@@ -21,7 +21,7 @@ class InvitationsController < ApplicationController
 
     if @invitation.update(invitation_params)
       redirect_to edit_invitation_path(@invitation),
-                  flash: { success: 'Invitation was successfully updated.' }
+        flash: {success: "Invitation was successfully updated."}
     else
       render :edit
     end
@@ -35,13 +35,13 @@ class InvitationsController < ApplicationController
 
   def invitation_params
     params.require(:invitation).permit(:organization_id, :website_id,
-                                       :invitation_message, :name_text,
-                                       :button_text, :invite_mode,
-                                       :invite_pageviews, :invite_seconds)
+      :invitation_message, :name_text,
+      :button_text, :invite_mode,
+      :invite_pageviews, :invite_seconds)
   end
 
   def validate_admin
-    if current_agent.access_level == 'agent'
+    if current_agent.access_level == "agent"
       redirect_to monitor_path
     end
   end

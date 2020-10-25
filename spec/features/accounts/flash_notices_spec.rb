@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe "Flash Notices", js: true do
   before do
@@ -11,8 +11,8 @@ describe "Flash Notices", js: true do
   it "can be dismissed by the user" do
     expect(page).to have_content("You need to sign in or sign up before continuing.")
 
-    within('.alert') do
-      find('.close').click
+    within(".alert") do
+      find(".close").click
     end
 
     expect(page).to_not have_content("You need to sign in or sign up before continuing.")

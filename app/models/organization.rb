@@ -7,8 +7,8 @@ class Organization < ActiveRecord::Base
   has_many :visitor_archives
   has_one :subscription
 
-  validates :agent_session_timeout, numericality: { only_integer: true, greater_than: 0 }
-  validates :agent_response_timeout, numericality: { only_integer: true, greater_than: 0 }
+  validates :agent_session_timeout, numericality: {only_integer: true, greater_than: 0}
+  validates :agent_response_timeout, numericality: {only_integer: true, greater_than: 0}
 
   include ActionView::Helpers::TextHelper
 
@@ -17,16 +17,13 @@ class Organization < ActiveRecord::Base
   enum status: [:disabled, :enabled]
 
   def validate_widget_website(http_referrer)
-
-    require 'uri'
+    require "uri"
     if http_referrer.is_a? String
       uri = URI(http_referrer)
 
       logger.info "Validating Widget, HTTP_REFERER: #{http_referrer}"
 
-      Website.find_by(organization_id: self.id, url: uri.host)
-    else
-      nil
+      Website.find_by(organization_id: id, url: uri.host)
     end
   end
 
@@ -37,7 +34,7 @@ class Organization < ActiveRecord::Base
     when "free"
       false
     when "paid"
-      if self.subscription.quantity && (self.agents.count < self.subscription.quantity)
+      if subscription.quantity && (agents.count < subscription.quantity)
         true
       else
         false
@@ -52,8 +49,8 @@ class Organization < ActiveRecord::Base
     organization.account_type = Organization.account_types[:trial]
     organization.agent_session_timeout = 20
     organization.agent_response_timeout = 2
-    organization.status = 'enabled'
-    organization.payment_system = 'stripe'
+    organization.status = "enabled"
+    organization.payment_system = "stripe"
     organization.trial_days = 14
     organization.trial_period_end = 14.days.from_now
     organization.completed_setup = false
@@ -104,6 +101,6 @@ class Organization < ActiveRecord::Base
       Website.where(organization_id: organization_id).delete_all
 
       Organization.delete(organization_id)
-    end 
+    end
   end
 end

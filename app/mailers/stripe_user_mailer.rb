@@ -5,9 +5,9 @@
 #
 
 class StripeUserMailer < ApplicationMailer
-  layout 'mailer'
+  layout "mailer"
 
-  default from: 'noreply@providechat.com'
+  default from: "noreply@providechat.com"
 
   def receipt(charge)
     @charge = charge
@@ -17,8 +17,8 @@ class StripeUserMailer < ApplicationMailer
   end
 
   def card_expiring(organization)
-    #@charge = charge
-    #@sale = Sale.find_by!(stripe_id: @charge.id)
-    #mail(to: @sale.email, subject: "Thanks for purchasing #{@sale.product.name}")
+    # @charge = charge
+    # @sale = Sale.find_by!(stripe_id: @charge.id)
+    # mail(to: @sale.email, subject: "Thanks for purchasing #{@sale.product.name}")
   end
 end

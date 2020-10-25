@@ -4,7 +4,7 @@
 
 FactoryBot.define do
   factory :agent do
-    name  { "MyString" }
+    name { "MyString" }
     display_name { "MyString" }
     email { "MyString" }
     account_type { "superadmin" }

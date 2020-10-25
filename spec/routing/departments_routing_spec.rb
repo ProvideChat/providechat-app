@@ -2,7 +2,6 @@ require "spec_helper"
 
 describe DepartmentsController do
   describe "routing" do
-
     it "routes to #index" do
       get("/departments").should route_to("departments#index")
     end
@@ -12,11 +11,11 @@ describe DepartmentsController do
     end
 
     it "routes to #show" do
-      get("/departments/1").should route_to("departments#show", :id => "1")
+      get("/departments/1").should route_to("departments#show", id: "1")
     end
 
     it "routes to #edit" do
-      get("/departments/1/edit").should route_to("departments#edit", :id => "1")
+      get("/departments/1/edit").should route_to("departments#edit", id: "1")
     end
 
     it "routes to #create" do
@@ -24,12 +23,11 @@ describe DepartmentsController do
     end
 
     it "routes to #update" do
-      put("/departments/1").should route_to("departments#update", :id => "1")
+      put("/departments/1").should route_to("departments#update", id: "1")
     end
 
     it "routes to #destroy" do
-      delete("/departments/1").should route_to("departments#destroy", :id => "1")
+      delete("/departments/1").should route_to("departments#destroy", id: "1")
     end
-
   end
 end

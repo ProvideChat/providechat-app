@@ -17,7 +17,7 @@ class RapidResponsesController < ApplicationController
 
     respond_to do |format|
       if @rapid_response.save
-        format.html { redirect_to @rapid_response, notice: 'Rapid response was successfully created.' }
+        format.html { redirect_to @rapid_response, notice: "Rapid response was successfully created." }
         format.json { render :show, status: :created, location: @rapid_response }
       else
         format.html { render :new }
@@ -29,7 +29,7 @@ class RapidResponsesController < ApplicationController
   def update
     respond_to do |format|
       if @rapid_response.update(rapid_response_params)
-        format.html { redirect_to @rapid_response, notice: 'Rapid response was successfully updated.' }
+        format.html { redirect_to @rapid_response, notice: "Rapid response was successfully updated." }
         format.json { render :show, status: :ok, location: @rapid_response }
       else
         format.html { render :edit }
@@ -41,7 +41,7 @@ class RapidResponsesController < ApplicationController
   def destroy
     @rapid_response.destroy
     respond_to do |format|
-      format.html { redirect_to rapid_responses_url, notice: 'Rapid response was successfully destroyed.' }
+      format.html { redirect_to rapid_responses_url, notice: "Rapid response was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -54,6 +54,6 @@ class RapidResponsesController < ApplicationController
 
   def rapid_response_params
     params.require(:rapid_response).permit(:organization_id, :name, :text,
-                                           :order, :ancestry, :status)
+      :order, :ancestry, :status)
   end
 end

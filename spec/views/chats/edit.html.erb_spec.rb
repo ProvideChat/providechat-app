@@ -1,19 +1,19 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe "chats/edit", :type => :view do
+RSpec.describe "chats/edit", type: :view do
   before(:each) do
     @chat = assign(:chat, Chat.create!(
-      :organization_id => 1,
-      :website_id => 1,
-      :visitor_id => 1,
-      :operator_id => 1,
-      :operator_typing => "MyString",
-      :visitor_typing => "MyString",
-      :visitor_name => "MyString",
-      :visitor_email => "MyString",
-      :visitor_department => "MyString",
-      :visitor_question => "MyString",
-      :status => "MyString"
+      organization_id: 1,
+      website_id: 1,
+      visitor_id: 1,
+      operator_id: 1,
+      operator_typing: "MyString",
+      visitor_typing: "MyString",
+      visitor_name: "MyString",
+      visitor_email: "MyString",
+      visitor_department: "MyString",
+      visitor_question: "MyString",
+      status: "MyString"
     ))
   end
 
@@ -21,7 +21,6 @@ RSpec.describe "chats/edit", :type => :view do
     render
 
     assert_select "form[action=?][method=?]", chat_path(@chat), "post" do
-
       assert_select "input#chat_organization_id[name=?]", "chat[organization_id]"
 
       assert_select "input#chat_website_id[name=?]", "chat[website_id]"

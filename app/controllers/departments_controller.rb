@@ -5,13 +5,13 @@ class DepartmentsController < ApplicationController
   before_action :validate_admin
 
   def index
-    if params.key?(:websites)
-      @departments = Department.where(
-        organization_id: current_agent.organization_id, 
+    @departments = if params.key?(:websites)
+      Department.where(
+        organization_id: current_agent.organization_id,
         website_id: params[:websites]
       ).order("name ASC")
     else
-      @departments = Department.where(
+      Department.where(
         organization_id: current_agent.organization_id
       ).order("name ASC")
     end
@@ -30,7 +30,7 @@ class DepartmentsController < ApplicationController
 
     if @department.save
       redirect_to departments_url,
-                  flash: { success: 'Department was successfully updated.' }
+        flash: {success: "Department was successfully updated."}
     else
       render :new
     end
@@ -42,7 +42,7 @@ class DepartmentsController < ApplicationController
   def update
     if @department.update(department_params)
       redirect_to departments_url,
-                  flash: { success: 'Department was successfully updated.' }
+        flash: {success: "Department was successfully updated."}
     else
       render :edit
     end
@@ -51,7 +51,7 @@ class DepartmentsController < ApplicationController
   def destroy
     @department.destroy
     redirect_to departments_url,
-                flash: { success: 'Department was successfully updated.' }
+      flash: {success: "Department was successfully updated."}
   end
 
   private
@@ -69,7 +69,7 @@ class DepartmentsController < ApplicationController
   end
 
   def validate_admin
-    if current_agent.access_level == 'agent'
+    if current_agent.access_level == "agent"
       redirect_to monitor_path
     end
   end

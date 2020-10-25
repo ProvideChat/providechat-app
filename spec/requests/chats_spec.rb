@@ -1,6 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe "Chats", :type => :request do
+RSpec.describe "Chats", type: :request do
   describe "GET /chats" do
     it "works! (now write some real specs)" do
       get chats_path

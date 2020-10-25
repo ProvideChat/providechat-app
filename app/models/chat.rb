@@ -7,16 +7,16 @@ class Chat < ActiveRecord::Base
 
   has_many :chat_messages
 
-  scope :websites, -> (website_ids) { where website_id: website_ids }
-  scope :department, -> (department) { where visitor_department: department }
-  scope :agents, -> (agent_ids) { where agent_id: agent_ids }
-  scope :from_date, -> (from_date) { where("created_at >= ?", from_date.to_date) }
-  scope :to_date, -> (to_date) { where("created_at <= ?", to_date.to_date) }
+  scope :websites, ->(website_ids) { where website_id: website_ids }
+  scope :department, ->(department) { where visitor_department: department }
+  scope :agents, ->(agent_ids) { where agent_id: agent_ids }
+  scope :from_date, ->(from_date) { where("created_at >= ?", from_date.to_date) }
+  scope :to_date, ->(to_date) { where("created_at <= ?", to_date.to_date) }
 
   before_save :titleize_visitor_name
 
   enum status: [:not_started, :in_progress, :agent_ended, :visitor_ended,
-                :agent_timeout, :visitor_timeout]
+    :agent_timeout, :visitor_timeout]
 
   def self.filter_results(organization_id, params)
     chats = Chat.where(organization_id: organization_id).order(created_at: :desc)
@@ -43,9 +43,9 @@ class Chat < ActiveRecord::Base
   def end_chat(reason)
     self.status = reason
     self.chat_ended = DateTime.now
-    self.save
+    save
 
-    visitor = Visitor.find(self.visitor_id)
+    visitor = Visitor.find(visitor_id)
 
     case reason
     when "agent_ended", "visitor_ended"
@@ -61,7 +61,7 @@ class Chat < ActiveRecord::Base
   end
 
   def last_message(sender)
-    messages = self.chat_messages.where(sender: sender)
+    messages = chat_messages.where(sender: sender)
     if messages.length > 0
       messages.last.message
     else
@@ -70,16 +70,16 @@ class Chat < ActiveRecord::Base
   end
 
   def chat_accepted_status(agent)
-    if chat_accepted 
-      chat_accepted.in_time_zone(agent.time_zone).strftime('%b %e/%Y at %l:%M %p')
+    if chat_accepted
+      chat_accepted.in_time_zone(agent.time_zone).strftime("%b %e/%Y at %l:%M %p")
     else
-      "Not accepted (Requested #{chat_requested.in_time_zone(agent.time_zone).strftime('%b %e/%Y at %l:%M %p')})"
+      "Not accepted (Requested #{chat_requested.in_time_zone(agent.time_zone).strftime("%b %e/%Y at %l:%M %p")})"
     end
   end
 
   protected
 
   def titleize_visitor_name
-    self.visitor_name = self.visitor_name.titleize
+    self.visitor_name = visitor_name.titleize
   end
 end

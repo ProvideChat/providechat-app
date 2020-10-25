@@ -9,32 +9,31 @@ module Api
       respond_to :json
 
       def index
-
         method = params[:method]
         org_id = params[:org_id]
 
         organization = Organization.where(id: org_id).first
 
         if organization
-          website = organization.validate_widget_website(request.env['HTTP_REFERER'])
+          website = organization.validate_widget_website(request.env["HTTP_REFERER"])
         end
 
         if website && organization
 
           logger.info "METHOD: #{method}"
 
-          #website.update_ping
-          #website.save
+          # website.update_ping
+          # website.save
 
           case method
           when "process_pre_chat"
-            chat = Chat.create(organization_id: organization.id, website_id: website.id, 
-                               chat_requested: DateTime.now, 
-                               visitor_name: params[:name], visitor_email: params[:email], 
+            chat = Chat.create(organization_id: organization.id, website_id: website.id,
+                               chat_requested: DateTime.now,
+                               visitor_name: params[:name], visitor_email: params[:email],
                                visitor_department: params[:department],
                                visitor_question: params[:message], status: "not_started")
 
-            if (params[:visitor_id].to_i > 0)
+            if params[:visitor_id].to_i > 0
               visitor = Visitor.find(params[:visitor_id])
             else
               session = JSON.parse(params[:session])
@@ -44,7 +43,7 @@ module Api
             visitor.email = params[:email]
             visitor.department = params[:department]
             visitor.question = params[:message]
-            visitor.status = 'waiting_to_chat';
+            visitor.status = "waiting_to_chat"
             visitor.chat_id = chat.id
             visitor.save
 
@@ -53,39 +52,39 @@ module Api
 
             chat_widget = ChatWidget.find_by(website_id: website.id)
             response = {
-              'chat_id' => chat.id, 'chat_status' => chat.status, 
-              'visitor_id' => visitor.id,
-              'html' => render_to_string(
-                partial: 'chat_widget.html.erb',
+              "chat_id" => chat.id, "chat_status" => chat.status,
+              "visitor_id" => visitor.id,
+              "html" => render_to_string(
+                partial: "chat_widget.html.erb",
                 layout: false,
-                locals: { chat_widget: chat_widget }
+                locals: {chat_widget: chat_widget}
               )
             }
 
           when "process_invitation"
             chat = Chat.create(organization_id: organization.id, website_id: website.id, visitor_id: params[:visitor_id],
-                                chat_requested: DateTime.now, chat_accepted: DateTime.now,
-                                visitor_name: params[:name],
-                                visitor_email: '', visitor_department: '',
-                                visitor_question: '', status: "in_progress")
+                               chat_requested: DateTime.now, chat_accepted: DateTime.now,
+                               visitor_name: params[:name],
+                               visitor_email: "", visitor_department: "",
+                               visitor_question: "", status: "in_progress")
 
             visitor = Visitor.find(params[:visitor_id])
             visitor.name = params[:name]
-            visitor.status = 'in_chat'
+            visitor.status = "in_chat"
             visitor.chat_id = chat.id
             visitor.save
 
             chat.agent_id = visitor.invite_agent_id
             chat.save
 
-            chat_widget = ChatWidget.find_by(:website_id => website.id)
+            chat_widget = ChatWidget.find_by(website_id: website.id)
 
             response = {
-              'chat_id' => chat.id,
-              'html' => render_to_string(
-                partial: 'chat_widget.html.erb',
+              "chat_id" => chat.id,
+              "html" => render_to_string(
+                partial: "chat_widget.html.erb",
                 layout: false,
-                locals: { chat_widget: chat_widget }
+                locals: {chat_widget: chat_widget}
               )
             }
 
@@ -98,13 +97,13 @@ module Api
             end
 
             if chat = Chat.find(params[:chat_id])
-              if params[:context] == 'all'
+              if params[:context] == "all"
                 chat_messages = ChatMessage.where(chat_id: params[:chat_id])
-              elsif params[:context] == 'unseen'
+              elsif params[:context] == "unseen"
                 chat_messages = ChatMessage.where(chat_id: params[:chat_id], seen_by_visitor: false)
               end
 
-              #logger.debug chat_messages
+              # logger.debug chat_messages
               chat_messages.each do |chat_message|
                 chat_message.seen_by_visitor = true
                 chat_message.save
@@ -117,14 +116,14 @@ module Api
               end
 
               response = {
-                'status' => chat.status,
-                'agent_name' => agent_name,
-                'ticket_id' => chat.ticket_id,
-                'messages' => chat_messages || []
+                "status" => chat.status,
+                "agent_name" => agent_name,
+                "ticket_id" => chat.ticket_id,
+                "messages" => chat_messages || []
               }
             else
               response = {
-                'success' => 'false'
+                "success" => "false"
               }
             end
 
@@ -132,22 +131,22 @@ module Api
 
             messages = params[:messages]
 
-            if messages.kind_of?(String)
+            if messages.is_a?(String)
               messages = ActiveSupport::JSON.decode(messages)
             end
 
             if messages
               messages.each do |count, message|
                 ChatMessage.create(
-                  chat_id: message['chat_id'], user_name: message['user_name'], sender: message['sender'],
+                  chat_id: message["chat_id"], user_name: message["user_name"], sender: message["sender"],
                   seen_by_agent: false, seen_by_visitor: true,
-                  sent: message['sent'], message: strip_tags(message['message'])
+                  sent: message["sent"], message: strip_tags(message["message"])
                 )
               end
             end
 
             response = {
-              'success' => 'true'
+              "success" => "true"
             }
 
           when "visitor_message"
@@ -159,22 +158,22 @@ module Api
             ChatMessage.create(chat_id: chat_id, user_name: visitor_name, sender: "visitor",
                                seen_by_visitor: false, seen_by_agent: false, sent: DateTime.now, message: strip_tags(message))
 
-            response = { 'success' => 'true' }
+            response = {"success" => "true"}
 
           when "agent_timeout"
             visitor_id = params[:visitor_id]
             chat_id = params[:chat_id]
 
             chat = Chat.find(chat_id)
-            chat.status = 'agent_timeout'
+            chat.status = "agent_timeout"
             chat.chat_ended = DateTime.now
             chat.save
 
             visitor = Visitor.find(visitor_id)
-            visitor.status = 'agent_ended'
+            visitor.status = "agent_ended"
             visitor.save
 
-            response = { 'success' => 'true' }
+            response = {"success" => "true"}
 
           when "update_visitor_keypress"
 
@@ -186,8 +185,8 @@ module Api
             chat.save
 
             response = {
-              'chat_id' => chat_id,
-              'success' => 'true'
+              "chat_id" => chat_id,
+              "success" => "true"
             }
 
           when "get_agent_typing"
@@ -197,17 +196,17 @@ module Api
             chat = Chat.find(chat_id)
 
             response = {
-              'chat_id' => chat_id,
-              'agent_typing' => chat.agent_typing
+              "chat_id" => chat_id,
+              "agent_typing" => chat.agent_typing
             }
 
           when "update_agent"
             chat_id = params[:chat_id]
             chat = Chat.find(chat_id)
 
-            display_name = ''
-            title = ''
-            photo_url = 'http://widget.providechat.com/images/silhouette.png'
+            display_name = ""
+            title = ""
+            photo_url = "http://widget.providechat.com/images/silhouette.png"
             if chat.agent
               display_name = chat.agent.display_name
               title = chat.agent.title
@@ -215,44 +214,44 @@ module Api
             end
 
             response = {
-              'chat_status' => chat.status,
-              'display_name' => display_name,
-              'title' => title,
-              'photo_url' => photo_url
+              "chat_status" => chat.status,
+              "display_name" => display_name,
+              "title" => title,
+              "photo_url" => photo_url
             }
 
           when "process_offline"
             organization.process_offline_msg(website.id, params[:name], params[:email], params[:department], params[:message])
 
-            response = { 'success' => 'true' }
+            response = {"success" => "true"}
 
           when "email_transcript"
             chat_id = params[:chat_id]
 
-            if params.key?(:transcript_email) && params[:transcript_email] != ''
+            if params.key?(:transcript_email) && params[:transcript_email] != ""
               ChatMailer.email_transcript(chat_id, params[:transcript_email])
             end
 
-            response = { 'success' => 'true' }
+            response = {"success" => "true"}
 
           when "end_chat"
             chat_id = params[:chat_id]
 
             chat = Chat.find(chat_id)
-            if params.key?(:enable_email_transcript) && params[:enable_email_transcript] == 'true' &&
-                params.key?(:transcript_email) && params[:transcript_email] != ''
+            if params.key?(:enable_email_transcript) && params[:enable_email_transcript] == "true" &&
+                params.key?(:transcript_email) && params[:transcript_email] != ""
               ChatMailer.email_transcript(chat_id, params[:transcript_email])
             end
 
-            chat.end_chat('visitor_ended')
+            chat.end_chat("visitor_ended")
 
-            response = { 'success' => 'true' }
+            response = {"success" => "true"}
 
           when "get_pre_chat"
             pre_chat_form = PrechatForm.find_by(website_id: website.id)
             response = {
-              'html' => render_to_string(
-                partial: 'pre_chat.html.erb',
+              "html" => render_to_string(
+                partial: "pre_chat.html.erb",
                 layout: false,
                 locals: {
                   pre_chat_form: pre_chat_form,
@@ -271,8 +270,8 @@ module Api
             chat_widget = ChatWidget.find_by(website_id: website.id)
 
             response = {
-              'html' => render_to_string(
-                partial: 'invitation.html.erb',
+              "html" => render_to_string(
+                partial: "invitation.html.erb",
                 layout: false,
                 locals: {
                   invitation: invitation,
@@ -285,18 +284,18 @@ module Api
           when "get_in_chat"
             chat_widget = ChatWidget.find_by(website_id: website.id)
             response = {
-              'html' => render_to_string(
-                partial: 'chat_widget.html.erb',
+              "html" => render_to_string(
+                partial: "chat_widget.html.erb",
                 layout: false,
-                locals: { chat_widget: chat_widget }
+                locals: {chat_widget: chat_widget}
               )
             }
 
           when "get_offline"
             offline_form = OfflineForm.find_by(website_id: website.id)
             response = {
-              'html' => render_to_string(
-                partial: 'offline_form.html.erb',
+              "html" => render_to_string(
+                partial: "offline_form.html.erb",
                 layout: false,
                 locals: {
                   offline_form: offline_form,
@@ -322,40 +321,40 @@ module Api
             end
 
             response = {
-              'agent_status' => organization.agent_status(website.id),
-              'invite_sent' => invite_sent
+              "agent_status" => organization.agent_status(website.id),
+              "invite_sent" => invite_sent
             }
 
           when "initialize"
             session = JSON.parse(params[:session])
-            #Rails.logger.info "SESSION DETAILS: #{session}"
+            # Rails.logger.info "SESSION DETAILS: #{session}"
             visitor = Visitor.process_session(org_id, website, session)
 
             if visitor
               chat_widget = ChatWidget.find_by(website_id: visitor.website.id)
 
               chat_id = 0
-              chat_status = 'not_started'
+              chat_status = "not_started"
               if visitor.chat_id > 0
                 chat_id = visitor.chat.id
                 chat_status = visitor.chat.status
               end
 
-              response = { 'success' => 'true', 'visitor_id' => visitor.id, 'website_id' => visitor.website_id,
-                           'agent_status' => organization.agent_status(visitor.website_id),
-                           'agent_response_timeout' => organization.agent_response_timeout,
-                           'chat_id' => chat_id, 'chat_status' => chat_status, 'visitor_name' => visitor.name,
-                           'visitor_email' => visitor.email, 'online_message' => chat_widget.online_message,
-                           'offline_message' => chat_widget.offline_message, 'title_message' => chat_widget.title_message,
-                           'widget_color' => "\##{chat_widget.color}" }
+              response = {"success" => "true", "visitor_id" => visitor.id, "website_id" => visitor.website_id,
+                          "agent_status" => organization.agent_status(visitor.website_id),
+                          "agent_response_timeout" => organization.agent_response_timeout,
+                          "chat_id" => chat_id, "chat_status" => chat_status, "visitor_name" => visitor.name,
+                          "visitor_email" => visitor.email, "online_message" => chat_widget.online_message,
+                          "offline_message" => chat_widget.offline_message, "title_message" => chat_widget.title_message,
+                          "widget_color" => "\##{chat_widget.color}"}
             else
-              response = { 'success' => 'false' }
+              response = {"success" => "false"}
             end
 
             logger.debug "RESPONSE DETAILS: #{response}"
           end
         else
-          response = { 'success' => 'false' }
+          response = {"success" => "false"}
         end
 
         respond_to do |format|

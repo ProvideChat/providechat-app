@@ -5,12 +5,12 @@
 
 job_type :sidekiq, "cd :path && :environment_variable=:environment bundle exec sidekiq-client push :task :output"
 
-every 2.minutes, :roles => [:app] do #Check frequently
+every 2.minutes, roles: [:app] do # Check frequently
   sidekiq "ClearOffsiteVisitors"
   sidekiq "AgentOfflineTimeout"
 end
 
-every 1.day, :roles => [:app] do #Check frequently
+every 1.day, roles: [:app] do # Check frequently
   sidekiq "TrialPeriodExpiry"
 end
 

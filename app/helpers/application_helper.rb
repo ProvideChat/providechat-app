@@ -8,13 +8,13 @@ module ApplicationHelper
   end
 
   BOOTSTRAP_FLASH_MSG = {
-    success: 'success',
-    error: 'danger',
-    alert: 'warning',
-    notice: 'info'
+    success: "success",
+    error: "danger",
+    alert: "warning",
+    notice: "info"
   }
 
   def flash_class(flash_type)
-    BOOTSTRAP_FLASH_MSG.fetch(flash_type.to_sym, '')
+    BOOTSTRAP_FLASH_MSG.fetch(flash_type.to_sym, "")
   end
 end

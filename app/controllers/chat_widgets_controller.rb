@@ -3,7 +3,7 @@ class ChatWidgetsController < ApplicationController
   before_action :set_websites, only: [:index, :edit]
 
   def index
-    params.key?(:website_id) ? website_id = params[:website_id] : website_id = Website.where(organization_id: current_agent.organization_id).first.id
+    website_id = params.key?(:website_id) ? params[:website_id] : Website.where(organization_id: current_agent.organization_id).first.id
 
     return unless website_id
     @chat_widget = ChatWidget.find_by(website_id: website_id)
@@ -19,7 +19,7 @@ class ChatWidgetsController < ApplicationController
 
     if @chat_widget.process_update(params, chat_widget_params)
       redirect_to edit_chat_widget_path(@chat_widget),
-                  flash: { success: 'Chat widget was successfully updated.' }
+        flash: {success: "Chat widget was successfully updated."}
     else
       render :edit
     end
@@ -33,10 +33,10 @@ class ChatWidgetsController < ApplicationController
 
   def chat_widget_params
     params.require(:chat_widget).permit(:online_message, :offline_message,
-                                        :title_message, :hide_when_offline,
-                                        :color, :logo, :remove_logo,
-                                        :logo_cache, :display_logo,
-                                        :display_agent_avatar,
-                                        :display_mobile_icon)
+      :title_message, :hide_when_offline,
+      :color, :logo, :remove_logo,
+      :logo_cache, :display_logo,
+      :display_agent_avatar,
+      :display_mobile_icon)
   end
 end

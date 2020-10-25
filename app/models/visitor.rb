@@ -11,10 +11,10 @@ class Visitor < ActiveRecord::Base
 
   before_save :titleize_name
 
-  VISITOR_STATUSES = [ 
-    Visitor.statuses[:no_chat], 
-    Visitor.statuses[:agent_ended], 
-    Visitor.statuses[:visitor_ended] 
+  VISITOR_STATUSES = [
+    Visitor.statuses[:no_chat],
+    Visitor.statuses[:agent_ended],
+    Visitor.statuses[:visitor_ended]
   ]
 
   def self.current_visitors(current_agent)
@@ -23,18 +23,16 @@ class Visitor < ActiveRecord::Base
       current_agent.organization_id,
       Visitor::VISITOR_STATUSES,
       websites,
-      2.minutes.ago
-    )
+      2.minutes.ago)
   end
 
   def self.current_waiting(current_agent)
     websites = current_agent.websites.pluck(:id)
     Visitor.where("organization_id = ? AND status = ? AND website_id IN (?) AND last_ping > ?",
       current_agent.organization_id,
-      Visitor.statuses[:waiting_to_chat], 
+      Visitor.statuses[:waiting_to_chat],
       websites,
-      2.minutes.ago
-    )
+      2.minutes.ago)
   end
 
   def self.recent_offsite_visitors(current_agent)
@@ -43,8 +41,7 @@ class Visitor < ActiveRecord::Base
       current_agent.organization_id,
       Visitor.statuses[:offsite],
       websites,
-      5.minutes.ago
-    )
+      5.minutes.ago)
   end
 
   def chat
@@ -58,42 +55,41 @@ class Visitor < ActiveRecord::Base
   def process_invitation
     self.smart_invite_status = :seen_popup
     self.agent_invite_status = :visitor_seen
-    self.save
+    save
   end
 
   def invite_sent
-    self.agent_invite_status == 'agent_sent' ? true : false
+    agent_invite_status == "agent_sent"
   end
 
-#  t.integer  "organization_id"
-#  t.integer  "website_id"
-#  t.string   "name"
-#  t.string   "email"
-#  t.string   "department"
-#  t.string   "question"
-#  t.datetime "last_ping"
-#  t.integer  "page_views"
-#  t.string   "current_page"
-#  t.string   "remote_addr"
-#  t.string   "remote_host"
-#  t.string   "country"
-#  t.string   "language"
-#  t.string   "referrer_host"
-#  t.string   "referrer_path"
-#  t.string   "referrer_search"
-#  t.string   "referrer_query"
-#  t.string   "search_engine"
-#  t.string   "search_query"
-#  t.string   "browser_name"
-#  t.string   "browser_version"
-#  t.string   "operating_system"
-#  t.string   "screen_resolution"
-#  t.string   "smart_invite_status"
-#  t.string   "operator_invite"
-#  t.string   "status"
+  #  t.integer  "organization_id"
+  #  t.integer  "website_id"
+  #  t.string   "name"
+  #  t.string   "email"
+  #  t.string   "department"
+  #  t.string   "question"
+  #  t.datetime "last_ping"
+  #  t.integer  "page_views"
+  #  t.string   "current_page"
+  #  t.string   "remote_addr"
+  #  t.string   "remote_host"
+  #  t.string   "country"
+  #  t.string   "language"
+  #  t.string   "referrer_host"
+  #  t.string   "referrer_path"
+  #  t.string   "referrer_search"
+  #  t.string   "referrer_query"
+  #  t.string   "search_engine"
+  #  t.string   "search_query"
+  #  t.string   "browser_name"
+  #  t.string   "browser_version"
+  #  t.string   "operating_system"
+  #  t.string   "screen_resolution"
+  #  t.string   "smart_invite_status"
+  #  t.string   "operator_invite"
+  #  t.string   "status"
 
-  def self.process_session (org_id, website, session)
-
+  def self.process_session(org_id, website, session)
     # {"api_version":0.4,
     #  "locale":{"country":"us","lang":"en"},
     # "current_session":
@@ -109,67 +105,67 @@ class Visitor < ActiveRecord::Base
     #  "device"=>{"screen"=>{"width"=>1920, "height"=>1080}, "viewport"=>{"width"=>1474, "height"=>941}, "is_tablet"=>false, "is_phone"=>false, "is_mobile"=>false},
     # "location"=>{"longitude"=>-123.1333, "latitude"=>49.25, "asn"=>"AS852", "offset"=>"-7", "ip"=>"154.20.236.47", "area_code"=>"0", "continent_code"=>"NA", "dma_code"=>"0", "city"=>"Vancouver", "timezone"=>"America/Vancouver", "region"=>"British Columbia", "country_code"=>"CA", "isp"=>"TELUS Communications Inc.", "country"=>"Canada", "country_code3"=>"CAN", "region_code"=>"BC"}, "location_provider"=>"Telize"}
 
-    #Rails.logger.debug "current_session.visits: #{session['current_session']['visits']}"
-    #Rails.logger.info session
+    # Rails.logger.debug "current_session.visits: #{session['current_session']['visits']}"
+    # Rails.logger.info session
 
-    #remote_addr = session['']
-    current_visits = session['current_session']['visits']
-    #total_visits = session['original_session']['visits']
-    #remote_host = session['current_session']['referrer_info']['host']
-    current_page = session['current_session']['url']
+    # remote_addr = session['']
+    current_visits = session["current_session"]["visits"]
+    # total_visits = session['original_session']['visits']
+    # remote_host = session['current_session']['referrer_info']['host']
+    current_page = session["current_session"]["url"]
     website_url = URI.parse(current_page).host
-    #country = session['locale']['country']
-    language = session['locale']['lang']
-    referrer_host = session['current_session']['referrer_info']['host']
-    referrer_path = session['current_session']['referrer_info']['path']
-    referrer_search = session['current_session']['referrer_info']['search']
-    #referrer_query = session['current_session']['referrer_info']['query']
+    # country = session['locale']['country']
+    language = session["locale"]["lang"]
+    referrer_host = session["current_session"]["referrer_info"]["host"]
+    referrer_path = session["current_session"]["referrer_info"]["path"]
+    referrer_search = session["current_session"]["referrer_info"]["search"]
+    # referrer_query = session['current_session']['referrer_info']['query']
 
     # IP Info
 
-    ip_address = session['location']['ip']
-    latitude = session['location']['latitude']
-    longitude = session['location']['longitude']
-    country_code = session['location']['country_code']
+    ip_address = session["location"]["ip"]
+    latitude = session["location"]["latitude"]
+    longitude = session["location"]["longitude"]
+    country_code = session["location"]["country_code"]
 
-    country_name = ''
-    if session['location_provider'] == 'Telize'
-      country_name = session['location']['country']
-    elsif session['location_provider'] == 'FreeGeoIP'
-      country_name = session['location']['country_name']
+    country_name = ""
+    if session["location_provider"] == "Telize"
+      country_name = session["location"]["country"]
+    elsif session["location_provider"] == "FreeGeoIP"
+      country_name = session["location"]["country_name"]
     end
 
-    area_code = session['location']['area_code']
+    area_code = session["location"]["area_code"]
 
     city, region_name, region_name, zipcode, metro_code = "", "", "", "", ""
-    if session['location_provider'] == 'FreeGeoIP'
-      city = session['location']['city']
-      region_code = session['location']['region_code']
-      region_name = session['location']['region_name']
-      zipcode = session['location']['zipcode']
-      metro_code = session['location']['metro_code']
-    elsif session['location_provider'] == 'Telize'
-      city = session['location']['city']
-      region_code = session['location']['region_code']
-      region_name = session['location']['region']
+    if session["location_provider"] == "FreeGeoIP"
+      city = session["location"]["city"]
+      region_code = session["location"]["region_code"]
+      region_name = session["location"]["region_name"]
+      zipcode = session["location"]["zipcode"]
+      metro_code = session["location"]["metro_code"]
+    elsif session["location_provider"] == "Telize"
+      city = session["location"]["city"]
+      region_code = session["location"]["region_code"]
+      region_name = session["location"]["region"]
     end
 
-    search_engine = session['current_session']['search']['engine']
-    search_query = session['current_session']['search']['query']
+    search_engine = session["current_session"]["search"]["engine"]
+    search_query = session["current_session"]["search"]["query"]
     plugins = session["plugins"].to_s
 
-    browser_name = session['browser']['browser']
-    browser_version = session['browser']['version']
-    operating_system = session['browser']['os']
-    screen_resolution = "#{session['device']['screen']['width']}x#{session['device']['screen']['height']}"
+    browser_name = session["browser"]["browser"]
+    browser_version = session["browser"]["version"]
+    operating_system = session["browser"]["os"]
+    screen_resolution = "#{session["device"]["screen"]["width"]}x#{session["device"]["screen"]["height"]}"
 
     Rails.logger.info "referrer_host: #{referrer_host}"
     # website = Website.find(:organization_id => org_id, :url => website_url)
 
-    browser_fingerprint = Digest::MD5.hexdigest("#{ip_address.to_s}#{browser_name}#{browser_version.to_s}#{operating_system}#{screen_resolution}#{plugins}")
+    browser_fingerprint = Digest::MD5.hexdigest("#{ip_address}#{browser_name}#{browser_version}#{operating_system}#{screen_resolution}#{plugins}")
 
-    statuses = [ Visitor.statuses[:no_chat], Visitor.statuses[:waiting_to_chat], Visitor.statuses[:in_chat],
-                 Visitor.statuses[:agent_ended], Visitor.statuses[:visitor_ended] ]
+    statuses = [Visitor.statuses[:no_chat], Visitor.statuses[:waiting_to_chat], Visitor.statuses[:in_chat],
+      Visitor.statuses[:agent_ended], Visitor.statuses[:visitor_ended]]
     # visitor = Visitor.find_by(:website_id => website.id, :browser_name => browser_name,
     #                          :browser_version => browser_version.to_s, :operating_system => operating_system,
     #                          :ip_address => ip_address, status: statuses) || Visitor.new
@@ -179,7 +175,7 @@ class Visitor < ActiveRecord::Base
     visitor.website_id = website.id
     visitor.browser_fingerprint = browser_fingerprint
     # visitor.country = country
-    if (visitor.current_page != current_page)
+    if visitor.current_page != current_page
       visitor.current_page = current_page
       visitor.page_views = visitor.page_views + 1
     end
@@ -190,7 +186,7 @@ class Visitor < ActiveRecord::Base
     visitor.referrer_host = referrer_host
     visitor.referrer_path = referrer_path
     visitor.referrer_search = referrer_search
-    #visitor.referrer_query = referrer_query
+    # visitor.referrer_query = referrer_query
 
     visitor.search_engine = search_engine
     visitor.search_query = search_query
@@ -212,9 +208,9 @@ class Visitor < ActiveRecord::Base
     visitor.area_code = area_code
     visitor.metro_code = metro_code
 
-    Rails.logger.debug "No location data" if session['location']['error']
+    Rails.logger.debug "No location data" if session["location"]["error"]
 
-    visitor.status = 'no_chat' if visitor.new_record?
+    visitor.status = "no_chat" if visitor.new_record?
 
     visitor.last_ping = DateTime.now
     visitor.save
@@ -223,7 +219,7 @@ class Visitor < ActiveRecord::Base
   end
 
   def browser_image
-    case self.browser_name
+    case browser_name
     when "Chrome"
       "/images/browsers/chrome.png"
     when "Safari"
@@ -240,7 +236,7 @@ class Visitor < ActiveRecord::Base
   end
 
   def os_image
-    case self.operating_system
+    case operating_system
     when "Windows"
       "/images/os/windows.png"
     when "Mac"
@@ -257,13 +253,13 @@ class Visitor < ActiveRecord::Base
   end
 
   def status_extended
-    case self.status
+    case status
     when "no_chat"
       "Browsing the site"
     when "waiting_to_chat"
-      "Waiting for #{time_ago_in_words(self.chat.chat_requested, include_seconds: true)}"
+      "Waiting for #{time_ago_in_words(chat.chat_requested, include_seconds: true)}"
     when "in_chat"
-      "Chatting for #{time_ago_in_words(self.chat.chat_accepted, include_seconds: true)}"
+      "Chatting for #{time_ago_in_words(chat.chat_accepted, include_seconds: true)}"
     when "agent_ended"
       "Chat ended"
     when "visitor_ended"
@@ -284,10 +280,10 @@ class Visitor < ActiveRecord::Base
       "Unknown"
     end
   end
-  
+
   protected
 
   def titleize_name
-    self.name = self.name.titleize
+    self.name = name.titleize
   end
 end

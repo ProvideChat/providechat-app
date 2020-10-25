@@ -13,10 +13,10 @@ class ChatsController < ApplicationController
       format.js
     end
   end
-  
+
   def show
     @chat = Chat.find(params[:id])
-    
+
     respond_to do |format|
       format.html
       format.js
@@ -27,11 +27,11 @@ class ChatsController < ApplicationController
 
   def filtering_params(params)
     params.slice(:chat_id, :visitor_email, :website_ids, :agent_ids,
-                 :from_date, :to_date)
+      :from_date, :to_date)
   end
 
   def validate_admin
-    if current_agent.access_level == 'agent'
+    if current_agent.access_level == "agent"
       redirect_to monitor_path
     end
   end

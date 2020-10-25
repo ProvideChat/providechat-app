@@ -1,15 +1,14 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe "organizations/edit" do
   before(:each) do
     @organization = assign(:organization, stub_model(Organization,
-      :name => "MyString",
-      :email => "MyString",
-      :widget_installed => "MyString",
-      :default_department => 1,
-      :edition => "MyString",
-      :payment_system => "MyString"
-    ))
+      name: "MyString",
+      email: "MyString",
+      widget_installed: "MyString",
+      default_department: 1,
+      edition: "MyString",
+      payment_system: "MyString"))
   end
 
   it "renders the edit organization form" do

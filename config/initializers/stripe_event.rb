@@ -5,30 +5,30 @@ StripeEvent.event_retriever = lambda do |params|
 end
 
 StripeEvent.configure do |events|
-  events.subscribe 'charge.dispute.created' do |event|
+  events.subscribe "charge.dispute.created" do |event|
     StripeAdminMailer.dispute_created(event.data.object).deliver_later
   end
-  
-  events.subscribe 'charge.succeeded' do |event|
+
+  events.subscribe "charge.succeeded" do |event|
     charge = event.data.object
     StripeUserMailer.receipt(charge).deliver
     StripeAdminMailer.charge_succeeded(charge).deliver
   end
-  
-  events.subscribe 'customer.subscription.created' do |event|
+
+  events.subscribe "customer.subscription.created" do |event|
     subscription = event.data.object
     StripeAdminMailer.subscription_created(subscription).deliver
   end
 
-  events.subscribe 'customer.subscription.deleted' do |event|
+  events.subscribe "customer.subscription.deleted" do |event|
     subscription = event.data.object
     StripeAdminMailer.subscription_deleted(subscription).deliver
   end
 
-  events.subscribe('invoice.payment_succeeded') do |event|
+  events.subscribe("invoice.payment_succeeded") do |event|
     invoice = event.data.object
     organization = Organization.find_by(stripe_customer_id: invoice.customer)
-    invoice_sub = invoice.lines.data.select { |i| i.type == 'subscription' }.first.id
+    invoice_sub = invoice.lines.data.select { |i| i.type == "subscription" }.first.id
     subscription = Subscription.find_by(stripe_id: invoice_sub)
 
     charge = Stripe::Charge.retrieve(invoice.charge)

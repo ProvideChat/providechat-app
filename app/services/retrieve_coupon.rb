@@ -7,6 +7,6 @@ class RetrieveCoupon
       errors = e.message
     end
 
-    return response, errors
+    [response, errors]
   end
 end

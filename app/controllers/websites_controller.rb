@@ -22,7 +22,7 @@ class WebsitesController < ApplicationController
       @website.assign_to_agents
 
       redirect_to websites_path,
-                  flash: { success: 'Website was successfully created.' }
+        flash: {success: "Website was successfully created."}
     else
       render :new
     end
@@ -31,7 +31,7 @@ class WebsitesController < ApplicationController
   def update
     if @website.update(website_params)
       redirect_to websites_path,
-                  flash: { success: 'Website was successfully updated.' }
+        flash: {success: "Website was successfully updated."}
     else
       render :edit
     end
@@ -40,7 +40,7 @@ class WebsitesController < ApplicationController
   def destroy
     @website.destroy
     redirect_to websites_url,
-                flash: { success: 'Website was successfully deleted.' }
+      flash: {success: "Website was successfully deleted."}
   end
 
   private
@@ -54,7 +54,7 @@ class WebsitesController < ApplicationController
   end
 
   def validate_admin
-    if current_agent.access_level == 'agent'
+    if current_agent.access_level == "agent"
       redirect_to monitor_path
     end
   end

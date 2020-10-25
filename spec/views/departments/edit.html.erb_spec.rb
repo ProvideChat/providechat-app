@@ -1,13 +1,12 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe "departments/edit" do
   before(:each) do
     @department = assign(:department, stub_model(Department,
-      :organization_id => 1,
-      :name => "MyString",
-      :email => "MyString",
-      :status => "MyString"
-    ))
+      organization_id: 1,
+      name: "MyString",
+      email: "MyString",
+      status: "MyString"))
   end
 
   it "renders the edit department form" do

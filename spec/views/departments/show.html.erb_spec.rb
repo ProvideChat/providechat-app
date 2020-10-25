@@ -1,13 +1,12 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe "departments/show" do
   before(:each) do
     @department = assign(:department, stub_model(Department,
-      :organization_id => 1,
-      :name => "Name",
-      :email => "Email",
-      :status => "Status"
-    ))
+      organization_id: 1,
+      name: "Name",
+      email: "Email",
+      status: "Status"))
   end
 
   it "renders attributes in <p>" do

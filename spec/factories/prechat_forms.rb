@@ -2,6 +2,5 @@
 
 FactoryBot.define do
   factory :prechat_form do
-
   end
 end

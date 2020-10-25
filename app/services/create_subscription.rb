@@ -21,19 +21,19 @@ class CreateSubscription
         customer = Stripe::Customer.create(
           customer_params
         )
-        Rails.logger.debug "#{customer}"
+        Rails.logger.debug customer.to_s
         organization.stripe_customer_id = customer.id
         organization.account_type = "paid"
         organization.save!
         stripe_sub = customer.subscriptions.first
       else
         customer = Stripe::Customer.retrieve(organization.stripe_customer_id)
-        if coupon_code.blank? 
-          stripe_sub = customer.subscriptions.create(
+        stripe_sub = if coupon_code.blank?
+          customer.subscriptions.create(
             plan: plan
           )
         else
-          stripe_sub = customer.subscriptions.create(
+          customer.subscriptions.create(
             plan: plan,
             coupon: coupon_code
           )
@@ -48,12 +48,12 @@ class CreateSubscription
       subscription.current_period_start = Time.at(stripe_sub.current_period_start)
       subscription.stripe_id = stripe_sub.id
 
-      if (subscription.interval == "year")
+      if subscription.interval == "year"
         subscription.active_until = 1.year.from_now
-      elsif (subscription.interval == "month")
+      elsif subscription.interval == "month"
         subscription.active_until = 1.month.from_now
       end
-      
+
       subscription.save!
     rescue Stripe::StripeError => e
       Rails.logger.info "STRIPE ERROR: #{e.message}"

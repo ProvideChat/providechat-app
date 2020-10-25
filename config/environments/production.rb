@@ -11,12 +11,12 @@ Rails.application.configure do
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
-  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+  config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -47,13 +47,13 @@ Rails.application.configure do
   config.log_level = :debug
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
-  config.active_job.queue_adapter     = :sidekiq
+  config.active_job.queue_adapter = :sidekiq
   # config.active_job.queue_name_prefix = "providechat_app_#{Rails.env}"
   config.action_mailer.perform_caching = false
 
@@ -76,7 +76,7 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
@@ -85,23 +85,22 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   ActionMailer::Base.smtp_settings = {
-    :address =>             ENV['AWS_SMTP_HOST'],
-    :user_name =>           ENV['AWS_SMTP_USERNAME'],
-    :password =>            ENV['AWS_SMTP_PASSWORD'],
-    :domain =>              'providechat.com',
-    :authentication =>      :login,
-    :port =>                '465',
-    :enable_starttls_auto => true
+    address: ENV["AWS_SMTP_HOST"],
+    user_name: ENV["AWS_SMTP_USERNAME"],
+    password: ENV["AWS_SMTP_PASSWORD"],
+    domain: "providechat.com",
+    authentication: :login,
+    port: "465",
+    enable_starttls_auto: true
   }
   ActionMailer::Base.delivery_method = :smtp
 
   Rails.application.config.middleware.use ExceptionNotification::Rack,
-    :email => {
-      :email_prefix => "[EXCEPTION] ",
-      :sender_address => %{"Provide Chat Notifier" <noreply@providechat.com>},
-      :exception_recipients => %w{support@providechat.com}
-  }
+    email: {
+      email_prefix: "[EXCEPTION] ",
+      sender_address: %("Provide Chat Notifier" <noreply@providechat.com>),
+      exception_recipients: %w[support@providechat.com]
+    }
 end
 
-Rails.application.routes.default_url_options[:host] = 'app.providechat.com'
-
+Rails.application.routes.default_url_options[:host] = "app.providechat.com"

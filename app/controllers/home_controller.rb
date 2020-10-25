@@ -15,13 +15,12 @@ class HomeController < ApplicationController
     @websites = Website.where(organization_id: current_agent.organization_id)
     @agents = Agent.where(organization_id: current_agent.organization_id)
 
-    @blog_feed = Feedjira::Feed.fetch_and_parse('http://blog.providechat.com/feed')
+    @blog_feed = Feedjira::Feed.fetch_and_parse("http://blog.providechat.com/feed")
   end
 
   def code
     @websites = Website.where(organization_id: current_agent.organization_id)
   end
-
 
   def contact
   end
@@ -29,7 +28,7 @@ class HomeController < ApplicationController
   private
 
   def validate_admin
-    if current_agent.access_level == 'agent'
+    if current_agent.access_level == "agent"
       redirect_to monitor_path
     end
   end

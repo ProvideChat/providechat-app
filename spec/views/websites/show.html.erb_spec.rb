@@ -1,14 +1,14 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe "websites/show", :type => :view do
+RSpec.describe "websites/show", type: :view do
   before(:each) do
     @website = assign(:website, Website.create!(
-      :organization_id => 1,
-      :url => "Url",
-      :name => "Name",
-      :default_department => 2,
-      :logo => "Logo",
-      :status => "Status"
+      organization_id: 1,
+      url: "Url",
+      name: "Name",
+      default_department: 2,
+      logo: "Logo",
+      status: "Status"
     ))
   end
 

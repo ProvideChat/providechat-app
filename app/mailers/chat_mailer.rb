@@ -1,5 +1,4 @@
 class ChatMailer < ApplicationMailer
-
   def email_transcript(chat_id, recipient_email)
     @chat = Chat.find(chat_id)
 

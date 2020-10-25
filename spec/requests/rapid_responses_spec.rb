@@ -1,6 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe "RapidResponses", :type => :request do
+RSpec.describe "RapidResponses", type: :request do
   describe "GET /rapid_responses" do
     it "works! (now write some real specs)" do
       get rapid_responses_path

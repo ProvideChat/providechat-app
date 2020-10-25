@@ -1,5 +1,5 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe RapidResponse, :type => :model do
+RSpec.describe RapidResponse, type: :model do
   it { should belong_to(:website) }
 end

@@ -4,22 +4,22 @@ Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
-  config.secret_key = 'ee55e093385bd2e4669d850c5a0354882fb7b0930adab8cc4742ae446685964dbf05f5c9c99a705ef3416c4933a65fcdf3a856999c1e407a3c9273c6b4c159e9'
+  config.secret_key = "ee55e093385bd2e4669d850c5a0354882fb7b0930adab8cc4742ae446685964dbf05f5c9c99a705ef3416c4933a65fcdf3a856999c1e407a3c9273c6b4c159e9"
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'support@providechat.com'
+  config.mailer_sender = "support@providechat.com"
 
   # Configure the class responsible to send e-mails.
-  config.mailer = 'DeviseMailer'
+  config.mailer = "DeviseMailer"
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
-  require 'devise/orm/active_record'
+  require "devise/orm/active_record"
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
@@ -41,12 +41,12 @@ Devise.setup do |config|
   # Configure which authentication keys should be case-insensitive.
   # These keys will be downcased upon creating or modifying a user and when used
   # to authenticate or find a user. Default is :email.
-  config.case_insensitive_keys = [ :email ]
+  config.case_insensitive_keys = [:email]
 
   # Configure which authentication keys should have whitespace stripped.
   # These keys will have whitespace before and after removed upon creating or
   # modifying a user and when used to authenticate or find a user. Default is :email.
-  config.strip_whitespace_keys = [ :email ]
+  config.strip_whitespace_keys = [:email]
 
   # Tell if authentication through request.params is enabled. True by default.
   # It can be set to an array that will enable params authentication only for the
@@ -97,7 +97,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  config.pepper = '592647e0202736a760a6cd2590e448ae6f95938263c8c4fc3fe994d9300af1f2bfcb63fd86c5ed4a36bd37a697c8f1cba871d019a3d9241f2443ab8d14e31e9f'
+  config.pepper = "592647e0202736a760a6cd2590e448ae6f95938263c8c4fc3fe994d9300af1f2bfcb63fd86c5ed4a36bd37a697c8f1cba871d019a3d9241f2443ab8d14e31e9f"
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without

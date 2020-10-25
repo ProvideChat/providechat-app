@@ -1,19 +1,19 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe "chats/show", :type => :view do
+RSpec.describe "chats/show", type: :view do
   before(:each) do
     @chat = assign(:chat, Chat.create!(
-      :organization_id => 1,
-      :website_id => 2,
-      :visitor_id => 3,
-      :operator_id => 4,
-      :operator_typing => "Operator Typing",
-      :visitor_typing => "Visitor Typing",
-      :visitor_name => "Visitor Name",
-      :visitor_email => "Visitor Email",
-      :visitor_department => "Visitor Department",
-      :visitor_question => "Visitor Question",
-      :status => "Status"
+      organization_id: 1,
+      website_id: 2,
+      visitor_id: 3,
+      operator_id: 4,
+      operator_typing: "Operator Typing",
+      visitor_typing: "Visitor Typing",
+      visitor_name: "Visitor Name",
+      visitor_email: "Visitor Email",
+      visitor_department: "Visitor Department",
+      visitor_question: "Visitor Question",
+      status: "Status"
     ))
   end
 

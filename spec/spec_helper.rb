@@ -5,7 +5,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require "rspec/rails"
 require "shoulda/matchers"
 require "webmock/rspec"
-require 'capybara/email/rspec'
+require "capybara/email/rspec"
 
 Capybara.javascript_driver = :webkit
 
@@ -13,7 +13,6 @@ module Features
 end
 
 RSpec.configure do |config|
-
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
