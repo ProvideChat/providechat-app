@@ -69,8 +69,8 @@ class AgentsController < ApplicationController
   end
 
   def agent_params
-    params[:agent][:website_ids].delete("") if params[:agent][:website_ids]
-    params[:agent][:department_ids].delete("") if params[:agent][:department_ids]
+    params[:agent][:website_ids]&.delete("")
+    params[:agent][:department_ids]&.delete("")
 
     # Remove any department IDs that belong to websites that the agent no longer
     # is assigned to

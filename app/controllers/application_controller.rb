@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
     if resource.instance_of?(Admin)
       rails_admin_path
     elsif resource.instance_of?(Agent)
-      if resource.organization && resource.organization.completed_setup
+      if resource&.organization&.completed_setup
         dashboard_path
       else
         edit_after_signup_path(resource)

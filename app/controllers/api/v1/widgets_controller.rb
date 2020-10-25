@@ -111,7 +111,7 @@ module Api
               # ChatMessage.where(chat_id: chat_id, seen_by_visitor: false).update_all(seen_by_visitor: true)
 
               agent_name = "None"
-              if chat.agent && chat.agent.display_name
+              if chat.agent&.display_name
                 agent_name = chat.agent.display_name
               end
 
@@ -135,14 +135,12 @@ module Api
               messages = ActiveSupport::JSON.decode(messages)
             end
 
-            if messages
-              messages.each do |count, message|
-                ChatMessage.create(
-                  chat_id: message["chat_id"], user_name: message["user_name"], sender: message["sender"],
-                  seen_by_agent: false, seen_by_visitor: true,
-                  sent: message["sent"], message: strip_tags(message["message"])
-                )
-              end
+            messages&.each do |count, message|
+              ChatMessage.create(
+                chat_id: message["chat_id"], user_name: message["user_name"], sender: message["sender"],
+                seen_by_agent: false, seen_by_visitor: true,
+                sent: message["sent"], message: strip_tags(message["message"])
+              )
             end
 
             response = {

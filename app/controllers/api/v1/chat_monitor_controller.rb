@@ -44,9 +44,9 @@ module Api
             visitor_id = params[:visitor_id]
 
             agent = Agent.find(agent_id)
+            visitor = Visitor.find(visitor_id)
             if agent.organization.account_type == "free" &&
                 agent.chats.where(status: Chat.statuses[:in_progress]).count >= 1
-              visitor = Visitor.find(visitor_id)
 
               chat = Chat.find(visitor.chat.id)
               chat.agent_id = agent_id
