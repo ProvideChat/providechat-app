@@ -61,7 +61,7 @@
                 = link_to entry.title, entry.url, :target => "blank"
                 | &nbsp;-&nbsp; 
                 i= entry.published.strftime("%B %e, %Y")
-          - if @blog_feed.entries.count == 0
+          - if @blog_feed.entries&.count == 0
             tr
               td No blog entries found
 
