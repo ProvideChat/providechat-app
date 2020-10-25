@@ -1,12 +1,9 @@
-# encoding: utf-8
-
 class LogoUploader < CarrierWave::Uploader::Base
-
   include CarrierWave::MiniMagick
 
   storage :fog
 
-  #process :set_content_type
+  # process :set_content_type
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
@@ -25,11 +22,11 @@ class LogoUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :thumb do
-    process :resize_to_fit => [0, 60]
+    process resize_to_fit: [0, 60]
   end
 
   version :widget do
-    process :resize_to_fit => [0, 60]
+    process resize_to_fit: [0, 60]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
@@ -43,5 +40,4 @@ class LogoUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
-
 end

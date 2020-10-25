@@ -14,8 +14,8 @@ class ClearOffsiteVisitors
       visitor.save
     end
 
-    not_chat_statuses = [ Visitor.statuses[:no_chat], Visitor.statuses[:waiting_to_chat],
-                        Visitor.statuses[:agent_ended], Visitor.statuses[:visitor_ended] ]
+    not_chat_statuses = [Visitor.statuses[:no_chat], Visitor.statuses[:waiting_to_chat],
+      Visitor.statuses[:agent_ended], Visitor.statuses[:visitor_ended]]
     offsite_visitors = Visitor.where("status in (?) AND last_ping < ?", not_chat_statuses, 1.minute.ago)
     offsite_visitors.each do |visitor|
       visitor.status = Visitor.statuses[:offsite]

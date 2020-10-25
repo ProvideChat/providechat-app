@@ -1,5 +1,4 @@
 RailsAdmin.config do |config|
- 
   ## == Devise ==
   config.authenticate_with do
     warden.authenticate! scope: :admin
@@ -15,8 +14,8 @@ RailsAdmin.config do |config|
   ### More at https://github.com/sferik/rails_admin/wiki/Base-configuration
 
   config.actions do
-    dashboard                     # mandatory
-    index                         # mandatory
+    dashboard # mandatory
+    index # mandatory
     new
     export
     bulk_delete

@@ -2,6 +2,5 @@
 
 FactoryBot.define do
   factory :rapid_response do
-
   end
 end

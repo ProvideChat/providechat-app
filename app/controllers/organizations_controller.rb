@@ -9,7 +9,7 @@ class OrganizationsController < ApplicationController
   def update
     respond_to do |format|
       if @organization.update(organization_params)
-        format.html { redirect_to edit_organization_path(@organization), flash: { success: 'Settings were successfully updated.' } }
+        format.html { redirect_to edit_organization_path(@organization), flash: {success: "Settings were successfully updated."} }
         format.json { render :show, status: :ok, location: edit_organization_path(@organization) }
       else
         format.html { render :edit }
@@ -26,11 +26,11 @@ class OrganizationsController < ApplicationController
 
   def organization_params
     params.require(:organization).permit(:agent_session_timeout,
-                                         :agent_response_timeout )
+      :agent_response_timeout)
   end
 
   def validate_admin
-    if current_agent.access_level == 'agent'
+    if current_agent.access_level == "agent"
       redirect_to monitor_path
     end
   end

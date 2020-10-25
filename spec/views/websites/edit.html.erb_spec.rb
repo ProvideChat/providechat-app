@@ -1,14 +1,14 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe "websites/edit", :type => :view do
+RSpec.describe "websites/edit", type: :view do
   before(:each) do
     @website = assign(:website, Website.create!(
-      :organization_id => 1,
-      :url => "MyString",
-      :name => "MyString",
-      :default_department => 1,
-      :logo => "MyString",
-      :status => "MyString"
+      organization_id: 1,
+      url: "MyString",
+      name: "MyString",
+      default_department: 1,
+      logo: "MyString",
+      status: "MyString"
     ))
   end
 
@@ -16,7 +16,6 @@ RSpec.describe "websites/edit", :type => :view do
     render
 
     assert_select "form[action=?][method=?]", website_path(@website), "post" do
-
       assert_select "input#website_organization_id[name=?]", "website[organization_id]"
 
       assert_select "input#website_url[name=?]", "website[url]"

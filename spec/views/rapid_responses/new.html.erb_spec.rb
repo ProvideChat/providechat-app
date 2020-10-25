@@ -1,14 +1,14 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe "rapid_responses/new", :type => :view do
+RSpec.describe "rapid_responses/new", type: :view do
   before(:each) do
     assign(:rapid_response, RapidResponse.new(
-      :organization_id => 1,
-      :name => "MyString",
-      :text => "MyString",
-      :order => 1,
-      :ancestry => "MyString",
-      :status => "MyString"
+      organization_id: 1,
+      name: "MyString",
+      text: "MyString",
+      order: 1,
+      ancestry: "MyString",
+      status: "MyString"
     ))
   end
 
@@ -16,7 +16,6 @@ RSpec.describe "rapid_responses/new", :type => :view do
     render
 
     assert_select "form[action=?][method=?]", rapid_responses_path, "post" do
-
       assert_select "input#rapid_response_organization_id[name=?]", "rapid_response[organization_id]"
 
       assert_select "input#rapid_response_name[name=?]", "rapid_response[name]"

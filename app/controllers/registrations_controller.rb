@@ -3,8 +3,8 @@ class RegistrationsController < Devise::RegistrationsController
 
   def new
     build_resource({})
-    self.resource.skip_confirmation_notification!
-    respond_with self.resource
+    resource.skip_confirmation_notification!
+    respond_with resource
     # resource.skip_confirmation_notification!
   end
 
@@ -16,14 +16,14 @@ class RegistrationsController < Devise::RegistrationsController
       if resource.errors.empty?
         organization = Organization.create_default_organization
 
-        resource.title = 'Support Hero'
-        resource.access_level = 'superadmin'
+        resource.title = "Support Hero"
+        resource.access_level = "superadmin"
         resource.organization_id = organization.id
         resource.skip_registation_validations = true
         # resource.remember_me = true
         if resource.save!
           AdminMailer.onboarding_started(resource.id).deliver_later
-          sign_in(resource, :bypass => true)
+          sign_in(resource, bypass: true)
         end
       end
     end

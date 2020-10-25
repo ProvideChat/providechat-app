@@ -9,12 +9,12 @@ class ChatWidget < ActiveRecord::Base
 
   def process_update(params, chat_widget_params)
     if params.key?(:restore_defaults)
-      self.set_defaults
-      self.save
+      set_defaults
+      save
       "Your chat widget was reset to default settings."
     elsif params.key?(:save_changes)
-      self.update(chat_widget_params)
-      self.save
+      update(chat_widget_params)
+      save
       "Your chat widget was successfully updated."
     else
       "Your changes were cancelled"
@@ -92,14 +92,14 @@ class ChatWidget < ActiveRecord::Base
   protected
 
   def smart_color_update
-    self.color = self.color.sub(/^\#/, '')
+    self.color = color.sub(/^\#/, "")
   end
 
   def set_defaults
-    self.online_message = 'Chat Now'
-    self.offline_message = 'Send A Message'
-    self.title_message = 'Welcome to Provide Chat'
-    self.color = '3B3B3B'
+    self.online_message = "Chat Now"
+    self.offline_message = "Send A Message"
+    self.title_message = "Welcome to Provide Chat"
+    self.color = "3B3B3B"
     self.display_logo = true
     self.display_agent_avatar = true
     self.display_mobile_icon = true

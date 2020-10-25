@@ -26,7 +26,7 @@ class VisitorsController < ApplicationController
 
     respond_to do |format|
       if @visitor.save
-        format.html { redirect_to @visitor, notice: 'Visitor was successfully created.' }
+        format.html { redirect_to @visitor, notice: "Visitor was successfully created." }
         format.json { render :show, status: :created, location: @visitor }
       else
         format.html { render :new }
@@ -38,7 +38,7 @@ class VisitorsController < ApplicationController
   def update
     respond_to do |format|
       if @visitor.update(visitor_params)
-        format.html { redirect_to @visitor, notice: 'Visitor was successfully updated.' }
+        format.html { redirect_to @visitor, notice: "Visitor was successfully updated." }
         format.json { render :show, status: :ok, location: @visitor }
       else
         format.html { render :edit }
@@ -50,7 +50,7 @@ class VisitorsController < ApplicationController
   def destroy
     @visitor.destroy
     respond_to do |format|
-      format.html { redirect_to visitors_url, notice: 'Visitor was successfully destroyed.' }
+      format.html { redirect_to visitors_url, notice: "Visitor was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -63,9 +63,9 @@ class VisitorsController < ApplicationController
 
   def visitor_params
     params.require(:visitor).permit(:visitor_id, :agent_id, :agent_typing,
-                                    :visitor_typing, :chat_requested,
-                                    :chat_accepted, :chat_ended, :visitor_name,
-                                    :visitor_email, :visitor_department,
-                                    :visitor_question, :status)
+      :visitor_typing, :chat_requested,
+      :chat_accepted, :chat_ended, :visitor_name,
+      :visitor_email, :visitor_department,
+      :visitor_question, :status)
   end
 end

@@ -1,21 +1,20 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe "agents/show" do
   before(:each) do
     @agent = assign(:agent, stub_model(Agent,
-      :name => "Name",
-      :display_name => "Display Name",
-      :email => "Email",
-      :account_type => "Account Type",
-      :availability => "Availability",
-      :curr_chats => 1,
-      :max_chats => 2,
-      :active_chat_sound => "Active Chat Sound",
-      :background_chat_sound => "Background Chat Sound",
-      :visitor_arrived_sound => "Visitor Arrived Sound",
-      :avatar => "Avatar",
-      :status => "Status"
-    ))
+      name: "Name",
+      display_name: "Display Name",
+      email: "Email",
+      account_type: "Account Type",
+      availability: "Availability",
+      curr_chats: 1,
+      max_chats: 2,
+      active_chat_sound: "Active Chat Sound",
+      background_chat_sound: "Background Chat Sound",
+      visitor_arrived_sound: "Visitor Arrived Sound",
+      avatar: "Avatar",
+      status: "Status"))
   end
 
   it "renders attributes in <p>" do

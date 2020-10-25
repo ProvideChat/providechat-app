@@ -1,13 +1,12 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe "departments/new" do
   before(:each) do
     assign(:department, stub_model(Department,
-      :organization_id => 1,
-      :name => "MyString",
-      :email => "MyString",
-      :status => "MyString"
-    ).as_new_record)
+      organization_id: 1,
+      name: "MyString",
+      email: "MyString",
+      status: "MyString").as_new_record)
   end
 
   it "renders new department form" do

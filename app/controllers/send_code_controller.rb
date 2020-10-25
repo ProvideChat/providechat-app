@@ -4,14 +4,14 @@ class SendCodeController < ApplicationController
   def show
     # Rails.logger.info params
 
-    if (params.key?(:webmaster_email) && valid_email?(params[:webmaster_email]))
+    if params.key?(:webmaster_email) && valid_email?(params[:webmaster_email])
       # Rails.logger.info "Send email..."
       webmaster_email = params[:webmaster_email]
       SendCodeMailer.send_code(current_agent.organization_id, webmaster_email, current_agent.name).deliver_later
-      render json: { status: :ok }
+      render json: {status: :ok}
     else
       logger.info "Not sending email..."
-      render json: { status: :unprocessable_entity }
+      render json: {status: :unprocessable_entity}
     end
   end
 

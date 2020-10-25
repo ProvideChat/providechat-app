@@ -1,9 +1,9 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Agent do
   before do
     @agent = Agent.new(name: "Example Agent", email: "user@example.com",
-                      password: "foobar12", password_confirmation: "foobar12")
+                       password: "foobar12", password_confirmation: "foobar12")
   end
 
   subject { @agent }
@@ -11,12 +11,12 @@ RSpec.describe Agent do
   it { should respond_to(:name) }
   it { should respond_to(:email) }
   it { should respond_to(:password) }
-  it { should respond_to(:password_confirmation) }  
-  
+  it { should respond_to(:password_confirmation) }
+
   it { should be_valid }
-  
+
   it { should belong_to(:organization) }
-  
+
   describe "when name is not present" do
     it "should be invalid" do
       @agent.name = " "
@@ -41,7 +41,7 @@ RSpec.describe Agent do
   describe "when email format is invalid" do
     it "should be invalid" do
       addresses = %w[user@foo,com user_at_foo.org example.user@foo.
-                     foo@bar_baz.com foo@bar+baz.com foo@bar..com]
+        foo@bar_baz.com foo@bar+baz.com foo@bar..com]
       addresses.each do |invalid_address|
         @agent.email = invalid_address
         expect(@agent).not_to be_valid
@@ -72,7 +72,7 @@ RSpec.describe Agent do
   describe "when password is not present" do
     before do
       @agent = Agent.new(name: "Example Agent", email: "user@example.com",
-                       password: " ", password_confirmation: " ")
+                         password: " ", password_confirmation: " ")
     end
     it { should_not be_valid }
   end

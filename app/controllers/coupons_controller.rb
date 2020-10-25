@@ -4,13 +4,13 @@ class CouponsController < ApplicationController
   def show
     coupon = params[:id]
     Rails.logger.info params
-    
+
     response, errors = RetrieveCoupon.call(
       coupon: coupon
     )
 
     Rails.logger.info "ERRORS: #{errors}"
 
-    render json: { coupon: response }
+    render json: {coupon: response}
   end
 end

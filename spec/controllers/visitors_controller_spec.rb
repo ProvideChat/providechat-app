@@ -1,54 +1,52 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe VisitorsController, :type => :controller do
-
+RSpec.describe VisitorsController, type: :controller do
   describe "GET 'new'" do
     it "returns http success" do
-      get 'new'
+      get "new"
       expect(response).to be_success
     end
   end
 
   describe "GET 'create'" do
     it "returns http success" do
-      get 'create'
+      get "create"
       expect(response).to be_success
     end
   end
 
   describe "GET 'update'" do
     it "returns http success" do
-      get 'update'
+      get "update"
       expect(response).to be_success
     end
   end
 
   describe "GET 'edit'" do
     it "returns http success" do
-      get 'edit'
+      get "edit"
       expect(response).to be_success
     end
   end
 
   describe "GET 'destroy'" do
     it "returns http success" do
-      get 'destroy'
+      get "destroy"
       expect(response).to be_success
     end
   end
 
   describe "GET 'index'" do
     it "returns http success" do
-      get 'index'
+      get "index"
       expect(response).to be_success
     end
   end
 
   describe "GET 'show'" do
     it "returns http success" do
-      get 'show'
+      get "show"
       expect(response).to be_success
     end
   end
-
 end

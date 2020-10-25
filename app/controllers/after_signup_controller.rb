@@ -3,7 +3,7 @@ class AfterSignupController < ApplicationController
   before_action :validate_superadmin
   before_action :validate_setup_incomplete
 
-  layout 'after_signup'
+  layout "after_signup"
 
   def edit
     @agent = current_agent
@@ -30,16 +30,15 @@ class AfterSignupController < ApplicationController
 
     if @organization.completed_setup
       AdminMailer.onboarding_completed(@agent.id).deliver_later
-      redirect_to dashboard_path, notice: 'Your account has been successfully set up.'
+      redirect_to dashboard_path, notice: "Your account has been successfully set up."
     else
-      params.key?(:previous_step) ? @setup_step = params[:previous_step].to_i : @setup_step = @organization.setup_step
+      @setup_step = params.key?(:previous_step) ? params[:previous_step].to_i : @organization.setup_step
       @website = Website.find_or_initialize_by(organization_id: @organization.id)
-      render action: 'edit'
+      render action: "edit"
     end
   end
 
   def add_ftp_server
-
     if params.has_key?(:agree_to_terms) && params[:agree_to_terms] == "Yes"
       organization_ftp_server = OrganizationFtpServer.find_or_initialize_by(organization_id: current_agent.organization_id)
       organization_ftp_server.host_address = params[:host_address]
@@ -47,13 +46,13 @@ class AfterSignupController < ApplicationController
       organization_ftp_server.password = params[:password]
       organization_ftp_server.directory = params[:directory]
       organization_ftp_server.comments = params[:comments]
-      organization_ftp_server.status = 'waiting_setup'
+      organization_ftp_server.status = "waiting_setup"
       organization_ftp_server.save
 
       AdminMailer.ftp_info_submitted(current_agent.id).deliver_later
-      head :ok 
+      head :ok
     else
-      render json: { status: :unprocessable_entity }
+      render json: {status: :unprocessable_entity}
     end
   end
 
@@ -64,7 +63,7 @@ class AfterSignupController < ApplicationController
   end
 
   def validate_superadmin
-    unless current_agent.access_level == 'superadmin'
+    unless current_agent.access_level == "superadmin"
       redirect_to dashboard_path
     end
   end
@@ -83,7 +82,7 @@ class AfterSignupController < ApplicationController
       agent.display_name = @agent.name
       agent.save
     end
-    sign_in :agent, agent, :bypass => true if agent
+    sign_in :agent, agent, bypass: true if agent
   end
 
   def process_step_two(agent, params)
@@ -97,6 +96,6 @@ class AfterSignupController < ApplicationController
       agent.websites << website
       agent.save
     end
-    sign_in :agent, agent, :bypass => true if agent
+    sign_in :agent, agent, bypass: true if agent
   end
 end

@@ -1,16 +1,13 @@
-# encoding: utf-8
-
 class AvatarUploader < CarrierWave::Uploader::Base
-
   include CarrierWave::MiniMagick
 
   storage :fog
 
-  #process :set_content_type
+  # process :set_content_type
 
-  #def store_dir
+  # def store_dir
   #  "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
-  #end
+  # end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
@@ -20,22 +17,22 @@ class AvatarUploader < CarrierWave::Uploader::Base
   #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
   # end
   def default_url
-    '/images/silhouette.png'
+    "/images/silhouette.png"
   end
 
   process resize_to_fit: [60, 60]
 
   # Process files as they are uploaded:
-  #process :scale => [200, 300]
+  # process :scale => [200, 300]
   #
   # def scale(width, height)
   #   # do something
   # end
 
   # Create different versions of your uploaded files:
-  #version :thumb do
+  # version :thumb do
   #  process :resize_to_fit => [60, 60]
-  #end
+  # end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
@@ -48,5 +45,4 @@ class AvatarUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
-
 end

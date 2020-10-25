@@ -1,8 +1,7 @@
 class AdminMailer < ApplicationMailer
+  layout "basic_mailer"
 
-  layout 'basic_mailer'
-
-  default to: 'sales@providechat.com'
+  default to: "sales@providechat.com"
 
   def onboarding_started(agent_id)
     @agent = Agent.find(agent_id)

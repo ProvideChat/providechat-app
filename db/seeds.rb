@@ -6,23 +6,23 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-organization = Organization.create( payment_system: "stripe", status: "enabled", account_type: "master", trial_period_end: 15.days.ago, completed_setup: true )
+organization = Organization.create(payment_system: "stripe", status: "enabled", account_type: "master", trial_period_end: 15.days.ago, completed_setup: true)
 organization.save!
 
-Agent.create( name: "Derek Barber", display_name: "Derek", title: "Support Hero", organization_id: organization.id, access_level: "superadmin", email: "derek@providechat.com", password: "password", password_confirmation: "password", status: "enabled")
+Agent.create(name: "Derek Barber", display_name: "Derek", title: "Support Hero", organization_id: organization.id, access_level: "superadmin", email: "derek@providechat.com", password: "password", password_confirmation: "password", status: "enabled")
 
 Admin.create(email: "derek@providechat.com", password: "password", password_confirmation: "password")
 
-#website = Website.create( organization: organization.id, url: "http://www.providechat.dev", name: "Provide Chat", email: "derek@smartsettle.com")
+# website = Website.create( organization: organization.id, url: "http://www.providechat.dev", name: "Provide Chat", email: "derek@smartsettle.com")
 
-#rapid_response1 = RapidResponse.create( organization_id: organization.id, name: "Sales", order: 1)
-#rapid_response1.save!
-#rapid_response2 = RapidResponse.create( organization_id: organization.id, name: "Support", order: 2)
-#rapid_response2.save!
-#rapid_response3 = RapidResponse.create( organization_id: organization.id, name: "Greetings", order: 3)
-#rapid_response3.save!
+# rapid_response1 = RapidResponse.create( organization_id: organization.id, name: "Sales", order: 1)
+# rapid_response1.save!
+# rapid_response2 = RapidResponse.create( organization_id: organization.id, name: "Support", order: 2)
+# rapid_response2.save!
+# rapid_response3 = RapidResponse.create( organization_id: organization.id, name: "Greetings", order: 3)
+# rapid_response3.save!
 
-#rapid_response4 = RapidResponse.create( organization_id: organization.id, name: "Getting Started", text: "Let me help you get started", order: 1, ancestry: rapid_response1.id)
-#rapid_response4.save!
-#rapid_response5 = RapidResponse.create( organization_id: organization.id, name: "Gage Interest", text: "What is your interest in this product?", order: 2, ancestry: rapid_response1.id)
-#rapid_response5.save!
+# rapid_response4 = RapidResponse.create( organization_id: organization.id, name: "Getting Started", text: "Let me help you get started", order: 1, ancestry: rapid_response1.id)
+# rapid_response4.save!
+# rapid_response5 = RapidResponse.create( organization_id: organization.id, name: "Gage Interest", text: "What is your interest in this product?", order: 2, ancestry: rapid_response1.id)
+# rapid_response5.save!

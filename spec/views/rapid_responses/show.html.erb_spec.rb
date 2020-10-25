@@ -1,14 +1,14 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe "rapid_responses/show", :type => :view do
+RSpec.describe "rapid_responses/show", type: :view do
   before(:each) do
     @rapid_response = assign(:rapid_response, RapidResponse.create!(
-      :organization_id => 1,
-      :name => "Name",
-      :text => "Text",
-      :order => 2,
-      :ancestry => "Ancestry",
-      :status => "Status"
+      organization_id: 1,
+      name: "Name",
+      text: "Text",
+      order: 2,
+      ancestry: "Ancestry",
+      status: "Status"
     ))
   end
 

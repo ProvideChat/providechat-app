@@ -9,8 +9,8 @@ class Agent < ActiveRecord::Base
   enum status: [:disabled, :enabled]
 
   devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable,
-         :timeoutable
+    :recoverable, :rememberable, :trackable, :validatable,
+    :timeoutable
 
   mount_uploader :avatar, AvatarUploader
 
@@ -29,9 +29,9 @@ class Agent < ActiveRecord::Base
   end
 
   def password_match?
-    self.errors[:password] << "can't be blank" if password.blank?
-    self.errors[:password_confirmation] << "can't be blank" if password_confirmation.blank?
-    self.errors[:password_confirmation] << "does not match password" if password != password_confirmation
+    errors[:password] << "can't be blank" if password.blank?
+    errors[:password_confirmation] << "can't be blank" if password_confirmation.blank?
+    errors[:password_confirmation] << "does not match password" if password != password_confirmation
     password == password_confirmation && !password.blank?
   end
 
@@ -46,12 +46,12 @@ class Agent < ActiveRecord::Base
 
   # new method to return whether a password has been set
   def has_no_password?
-    self.encrypted_password.blank?
+    encrypted_password.blank?
   end
 
   # new method to provide access to protected method unless_confirmed
   def only_if_unconfirmed
-    pending_any_confirmation {yield}
+    pending_any_confirmation { yield }
   end
 
   # only require password if it is being set, but not for new records
@@ -64,17 +64,17 @@ class Agent < ActiveRecord::Base
   end
 
   def access_level_display
-    if self.access_level == 'superadmin'
+    if access_level == "superadmin"
       "Super Admin"
     else
-      self.access_level.capitalize
+      access_level.capitalize
     end
   end
 
   def can_edit?(current_agent)
-    if self.id == current_agent.id
+    if id == current_agent.id
       true
-    elsif self.access_level != 'superadmin' && current_agent.access_level != 'agent'
+    elsif access_level != "superadmin" && current_agent.access_level != "agent"
       true
     else
       false
@@ -82,8 +82,8 @@ class Agent < ActiveRecord::Base
   end
 
   def can_delete?(current_agent)
-    if self.id != current_agent.id && current_agent.access_level != 'agent' &&
-        self.access_level != 'superadmin'
+    if id != current_agent.id && current_agent.access_level != "agent" &&
+        access_level != "superadmin"
       true
     else
       false

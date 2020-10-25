@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   def layout_by_resource
     if devise_controller? && resource_name == :admin
       "admin"
-    elsif devise_controller? #&& resource_name == :agent && action_name == 'new'
+    elsif devise_controller? # && resource_name == :agent && action_name == 'new'
       "devise"
     else
       "application"
@@ -25,10 +25,10 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     Rails.logger.info "Resource class name: #{resource.class.name}"
-    if resource.class.name == 'Admin'
+    if resource.instance_of?(Admin)
       rails_admin_path
-    elsif resource.class.name =='Agent' 
-      if resource.organization && resource.organization.completed_setup
+    elsif resource.instance_of?(Agent)
+      if resource&.organization&.completed_setup
         dashboard_path
       else
         edit_after_signup_path(resource)
@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
 
   def verify_completed_setup
     if agent_signed_in? && current_agent.organization.completed_setup == false
-      redirect_to edit_after_signup_path(current_agent) unless controller_name == 'after_signup' || controller_name == 'send_code'
+      redirect_to edit_after_signup_path(current_agent) unless controller_name == "after_signup" || controller_name == "send_code"
     end
   end
 

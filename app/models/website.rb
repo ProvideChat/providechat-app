@@ -16,20 +16,20 @@ class Website < ActiveRecord::Base
 
   validates :name, :url, presence: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
-  validates :email, format: { with: VALID_EMAIL_REGEX }
+  validates :email, format: {with: VALID_EMAIL_REGEX}
   validates_uniqueness_of :name, scope: :organization_id,
-    message: "'%{value}' has already been assigned to another website. Please enter a unique name."
+                                 message: "'%{value}' has already been assigned to another website. Please enter a unique name."
   validates_uniqueness_of :url, scope: :organization_id,
-    message: "'%{value}' has already been assigned to another website. Please enter a unique URL."
+                                message: "'%{value}' has already been assigned to another website. Please enter a unique URL."
 
   def update_ping
     self.last_ping = DateTime.now
   end
 
   def widget_status
-    if self.last_ping.nil?
+    if last_ping.nil?
       "Not Installed"
-    elsif self.last_ping > 10.minutes.ago
+    elsif last_ping > 10.minutes.ago
       "Online"
     else
       "Offline"
@@ -37,7 +37,7 @@ class Website < ActiveRecord::Base
   end
 
   def assign_to_agents
-    Agent.where(organization_id: self.organization_id).each do |agent|
+    Agent.where(organization_id: organization_id).each do |agent|
       agent.websites << self
       agent.save
     end
@@ -46,8 +46,8 @@ class Website < ActiveRecord::Base
   protected
 
   def smart_url_update
-    self.url = self.url.sub(/^https?\:\/\//, '').sub(/\/$/, '')
-    self.url = self.url.sub(/\/(?!.*\.).*/, '').sub(/\/$/, '')
+    self.url = url.sub(/^https?:\/\//, "").sub(/\/$/, "")
+    self.url = url.sub(/\/(?!.*\.).*/, "").sub(/\/$/, "")
   end
 
   private
@@ -58,15 +58,15 @@ class Website < ActiveRecord::Base
     prechat_form = PrechatForm.new
     invitation = Invitation.new
 
-    chat_widget.organization_id = self.organization_id
-    offline_form.organization_id = self.organization_id
-    prechat_form.organization_id = self.organization_id
-    invitation.organization_id = self.organization_id
+    chat_widget.organization_id = organization_id
+    offline_form.organization_id = organization_id
+    prechat_form.organization_id = organization_id
+    invitation.organization_id = organization_id
 
-    chat_widget.website_id = self.id
-    offline_form.website_id = self.id
-    prechat_form.website_id = self.id
-    invitation.website_id = self.id
+    chat_widget.website_id = id
+    offline_form.website_id = id
+    prechat_form.website_id = id
+    invitation.website_id = id
 
     chat_widget.save
     offline_form.save

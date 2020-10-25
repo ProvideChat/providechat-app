@@ -15,7 +15,7 @@ class SessionsController < Devise::SessionsController
   def after_login
     if current_agent.organization.account_type == "trial" &&
         current_agent.organization.trial_period_end < Date.today
-      current_agent.organization.account_type = 'free'
+      current_agent.organization.account_type = "free"
       current_agent.organization.save
     end
   end

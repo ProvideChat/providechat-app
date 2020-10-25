@@ -1,1 +1,1 @@
-require File.join(Rails.root, 'lib', 'colourize.rb')
+require File.join(Rails.root, "lib", "colourize.rb")

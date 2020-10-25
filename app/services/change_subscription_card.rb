@@ -1,6 +1,5 @@
 class ChangeSubscriptionCard
   def self.call(organization, subscription, token)
-
     begin
       customer = Stripe::Customer.retrieve(organization.stripe_customer_id)
       stripe_sub = customer.subscriptions.retrieve(subscription.stripe_id)

@@ -6,7 +6,7 @@ class Invitation < ActiveRecord::Base
   enum invite_mode: [:no_invite, :page_views, :seconds]
 
   private
-  
+
   def set_defaults
     self.invitation_message = "Hi there, is there anything I can help you with today? To start chatting, just enter your name and click the button below."
     self.name_text = "Your name"

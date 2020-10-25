@@ -1,15 +1,14 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe "organizations/show" do
   before(:each) do
     @organization = assign(:organization, stub_model(Organization,
-      :name => "Name",
-      :email => "Email",
-      :widget_installed => "Widget Installed",
-      :default_department => 1,
-      :edition => "Edition",
-      :payment_system => "Payment System"
-    ))
+      name: "Name",
+      email: "Email",
+      widget_installed: "Widget Installed",
+      default_department: 1,
+      edition: "Edition",
+      payment_system: "Payment System"))
   end
 
   it "renders attributes in <p>" do

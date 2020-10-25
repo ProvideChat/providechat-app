@@ -1,7 +1,7 @@
 class AgentMailer < ApplicationMailer
-  layout 'mailer'
+  layout "mailer"
 
-  default from: 'noreply@providechat.com'
+  default from: "noreply@providechat.com"
 
   def welcome(agent_id)
     @agent = Agent.find(agent_id)
