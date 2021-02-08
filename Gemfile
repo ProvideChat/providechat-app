@@ -7,7 +7,7 @@ ruby "2.7.2"
 gem "rails", "5.2.4.4"
 
 gem "airbrake", "~> 6.2"
-gem "carrierwave", "~> 2.0"
+gem "carrierwave", "~> 2.1"
 gem "coffee-rails"
 gem "detect_timezone_rails"
 gem "devise"
