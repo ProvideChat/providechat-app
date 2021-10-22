@@ -18,6 +18,7 @@ gem "fog"
 gem "foreman"
 gem "haml"
 gem "htmlentities"
+gem 'image_processing', '~> 1.2'
 gem "jbuilder", "~> 2.5"
 gem "jquery-rails"
 gem "jquery-ui-rails"
@@ -42,7 +43,10 @@ gem "stackprof"
 gem "stripe", "~> 1.56"
 gem "stripe_event"
 gem "uglifier", ">= 1.3.0"
+gem 'webpacker', '~> 4.0'
 gem "whenever", require: false
+
+gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development do
   gem "flamegraph"
@@ -65,7 +69,6 @@ group :test, :development do
   gem "bundler-audit"
   gem "byebug"
   gem "capybara"
-  # gem 'capybara-webkit'
   gem "capybara-email"
   gem "dotenv-rails"
   gem "factory_bot_rails"
@@ -82,8 +85,8 @@ group :test, :development do
   gem "pry-stack_explorer"
 
   gem "stripe-ruby-mock"
-  # gem 'spring'
-  # gem 'spring-commands-rspec'
+
+  gem 'webdrivers'
 end
 
 group :test do
