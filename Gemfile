@@ -4,9 +4,8 @@ source "https://rubygems.org"
 
 ruby "2.7.4"
 
-gem "rails", "6.0.4"
+gem "rails", "6.0.4.1"
 
-gem "airbrake", "~> 6.2"
 gem "carrierwave", "~> 2.0"
 gem "coffee-rails"
 gem "detect_timezone_rails"
@@ -22,7 +21,7 @@ gem 'image_processing', '~> 1.2'
 gem "jbuilder", "~> 2.5"
 gem "jquery-rails"
 gem "jquery-ui-rails"
-gem "json", ">= 2.3.0"
+gem "json", ">= 2.6.0"
 gem "mail_form"
 gem "mini_magick"
 gem "net-ssh"
@@ -33,7 +32,7 @@ gem "pg"
 gem "premailer-rails"
 gem "rails-assets-sweetalert2", source: "https://rails-assets.org"
 gem "rails_admin", "~> 2.0"
-gem "remotipart", "~> 1.3", ">= 1.3.1"
+gem 'remotipart', '~> 1.4', '>= 1.4.4'
 gem "sass-rails"
 gem "sidekiq"
 gem "sidekiq-client-cli"
