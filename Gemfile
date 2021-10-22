@@ -2,9 +2,9 @@
 
 source "https://rubygems.org"
 
-ruby "2.7.2"
+ruby "2.7.4"
 
-gem "rails", "5.2.4.4"
+gem "rails", "6.0.4"
 
 gem "airbrake", "~> 6.2"
 gem "carrierwave", "~> 2.0"
