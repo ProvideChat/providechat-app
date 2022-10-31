@@ -1,6 +1,10 @@
 GEM
-  remote: https://rubygems.org/
   remote: https://rails-assets.org/
+  specs:
+    rails-assets-sweetalert2 (11.1.9)
+
+GEM
+  remote: https://rubygems.org/
   specs:
     CFPropertyList (2.3.6)
     actioncable (6.1.7)
@@ -530,7 +534,7 @@ GEM
       binding_of_caller (~> 1.0)
       pry (~> 0.13)
     public_suffix (4.0.6)
-    puma (5.5.2)
+    puma (5.6.4)
       nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.4)
@@ -560,7 +564,6 @@ GEM
       bundler (>= 1.15.0)
       railties (= 6.1.7)
       sprockets-rails (>= 2.0.0)
-    rails-assets-sweetalert2 (11.1.9)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
