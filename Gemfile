@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 ruby "2.7.4"
 
-gem "rails", "6.0.4.1"
+gem "rails", "6.1.7"
 
 gem "carrierwave", "~> 2.0"
 gem "coffee-rails"
