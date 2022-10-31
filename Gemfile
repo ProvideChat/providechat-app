@@ -52,7 +52,7 @@ group :development do
 
   gem "rack-mini-profiler", require: false
 
-  gem "capistrano", "~> 3.5.0", require: false
+  gem "capistrano", "~> 3.17.1", require: false
   gem "capistrano-bundler", require: false
   gem "capistrano-rails", require: false
   gem "capistrano-rbenv", require: false
