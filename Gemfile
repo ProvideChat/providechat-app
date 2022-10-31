@@ -36,7 +36,7 @@ gem 'remotipart', '~> 1.4', '>= 1.4.4'
 gem "sass-rails"
 gem "sidekiq"
 gem "sidekiq-client-cli"
-gem "sinatra", "~> 2.0.2"
+gem "sinatra", "~> 2.2.0"
 gem "slim"
 gem "stackprof"
 gem "stripe", "~> 1.56"
