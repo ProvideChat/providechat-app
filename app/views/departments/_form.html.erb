@@ -1,0 +1,80 @@
+<% if @websites.count > 0 %>
+  <%= form_for(@department, :html => {class: 'form-horizontal'}) do |f| %>
+    <%= render "layouts/error_messages", :f => @department %>
+    <fieldset>
+      <div class="form-group">
+        <label class="col-md-4 control-label">
+          <%= f.label :name %>
+        </label>
+        <div class="col-md-8">
+          <div class="input-group">
+            <%= f.text_field :name, :class => "form-control name-field" %>
+            <span class="input-group-addon">
+              <i class="icon-append fa fa-question-circle"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label">Offline Email</label>
+        <div class="col-md-8">
+          <div class="input-group">
+            <%= f.text_field :email, :class => "form-control email-field" %>
+            <span class="input-group-addon">
+              <i class="icon-append fa fa-question-circle"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label">Website</label>
+        <div class="col-md-8">
+          <%= f.select :website_id, @websites.collect {|x| [x.name, x.id]}, {}, {style: "width:100%", id: "websites-select"  } %>
+          <div class="help-text" style="font-size: 10px;">
+            This department will be available on this website
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <div class="widget-footer">
+      <%= link_to "Cancel", departments_path, :class => "btn btn-default" %>
+      <%= f.submit @department.new_record? ? "Add Department" : "Update Department", :class => "btn btn-primary" %>
+    </div>
+  <% end %>
+<% else %>
+  <div class="alert alert-warning alert-block">
+    <h4 class="alert-heading">No websites configured yet!</h4>
+    <br/>
+    You have not yet added any websites, please #{link_to "add a website", new_website_path}
+    in order to manage departments.
+  </div>
+<% end %>
+<% content_for :scripts do %>
+  <script>
+    
+    function initialize_qtip() {
+      $('.name-field').qtip(
+        default_style('This is the name of the department.', '.name-field')
+      );
+
+      $('.email-field').qtip(
+        default_style('When all agents are offline, visitors can still send you a message through email. If they select this department, it gets sent to this email address.', '.email-field')
+      );
+
+      $('.website-field').qtip(
+        default_style('The website this department will be available for.', '.website-field')
+      );
+    }
+
+    $( document ).ready(function() {
+      initialize_qtip();
+
+      $("#websites-select").select2({
+        placeholder: "Websites",
+        theme: "bootstrap"
+      });
+    });
+
+
+  </script>
+<% end %>

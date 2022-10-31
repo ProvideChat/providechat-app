@@ -1,0 +1,11 @@
+<div class="col-sm-12">
+  <h1 class="page-title txt-color-blueDark">
+    <%= title %>
+    <% if defined? subpage %>
+      &nbsp;/&nbsp;
+      <%= subpage %>
+    <% end %>
+  </h1>
+</div>
+
+<%= render partial: 'layouts/flash_messages', flash: flash %>

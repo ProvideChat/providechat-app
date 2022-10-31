@@ -1,0 +1,19 @@
+<tr>
+  <td>#{department.name} (for #{department.website.name} website)</td>
+  <td>
+    <%= department.email %>
+  </td>
+  <td>
+    <%= link_to edit_department_path(department), :class => "btn btn-default btn-sm" do %>
+      <i class="fa fa-edit"></i>
+      Edit
+    <% end %>
+    &nbsp;
+    <% unless current_agent.access_level == 'agent' %>
+      <%= link_to department, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-sm" do %>
+        <i class="fa fa-trash-o"></i>
+        Delete
+      <% end %>
+    <% end %>
+  </td>
+</tr>

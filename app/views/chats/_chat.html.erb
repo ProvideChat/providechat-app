@@ -1,0 +1,23 @@
+<tr>
+  <td>
+    <%= link_to chat.ticket_id, chat, data: { toggle: "modal", target: "#ajax-modal" }, remote: true %>
+  </td>
+  <td>
+    <%= chat.agent ? chat.agent.name : 'None' %>
+  </td>
+  <td>
+    <%= chat.website.url %>
+  </td>
+  <td>
+    <%= chat.visitor_name.empty? ? 'Not specified': chat.visitor_name %>
+  </td>
+  <td>
+    <%= chat.chat_accepted_status(current_agent)  %>
+  </td>
+  <td>
+    <%= chat.department ? chat.department.name : 'Any Department' %>
+  </td>
+  <td>
+    <%= link_to "View", chat, data: { toggle: "modal", target: "#ajax-modal" }, remote: true, class: "btn btn-default btn-sm" %>
+  </td>
+</tr>

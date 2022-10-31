@@ -1,0 +1,50 @@
+<div class="well well-sm">
+  <p>
+    <strong>Website:</strong>
+    <%= @chat.website.name %>
+  </p>
+  <p>
+    <strong>Agent:</strong>
+    <%= @chat.agent.nil? ? 'No agent': @chat.agent.display_name %>
+  </p>
+  <p>
+    <strong>Chat Accepted:</strong>
+    <%= @chat.chat_accepted_status(current_agent) %>
+  </p>
+  <p>
+    <strong>Visitor:</strong>
+    <%= @chat.visitor_name.empty? ? 'Not specified' : @chat.visitor_name %>
+    <%= @chat.visitor_email.length > 0 ? "(#{@chat.visitor_email})" : '' %>
+  </p>
+  <% if @chat.visitor_department.length > 0 %>
+    <p>
+      <strong>Visitor department:</strong>
+      <%= @chat.visitor_department %>
+    </p>
+  <% end %>
+  <% if @chat.visitor_question.length > 0 %>
+    <p>
+      <strong>Visitor question:</strong>
+      <%= @chat.visitor_question %>
+    </p>
+  <% end %>
+</div>
+<h3>Transcript</h3>
+<% if @chat.chat_messages.count == 0 %>
+  <strong>Chat never started</strong>
+<% else %>
+  <% last_user_name = '' %>
+  <% @chat.chat_messages.each do |chat_message| %>
+    <% if chat_message.user_name != last_user_name %>
+      <br/>
+      <strong>
+        <%= chat_message.user_name  %>
+      </strong>
+      <em>(#{chat_message.sent_status(current_agent)}):</em>
+      <br/>
+    <% end %>
+    <%= chat_message.message %>
+    <br/>
+    <% last_user_name = chat_message.user_name %>
+  <% end %>
+<% end %>
