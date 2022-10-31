@@ -1,13 +1,13 @@
-= render 'layouts/page_header', :title => 'Agents', :icon => 'fa-user', :subpage => 'New Agent'
+<%= render 'layouts/page_header', :title => 'Agents', :icon => 'fa-user', :subpage => 'New Agent' %>
 
-.col-sm-12.col-md-8.col-lg-6
-  #wid-id-0.jarviswidget.jarviswidget-color-darken{data: {widget_editbutton: "false",
-      widget_fullscreenbutton: "false", widget_colorbutton: "false",
-      widget_deletebutton: "false", widget_togglebutton: "false"}}
-    %header
+<div class="col-sm-12 col-md-8 col-lg-6">
+  <div id="wid-id-0" class="jarviswidget jarviswidget-color-darken" data-widget_editbutton="false" data-widget_fullscreenbutton="false" data-widget_colorbutton="false"
+      data-widget_deletebutton="false" data-widget_togglebutton: "false">
+    <header>
       %span.widget-icon
         %i.fa.fa-user
       %h2 Add Agent
+    </header>
     %div
       .jarviswidget-editbox
 

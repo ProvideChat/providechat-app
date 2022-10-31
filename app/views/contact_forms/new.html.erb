@@ -1,0 +1,30 @@
+<div class="well no-padding">
+  <%= form_for(@contact_form, :html => {class: 'smart-form client-form'}) do |f| %>
+    <%= render "layouts/error_messages", :f => @contact_form %>
+    <header>
+      Contact Us
+    </header>
+    <fieldset>
+      <legend>We strive to provide you with fast and friendly service for any questions you may have. Please fill out this form and we'll get back to you as soon as possible.</legend>
+      <section>
+        <label class="input">
+          <%= f.label :name %>
+        </label>
+        <%= f.text_field :name, :class => "form-control" %>
+      </section>
+      <section>
+        <label class="input">
+          <%= f.label :email %>
+        </label>
+        <%= f.text_field :email, :class => "form-control" %>
+      </section>
+      <section>
+        <label class="input">Your Message</label>
+        <%= f.text_area :message, :class => "form-control", :style => "height: 200px;" %>
+      </section>
+    </fieldset>
+    <footer>
+      <%= f.submit "Send Message", :class => "btn btn-primary" %>
+    </footer>
+  <% end %>
+</div>
