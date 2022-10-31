@@ -1,0 +1,81 @@
+<div class="well no-padding">
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'smart-form client-form', id: 'login-form'}) do |f| %>
+    <header>
+      Sign in your Provide Chat account
+    </header>
+    <fieldset>
+      <section>
+        <%= render "layouts/flash_messages" %>
+        <%= devise_error_messages! %>
+      </section>
+      <section>
+        <label class="input">
+          <%= f.email_field :email, autofocus: true, class: "email-field", placeholder: "Email address" %>
+        </label>
+      </section>
+      <section>
+        <label class="input">
+          <%= f.password_field :password, autocomplete: "off", class: "password-field", placeholder: "Password" %>
+        </label>
+      </section>
+      <section>
+        <label class="checkbox">
+          <%= f.check_box :remember_me %>
+          <%= succeed "Stay signed in" do %>
+            <i></i>
+          <% end %>
+        </label>
+      </section>
+      <section>
+        <%= button_tag type: "submit", class: "btn btn-primary btn-lg" do %>
+          <i class="fa fa-sign-in"></i>
+          &nbsp;Sign in
+        <% end %>
+      </section>
+    </fieldset>
+    <footer>
+      New to Provide Chat? 
+      <%= link_to "Sign up now >>", new_registration_path(resource_name) %>
+      <div class="pull-right">
+        <%= link_to "Forgot password?", new_password_path(resource_name) %>
+      </div>
+    </footer>
+  <% end %>
+</div>
+<% content_for :scripts do %>
+  <script>
+    
+    $("#login-form").validate({
+      // Rules for form validation
+      rules : {
+        email : {
+          required : true,
+          email : true
+        },
+        password : {
+          required : true,
+          minlength : 3,
+          maxlength : 20
+        }
+      },
+
+      // Messages for form validation
+      messages : {
+        email : {
+          required : 'Please enter your email address',
+          email : 'Please enter a VALID email address'
+        },
+        password : {
+        required : 'Please enter your password'
+        }
+      },
+
+      // Do not change code below
+      errorPlacement : function(error, element) {
+      error.insertAfter(element.parent());
+      }
+    });
+
+
+  </script>
+<% end %>

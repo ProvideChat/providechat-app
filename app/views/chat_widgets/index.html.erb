@@ -1,0 +1,16 @@
+<div class="col-md-12">
+  <h1 class="page-title txt-color-blueDark">
+    Chat Widget
+    &nbsp;/&nbsp;
+    Customization
+  </h1>
+</div>
+<%= render partial: 'layouts/flash_messages', flash: flash %>
+<div class="col-sm-12 col-md-8 col-lg-8">
+  <div class="alert alert-warning alert-block">
+    <h4 class="alert-heading">No websites configured yet!</h4>
+    <br/>
+    You have not yet added any websites, please #{link_to "add a website", new_website_path}
+    and then you'll be able to customize the widget.
+  </div>
+</div>

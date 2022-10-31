@@ -4,12 +4,16 @@
   <div id="wid-id-0" class="jarviswidget jarviswidget-color-darken" data-widget_editbutton="false" data-widget_fullscreenbutton="false" data-widget_colorbutton="false"
       data-widget_deletebutton="false" data-widget_togglebutton: "false">
     <header>
-      %span.widget-icon
-        %i.fa.fa-user
-      %h2 Add Agent
+      <span class="widget-icon">
+        <i class="fa fa-user" />
+      </span>
+      <h2>Add Agent</h2>
     </header>
-    %div
-      .jarviswidget-editbox
+    <div class="jarviswidget-editbox">
 
-      .widget-body
-        = render 'form'
+      <div class="widget-body">
+        <%= render 'form' %>
+      </div>
+    </div>
+  </div>
+</div>

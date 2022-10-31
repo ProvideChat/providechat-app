@@ -1,0 +1,26 @@
+<div class="well no-padding">
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), :html => {class: 'smart-form client-form', id: 'login-form', method: :put}) do |f| %>
+    <header>
+      Change your password
+    </header>
+    <fieldset>
+      <%= f.hidden_field :reset_password_token %>
+      <%= devise_error_messages! %>
+      <section>
+        <label>Enter a new password</label>
+        <label class="input">
+          <%= f.password_field :password, autofocus: true, autocomplete: "off", class: "form-control" %>
+        </label>
+      </section>
+      <section>
+        <label>Confirm new password</label>
+        <label class="input">
+          <%= f.password_field :password_confirmation,  autocomplete: "off", class: "form-control" %>
+        </label>
+      </section>
+    </fieldset>
+    <footer>
+      <%= f.submit "Change my password", :class => "btn btn-primary" %>
+    </footer>
+  <% end %>
+</div>
