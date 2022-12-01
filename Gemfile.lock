@@ -1,6 +1,10 @@
 GEM
-  remote: https://rubygems.org/
   remote: https://rails-assets.org/
+  specs:
+    rails-assets-sweetalert2 (11.6.2)
+
+GEM
+  remote: https://rubygems.org/
   specs:
     CFPropertyList (2.3.6)
     actioncable (6.1.7)
@@ -521,7 +525,7 @@ GEM
     rack-pjax (1.1.0)
       nokogiri (~> 1.5)
       rack (>= 1.1)
-    rack-protection (2.2.2)
+    rack-protection (2.2.3)
       rack
     rack-proxy (0.7.4)
       rack
@@ -542,7 +546,6 @@ GEM
       bundler (>= 1.15.0)
       railties (= 6.1.7)
       sprockets-rails (>= 2.0.0)
-    rails-assets-sweetalert2 (11.6.2)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
@@ -679,10 +682,10 @@ GEM
       faraday (>= 0.17.5, < 3.a)
       jwt (>= 1.5, < 3.0)
       multi_json (~> 1.10)
-    sinatra (2.2.2)
+    sinatra (2.2.3)
       mustermann (~> 2.0)
       rack (~> 2.2)
-      rack-protection (= 2.2.2)
+      rack-protection (= 2.2.3)
       tilt (~> 2.0)
     slim (4.1.0)
       temple (>= 0.7.6, < 0.9)
@@ -820,7 +823,7 @@ DEPENDENCIES
   shoulda-matchers
   sidekiq (~> 6.4.0)
   sidekiq-client-cli
-  sinatra (~> 2.2.0)
+  sinatra (~> 2.2.3)
   slim
   stackprof
   standard
