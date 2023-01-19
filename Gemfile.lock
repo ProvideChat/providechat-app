@@ -1,6 +1,10 @@
 GEM
-  remote: https://rubygems.org/
   remote: https://rails-assets.org/
+  specs:
+    rails-assets-sweetalert2 (11.6.2)
+
+GEM
+  remote: https://rubygems.org/
   specs:
     CFPropertyList (2.3.6)
     actioncable (6.1.7)
@@ -355,7 +359,7 @@ GEM
       nokogiri (>= 1.5.11, < 2.0.0)
     foreman (0.87.2)
     formatador (0.3.0)
-    globalid (1.0.0)
+    globalid (1.0.1)
       activesupport (>= 5.0)
     google-apis-compute_v1 (0.54.0)
       google-apis-core (>= 0.9.1, < 2.a)
@@ -462,7 +466,7 @@ GEM
     mini_magick (4.11.0)
     mini_mime (1.1.2)
     mini_portile2 (2.8.0)
-    minitest (5.16.3)
+    minitest (5.17.0)
     msgpack (1.6.0)
     multi_json (1.15.0)
     mustermann (2.0.2)
@@ -542,7 +546,6 @@ GEM
       bundler (>= 1.15.0)
       railties (= 6.1.7)
       sprockets-rails (>= 2.0.0)
-    rails-assets-sweetalert2 (11.6.2)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
@@ -753,7 +756,7 @@ GEM
       webrick
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.3)
+    zeitwerk (2.6.6)
 
 PLATFORMS
   ruby
